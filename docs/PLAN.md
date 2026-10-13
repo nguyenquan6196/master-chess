@@ -35,7 +35,7 @@
 ---
 
 ## Phase 0 — Khởi tạo & nền tảng
-- [~] `git init` ✅ (branch `main`) — **còn:** tạo repo GitHub + push (bạn làm, xem "Việc cần bạn làm" bên dưới)
+- [x] Repo GitHub public: https://github.com/nguyenquan6196/master-chess (branch `main`, CI xanh)
 - [x] `create-next-app` → **Next.js 16.4**, React 19, TypeScript, Tailwind 4, App Router, ESLint (bật sẵn `cacheComponents`)
 - [x] Cài: `chess.js`, `react-chessboard` v5, `zustand`, `zod`, `use-intl`, `clsx`. *Dời sang khi cần:* `dexie` (Phase 1), `framer-motion`, shadcn/ui
 - [x] Cấu trúc thư mục phân lớp (spec §13.4) — thực tế:
@@ -76,8 +76,8 @@
 **Done khi:** chơi trọn 1 ván 2 người trên URL Vercel, phát hiện đúng chiếu hết/hòa. *(Đã đạt ở local; chờ deploy.)*
 
 **Việc cần bạn làm để đóng Phase 0:**
-1. Tạo repo trên GitHub (vd `master-chess`), rồi `git remote add origin …` và push nhánh `main` (Claude có thể commit giúp khi bạn bảo).
-2. Vercel → Add New Project → Import repo đó (framework Next.js tự nhận, không cần cấu hình).
+1. ~~Tạo repo GitHub + push~~ ✅
+2. Vercel → Add New Project → Import repo `nguyenquan6196/master-chess` (framework Next.js tự nhận, không cần cấu hình).
 3. Vercel → Settings → Domains → thêm `chess.mrquannguyenn.net`; ở DNS tên miền thêm `CNAME chess → (giá trị Vercel hiển thị)`.
 4. Bật Speed Insights trong tab của project trên Vercel.
 
