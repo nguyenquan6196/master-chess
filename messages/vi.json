@@ -1,0 +1,73 @@
+{
+  "app": {
+    "name": "Master Chess",
+    "tagline": "Học, luyện tập và đấu cờ vua"
+  },
+  "nav": {
+    "home": "Trang chủ",
+    "learn": "Học",
+    "practice": "Luyện tập",
+    "play": "Đấu cờ",
+    "settings": "Cài đặt",
+    "menu": "Mở menu"
+  },
+  "common": {
+    "comingSoon": "Sắp ra mắt",
+    "comingSoonDesc": "Tính năng này đang được xây dựng. Quay lại sau nhé!",
+    "backHome": "Về trang chủ"
+  },
+  "home": {
+    "title": "Chào mừng đến Master Chess",
+    "subtitle": "Từ người mới bắt đầu đến cao thủ — học luật, giải câu đố và thử sức với các bot.",
+    "learnDesc": "Lý thuyết từ cơ bản: quân cờ, nước đi, luật và mẹo.",
+    "practiceDesc": "Quiz và puzzle để luyện các thế cờ.",
+    "playDesc": "Đấu với bot nhiều cấp độ, hoặc chơi 2 người trên cùng máy.",
+    "start": "Bắt đầu"
+  },
+  "play": {
+    "title": "Đấu cờ",
+    "localTitle": "2 người cùng máy",
+    "localDesc": "Thay phiên nhau đi trên cùng một bàn cờ.",
+    "botTitle": "Đấu với bot",
+    "botDesc": "Chọn độ khó và phong cách của đối thủ."
+  },
+  "game": {
+    "newGame": "Ván mới",
+    "undo": "Đi lại",
+    "flip": "Lật bàn",
+    "moves": "Nước đi",
+    "noMoves": "Chưa có nước đi nào",
+    "copyPgn": "Sao chép PGN",
+    "copied": "Đã sao chép!",
+    "white": "Trắng",
+    "black": "Đen",
+    "toMove": "Lượt {color} đi",
+    "check": "Chiếu!",
+    "checkmate": "Chiếu hết! {color} thắng",
+    "draw": "Hòa",
+    "drawReason": {
+      "stalemate": "Hòa pat — bên đến lượt không còn nước đi hợp lệ",
+      "threefold": "Lặp lại 3 lần",
+      "insufficient": "Không đủ quân chiếu hết",
+      "fifty-moves": "Luật 50 nước"
+    },
+    "choosePromotion": "Chọn quân để phong cấp",
+    "cancel": "Huỷ",
+    "pieces": {
+      "q": "Hậu",
+      "r": "Xe",
+      "b": "Tượng",
+      "n": "Mã"
+    }
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "language": "Ngôn ngữ",
+    "theme": "Giao diện",
+    "themes": {
+      "auto": "Tự động (theo hệ thống)",
+      "classic": "Classic",
+      "midnight": "Midnight"
+    }
+  }
+}

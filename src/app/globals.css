@@ -1,0 +1,38 @@
+@import 'tailwindcss';
+@import '../styles/themes.css';
+
+@theme inline {
+  --color-bg: var(--mc-bg);
+  --color-surface: var(--mc-surface);
+  --color-surface-2: var(--mc-surface-2);
+  --color-fg: var(--mc-fg);
+  --color-muted: var(--mc-muted);
+  --color-border: var(--mc-border);
+  --color-accent: var(--mc-accent);
+  --color-accent-hover: var(--mc-accent-hover);
+  --color-accent-fg: var(--mc-accent-fg);
+  --color-danger: var(--mc-danger);
+  --font-sans: var(--mc-font-body);
+  --font-display: var(--mc-font-heading);
+  --shadow-card: var(--mc-shadow);
+}
+
+html {
+  background: var(--mc-bg);
+}
+
+body {
+  background: var(--mc-bg);
+  color: var(--mc-fg);
+  font-family: var(--mc-font-body);
+  line-height: 1.6;
+}
+
+:root[lang='ja'] body {
+  line-break: strict;
+  word-break: auto-phrase;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}

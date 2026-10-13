@@ -1,0 +1,65 @@
+/*
+ * Theme tokens. Components must use these (via Tailwind classes like `bg-surface`,
+ * `text-muted`, or `var(--mc-*)`), never raw colors. Add a theme = add a block here
+ * and its id in src/services/theme/themes.ts (Phase 5 moves this to manifests).
+ */
+
+:root,
+[data-theme='classic'] {
+  color-scheme: light;
+  --mc-bg: #f3f1ea;
+  --mc-surface: #ffffff;
+  --mc-surface-2: #ebe8df;
+  --mc-fg: #23271f;
+  --mc-muted: #6b6f63;
+  --mc-border: #dcd8cc;
+  --mc-accent: #5d8c3b;
+  --mc-accent-hover: #4f7a31;
+  --mc-accent-fg: #ffffff;
+  --mc-danger: #c0392b;
+  --mc-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 4px 16px rgb(0 0 0 / 0.06);
+
+  --mc-board-light: #eeeed2;
+  --mc-board-dark: #769656;
+  --mc-board-notation-light: #769656;
+  --mc-board-notation-dark: #eeeed2;
+  --mc-hl-last: rgb(255 235 59 / 0.45);
+  --mc-hl-selected: rgb(255 235 59 / 0.6);
+  --mc-hl-move: rgb(0 0 0 / 0.18);
+  --mc-hl-check: rgb(231 76 60 / 0.85);
+}
+
+[data-theme='midnight'] {
+  color-scheme: dark;
+  --mc-bg: #12131c;
+  --mc-surface: #1c1e2b;
+  --mc-surface-2: #262939;
+  --mc-fg: #e9e9f2;
+  --mc-muted: #9a9cb3;
+  --mc-border: #33364a;
+  --mc-accent: #7c8cff;
+  --mc-accent-hover: #6a7bf5;
+  --mc-accent-fg: #0f1020;
+  --mc-danger: #ff6b6b;
+  --mc-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px rgb(0 0 0 / 0.35);
+
+  --mc-board-light: #9fa8c7;
+  --mc-board-dark: #4b5478;
+  --mc-board-notation-light: #4b5478;
+  --mc-board-notation-dark: #9fa8c7;
+  --mc-hl-last: rgb(124 140 255 / 0.45);
+  --mc-hl-selected: rgb(124 140 255 / 0.65);
+  --mc-hl-move: rgb(10 10 30 / 0.35);
+  --mc-hl-check: rgb(255 82 82 / 0.85);
+}
+
+/* Fonts per language (spec §7.3). Font variables come from next/font in app/layout.tsx. */
+:root {
+  --mc-font-body: var(--font-be-vietnam), system-ui, sans-serif;
+  --mc-font-heading: var(--font-baloo), var(--font-be-vietnam), system-ui, sans-serif;
+}
+
+:root[lang='ja'] {
+  --mc-font-body: var(--font-noto-jp), var(--font-be-vietnam), system-ui, sans-serif;
+  --mc-font-heading: var(--font-mplus), var(--font-noto-jp), sans-serif;
+}

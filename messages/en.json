@@ -1,0 +1,73 @@
+{
+  "app": {
+    "name": "Master Chess",
+    "tagline": "Learn, practice and play chess"
+  },
+  "nav": {
+    "home": "Home",
+    "learn": "Learn",
+    "practice": "Practice",
+    "play": "Play",
+    "settings": "Settings",
+    "menu": "Open menu"
+  },
+  "common": {
+    "comingSoon": "Coming soon",
+    "comingSoonDesc": "This feature is being built. Check back later!",
+    "backHome": "Back to home"
+  },
+  "home": {
+    "title": "Welcome to Master Chess",
+    "subtitle": "From beginner to master — learn the rules, solve puzzles and challenge bots.",
+    "learnDesc": "Theory from the basics: pieces, moves, rules and tips.",
+    "practiceDesc": "Quizzes and puzzles to train your patterns.",
+    "playDesc": "Play bots of many levels, or two players on one device.",
+    "start": "Start"
+  },
+  "play": {
+    "title": "Play",
+    "localTitle": "Two players, one device",
+    "localDesc": "Take turns on the same board.",
+    "botTitle": "Play vs Bot",
+    "botDesc": "Choose your opponent's difficulty and style."
+  },
+  "game": {
+    "newGame": "New game",
+    "undo": "Undo",
+    "flip": "Flip board",
+    "moves": "Moves",
+    "noMoves": "No moves yet",
+    "copyPgn": "Copy PGN",
+    "copied": "Copied!",
+    "white": "White",
+    "black": "Black",
+    "toMove": "{color} to move",
+    "check": "Check!",
+    "checkmate": "Checkmate! {color} wins",
+    "draw": "Draw",
+    "drawReason": {
+      "stalemate": "Stalemate — the side to move has no legal moves",
+      "threefold": "Threefold repetition",
+      "insufficient": "Insufficient material",
+      "fifty-moves": "Fifty-move rule"
+    },
+    "choosePromotion": "Choose a piece to promote to",
+    "cancel": "Cancel",
+    "pieces": {
+      "q": "Queen",
+      "r": "Rook",
+      "b": "Bishop",
+      "n": "Knight"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "theme": "Theme",
+    "themes": {
+      "auto": "Auto (follow system)",
+      "classic": "Classic",
+      "midnight": "Midnight"
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "app": {
+    "name": "Master Chess",
+    "tagline": "チェスを学んで、練習して、対戦しよう"
+  },
+  "nav": {
+    "home": "ホーム",
+    "learn": "学ぶ",
+    "practice": "練習",
+    "play": "対戦",
+    "settings": "設定",
+    "menu": "メニューを開く"
+  },
+  "common": {
+    "comingSoon": "近日公開",
+    "comingSoonDesc": "この機能は現在開発中です。また後で見に来てください！",
+    "backHome": "ホームに戻る"
+  },
+  "home": {
+    "title": "Master Chess へようこそ",
+    "subtitle": "初心者から上級者まで — ルールを学び、パズルを解き、ボットに挑戦しましょう。",
+    "learnDesc": "駒の動き、ルール、コツを基礎から学びます。",
+    "practiceDesc": "クイズとパズルで局面の感覚を鍛えます。",
+    "playDesc": "さまざまなレベルのボットや、1台で2人対戦ができます。",
+    "start": "はじめる"
+  },
+  "play": {
+    "title": "対戦",
+    "localTitle": "1台で2人対戦",
+    "localDesc": "同じ盤で交互に指します。",
+    "botTitle": "ボットと対戦",
+    "botDesc": "相手の強さとスタイルを選べます。"
+  },
+  "game": {
+    "newGame": "新しい対局",
+    "undo": "待った",
+    "flip": "盤を反転",
+    "moves": "棋譜",
+    "noMoves": "まだ手がありません",
+    "copyPgn": "PGNをコピー",
+    "copied": "コピーしました！",
+    "white": "白",
+    "black": "黒",
+    "toMove": "{color}の手番です",
+    "check": "チェック！",
+    "checkmate": "チェックメイト！{color}の勝ちです",
+    "draw": "引き分け",
+    "drawReason": {
+      "stalemate": "ステイルメイト — 手番側に合法手がありません",
+      "threefold": "同一局面3回",
+      "insufficient": "戦力不足",
+      "fifty-moves": "50手ルール"
+    },
+    "choosePromotion": "プロモーションする駒を選んでください",
+    "cancel": "キャンセル",
+    "pieces": {
+      "q": "クイーン",
+      "r": "ルーク",
+      "b": "ビショップ",
+      "n": "ナイト"
+    }
+  },
+  "settings": {
+    "title": "設定",
+    "language": "言語",
+    "theme": "テーマ",
+    "themes": {
+      "auto": "自動（システムに合わせる）",
+      "classic": "Classic",
+      "midnight": "Midnight"
+    }
+  }
+}
