@@ -3,7 +3,7 @@
 Web app cờ vua để **học**, **luyện tập** (quiz, puzzle) và **đấu với bot** — chạy hoàn toàn trên trình duyệt.
 Giao diện tiếng Việt / English / 日本語.
 
-> Production: https://chess.mrquannguyenn.net (sau khi kết nối Vercel)
+> Hiện chạy local. Sẽ deploy tại https://chess.mrquannguyenn.net khi tính năng đã đủ.
 
 ## Chạy local
 

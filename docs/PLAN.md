@@ -1,13 +1,13 @@
 # Master Chess — Kế hoạch triển khai
 
 > Đi kèm: [TECH_SPEC.md](TECH_SPEC.md) · Ngày: 2026-10-13
-> Ước lượng theo 1 người làm part-time (~10–15 giờ/tuần). Mỗi phase kết thúc bằng 1 bản deploy chạy được trên Vercel.
+> Ước lượng theo 1 người làm part-time (~10–15 giờ/tuần). Giai đoạn đầu **chỉ chạy local** (`npm run dev`); deploy Vercel khi tính năng đã tương đối đầy đủ (xem mục "Deploy" cuối lộ trình).
 
 ## Tổng quan lộ trình
 
 | Phase | Tên | Thời lượng | Kết quả |
 |---|---|---|---|
-| 0 | Khởi tạo & nền tảng (gồm CI, kiến trúc phân lớp) — ✅ code xong, chờ deploy | 1.5 tuần | Repo, Next.js, bàn cờ chơi 2 người cùng máy, deploy Vercel |
+| 0 | Khởi tạo & nền tảng (gồm CI, kiến trúc phân lớp) — ✅ xong | 1.5 tuần | Repo, Next.js, bàn cờ chơi 2 người cùng máy |
 | 1 | Đấu bot (MVP) | 2 tuần | Chơi với Stockfish, 8 mức độ khó |
 | 2 | Puzzle & Quiz | 2 tuần | Puzzle rated, theo chủ đề, quiz |
 | 3 | Learn | 2–3 tuần | 15–20 bài học MDX tương tác |
@@ -70,16 +70,9 @@
 - [x] Component `ChessBoard`: kéo-thả, click-to-move, chấm nước hợp lệ / vòng ăn quân, highlight nước vừa đi, sáng đỏ Vua bị chiếu, hộp chọn phong cấp; nhập thành & bắt tốt qua đường (chess.js)
 - [x] Chế độ 2 người cùng máy (`/play/local`): trạng thái lượt/chiếu/chiếu hết/hòa (4 lý do), lịch sử nước đi, đi lại, lật bàn, ván mới, sao chép PGN
 - [x] Vitest cho `src/core` (10 test: chiếu hết, hòa pat, thiếu quân, lặp 3 lần, nhập thành, bắt tốt qua đường, phong cấp, đi lại…)
-- [ ] Kết nối Vercel, auto-deploy từ `main` — **bạn làm** (cần tài khoản)
-- [ ] Gắn subdomain `chess.mrquannguyenn.net`: thêm domain trong Vercel + bản ghi CNAME ở DNS, kiểm tra SSL — **bạn làm**
+- Deploy Vercel + subdomain: **dời** sang mục "Deploy" (quyết định 2026-10-14: chạy local trước, deploy khi tính năng hòm hòm).
 
-**Done khi:** chơi trọn 1 ván 2 người trên URL Vercel, phát hiện đúng chiếu hết/hòa. *(Đã đạt ở local; chờ deploy.)*
-
-**Việc cần bạn làm để đóng Phase 0:**
-1. ~~Tạo repo GitHub + push~~ ✅
-2. Vercel → Add New Project → Import repo `nguyenquan6196/master-chess` (framework Next.js tự nhận, không cần cấu hình).
-3. Vercel → Settings → Domains → thêm `chess.mrquannguyenn.net`; ở DNS tên miền thêm `CNAME chess → (giá trị Vercel hiển thị)`.
-4. Bật Speed Insights trong tab của project trên Vercel.
+**Done khi:** chơi trọn 1 ván 2 người, phát hiện đúng chiếu hết/hòa. ✅ (local)
 
 ## Phase 1 — Đấu bot (MVP)
 - [ ] Tải Stockfish WASM lite single-thread vào `public/engine/`
@@ -161,6 +154,12 @@
 - [ ] Camera orbit, preset góc nhìn, ánh sáng/bóng đổ
 - [ ] Toggle 2D/3D, lazy-load bundle, fallback khi máy yếu
 
+## Deploy — khi tính năng hòm hòm (dự kiến sau Phase 3 hoặc Phase 5)
+- [ ] Vercel → Add New Project → Import repo `nguyenquan6196/master-chess` (Next.js tự nhận, không cần cấu hình)
+- [ ] Vercel → Settings → Domains → thêm `chess.mrquannguyenn.net`; DNS tên miền thêm `CNAME chess → (giá trị Vercel hiển thị)`, kiểm tra SSL
+- [ ] Bật Speed Insights (package `@vercel/speed-insights` đã cài sẵn)
+- [ ] Kiểm tra Stockfish WASM chạy trên bản deploy (desktop + điện thoại)
+
 ## Phase 7 — Cloud (tuỳ chọn)
 - [ ] (Chỉ khi đổi ý) Cloud save bằng Tên + PIN — hiện đã chốt KHÔNG làm, xem spec §8.3
 - [ ] (Nếu cần nhiều hơn) Supabase Auth + Postgres, đồng bộ tiến độ
@@ -182,7 +181,7 @@
 | 5 | Nguồn hình quân cờ / avatar bot | cburnett SVG + avatar tự tạo |
 
 ## Checklist kiểm tra độ khả thi (spike 1–2 ngày, nên làm đầu tiên)
-- [ ] Stockfish WASM chạy trong worker trên Vercel, đo thời gian `go depth 12` trên laptop và điện thoại
+- [ ] Stockfish WASM chạy trong worker (local), đo thời gian `go depth 12` trên laptop và điện thoại
 - [ ] Bot mức 250 Elo thực sự "dễ" khi tự chơi thử
 - [ ] react-chessboard hoạt động mượt trên mobile (tap-to-move)
 - [ ] Build puzzle JSON từ CSV lichess, kiểm tra kích thước
