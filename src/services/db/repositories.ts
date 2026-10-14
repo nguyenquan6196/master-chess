@@ -2,9 +2,11 @@ import type { SaveFile } from '@/core/profile/saveFile';
 import {
   DEFAULT_PROFILE_SETTINGS,
   PROFILE_NAME_MAX,
+  DEFAULT_PUZZLE_RATING,
   type GameRecord,
   type Profile,
   type ProfileSettings,
+  type PuzzleAttempt,
 } from '@/core/profile/schema';
 import { getDb } from './db';
 
@@ -28,6 +30,9 @@ export const profileRepo = {
       createdAt: now,
       lastActiveAt: now,
       settings: { ...DEFAULT_PROFILE_SETTINGS, ...settings },
+      puzzleRating: { ...DEFAULT_PUZZLE_RATING },
+      rushBest: {},
+      quizBest: {},
     };
     await getDb().profiles.add(profile);
     return profile;
@@ -45,11 +50,19 @@ export const profileRepo = {
     await getDb().profiles.update(id, { settings });
   },
 
+  async update(
+    id: string,
+    patch: Partial<Pick<Profile, 'puzzleRating' | 'rushBest' | 'quizBest'>>,
+  ): Promise<void> {
+    await getDb().profiles.update(id, patch);
+  },
+
   /** Deletes the profile and all of its games. */
   async remove(id: string): Promise<void> {
     const db = getDb();
-    await db.transaction('rw', db.profiles, db.games, async () => {
+    await db.transaction('rw', db.profiles, db.games, db.puzzleAttempts, async () => {
       await db.games.where('profileId').equals(id).delete();
+      await db.puzzleAttempts.where('profileId').equals(id).delete();
       await db.profiles.delete(id);
     });
   },
@@ -57,10 +70,12 @@ export const profileRepo = {
   /** Imports a validated save file, replacing any existing profile with the same id. */
   async importSave(save: SaveFile): Promise<Profile> {
     const db = getDb();
-    await db.transaction('rw', db.profiles, db.games, async () => {
+    await db.transaction('rw', db.profiles, db.games, db.puzzleAttempts, async () => {
       await db.games.where('profileId').equals(save.profile.id).delete();
+      await db.puzzleAttempts.where('profileId').equals(save.profile.id).delete();
       await db.profiles.put(save.profile);
       await db.games.bulkPut(save.games);
+      await db.puzzleAttempts.bulkPut(save.puzzleAttempts);
     });
     return save.profile;
   },
@@ -88,5 +103,38 @@ export const gameRepo = {
       .between([profileId, -Infinity], [profileId, Infinity])
       .reverse()
       .toArray();
+  },
+};
+
+export const puzzleRepo = {
+  newId,
+
+  async add(attempt: PuzzleAttempt): Promise<void> {
+    await getDb().puzzleAttempts.put(attempt);
+  },
+
+  /** Ids of every puzzle this player has already seen (to avoid repeats). */
+  async seenIds(profileId: string): Promise<Set<string>> {
+    const keys = await getDb()
+      .puzzleAttempts.where('profileId')
+      .equals(profileId)
+      .toArray((rows) => rows.map((r) => r.puzzleId));
+    return new Set(keys);
+  },
+
+  listByProfile(profileId: string, limit = 100): Promise<PuzzleAttempt[]> {
+    return getDb()
+      .puzzleAttempts.where('[profileId+at]')
+      .between([profileId, -Infinity], [profileId, Infinity])
+      .reverse()
+      .limit(limit)
+      .toArray();
+  },
+
+  async findAttempt(profileId: string, puzzleId: string): Promise<PuzzleAttempt | undefined> {
+    return getDb()
+      .puzzleAttempts.where('[profileId+puzzleId]')
+      .equals([profileId, puzzleId])
+      .first();
   },
 };

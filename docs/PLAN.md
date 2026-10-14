@@ -9,7 +9,7 @@
 |---|---|---|---|
 | 0 | Khởi tạo & nền tảng (gồm CI, kiến trúc phân lớp) — ✅ xong | 1.5 tuần | Repo, Next.js, bàn cờ chơi 2 người cùng máy |
 | 1 | Đấu bot (MVP) — ✅ xong | 2 tuần | Chơi với Stockfish, 8 mức độ khó |
-| 2 | Puzzle & Quiz | 2 tuần | Puzzle rated, theo chủ đề, quiz |
+| 2 | Puzzle & Quiz — ✅ code xong, chờ chơi thử | 2 tuần | Puzzle rated, theo chủ đề, quiz |
 | 3 | Learn | 2–3 tuần | 15–20 bài học MDX tương tác |
 | 4 | Bot persona & Game Review | 2 tuần | Phong cách bot, phân tích ván sau trận |
 | 5 | Hoa hòe: theme, âm thanh, ngôn ngữ, gamification | 3–4 tuần | 8 theme + tuỳ chỉnh, nhạc nền, vi/en/ja, XP, huy hiệu, PWA |
@@ -94,17 +94,19 @@
 
 **Done khi:** người mới thắng được bot thấp nhất, bot Master không thua ván nào trong test thủ công. ✅ Người chơi thử thắng Gà con bằng chiếu hết (2026-10-14). Còn theo dõi: cảm giác độ khó các mức giữa.
 
-## Phase 2 — Puzzle & Quiz
-- [ ] Tải `lichess_db_puzzle.csv` (database.lichess.org)
-- [ ] `scripts/build-puzzles.ts`: lọc popularity ≥ 90, nbPlays đủ lớn → bucket theo rating & theme → JSON ≤ 500 bài/file
-- [ ] Puzzle runner: auto-play nước đối thủ, kiểm tra nước người dùng, chấp nhận mate thay thế, gợi ý 2 cấp, xem lời giải
-- [ ] Puzzle rating (Glicko-2 đơn giản) lưu IndexedDB
-- [ ] Chế độ: Rated, Theme Training, Puzzle Rush (3/5 phút), Daily Puzzle
-- [ ] Quiz engine (choice / select-squares / make-move) + bộ ~50 câu đầu
-- [ ] Hiệu ứng đúng/sai, confetti
-- [ ] Skill `add-quiz` (+ hướng dẫn chạy lại `build-puzzles`)
+## Phase 2 — Puzzle & Quiz — ✅ code xong (2026-10-14)
+- [x] Tải Lichess puzzle DB (307 MB, CC0) vào thư mục tạm; file dùng zstd *seekable* → giải nén bằng Python 3.14 `compression.zstd` (Node không đọc được)
+- [x] `scripts/build-puzzles.mjs`: lọc popularity ≥ 90, nbPlays ≥ 1000, RD ≤ 90, kiểm tra từng lời giải bằng chess.js → **13.831 puzzle** (0 lỗi), 3.1 MB: 12 bucket rating 400–2800 (≤1000/bucket), 22 chủ đề (~240–480/chủ đề), 400 puzzle hằng ngày; `public/puzzles/CREDITS.md`
+- [x] Puzzle runner (`core/puzzle/session.ts` + `features/puzzles`): tự đi nước mở đầu của đối thủ, kiểm tra nước, chấp nhận mọi nước chiếu hết, phản hồi đúng/sai, gợi ý 2 cấp (đánh dấu quân → mũi tên), xem lời giải, hiện chủ đề sau khi giải
+- [x] Glicko-2 đầy đủ (`core/rating/glicko2.ts`, khớp ví dụ chuẩn của Glickman) — dùng lại cho rank ở Phase 4. Rating puzzle bắt đầu 800 (RD 300); lỗi đầu tiên/gợi ý/xem lời giải = thua (như Lichess)
+- [x] Chế độ: Tính điểm (puzzle gần rating, không lặp), Luyện theo chủ đề (22 chủ đề), Puzzle Rush 3/5 phút (khó dần, 3 lần sai, kỷ lục), Câu đố hằng ngày (cố định theo ngày, nhớ đã giải)
+- [x] Quiz engine (choice / select-squares — đáp án tính theo luật / make-move, chấp nhận mọi nước chiếu hết) + **51 câu** × 3 ngôn ngữ, 5 chủ đề; vòng 10 câu, lưu điểm tốt nhất theo chủ đề; test tự kiểm toàn bộ nội dung
+- [x] Hiệu ứng: âm thanh đúng/sai, confetti (canvas, tự viết, tắt khi `prefers-reduced-motion`)
+- [x] Dữ liệu v2: bảng `puzzleAttempts`, profile thêm `puzzleRating`/`rushBest`/`quizBest`; Dexie version 2 + migrate (đã kiểm tra trên dữ liệu thật của Phase 1); file save `schemaVersion` 2 + migrate từ v1 (có test)
+- [x] Skill `add-quiz` (+ hướng dẫn build lại puzzle)
+- [x] E2E: 5 test mới (bộ puzzle giả lập cố định): tính điểm đúng/sai, chủ đề + hằng ngày, Rush, quiz cả vòng → tổng 16 test pass (desktop + mobile)
 
-**Done khi:** giải puzzle liên tục không lặp, rating thay đổi hợp lý.
+**Done khi:** giải puzzle liên tục không lặp, rating thay đổi hợp lý. ✅ Kiểm tra thực tế: puzzle ~874 cho người chơi 800; xem lời giải → 800 → 680. **Cần bạn chơi thử** để cảm nhận độ khó/điểm.
 
 ## Phase 3 — Learn
 - [ ] Cấu hình MDX (`@next/mdx` hoặc `next-mdx-remote`) + frontmatter

@@ -1,7 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { createClock } from '../game/clock';
 import { buildSaveFile, parseSaveFile, SAVE_SCHEMA_VERSION } from './saveFile';
-import { DEFAULT_PROFILE_SETTINGS, type GameRecord, type Profile } from './schema';
+import {
+  DEFAULT_PROFILE_SETTINGS,
+  DEFAULT_PUZZLE_RATING,
+  type GameRecord,
+  type Profile,
+  type PuzzleAttempt,
+} from './schema';
 import { summarizeResults } from './stats';
 
 const profile: Profile = {
@@ -11,6 +17,22 @@ const profile: Profile = {
   createdAt: 1,
   lastActiveAt: 2,
   settings: DEFAULT_PROFILE_SETTINGS,
+  puzzleRating: DEFAULT_PUZZLE_RATING,
+  rushBest: { '3m': 12 },
+  quizBest: { all: 0.8 },
+};
+
+const attempt: PuzzleAttempt = {
+  id: 'a1',
+  profileId: 'p1',
+  puzzleId: 'abc',
+  mode: 'rated',
+  solved: true,
+  puzzleRating: 900,
+  ratingBefore: 800,
+  ratingAfter: 850,
+  timeMs: 12000,
+  at: 5,
 };
 
 function game(id: string, extra: Partial<GameRecord> = {}): GameRecord {
@@ -36,8 +58,14 @@ function game(id: string, extra: Partial<GameRecord> = {}): GameRecord {
 
 describe('core/profile/saveFile', () => {
   it('round-trips a save file', () => {
-    const file = buildSaveFile(profile, [game('g1'), game('g2', { profileId: 'other' })], 99);
+    const file = buildSaveFile(
+      profile,
+      [game('g1'), game('g2', { profileId: 'other' })],
+      [attempt, { ...attempt, id: 'a2', profileId: 'other' }],
+      99,
+    );
     expect(file.games.map((g) => g.id)).toEqual(['g1']);
+    expect(file.puzzleAttempts.map((a) => a.id)).toEqual(['a1']);
     const parsed = parseSaveFile(JSON.stringify(file));
     expect(parsed).toEqual({ ok: true, data: file });
   });
@@ -45,10 +73,34 @@ describe('core/profile/saveFile', () => {
   it('rejects broken or foreign files', () => {
     expect(parseSaveFile('{nope')).toEqual({ ok: false, error: 'invalid-json' });
     expect(parseSaveFile('{"hello":1}')).toEqual({ ok: false, error: 'not-a-save-file' });
-    const future = { ...buildSaveFile(profile, [], 1), schemaVersion: SAVE_SCHEMA_VERSION + 1 };
+    const future = { ...buildSaveFile(profile, [], [], 1), schemaVersion: SAVE_SCHEMA_VERSION + 1 };
     expect(parseSaveFile(JSON.stringify(future))).toEqual({ ok: false, error: 'newer-version' });
-    const bad = { ...buildSaveFile(profile, [], 1), profile: { ...profile, name: '' } };
+    const bad = { ...buildSaveFile(profile, [], [], 1), profile: { ...profile, name: '' } };
     expect(parseSaveFile(JSON.stringify(bad))).toEqual({ ok: false, error: 'invalid-data' });
+  });
+});
+
+describe('core/profile/saveFile migration', () => {
+  it('upgrades a v1 file (no puzzle data) to v2', () => {
+    const v2Only = ['puzzleRating', 'rushBest', 'quizBest'];
+    const v1Profile = Object.fromEntries(
+      Object.entries(profile).filter(([k]) => !v2Only.includes(k)),
+    );
+    const v1 = {
+      app: 'master-chess',
+      schemaVersion: 1,
+      exportedAt: 1,
+      profile: v1Profile,
+      games: [game('g1')],
+    };
+    const parsed = parseSaveFile(JSON.stringify(v1));
+    expect(parsed.ok).toBe(true);
+    if (!parsed.ok) return;
+    expect(parsed.data.schemaVersion).toBe(2);
+    expect(parsed.data.profile.puzzleRating).toEqual(DEFAULT_PUZZLE_RATING);
+    expect(parsed.data.profile.rushBest).toEqual({});
+    expect(parsed.data.puzzleAttempts).toEqual([]);
+    expect(parsed.data.games).toHaveLength(1);
   });
 });
 

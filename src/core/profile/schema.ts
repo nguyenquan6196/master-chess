@@ -43,6 +43,13 @@ export const PROFILE_AVATARS = [
   '🔥',
 ];
 
+export const RatingSchema = z.object({ rating: z.number(), rd: z.number(), vol: z.number() });
+
+/** Puzzle rating starts low with high uncertainty so it settles quickly. */
+export const DEFAULT_PUZZLE_RATING = { rating: 800, rd: 300, vol: 0.06 };
+
+export const RUSH_DURATIONS = ['3m', '5m'] as const;
+
 export const ProfileSchema = z.object({
   id: z.string().min(1),
   name: z.string().trim().min(1).max(PROFILE_NAME_MAX),
@@ -50,8 +57,44 @@ export const ProfileSchema = z.object({
   createdAt: z.number(),
   lastActiveAt: z.number(),
   settings: ProfileSettingsSchema,
+  /** Added in schema v2 (Phase 2). */
+  puzzleRating: RatingSchema,
+  /** Best Puzzle Rush score per duration. */
+  rushBest: z.partialRecord(z.enum(RUSH_DURATIONS), z.number().int().min(0)),
+  /** Best quiz result per topic (or "all"), as a 0–1 ratio. */
+  quizBest: z.record(z.string(), z.number().min(0).max(1)),
 });
 export type Profile = z.infer<typeof ProfileSchema>;
+
+/** Fields added after schema v1, used by IndexedDB upgrades and save-file migrations. */
+export function withProfileDefaultsV2<T extends object>(
+  p: T,
+): Pick<Profile, 'puzzleRating' | 'rushBest' | 'quizBest'> & T {
+  const defaults: Pick<Profile, 'puzzleRating' | 'rushBest' | 'quizBest'> = {
+    puzzleRating: { ...DEFAULT_PUZZLE_RATING },
+    rushBest: {},
+    quizBest: {},
+  };
+  return { ...defaults, ...p };
+}
+
+export const PUZZLE_MODES = ['rated', 'theme', 'rush', 'daily'] as const;
+export type PuzzleMode = (typeof PUZZLE_MODES)[number];
+
+export const PuzzleAttemptSchema = z.object({
+  id: z.string().min(1),
+  profileId: z.string().min(1),
+  puzzleId: z.string().min(1),
+  mode: z.enum(PUZZLE_MODES),
+  /** Solved with no mistakes, hints or revealed solution. */
+  solved: z.boolean(),
+  puzzleRating: z.number(),
+  ratingBefore: z.number().optional(),
+  ratingAfter: z.number().optional(),
+  timeMs: z.number().min(0),
+  at: z.number(),
+});
+export type PuzzleAttempt = z.infer<typeof PuzzleAttemptSchema>;
 
 const ColorSchema = z.enum(['w', 'b']);
 

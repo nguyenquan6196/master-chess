@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { ComingSoon } from '@/features/shell/ComingSoon';
+import { PracticeHub } from '@/features/practice-hub/PracticeHub';
 
 export const metadata: Metadata = { title: 'Practice' };
 
 export default function PracticePage() {
-  return <ComingSoon section="practice" />;
+  return <PracticeHub />;
 }

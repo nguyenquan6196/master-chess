@@ -1,8 +1,16 @@
 import { z } from 'zod';
-import { GameRecordSchema, ProfileSchema, type GameRecord, type Profile } from './schema';
+import {
+  GameRecordSchema,
+  ProfileSchema,
+  PuzzleAttemptSchema,
+  withProfileDefaultsV2,
+  type GameRecord,
+  type Profile,
+  type PuzzleAttempt,
+} from './schema';
 
 /** Bump when the save format changes, and add a step to `migrateSaveFile`. */
-export const SAVE_SCHEMA_VERSION = 1;
+export const SAVE_SCHEMA_VERSION = 2;
 export const SAVE_APP_ID = 'master-chess';
 
 export const SaveFileSchema = z.object({
@@ -11,16 +19,23 @@ export const SaveFileSchema = z.object({
   exportedAt: z.number(),
   profile: ProfileSchema,
   games: z.array(GameRecordSchema),
+  puzzleAttempts: z.array(PuzzleAttemptSchema),
 });
 export type SaveFile = z.infer<typeof SaveFileSchema>;
 
-export function buildSaveFile(profile: Profile, games: GameRecord[], now: number): SaveFile {
+export function buildSaveFile(
+  profile: Profile,
+  games: GameRecord[],
+  puzzleAttempts: PuzzleAttempt[],
+  now: number,
+): SaveFile {
   return {
     app: SAVE_APP_ID,
     schemaVersion: SAVE_SCHEMA_VERSION,
     exportedAt: now,
     profile,
     games: games.filter((g) => g.profileId === profile.id),
+    puzzleAttempts: puzzleAttempts.filter((a) => a.profileId === profile.id),
   };
 }
 
@@ -28,9 +43,13 @@ export type SaveFileError = 'invalid-json' | 'not-a-save-file' | 'newer-version'
 
 /** Upgrades older save files step by step to the current schema. */
 function migrateSaveFile(data: Record<string, unknown>): Record<string, unknown> {
-  // No older versions yet. Example for the future:
-  // if (data.schemaVersion === 1) data = { ...data, schemaVersion: 2, ... };
-  return data;
+  let d = data;
+  if (d.schemaVersion === 1) {
+    // v2 (Phase 2): puzzle rating, rush/quiz bests on the profile; puzzle attempts list.
+    const profile = typeof d.profile === 'object' && d.profile ? d.profile : {};
+    d = { ...d, schemaVersion: 2, profile: withProfileDefaultsV2(profile), puzzleAttempts: [] };
+  }
+  return d;
 }
 
 export function parseSaveFile(
@@ -52,6 +71,8 @@ export function parseSaveFile(
   const parsed = SaveFileSchema.safeParse(migrateSaveFile(raw as Record<string, unknown>));
   if (!parsed.success) return { ok: false, error: 'invalid-data' };
   // Never trust cross-profile references inside a file.
-  const games = parsed.data.games.filter((g) => g.profileId === parsed.data.profile.id);
-  return { ok: true, data: { ...parsed.data, games } };
+  const id = parsed.data.profile.id;
+  const games = parsed.data.games.filter((g) => g.profileId === id);
+  const puzzleAttempts = parsed.data.puzzleAttempts.filter((a) => a.profileId === id);
+  return { ok: true, data: { ...parsed.data, games, puzzleAttempts } };
 }

@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-10-14",
+  "source": "lichess.org (CC0)",
+  "rating": {
+    "400": 258,
+    "600": 1000,
+    "800": 1000,
+    "1000": 1000,
+    "1200": 1000,
+    "1400": 1000,
+    "1600": 1000,
+    "1800": 1000,
+    "2000": 1000,
+    "2200": 1000,
+    "2400": 1000,
+    "2600": 1000
+  },
+  "themes": {
+    "mateIn1": 386,
+    "mateIn2": 447,
+    "mateIn3": 440,
+    "fork": 462,
+    "pin": 440,
+    "skewer": 442,
+    "discoveredAttack": 443,
+    "doubleCheck": 440,
+    "hangingPiece": 480,
+    "trappedPiece": 401,
+    "sacrifice": 445,
+    "deflection": 439,
+    "attraction": 412,
+    "backRankMate": 399,
+    "smotheredMate": 307,
+    "promotion": 441,
+    "enPassant": 314,
+    "castling": 245,
+    "endgame": 480,
+    "rookEndgame": 447,
+    "pawnEndgame": 441,
+    "opening": 449
+  },
+  "daily": 400
+}

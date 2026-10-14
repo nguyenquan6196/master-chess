@@ -1,5 +1,10 @@
 import Dexie, { type Table } from 'dexie';
-import type { GameRecord, Profile } from '@/core/profile/schema';
+import {
+  withProfileDefaultsV2,
+  type GameRecord,
+  type Profile,
+  type PuzzleAttempt,
+} from '@/core/profile/schema';
 
 /**
  * IndexedDB schema. To change it: add `this.version(N + 1).stores(...).upgrade(...)` below
@@ -8,6 +13,7 @@ import type { GameRecord, Profile } from '@/core/profile/schema';
 export class MasterChessDB extends Dexie {
   profiles!: Table<Profile, string>;
   games!: Table<GameRecord, string>;
+  puzzleAttempts!: Table<PuzzleAttempt, string>;
 
   constructor() {
     super('master-chess');
@@ -15,6 +21,17 @@ export class MasterChessDB extends Dexie {
       profiles: 'id, lastActiveAt',
       games: 'id, profileId, [profileId+status], [profileId+updatedAt]',
     });
+    // v2 (Phase 2): puzzle attempts; puzzle rating + rush/quiz bests on profiles.
+    this.version(2)
+      .stores({ puzzleAttempts: 'id, profileId, [profileId+puzzleId], [profileId+at]' })
+      .upgrade((tx) =>
+        tx
+          .table('profiles')
+          .toCollection()
+          .modify((p: Record<string, unknown>) => {
+            Object.assign(p, withProfileDefaultsV2(p));
+          }),
+      );
   }
 }
 

@@ -74,7 +74,7 @@ Hook PostToolUse (`.claude/hooks/format.mjs`) tự chạy ESLint --fix + Prettie
 | Bài học | `content/learn/<locale>/<chapter>/<lesson>.mdx` |
 | Bot | `content/bots/<id>.json` |
 | Theme | `public/themes/<id>/manifest.json` + asset |
-| Quiz | `content/quiz/<locale>.json` |
+| Quiz | `content/quiz/questions.json` + `content/quiz/<locale>.json` (skill `add-quiz`) |
 | Ngôn ngữ | `messages/<locale>.json` + `content/*/<locale>/` |
 
-Skills: `.claude/skills/new-feature` (quy trình làm 1 tính năng mới). Subagent `reviewer` (`.claude/agents/`) soát thay đổi theo Definition of Done. Các skill thêm nội dung (bài học, bot, theme…) viết dần sau khi có ví dụ thật đầu tiên.
+Skills: `.claude/skills/new-feature` (quy trình làm 1 tính năng mới), `.claude/skills/add-quiz` (thêm câu quiz 3 ngôn ngữ, build lại bộ puzzle). Subagent `reviewer` (`.claude/agents/`) soát thay đổi theo Definition of Done. Các skill thêm nội dung (bài học, bot, theme…) viết dần sau khi có ví dụ thật đầu tiên.

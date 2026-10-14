@@ -1,5 +1,5 @@
 import { buildSaveFile, parseSaveFile } from '@/core/profile/saveFile';
-import { gameRepo, profileRepo } from '../db/repositories';
+import { gameRepo, profileRepo, puzzleRepo } from '../db/repositories';
 
 function slug(name: string): string {
   const s = name
@@ -17,8 +17,9 @@ export async function exportProfile(profileId: string): Promise<void> {
   const profile = await profileRepo.get(profileId);
   if (!profile) return;
   const games = await gameRepo.listByProfile(profileId);
+  const attempts = await puzzleRepo.listByProfile(profileId, Number.MAX_SAFE_INTEGER);
   const now = Date.now();
-  const file = buildSaveFile(profile, games, now);
+  const file = buildSaveFile(profile, games, attempts, now);
   const blob = new Blob([JSON.stringify(file, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');

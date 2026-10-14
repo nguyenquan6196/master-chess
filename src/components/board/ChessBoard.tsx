@@ -29,8 +29,24 @@ export interface ChessBoardProps {
   promotionLabels: PromotionLabels;
   /** Highlight arrows, e.g. a hint. Colors come from the theme (`--mc-arrow-hint`). */
   arrows?: { from: string; to: string }[];
+  /** Square highlights for quizzes and hints. */
+  marks?: Record<string, SquareMark>;
+  /** Called on every square click when the board is not movable (e.g. "select the squares"). */
+  onSquareSelect?: (square: string) => void;
   className?: string;
 }
+
+export type SquareMark = 'hint' | 'selected' | 'correct' | 'wrong' | 'missed';
+
+const MARK_STYLES: Record<SquareMark, CSSProperties> = {
+  hint: { boxShadow: 'inset 0 0 0 4px var(--mc-mark-hint)' },
+  selected: {
+    backgroundImage: 'radial-gradient(circle, var(--mc-mark-selected) 30%, transparent 32%)',
+  },
+  correct: { backgroundColor: 'var(--mc-mark-correct)' },
+  wrong: { backgroundColor: 'var(--mc-mark-wrong)' },
+  missed: { boxShadow: 'inset 0 0 0 4px var(--mc-mark-correct)' },
+};
 
 const BOARD_STYLE: CSSProperties = { borderRadius: 8, overflow: 'hidden' };
 const LIGHT_SQUARE: CSSProperties = { backgroundColor: 'var(--mc-board-light)' };
@@ -56,6 +72,8 @@ export function ChessBoard({
   onMove,
   promotionLabels,
   arrows,
+  marks,
+  onSquareSelect,
   className,
 }: ChessBoardProps) {
   const [selected, setSelected] = useState<Square | null>(null);
@@ -113,8 +131,15 @@ export function ChessBoard({
         cursor: 'pointer',
       };
     }
+    for (const [sq, mark] of Object.entries(marks ?? {})) {
+      styles[sq] = {
+        ...styles[sq],
+        ...MARK_STYLES[mark],
+        cursor: onSquareSelect ? 'pointer' : undefined,
+      };
+    }
     return styles;
-  }, [fen, lastMove, selected, targets]);
+  }, [fen, lastMove, selected, targets, marks, onSquareSelect]);
 
   const options: ChessboardOptions = {
     id: 'mc-board',
@@ -142,6 +167,10 @@ export function ChessBoard({
       return tryMove(sourceSquare as Square, targetSquare as Square);
     },
     onSquareClick: ({ square }) => {
+      if (movableColor === 'none') {
+        onSquareSelect?.(square);
+        return;
+      }
       if (pendingPromotion) return;
       const sq = square as Square;
       if (selected && targets.includes(sq)) {

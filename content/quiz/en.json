@@ -1,0 +1,300 @@
+{
+  "board-squares": {
+    "prompt": "How many squares does a chessboard have?",
+    "choices": { "a": "36", "b": "49", "c": "64", "d": "81" },
+    "explanation": "8 ranks × 8 files = 64 squares, alternating light and dark."
+  },
+  "board-corner": {
+    "prompt": "With the board set up correctly, what color is the square in your bottom-right corner?",
+    "choices": { "light": "Light", "dark": "Dark" },
+    "explanation": "Remember \"light on the right\". If that corner is dark, the board is turned the wrong way."
+  },
+  "queen-own-color": {
+    "prompt": "Where does the white queen start?",
+    "choices": { "d1": "d1", "e1": "e1" },
+    "explanation": "The queen goes on her own color: the white queen on d1 (light), the black queen on d8 (dark)."
+  },
+  "who-moves-first": {
+    "prompt": "Who makes the first move in a game?",
+    "choices": { "white": "White", "black": "Black", "either": "Either side" },
+    "explanation": "White always moves first, then the players take turns."
+  },
+  "value-queen": {
+    "prompt": "Roughly how many points is a queen worth?",
+    "choices": { "3": "3", "5": "5", "9": "9", "12": "12" },
+    "explanation": "Rough values: pawn 1, knight 3, bishop 3, rook 5, queen 9. The king is priceless — losing it loses the game."
+  },
+  "value-rook": {
+    "prompt": "Roughly how many points is a rook worth?",
+    "choices": { "3": "3", "5": "5", "7": "7", "9": "9" },
+    "explanation": "About 5 points — stronger than a knight or bishop (3) but weaker than a queen (9)."
+  },
+  "value-minor": {
+    "prompt": "How do a knight and a bishop compare in value?",
+    "choices": {
+      "equal": "About equal (~3 points)",
+      "knight": "A knight is worth two bishops",
+      "bishop": "A bishop equals a rook"
+    },
+    "explanation": "Both are worth about 3. Bishops shine in open positions, knights in closed ones."
+  },
+  "knight-jumps": {
+    "prompt": "Which piece can jump over other pieces?",
+    "choices": { "knight": "Knight", "queen": "Queen", "king": "King", "rook": "Rook" },
+    "explanation": "Only the knight moves in an L-shape and jumps over pieces."
+  },
+  "bishop-color": {
+    "prompt": "Can a bishop move to a square of the other color?",
+    "choices": {
+      "same": "No, it always stays on one color",
+      "switch": "Yes, every move",
+      "any": "Yes, when capturing"
+    },
+    "explanation": "Bishops only move diagonally, so they stay on the same color all game."
+  },
+  "pawn-backward": {
+    "prompt": "Can a pawn move backward?",
+    "choices": {
+      "never": "Never",
+      "capture": "Only when capturing",
+      "always": "Yes, like moving forward"
+    },
+    "explanation": "Pawns only move forward — think before you push them!"
+  },
+  "pawn-two-steps": {
+    "prompt": "When may a pawn move two squares at once?",
+    "choices": {
+      "first": "Only on that pawn's first move",
+      "always": "Any time",
+      "capture": "When capturing"
+    },
+    "explanation": "Each pawn may move two squares only on its first move, then one square at a time."
+  },
+  "kings-adjacent": {
+    "prompt": "Can the two kings stand next to each other?",
+    "choices": { "no": "No", "yes": "Yes" },
+    "explanation": "No. A king would be moving into a square attacked by the other king, which is illegal."
+  },
+  "sq-knight-center": {
+    "prompt": "Click every square the knight on e4 can move to.",
+    "explanation": "The knight moves in an L: two squares one way, then one to the side. In the center it has 8 moves."
+  },
+  "sq-knight-corner": {
+    "prompt": "Which squares can the knight in the a1 corner reach?",
+    "explanation": "In the corner it has only 2 moves. As the saying goes: \"a knight on the rim is dim\"."
+  },
+  "sq-bishop": {
+    "prompt": "Click every square the bishop on d4 can move to.",
+    "explanation": "The bishop moves diagonally any distance, as long as nothing is in the way."
+  },
+  "sq-rook": {
+    "prompt": "Click every square the rook on d4 can move to.",
+    "explanation": "The rook moves along ranks and files any distance if the path is clear."
+  },
+  "sq-queen": {
+    "prompt": "Click every square the queen on d4 can move to.",
+    "explanation": "The queen combines rook and bishop: straight or diagonal, any distance."
+  },
+  "sq-king": {
+    "prompt": "Click every square the king on d4 can move to.",
+    "explanation": "The king moves one square in any direction."
+  },
+  "sq-pawn-start": {
+    "prompt": "Which squares can the pawn on e2 move to?",
+    "explanation": "On its first move a pawn may go one square (e3) or two (e4)."
+  },
+  "sq-pawn-capture": {
+    "prompt": "Which squares can the white pawn on e4 move to?",
+    "explanation": "Pawns move straight but capture diagonally. e5 is blocked by the knight, but the pawn can capture on d5 or f5."
+  },
+  "sq-escape-check": {
+    "prompt": "The white king is in check. Which squares can it escape to?",
+    "explanation": "The rook on e8 controls the whole e-file, so e2 is still in check. The king must step to the d- or f-file."
+  },
+  "mv-castle-short": {
+    "prompt": "Castle kingside.",
+    "explanation": "Kingside castling: the king moves two squares right (e1 → g1) and the rook jumps to f1. Drag the king to g1."
+  },
+  "mv-castle-long": {
+    "prompt": "Castle queenside.",
+    "explanation": "Queenside castling: the king moves two squares left (e1 → c1) and the rook goes from a1 to d1."
+  },
+  "mv-en-passant": {
+    "prompt": "Black just played d7 → d5. Capture en passant!",
+    "explanation": "The e5 pawn captures diagonally to d6, taking the d5 pawn as if it had moved only one square. It must be done right away."
+  },
+  "mv-promote": {
+    "prompt": "Promote the pawn to a queen.",
+    "explanation": "A pawn reaching the last rank becomes a queen, rook, bishop or knight — almost always a queen."
+  },
+  "mv-mate-back-rank": {
+    "prompt": "White to move: checkmate in 1.",
+    "explanation": "Rd8 is checkmate! Black's own pawns block the king's escape — a back-rank mate."
+  },
+  "mv-mate-queen": {
+    "prompt": "White to move: checkmate in 1.",
+    "explanation": "Qh8 checks along the 8th rank, and the white king on b6 covers a7 and b7. No escape."
+  },
+  "mv-fork": {
+    "prompt": "Find the knight move that attacks both the black king and rook.",
+    "explanation": "Nc7+ checks the king and attacks the rook on a8 — a fork. Black must save the king and loses the rook."
+  },
+  "mv-hanging": {
+    "prompt": "The black queen is undefended. Take it!",
+    "explanation": "Rd5 wins the queen for free. Always look for undefended (\"hanging\") enemy pieces."
+  },
+  "mv-escape-check": {
+    "prompt": "The rook is checking your king. Get the king out of check.",
+    "explanation": "The rook controls the first rank, so d1 and f1 are unsafe. Step up to d2 or e2."
+  },
+  "castle-in-check": {
+    "prompt": "Which statement about castling is NOT true?",
+    "choices": {
+      "unmoved": "The king and rook must not have moved",
+      "empty": "The squares between them must be empty",
+      "inCheck": "You may castle while in check",
+      "notThrough": "The king may not pass through an attacked square"
+    },
+    "explanation": "You can't castle out of check, through check, or into check."
+  },
+  "castle-king-moved": {
+    "prompt": "The king moved and came back to its square. Can it still castle?",
+    "choices": { "no": "No", "yes": "Yes" },
+    "explanation": "Once the king has moved, castling is lost for good — even if it returns."
+  },
+  "en-passant-timing": {
+    "prompt": "When can you capture en passant?",
+    "choices": {
+      "immediately": "Only on the very next move",
+      "anytime": "Any time later",
+      "twoMoves": "Within two moves"
+    },
+    "explanation": "Only immediately after the enemy pawn's two-square move. Miss it and the chance is gone."
+  },
+  "promotion-pieces": {
+    "prompt": "What can a pawn promote to?",
+    "choices": {
+      "queenOnly": "Only a queen",
+      "anyButKing": "Queen, rook, bishop or knight",
+      "any": "Any piece, even a king"
+    },
+    "explanation": "Queen, rook, bishop or knight — never a king. You can have two queens."
+  },
+  "stalemate-result": {
+    "prompt": "Black to move is not in check but has no legal moves. What's the result?",
+    "choices": { "whiteWins": "White wins", "draw": "Draw", "blackWins": "Black wins" },
+    "explanation": "Stalemate is a draw. When you're winning big, be careful not to stalemate your opponent!"
+  },
+  "check-meaning": {
+    "prompt": "What does \"check\" mean?",
+    "choices": {
+      "kingAttacked": "The king is under attack",
+      "queenAttacked": "The queen is under attack",
+      "gameOver": "The game is over"
+    },
+    "explanation": "Check means the king is attacked, and it must be dealt with immediately."
+  },
+  "checkmate-meaning": {
+    "prompt": "When is it checkmate?",
+    "choices": {
+      "noEscape": "The king is in check and cannot escape",
+      "anyCheck": "Three checks in a row",
+      "noMoves": "No moves left but not in check"
+    },
+    "explanation": "Checkmate: the king is in check and can't move away, block or capture the attacker. That side loses."
+  },
+  "draw-threefold": {
+    "prompt": "How many times must a position repeat for a draw?",
+    "choices": { "two": "2 times", "three": "3 times", "five": "5 times" },
+    "explanation": "The same position three times (same side to move) is a draw."
+  },
+  "draw-fifty": {
+    "prompt": "How many moves without a capture or pawn move lead to a draw?",
+    "choices": { "fifty": "50 moves", "thirty": "30 moves", "hundred": "100 moves" },
+    "explanation": "The fifty-move rule: 50 moves by each side with no capture and no pawn move."
+  },
+  "draw-insufficient": {
+    "prompt": "Which is a draw by insufficient material?",
+    "choices": {
+      "kbk": "King + bishop vs king",
+      "kqk": "King + queen vs king",
+      "krk": "King + rook vs king"
+    },
+    "explanation": "A king and a single bishop cannot checkmate. A queen or rook can."
+  },
+  "notation-square": {
+    "prompt": "In the square name \"e4\", what do the letter and number mean?",
+    "choices": {
+      "fileRank": "File e, rank 4",
+      "rankFile": "Rank e, file 4",
+      "pieceE": "Piece e moves 4"
+    },
+    "explanation": "The letter (a–h) is the file (column), the number (1–8) is the rank (row)."
+  },
+  "notation-capture": {
+    "prompt": "What does \"x\" mean in \"Nxe5\"?",
+    "choices": { "capture": "Capture", "check": "Check", "castle": "Castle" },
+    "explanation": "\"x\" means a capture: Nxe5 = knight takes on e5."
+  },
+  "notation-check-mate": {
+    "prompt": "Which symbols mean check and checkmate?",
+    "choices": { "plusHash": "+ and #", "hashPlus": "# and +", "bang": "! and !!" },
+    "explanation": "\"+\" is check, \"#\" is checkmate. \"!\" praises a good move."
+  },
+  "notation-castle": {
+    "prompt": "What does \"O-O\" mean?",
+    "choices": {
+      "short": "Kingside castling",
+      "long": "Queenside castling",
+      "queen": "Queen moves two squares"
+    },
+    "explanation": "O-O is kingside castling, O-O-O is queenside castling."
+  },
+  "notation-knight": {
+    "prompt": "Which letter stands for the knight in English notation?",
+    "choices": { "N": "N", "K": "K", "Kn": "Kn" },
+    "explanation": "N for kNight, because K is the King. This app shows piece icons (♘), so you don't need the letters."
+  },
+  "opening-center": {
+    "prompt": "What should you prioritize in the opening?",
+    "choices": {
+      "center": "Control the center (d4, e4, d5, e5)",
+      "edge": "Push edge pawns",
+      "queen": "Attack early with the queen"
+    },
+    "explanation": "Central pieces control more squares and can switch to either side quickly."
+  },
+  "opening-develop": {
+    "prompt": "Which pieces should you develop first?",
+    "choices": {
+      "minors": "Knights and bishops",
+      "queenEarly": "The queen",
+      "pawnsOnly": "Only pawns"
+    },
+    "explanation": "Bring out knights and bishops first. An early queen gets chased around and wastes time."
+  },
+  "opening-castle": {
+    "prompt": "Why castle early?",
+    "choices": {
+      "safety": "King safety and connecting the rooks",
+      "attack": "So the king can attack",
+      "never": "You shouldn't castle"
+    },
+    "explanation": "Castling takes the king out of the dangerous center and connects the rooks."
+  },
+  "tactic-fork": {
+    "prompt": "One piece attacking two enemy pieces at once is called…",
+    "choices": { "fork": "A fork", "pin": "A pin", "skewer": "A skewer" },
+    "explanation": "A fork threatens two targets; the opponent can only save one."
+  },
+  "tactic-pin": {
+    "prompt": "A piece can't (or shouldn't) move because it would expose a more valuable piece behind it. That's…",
+    "choices": { "fork": "A fork", "pin": "A pin", "skewer": "A skewer" },
+    "explanation": "A pin: the front piece is stuck because the piece behind is worth more (often the king or queen)."
+  },
+  "tactic-skewer": {
+    "prompt": "Attacking a valuable piece so that when it moves, the piece behind it falls. That's…",
+    "choices": { "fork": "A fork", "pin": "A pin", "skewer": "A skewer" },
+    "explanation": "A skewer is a reverse pin: the more valuable piece is in front and must move away."
+  }
+}
