@@ -24,7 +24,7 @@ To add a new topic: add it to `QUIZ_TOPICS` in `src/core/quiz/quiz.ts` and `quiz
 
 ## 2. Write the structure
 Append to `questions.json`. For positions, build the FEN carefully:
-- Both kings must be on the board; the side to move must not be able to capture the enemy king.
+- Both kings must be on the board; the side NOT to move must not be in check (the test enforces this).
 - For `make-move`, double-check there is no unintended second solution (or list it in `answers`).
 - For "escape check" style questions, make sure the position is not already checkmate.
 
@@ -48,6 +48,9 @@ npx vitest run src/core/quiz
 The tests check: unique ids, every locale has every question and matching choice keys, all FENs load, `select-squares` pieces exist and have moves, `make-move` answers are legal, `mate` answers really mate. Then `npm run check`.
 
 Try it in the app: `/practice/quiz` → the topic → answer the new question (desktop + mobile).
+
+## Generated questions ("Luyện tập thêm")
+Procedural generators live in `src/core/quiz/generate.ts` (`GEN_KINDS`, grouped per topic in `GENERATOR_TOPICS`). To add one: write the generator (random but always-legal position + answer), register it in `GEN_KINDS`/`GENERATOR_TOPICS`, add `quizGen.prompt.<kind>` / `quizGen.explain.<kind>` (and any `quizGen.labels.*`) to all 3 `messages/*.json`, and extend `generate.test.ts` so every generated question is checked.
 
 ---
 

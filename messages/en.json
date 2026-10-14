@@ -274,7 +274,9 @@
     "result": "You got {correct}/{total} right",
     "best": "Best: {percent}%",
     "again": "Try again",
-    "otherTopic": "Another topic"
+    "otherTopic": "Another topic",
+    "answerWas": "The answer: {move}",
+    "count": "{count, plural, one {# question} other {# questions}}"
   },
   "puzzleThemes": {
     "mateIn1": "Mate in 1",
@@ -335,5 +337,60 @@
     "backToLessons": "All lessons",
     "noTranslation": "This lesson isn't translated yet; showing the {language} version.",
     "allDone": "You've finished every lesson! 🎓"
+  },
+  "quizGen": {
+    "title": "Extra practice",
+    "subtitle": "Randomly generated questions by topic — they never run out.",
+    "badge": "🤖 Generated",
+    "topicDesc": {
+      "pieces": "How each piece moves, with blockers",
+      "rules": "Check, checkmate, stalemate, escaping check",
+      "notation": "Read notation and play the right move",
+      "tactics": "Take hanging pieces, mate in 1",
+      "strategy": "Count material, pick the best capture"
+    },
+    "prompt": {
+      "pieceMoves": "Click every square the {piece} on {square} can move to.",
+      "positionStatus": "Black to move. What is this position?",
+      "escapeCheck": "The white king on {square} is in check. Which squares can it escape to?",
+      "readMove": "Play the move {san}.",
+      "sanPiece": "In the move {san}, which piece moves?",
+      "freeCapture": "One enemy piece is undefended. Take it without being recaptured!",
+      "mateIn1": "White to move: checkmate in 1.",
+      "materialCount": "Count material (pawn 1, knight 3, bishop 3, rook 5, queen 9). Who is ahead?",
+      "bestCapture": "You can take several pieces for free. Choose the best capture!"
+    },
+    "explain": {
+      "pieceMoves": "Green squares are correct; green outlines are squares you missed, red ones were wrong.",
+      "positionStatus": "Check: the king is attacked. Checkmate: in check with no escape. Stalemate: not in check but no legal move.",
+      "escapeCheck": "The king may not move onto an attacked square — including squares on the checking line.",
+      "readMove": "The first letter is the piece (K king, Q queen, R rook, B bishop, N knight; no letter means a pawn), the end is the target square.",
+      "sanPiece": "K = king, Q = queen, R = rook, B = bishop, N = knight; no letter = pawn.",
+      "freeCapture": "A \"hanging\" piece is attacked and undefended. Always look for them!",
+      "mateIn1": "Checkmate: the enemy king is in check and cannot escape.",
+      "materialCount": "Add up each side's points and subtract.",
+      "bestCapture": "With several captures available, take the most valuable piece that cannot be recaptured."
+    },
+    "labels": {
+      "status": {
+        "check": "Check",
+        "checkmate": "Checkmate",
+        "stalemate": "Stalemate",
+        "none": "Normal (no check)"
+      },
+      "piece": {
+        "k": "King",
+        "q": "Queen",
+        "r": "Rook",
+        "b": "Bishop",
+        "n": "Knight",
+        "p": "Pawn"
+      },
+      "material": {
+        "white": "White +{n}",
+        "black": "Black +{n}",
+        "equal": "Equal"
+      }
+    }
   }
 }

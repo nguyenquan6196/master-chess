@@ -1,32 +1,57 @@
 {
   "board-squares": {
     "prompt": "How many squares does a chessboard have?",
-    "choices": { "a": "36", "b": "49", "c": "64", "d": "81" },
+    "choices": {
+      "a": "36",
+      "b": "49",
+      "c": "64",
+      "d": "81"
+    },
     "explanation": "8 ranks × 8 files = 64 squares, alternating light and dark."
   },
   "board-corner": {
     "prompt": "With the board set up correctly, what color is the square in your bottom-right corner?",
-    "choices": { "light": "Light", "dark": "Dark" },
+    "choices": {
+      "light": "Light",
+      "dark": "Dark"
+    },
     "explanation": "Remember \"light on the right\". If that corner is dark, the board is turned the wrong way."
   },
   "queen-own-color": {
     "prompt": "Where does the white queen start?",
-    "choices": { "d1": "d1", "e1": "e1" },
+    "choices": {
+      "d1": "d1",
+      "e1": "e1"
+    },
     "explanation": "The queen goes on her own color: the white queen on d1 (light), the black queen on d8 (dark)."
   },
   "who-moves-first": {
     "prompt": "Who makes the first move in a game?",
-    "choices": { "white": "White", "black": "Black", "either": "Either side" },
+    "choices": {
+      "white": "White",
+      "black": "Black",
+      "either": "Either side"
+    },
     "explanation": "White always moves first, then the players take turns."
   },
   "value-queen": {
     "prompt": "Roughly how many points is a queen worth?",
-    "choices": { "3": "3", "5": "5", "9": "9", "12": "12" },
+    "choices": {
+      "3": "3",
+      "5": "5",
+      "9": "9",
+      "12": "12"
+    },
     "explanation": "Rough values: pawn 1, knight 3, bishop 3, rook 5, queen 9. The king is priceless — losing it loses the game."
   },
   "value-rook": {
     "prompt": "Roughly how many points is a rook worth?",
-    "choices": { "3": "3", "5": "5", "7": "7", "9": "9" },
+    "choices": {
+      "3": "3",
+      "5": "5",
+      "7": "7",
+      "9": "9"
+    },
     "explanation": "About 5 points — stronger than a knight or bishop (3) but weaker than a queen (9)."
   },
   "value-minor": {
@@ -40,7 +65,12 @@
   },
   "knight-jumps": {
     "prompt": "Which piece can jump over other pieces?",
-    "choices": { "knight": "Knight", "queen": "Queen", "king": "King", "rook": "Rook" },
+    "choices": {
+      "knight": "Knight",
+      "queen": "Queen",
+      "king": "King",
+      "rook": "Rook"
+    },
     "explanation": "Only the knight moves in an L-shape and jumps over pieces."
   },
   "bishop-color": {
@@ -72,7 +102,10 @@
   },
   "kings-adjacent": {
     "prompt": "Can the two kings stand next to each other?",
-    "choices": { "no": "No", "yes": "Yes" },
+    "choices": {
+      "no": "No",
+      "yes": "Yes"
+    },
     "explanation": "No. A king would be moving into a square attacked by the other king, which is illegal."
   },
   "sq-knight-center": {
@@ -159,7 +192,10 @@
   },
   "castle-king-moved": {
     "prompt": "The king moved and came back to its square. Can it still castle?",
-    "choices": { "no": "No", "yes": "Yes" },
+    "choices": {
+      "no": "No",
+      "yes": "Yes"
+    },
     "explanation": "Once the king has moved, castling is lost for good — even if it returns."
   },
   "en-passant-timing": {
@@ -182,7 +218,11 @@
   },
   "stalemate-result": {
     "prompt": "Black to move is not in check but has no legal moves. What's the result?",
-    "choices": { "whiteWins": "White wins", "draw": "Draw", "blackWins": "Black wins" },
+    "choices": {
+      "whiteWins": "White wins",
+      "draw": "Draw",
+      "blackWins": "Black wins"
+    },
     "explanation": "Stalemate is a draw. When you're winning big, be careful not to stalemate your opponent!"
   },
   "check-meaning": {
@@ -205,12 +245,20 @@
   },
   "draw-threefold": {
     "prompt": "How many times must a position repeat for a draw?",
-    "choices": { "two": "2 times", "three": "3 times", "five": "5 times" },
+    "choices": {
+      "two": "2 times",
+      "three": "3 times",
+      "five": "5 times"
+    },
     "explanation": "The same position three times (same side to move) is a draw."
   },
   "draw-fifty": {
     "prompt": "How many moves without a capture or pawn move lead to a draw?",
-    "choices": { "fifty": "50 moves", "thirty": "30 moves", "hundred": "100 moves" },
+    "choices": {
+      "fifty": "50 moves",
+      "thirty": "30 moves",
+      "hundred": "100 moves"
+    },
     "explanation": "The fifty-move rule: 50 moves by each side with no capture and no pawn move."
   },
   "draw-insufficient": {
@@ -233,12 +281,20 @@
   },
   "notation-capture": {
     "prompt": "What does \"x\" mean in \"Nxe5\"?",
-    "choices": { "capture": "Capture", "check": "Check", "castle": "Castle" },
+    "choices": {
+      "capture": "Capture",
+      "check": "Check",
+      "castle": "Castle"
+    },
     "explanation": "\"x\" means a capture: Nxe5 = knight takes on e5."
   },
   "notation-check-mate": {
     "prompt": "Which symbols mean check and checkmate?",
-    "choices": { "plusHash": "+ and #", "hashPlus": "# and +", "bang": "! and !!" },
+    "choices": {
+      "plusHash": "+ and #",
+      "hashPlus": "# and +",
+      "bang": "! and !!"
+    },
     "explanation": "\"+\" is check, \"#\" is checkmate. \"!\" praises a good move."
   },
   "notation-castle": {
@@ -252,7 +308,11 @@
   },
   "notation-knight": {
     "prompt": "Which letter stands for the knight in English notation?",
-    "choices": { "N": "N", "K": "K", "Kn": "Kn" },
+    "choices": {
+      "N": "N",
+      "K": "K",
+      "Kn": "Kn"
+    },
     "explanation": "N for kNight, because K is the King. This app shows piece icons (♘), so you don't need the letters."
   },
   "opening-center": {
@@ -284,17 +344,704 @@
   },
   "tactic-fork": {
     "prompt": "One piece attacking two enemy pieces at once is called…",
-    "choices": { "fork": "A fork", "pin": "A pin", "skewer": "A skewer" },
+    "choices": {
+      "fork": "A fork",
+      "pin": "A pin",
+      "skewer": "A skewer"
+    },
     "explanation": "A fork threatens two targets; the opponent can only save one."
   },
   "tactic-pin": {
     "prompt": "A piece can't (or shouldn't) move because it would expose a more valuable piece behind it. That's…",
-    "choices": { "fork": "A fork", "pin": "A pin", "skewer": "A skewer" },
+    "choices": {
+      "fork": "A fork",
+      "pin": "A pin",
+      "skewer": "A skewer"
+    },
     "explanation": "A pin: the front piece is stuck because the piece behind is worth more (often the king or queen)."
   },
   "tactic-skewer": {
     "prompt": "Attacking a valuable piece so that when it moves, the piece behind it falls. That's…",
-    "choices": { "fork": "A fork", "pin": "A pin", "skewer": "A skewer" },
+    "choices": {
+      "fork": "A fork",
+      "pin": "A pin",
+      "skewer": "A skewer"
+    },
     "explanation": "A skewer is a reverse pin: the more valuable piece is in front and must move away."
+  },
+  "sq-knight-jump-wall": {
+    "prompt": "The knight on e4 is surrounded by pawns. Where can it still go?",
+    "explanation": "Knights jump over pieces, so the wall of pawns does not stop it: all 8 squares are available."
+  },
+  "sq-bishop-blocked": {
+    "prompt": "Which squares can the bishop on c2 move to?",
+    "explanation": "Your own pawns on b3 and d3 block both forward diagonals, so the bishop can only go back to b1 or d1."
+  },
+  "sq-rook-captures": {
+    "prompt": "Which squares can the rook on d4 reach (including captures)?",
+    "explanation": "The rook stops when it captures an enemy piece (d6, f4) and is blocked by your own pawn on b4."
+  },
+  "sq-queen-corner": {
+    "prompt": "Which squares can the queen in the a1 corner reach?",
+    "explanation": "From the corner the queen goes up the a-file, right as far as d1 (the king on e1 blocks), and along the long a1–h8 diagonal."
+  },
+  "sq-king-corner": {
+    "prompt": "Which squares can the king in the h1 corner move to?",
+    "explanation": "In the corner the king has only 3 squares: g1, g2 and h2."
+  },
+  "sq-pawn-blocked": {
+    "prompt": "The e2 pawn is blocked by a knight. Where can it go?",
+    "explanation": "It cannot move straight because e3 is occupied, but it can still capture the bishop on d3 diagonally."
+  },
+  "knight-color-change": {
+    "prompt": "After each move, what color square is the knight on compared to before?",
+    "explanation": "A knight always changes color: light to dark, dark to light.",
+    "choices": {
+      "same": "The same color",
+      "changes": "Always the other color",
+      "depends": "It depends on the move"
+    }
+  },
+  "pawns-per-side": {
+    "prompt": "How many pawns does each side start with?",
+    "explanation": "Each side has 8 pawns, filling the 2nd rank (White) or the 7th rank (Black).",
+    "choices": {
+      "6": "6",
+      "8": "8",
+      "10": "10"
+    }
+  },
+  "queen-combines": {
+    "prompt": "The queen moves like a combination of which two pieces?",
+    "explanation": "Queen = rook (straight) + bishop (diagonal).",
+    "choices": {
+      "rookBishop": "Rook and bishop",
+      "rookKnight": "Rook and knight",
+      "bishopKnight": "Bishop and knight"
+    }
+  },
+  "king-no-value": {
+    "prompt": "Why does the king have no point value like the other pieces?",
+    "explanation": "Losing the king loses the game, so it can never be traded for anything.",
+    "choices": {
+      "lose": "Losing it loses the game",
+      "weak": "It is the weakest piece",
+      "still": "It cannot move"
+    }
+  },
+  "rooks-start": {
+    "prompt": "Where do the rooks start?",
+    "explanation": "The four rooks start in the four corners: a1, h1, a8, h8.",
+    "choices": {
+      "corners": "In the corners",
+      "nextKing": "Next to the king",
+      "second": "On the second rank"
+    }
+  },
+  "bishops-colors": {
+    "prompt": "What colors do one side's two bishops move on?",
+    "explanation": "One bishop is on light squares, the other on dark squares — they never meet.",
+    "choices": {
+      "oneEach": "One light, one dark",
+      "bothLight": "Both light",
+      "bothDark": "Both dark"
+    }
+  },
+  "mv-block-with-queen": {
+    "prompt": "The black rook checks along the first rank. Block the check with your queen.",
+    "explanation": "Putting the queen on d1 or c1 blocks the rook."
+  },
+  "mv-capture-knight-check": {
+    "prompt": "The black knight is giving check. Capture the checking piece.",
+    "explanation": "Bxf3: the bishop takes the knight and the check is gone."
+  },
+  "sq-escape-rank": {
+    "prompt": "The black rook checks along the first rank. Where can the king go?",
+    "explanation": "The whole first rank is covered by the rook, so the king must step up to d2, e2 or f2."
+  },
+  "sq-king-castling": {
+    "prompt": "Click every square the king on e1 can reach — castling included!",
+    "explanation": "Besides the 5 squares around it, the king can castle to g1 or c1."
+  },
+  "castle-through-attack": {
+    "prompt": "The f1 square is attacked. May White castle kingside?",
+    "explanation": "No. The king may not pass through an attacked square while castling.",
+    "choices": {
+      "no": "No",
+      "yes": "Yes"
+    }
+  },
+  "castle-rook-attacked": {
+    "prompt": "The h1 rook is attacked (the king is not). May White castle kingside?",
+    "explanation": "Yes! The rule only cares about the king’s squares. An attacked rook can still castle.",
+    "choices": {
+      "yes": "Yes",
+      "no": "No"
+    }
+  },
+  "castle-b1-attacked": {
+    "prompt": "For queenside castling, b1 is attacked (c1 and d1 are not). Is castling allowed?",
+    "explanation": "Yes. The king only crosses d1 and lands on c1; b1 just has to be empty for the rook.",
+    "choices": {
+      "yes": "Yes",
+      "no": "No"
+    }
+  },
+  "stalemate-corner": {
+    "prompt": "Black to move. What is the result?",
+    "explanation": "The black king is not in check, but a7, b7 and b8 are all covered by the queen: stalemate.",
+    "choices": {
+      "whiteWins": "White wins",
+      "draw": "Draw",
+      "blackWins": "Black wins"
+    }
+  },
+  "recognize-mate": {
+    "prompt": "Black to move. What is this position?",
+    "explanation": "The a8 rook gives check and Black’s own pawns block every escape: checkmate.",
+    "choices": {
+      "check": "Just check",
+      "checkmate": "Checkmate",
+      "stalemate": "Stalemate"
+    }
+  },
+  "promotion-rank": {
+    "prompt": "Which rank does a white pawn promote on?",
+    "explanation": "White pawns promote on the 8th rank; black pawns on the 1st.",
+    "choices": {
+      "8": "The 8th rank",
+      "7": "The 7th rank",
+      "any": "Any edge rank"
+    }
+  },
+  "en-passant-who": {
+    "prompt": "Which pieces can capture en passant?",
+    "explanation": "Only pawns can capture en passant, and only pawns can be captured that way.",
+    "choices": {
+      "pawns": "Only pawns",
+      "any": "Any piece",
+      "knights": "Knights and pawns"
+    }
+  },
+  "draw-by-agreement": {
+    "prompt": "Can the players agree to a draw?",
+    "explanation": "Yes. One player offers a draw; if the other accepts, the game is drawn.",
+    "choices": {
+      "yes": "Yes",
+      "no": "No"
+    }
+  },
+  "ignore-check": {
+    "prompt": "When in check, may you make a move that ignores the check?",
+    "explanation": "No. Any move that leaves your king in check is illegal.",
+    "choices": {
+      "no": "No",
+      "yes": "Yes"
+    }
+  },
+  "fifty-move-reset": {
+    "prompt": "What resets the fifty-move counter?",
+    "explanation": "A capture or a pawn move resets the fifty-move count.",
+    "choices": {
+      "captureOrPawn": "A capture or a pawn move",
+      "check": "A check",
+      "kingMove": "A king move"
+    }
+  },
+  "mv-mate-smothered": {
+    "prompt": "White to move: checkmate in 1.",
+    "explanation": "Nf7#: a smothered mate! The black king is boxed in by its own pieces and has nowhere to go."
+  },
+  "mv-mate-two-rooks": {
+    "prompt": "White to move: checkmate in 1.",
+    "explanation": "Rb8#: the a7 rook locks the 7th rank and the other rook checks on the 8th — the \"ladder\" mate."
+  },
+  "mv-mate-queen-king": {
+    "prompt": "White to move: checkmate in 1.",
+    "explanation": "Qe7#: the queen goes right next to the enemy king, protected by your own king."
+  },
+  "mv-mate-arabian": {
+    "prompt": "White to move: checkmate in 1.",
+    "explanation": "Rg8#: the f6 knight protects the rook and covers h7 — the classic \"Arabian\" mate."
+  },
+  "mv-mate-back-rank-queen": {
+    "prompt": "White to move: checkmate in 1.",
+    "explanation": "Qe8#: the black king is stuck behind its own pawns — a back-rank mate."
+  },
+  "mv-mate-h7": {
+    "prompt": "White to move: checkmate in 1.",
+    "explanation": "Qxh7#: the d3 bishop protects the queen, so the king cannot take it and has no escape."
+  },
+  "mv-mate-promote": {
+    "prompt": "White to move: checkmate in 1.",
+    "explanation": "a8=Q#: promotion with a back-rank mate!"
+  },
+  "mv-mate-rook-king": {
+    "prompt": "White to move: checkmate in 1.",
+    "explanation": "Ra8#: the white king covers g7 and h7; the rook checks along the 8th rank."
+  },
+  "mv-fork-queen-knight": {
+    "prompt": "Use your knight to fork the black king and queen.",
+    "explanation": "Ne7+: the knight checks the g8 king and attacks the c6 queen. Black must move the king and loses the queen."
+  },
+  "mv-fork-pawn": {
+    "prompt": "Even a pawn can fork. Attack both knights at once!",
+    "explanation": "d5: the pawn attacks both the c6 and e6 knights; Black can only save one."
+  },
+  "mv-fork-queen": {
+    "prompt": "Use your queen to check the king and attack the rook at the same time.",
+    "explanation": "Qd5+: the queen checks the g8 king on one diagonal and hits the a8 rook on the other."
+  },
+  "mv-skewer-rook": {
+    "prompt": "The black king and queen are on the same file. Skewer them!",
+    "explanation": "Re1+: the king has to leave the e-file, and then the rook takes the queen on e8."
+  },
+  "mv-skewer-bishop": {
+    "prompt": "The black king and rook are on the same diagonal. Skewer them with your bishop!",
+    "explanation": "Bf3+: the d5 king must leave the diagonal, and then the bishop takes the a8 rook."
+  },
+  "mv-pin-knight": {
+    "prompt": "Pin the black knight to its king.",
+    "explanation": "Bb5: the d7 knight stands between the bishop and the king, so it cannot move — an absolute pin."
+  },
+  "mv-take-hanging-bishop": {
+    "prompt": "The black bishop is undefended. Take it!",
+    "explanation": "Nxc5: the c5 bishop was hanging and nobody can recapture."
+  },
+  "tactic-discovered": {
+    "prompt": "A piece moves away and opens a line for the piece behind it. What is this tactic called?",
+    "explanation": "It is a discovered attack. If the piece behind gives check, it is a discovered check.",
+    "choices": {
+      "discovered": "Discovered attack",
+      "fork": "Fork",
+      "pin": "Pin"
+    }
+  },
+  "tactic-double-check": {
+    "prompt": "In a double check (two pieces giving check), what is the only way out?",
+    "explanation": "You cannot block or capture two checkers at once, so the king must move.",
+    "choices": {
+      "king": "Move the king",
+      "block": "Block the check",
+      "capture": "Capture one checker"
+    }
+  },
+  "tactic-deflection": {
+    "prompt": "Forcing an enemy defender to abandon its defensive duty is called what?",
+    "explanation": "That is a deflection: lure the defender away, then attack what it was guarding.",
+    "choices": {
+      "deflection": "Deflection",
+      "skewer": "Skewer",
+      "zugzwang": "Zugzwang"
+    }
+  },
+  "tactic-hanging": {
+    "prompt": "What is a \"hanging\" piece?",
+    "explanation": "A hanging piece is attacked and undefended — it can be taken for free.",
+    "choices": {
+      "undefended": "An attacked piece with no defender",
+      "pinned": "A pinned piece",
+      "promoted": "A freshly promoted pawn"
+    }
+  },
+  "tactic-smothered-piece": {
+    "prompt": "A smothered mate (king boxed in by its own pieces) is usually delivered by which piece?",
+    "explanation": "The knight — because it can jump over the pieces surrounding the king.",
+    "choices": {
+      "knight": "Knight",
+      "queen": "Queen",
+      "rook": "Rook"
+    }
+  },
+  "tactic-back-rank": {
+    "prompt": "Your king has castled and the three pawns in front have not moved. What is the danger?",
+    "explanation": "The king has no escape square on the 2nd rank, so an enemy rook or queen on your back rank can mate.",
+    "choices": {
+      "backRank": "A back-rank mate",
+      "stalemate": "Stalemate",
+      "nothing": "No danger at all"
+    }
+  },
+  "tactic-pinned-move": {
+    "prompt": "A piece is absolutely pinned (the king is behind it). May it leave the pin line?",
+    "explanation": "No. Moving it would expose the king to check, which is illegal.",
+    "choices": {
+      "no": "No",
+      "yes": "Yes"
+    }
+  },
+  "tactic-fork-piece": {
+    "prompt": "Which piece is most famous for forks?",
+    "explanation": "The knight: it attacks up to 8 squares in an L-shape and cannot be blocked.",
+    "choices": {
+      "knight": "Knight",
+      "bishop": "Bishop",
+      "king": "King"
+    }
+  },
+  "nt-play-e4": {
+    "prompt": "Play the move e4.",
+    "explanation": "No piece letter means a pawn: the pawn goes to e4."
+  },
+  "nt-play-nf3": {
+    "prompt": "Play the move Nf3.",
+    "explanation": "N is the knight: the g1 knight jumps to f3."
+  },
+  "nt-play-bc4": {
+    "prompt": "Play the move Bc4.",
+    "explanation": "B is the bishop: the f1 bishop goes diagonally to c4."
+  },
+  "nt-play-oo": {
+    "prompt": "Play the move O-O.",
+    "explanation": "O-O is kingside castling: the king goes to g1 and the rook to f1."
+  },
+  "nt-play-ooo": {
+    "prompt": "Play the move O-O-O.",
+    "explanation": "O-O-O is queenside castling: the king goes to c1 and the rook to d1."
+  },
+  "nt-play-exd5": {
+    "prompt": "Play the move exd5.",
+    "explanation": "For a pawn capture we write its starting file, then \"x\": the e-pawn captures on d5."
+  },
+  "nt-play-nxe5": {
+    "prompt": "Play the move Nxe5.",
+    "explanation": "\"x\" means a capture: the knight takes the pawn on e5."
+  },
+  "nt-play-promote": {
+    "prompt": "Play the move e8=Q+.",
+    "explanation": "\"=Q\" means promoting to a queen, \"+\" means check."
+  },
+  "nt-play-nbd2": {
+    "prompt": "Play the move Nbd2.",
+    "explanation": "Both knights can reach d2, so the \"b\" tells you it is the knight on the b-file."
+  },
+  "nt-play-rfe1": {
+    "prompt": "Play the move Rfe1.",
+    "explanation": "Both rooks can reach e1; the \"f\" points to the rook on the f-file."
+  },
+  "nt-play-qh5-mate": {
+    "prompt": "Play the move Qh5#.",
+    "explanation": "\"#\" means checkmate: the queen goes to h5 and the game is over!"
+  },
+  "nt-play-bxf7": {
+    "prompt": "Play the move Bxf7+.",
+    "explanation": "The bishop captures on f7 and gives check."
+  },
+  "nt-files": {
+    "prompt": "How are the files (left to right from White's side) labelled?",
+    "explanation": "Files are labelled with the letters a to h.",
+    "choices": {
+      "letters": "Letters a–h",
+      "numbers": "Numbers 1–8",
+      "colors": "Colors"
+    }
+  },
+  "nt-ranks": {
+    "prompt": "Which side is the 1st rank on?",
+    "explanation": "The 1st rank is on White's side; the 8th rank on Black's.",
+    "choices": {
+      "white": "White's side",
+      "black": "Black's side",
+      "center": "The middle of the board"
+    }
+  },
+  "nt-promo-symbol": {
+    "prompt": "What does \"e8=Q\" mean?",
+    "explanation": "A pawn moves to e8 and promotes to a queen.",
+    "choices": {
+      "promote": "A pawn reaches e8 and becomes a queen",
+      "queenMoves": "The queen moves to e8",
+      "equal": "The material is equal"
+    }
+  },
+  "nt-good-move": {
+    "prompt": "What does \"!\" after a move mean?",
+    "explanation": "\"!\" is a good move, \"!!\" a brilliant one.",
+    "choices": {
+      "good": "A good move",
+      "bad": "A mistake",
+      "check": "Check"
+    }
+  },
+  "nt-blunder": {
+    "prompt": "What does \"??\" after a move mean?",
+    "explanation": "\"??\" is a blunder; \"?\" is a mistake.",
+    "choices": {
+      "blunder": "A blunder",
+      "question": "Unclear",
+      "brilliant": "A brilliant move"
+    }
+  },
+  "nt-dubious": {
+    "prompt": "What does \"?!\" mean?",
+    "explanation": "\"?!\" is a dubious move; \"!?\" on the other hand is an interesting one.",
+    "choices": {
+      "dubious": "A dubious move",
+      "interesting": "An interesting move",
+      "forced": "A forced move"
+    }
+  },
+  "nt-result-white": {
+    "prompt": "What does the result \"1-0\" mean?",
+    "explanation": "1-0: White wins; 0-1: Black wins; ½-½: draw.",
+    "choices": {
+      "white": "White wins",
+      "black": "Black wins",
+      "draw": "Draw"
+    }
+  },
+  "nt-result-draw": {
+    "prompt": "What does the result \"½-½\" mean?",
+    "explanation": "Each side gets half a point: the game is a draw.",
+    "choices": {
+      "draw": "Draw",
+      "white": "White wins",
+      "unfinished": "The game is not finished"
+    }
+  },
+  "nt-pgn": {
+    "prompt": "What is PGN?",
+    "explanation": "PGN (Portable Game Notation) is a text file format for recording whole games.",
+    "choices": {
+      "record": "A format for recording games",
+      "rating": "A rating system",
+      "engine": "A chess engine"
+    }
+  },
+  "nt-bishop-letter": {
+    "prompt": "In notation, which piece is \"B\"?",
+    "explanation": "B = bishop.",
+    "choices": {
+      "bishop": "Bishop",
+      "king": "King",
+      "pawn": "Pawn"
+    }
+  },
+  "nt-black-move-number": {
+    "prompt": "What does \"12...Nf6\" mean?",
+    "explanation": "The \"...\" tells you it is Black’s move in move 12.",
+    "choices": {
+      "black12": "Black's 12th move: knight to f6",
+      "white12": "White's 12th move",
+      "twelve": "The knight moved 12 times"
+    }
+  },
+  "str-early-queen": {
+    "prompt": "Why should you not bring the queen out too early?",
+    "explanation": "Enemy minor pieces will chase it while developing — you lose time.",
+    "choices": {
+      "chased": "It gets chased and you lose time",
+      "illegal": "The rules forbid it",
+      "weak": "The queen is a weak piece"
+    }
+  },
+  "str-move-twice": {
+    "prompt": "In the opening, should you move the same piece several times?",
+    "explanation": "Avoid it unless necessary: each move should develop a new piece.",
+    "choices": {
+      "avoid": "Avoid it unless needed",
+      "always": "Do it often",
+      "mustDo": "The rules require it"
+    }
+  },
+  "str-rook-open-file": {
+    "prompt": "Where is a rook most active?",
+    "explanation": "On an open file (no pawns), the rook controls the whole file and can invade.",
+    "choices": {
+      "openFile": "On an open file",
+      "corner": "In the corner",
+      "behindPawns": "Behind closed pawns"
+    }
+  },
+  "str-rook-seventh": {
+    "prompt": "A white rook reaches Black's 7th rank. How is that usually?",
+    "explanation": "Very strong: it attacks unmoved pawns and traps the king on the back rank.",
+    "choices": {
+      "strong": "Very strong",
+      "weak": "Weak, easy to trap",
+      "illegal": "Not allowed"
+    }
+  },
+  "str-bishop-pair": {
+    "prompt": "When is the bishop pair usually strongest?",
+    "explanation": "In open positions with clear diagonals — the two bishops cover both light and dark squares.",
+    "choices": {
+      "open": "In open positions",
+      "closed": "In closed positions",
+      "never": "Never an advantage"
+    }
+  },
+  "str-knight-rim": {
+    "prompt": "\"A knight on the rim is dim.\" Why?",
+    "explanation": "On the edge a knight controls only 2–4 squares instead of 8 in the center.",
+    "choices": {
+      "weak": "It controls fewer squares",
+      "strong": "It is safer there",
+      "same": "It makes no difference"
+    }
+  },
+  "str-passed-pawn": {
+    "prompt": "What is a passed pawn?",
+    "explanation": "A pawn with no enemy pawns blocking or guarding its path to promotion.",
+    "choices": {
+      "noBlockers": "A pawn no enemy pawn can stop",
+      "doubled": "Two pawns on one file",
+      "centre": "A pawn in the center"
+    }
+  },
+  "str-doubled-pawns": {
+    "prompt": "Two pawns of the same color on one file (doubled pawns) are usually what?",
+    "explanation": "Usually a weakness: they cannot protect each other and are hard to advance.",
+    "choices": {
+      "weakness": "A weakness",
+      "strength": "A strength",
+      "illegal": "Illegal"
+    }
+  },
+  "str-isolated-pawn": {
+    "prompt": "What is an isolated pawn?",
+    "explanation": "A pawn with no friendly pawns on the neighbouring files, so no pawn can defend it.",
+    "choices": {
+      "noNeighbours": "No friendly pawns on adjacent files",
+      "blocked": "Blocked by an enemy piece",
+      "last": "The last pawn left"
+    }
+  },
+  "str-king-endgame": {
+    "prompt": "In the endgame (few pieces left), what should the king do?",
+    "explanation": "Come forward and help! With few pieces left, the king is a strong fighting piece.",
+    "choices": {
+      "active": "Become active",
+      "hide": "Hide behind pawns",
+      "corner": "Stay in the corner"
+    }
+  },
+  "str-trade-when-ahead": {
+    "prompt": "When you are ahead in material, what should you trade?",
+    "explanation": "Trade pieces (not pawns): the fewer pieces left, the clearer your advantage.",
+    "choices": {
+      "pieces": "Pieces for pieces",
+      "pawns": "All the pawns",
+      "nothing": "Nothing at all"
+    }
+  },
+  "str-outpost": {
+    "prompt": "What is an \"outpost\" for a knight?",
+    "explanation": "A square in enemy territory that enemy pawns can never attack, usually supported by your own pawn.",
+    "choices": {
+      "noPawnAttack": "A square enemy pawns cannot attack",
+      "corner": "A corner square",
+      "kingSide": "A square next to your king"
+    }
+  },
+  "str-center-squares": {
+    "prompt": "Which are the four center squares?",
+    "explanation": "d4, e4, d5, e5 — controlling them makes your pieces more active.",
+    "choices": {
+      "d4e4d5e5": "d4, e4, d5, e5",
+      "a1h1a8h8": "a1, h1, a8, h8",
+      "c3f3c6f6": "c3, f3, c6, f6"
+    }
+  },
+  "str-castle-early": {
+    "prompt": "When should you usually castle?",
+    "explanation": "Early, once a few pieces are developed — the king is safe and the rook joins the game.",
+    "choices": {
+      "early": "Fairly early in the opening",
+      "late": "Only in the endgame",
+      "never": "Never"
+    }
+  },
+  "str-rook-behind-passer": {
+    "prompt": "Where should a rook stand relative to a passed pawn?",
+    "explanation": "Behind the passed pawn (yours or the enemy’s): the rook gets more active as the pawn advances.",
+    "choices": {
+      "behind": "Behind it",
+      "front": "In front of it",
+      "side": "Beside it"
+    }
+  },
+  "str-opposition": {
+    "prompt": "The kings face each other with one square between them and the other side must move. What is this called?",
+    "explanation": "It is the opposition — very important in pawn endgames.",
+    "choices": {
+      "opposition": "The opposition",
+      "stalemate": "Stalemate",
+      "fianchetto": "Fianchetto"
+    }
+  },
+  "str-bad-bishop": {
+    "prompt": "What is a \"bad bishop\"?",
+    "explanation": "A bishop hemmed in by its own pawns standing on its square color.",
+    "choices": {
+      "ownPawns": "Blocked by its own pawns on its color",
+      "enemyPawns": "Attacked by enemy pawns",
+      "noPawns": "One with no pawns left"
+    }
+  },
+  "str-exchange": {
+    "prompt": "What does \"giving up the exchange\" mean?",
+    "explanation": "Giving a rook (5) for a bishop or knight (3) — a loss of 2 points.",
+    "choices": {
+      "rookForMinor": "A rook for a bishop or knight",
+      "queenForRook": "A queen for a rook",
+      "pawnForPawn": "A pawn for a pawn"
+    }
+  },
+  "str-rule-of-square": {
+    "prompt": "What is the \"rule of the square\" used for?",
+    "explanation": "To quickly see whether a king can catch a passed pawn before it promotes.",
+    "choices": {
+      "catchPawn": "Can the king catch a passed pawn?",
+      "castle": "Is castling allowed?",
+      "mate": "Finding a checkmate"
+    }
+  },
+  "str-fianchetto": {
+    "prompt": "What is a \"fianchetto\"?",
+    "explanation": "Developing a bishop to b2/g2 (or b7/g7) so it controls the long diagonal.",
+    "choices": {
+      "longDiagonal": "A bishop on b2/g2 on the long diagonal",
+      "twoRooks": "Doubling the rooks",
+      "pawnChain": "A chain of pawns"
+    }
+  },
+  "str-king-shelter": {
+    "prompt": "After castling, what should you do with the three pawns in front of your king?",
+    "explanation": "Keep them in place as long as you can — they are the king’s shield.",
+    "choices": {
+      "keep": "Keep them as a shield",
+      "push": "Push them quickly",
+      "trade": "Trade them off"
+    }
+  },
+  "str-opposite-bishops": {
+    "prompt": "An endgame with opposite-colored bishops (one light-squared, one dark-squared) usually ends how?",
+    "explanation": "Often in a draw, even a pawn or two down: the bishops never fight over the same squares.",
+    "choices": {
+      "drawish": "Often a draw",
+      "winning": "Easy win for the side a pawn up",
+      "losing": "The side to move loses"
+    }
+  },
+  "str-mv-develop": {
+    "prompt": "Develop a minor piece (knight or bishop).",
+    "explanation": "For example Nf3, Nc3 or Bc4: bringing out the minor pieces comes first in the opening."
+  },
+  "str-mv-castle-safety": {
+    "prompt": "Your king is still in the center. Bring it to safety.",
+    "explanation": "O-O: the king tucks behind its pawns and the f1 rook is ready to fight."
+  },
+  "str-mv-center-pawn": {
+    "prompt": "First move: occupy the center with a pawn.",
+    "explanation": "e4 or d4: the pawn takes the center and opens lines for the queen and bishop."
+  },
+  "str-mv-rook-open-file": {
+    "prompt": "The d- and e-files have no pawns. Put a rook on an open file.",
+    "explanation": "For example Rfe1 or Rad1: a rook on an open file controls the whole file."
+  },
+  "str-mv-king-endgame": {
+    "prompt": "A pawn endgame. Bring your king toward the center.",
+    "explanation": "Ke2 or Kd2: in the endgame the king must become active."
   }
 }

@@ -69,14 +69,35 @@ test('puzzle rush: score goes up on a solve', async ({ page }) => {
   await expect(page.getByText('Điểm: 1')).toBeVisible();
 });
 
-test('quiz: answer a full round', async ({ page }) => {
-  await page.goto('/practice/quiz');
-  await page.getByRole('button', { name: 'Ký hiệu' }).click();
-  for (let i = 0; i < 5; i++) {
-    await expect(page.getByText(`Câu ${i + 1}/5`)).toBeVisible();
-    await page.locator('main ul li button').first().click();
+/** Answers a round of choice / select-squares questions (the "pieces" topic has no make-move). */
+async function answerRound(page: Page) {
+  for (let i = 0; i < 10; i++) {
+    await expect(page.getByText(`Câu ${i + 1}/10`)).toBeVisible();
+    const check = page.getByRole('button', { name: 'Kiểm tra' });
+    if (await check.isVisible()) await check.click();
+    else await page.locator('main ul li button').first().click();
     await expect(page.getByText(/Đúng rồi|Chưa đúng/)).toBeVisible();
     await page.getByRole('button', { name: /Câu tiếp|Xem kết quả/ }).click();
   }
-  await expect(page.getByText(/Bạn trả lời đúng \d\/5 câu/)).toBeVisible();
+  await expect(page.getByText(/Bạn trả lời đúng \d+\/10 câu/)).toBeVisible();
+}
+
+test('quiz: answer a full round of written questions', async ({ page }) => {
+  await page.goto('/practice/quiz');
+  await page
+    .getByRole('button', { name: /Quân cờ/ })
+    .first()
+    .click();
+  await answerRound(page);
+});
+
+test('quiz: answer a full generated round', async ({ page }) => {
+  await page.goto('/practice/quiz');
+  await expect(page.getByText('Luyện tập thêm')).toBeVisible();
+  await page
+    .getByRole('button', { name: /Quân cờ/ })
+    .nth(1)
+    .click();
+  await expect(page.getByText('🤖 Máy tạo')).toBeVisible();
+  await answerRound(page);
 });

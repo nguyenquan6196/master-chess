@@ -274,7 +274,9 @@
     "result": "Bạn trả lời đúng {correct}/{total} câu",
     "best": "Tốt nhất: {percent}%",
     "again": "Làm lại",
-    "otherTopic": "Chủ đề khác"
+    "otherTopic": "Chủ đề khác",
+    "answerWas": "Đáp án: {move}",
+    "count": "{count} câu"
   },
   "puzzleThemes": {
     "mateIn1": "Chiếu hết 1 nước",
@@ -335,5 +337,60 @@
     "backToLessons": "Danh sách bài học",
     "noTranslation": "Bài này chưa có bản dịch, đang hiển thị bản {language}.",
     "allDone": "Bạn đã học hết các bài! 🎓"
+  },
+  "quizGen": {
+    "title": "Luyện tập thêm",
+    "subtitle": "Câu hỏi do máy tạo ngẫu nhiên theo chủ đề — làm bao nhiêu cũng không hết.",
+    "badge": "🤖 Máy tạo",
+    "topicDesc": {
+      "pieces": "Nước đi của từng quân, có quân cản đường",
+      "rules": "Chiếu, chiếu hết, hòa pat, thoát chiếu",
+      "notation": "Đọc và đi đúng nước theo ký hiệu",
+      "tactics": "Ăn quân bị bỏ ngỏ, chiếu hết 1 nước",
+      "strategy": "Đếm quân, chọn nước ăn có lợi nhất"
+    },
+    "prompt": {
+      "pieceMoves": "Bấm vào tất cả các ô mà {piece} ở {square} có thể đi tới.",
+      "positionStatus": "Đến lượt Đen. Thế cờ này là gì?",
+      "escapeCheck": "Vua Trắng ở {square} đang bị chiếu. Vua có thể chạy tới những ô nào?",
+      "readMove": "Hãy đi nước {san}.",
+      "sanPiece": "Trong nước đi {san}, quân nào di chuyển?",
+      "freeCapture": "Có một quân đối phương không được bảo vệ. Hãy ăn nó mà không bị ăn lại!",
+      "mateIn1": "Trắng đi: chiếu hết trong 1 nước.",
+      "materialCount": "Đếm điểm quân cờ (Tốt 1, Mã 3, Tượng 3, Xe 5, Hậu 9). Bên nào đang hơn?",
+      "bestCapture": "Bạn có thể ăn nhiều quân miễn phí. Hãy chọn nước ăn có lợi nhất!"
+    },
+    "explain": {
+      "pieceMoves": "Ô tô xanh là đáp án đúng; viền xanh là ô bạn bỏ sót, ô đỏ là ô chọn sai.",
+      "positionStatus": "Chiếu: Vua bị tấn công. Chiếu hết: bị chiếu và không thoát được. Hòa pat: không bị chiếu nhưng không còn nước đi.",
+      "escapeCheck": "Vua không được đi vào ô bị tấn công — kể cả những ô nằm trên đường của quân đang chiếu.",
+      "readMove": "Chữ cái đầu là quân (K Vua, Q Hậu, R Xe, B Tượng, N Mã; không có chữ là Tốt), phần cuối là ô đến.",
+      "sanPiece": "K = Vua, Q = Hậu, R = Xe, B = Tượng, N = Mã; không có chữ cái = Tốt.",
+      "freeCapture": "Quân \"treo\" là quân bị tấn công mà không có ai bảo vệ. Luôn tìm chúng!",
+      "mateIn1": "Chiếu hết: Vua đối phương bị chiếu và không có cách nào thoát.",
+      "materialCount": "Cộng điểm từng bên rồi lấy hiệu.",
+      "bestCapture": "Khi có nhiều quân để ăn, hãy ăn quân giá trị cao nhất mà không bị ăn lại."
+    },
+    "labels": {
+      "status": {
+        "check": "Chiếu",
+        "checkmate": "Chiếu hết",
+        "stalemate": "Hòa pat",
+        "none": "Bình thường (không chiếu)"
+      },
+      "piece": {
+        "k": "Vua",
+        "q": "Hậu",
+        "r": "Xe",
+        "b": "Tượng",
+        "n": "Mã",
+        "p": "Tốt"
+      },
+      "material": {
+        "white": "Trắng hơn {n}",
+        "black": "Đen hơn {n}",
+        "equal": "Bằng nhau"
+      }
+    }
   }
 }

@@ -5,6 +5,7 @@ import ja from '../../../content/quiz/ja.json';
 import questionsJson from '../../../content/quiz/questions.json';
 import vi from '../../../content/quiz/vi.json';
 import { seededRng } from '../bot/choose';
+import { uciToMove } from '../chess/game';
 import {
   checkChoice,
   checkMove,
@@ -40,6 +41,10 @@ describe('content/quiz (data validation)', () => {
     for (const q of questions) {
       if (!('fen' in q) || !q.fen) continue;
       const chess = new Chess(q.fen);
+      // The side that just moved can never be left in check.
+      const idle = chess.turn() === 'w' ? 'b' : 'w';
+      const idleKing = chess.findPiece({ type: 'k', color: idle })[0];
+      expect(chess.isAttacked(idleKing, chess.turn()), `${q.id} illegal check`).toBe(false);
       if (q.kind === 'select-squares') {
         expect(chess.get(q.square as never), q.id).toBeTruthy();
         expect(correctSquares(q).length, q.id).toBeGreaterThan(0);
@@ -48,7 +53,7 @@ describe('content/quiz (data validation)', () => {
         for (const a of q.answers) expect(checkMove(q, a), `${q.id} ${a}`).toBe(true);
         if (q.mate) {
           const c = new Chess(q.fen);
-          c.move({ from: q.answers[0].slice(0, 2), to: q.answers[0].slice(2, 4) });
+          c.move(uciToMove(q.answers[0]));
           expect(c.isCheckmate(), q.id).toBe(true);
         }
       }

@@ -104,3 +104,12 @@ export function pickQuiz(
   }
   return shuffled.slice(0, count).sort((a, b) => a.level - b.level);
 }
+
+/** The first accepted answer of a make-move question, in SAN (for "the answer was …"). */
+export function answerSan(q: Extract<QuizQuestion, { kind: 'make-move' }>): string | null {
+  try {
+    return new Chess(q.fen).move(uciToMove(q.answers[0])).san;
+  } catch {
+    return null;
+  }
+}
