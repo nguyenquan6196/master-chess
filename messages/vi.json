@@ -69,9 +69,9 @@
   "settings": {
     "title": "Cài đặt",
     "language": "Ngôn ngữ",
-    "theme": "Giao diện",
+    "theme": "Chủ đề màu",
     "themes": {
-      "auto": "Tự động (theo hệ thống)",
+      "auto": "Tự động",
       "classic": "Classic",
       "midnight": "Midnight"
     },
@@ -82,7 +82,9 @@
     "on": "Bật",
     "off": "Tắt",
     "open": "Mở cài đặt",
-    "close": "Đóng cài đặt"
+    "close": "Đóng cài đặt",
+    "appearance": "Giao diện",
+    "autoHint": "Tự động theo chế độ sáng/tối của hệ thống"
   },
   "profile": {
     "pickTitle": "Ai đang chơi?",

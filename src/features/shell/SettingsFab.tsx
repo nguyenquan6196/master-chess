@@ -4,7 +4,10 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useTranslations } from 'use-intl';
 import { cn } from '@/components/ui/cn';
 
-/** Floating settings button (bottom right) that expands a settings panel. */
+/**
+ * Floating settings button (bottom right) that expands a settings panel.
+ * Desktop: a wide card anchored above the button. Phones: full width with even margins.
+ */
 export function SettingsFab({ children }: { children: ReactNode }) {
   const t = useTranslations('settings');
   const [open, setOpen] = useState(false);
@@ -27,15 +30,18 @@ export function SettingsFab({ children }: { children: ReactNode }) {
   }, [open]);
 
   return (
-    <div ref={root} className="fixed right-4 bottom-4 z-40 flex flex-col items-end gap-3">
+    <div ref={root}>
       {open && (
         <section
           id="settings-panel"
           role="dialog"
           aria-label={t('title')}
-          className="max-h-[70vh] w-[min(22rem,calc(100vw-2rem))] overflow-y-auto rounded-2xl border border-border bg-surface p-5 text-fg shadow-card"
+          className={cn(
+            'fixed inset-x-4 bottom-20 z-40 max-h-[calc(100dvh-7rem)] overflow-y-auto rounded-2xl border border-border bg-surface p-5 text-fg shadow-card',
+            'sm:inset-x-auto sm:right-4 sm:w-[36rem] sm:p-6',
+          )}
         >
-          <h2 className="mb-4 font-display text-xl font-bold">⚙️ {t('title')}</h2>
+          <h2 className="mb-5 font-display text-2xl font-bold">⚙️ {t('title')}</h2>
           {children}
         </section>
       )}
@@ -47,7 +53,8 @@ export function SettingsFab({ children }: { children: ReactNode }) {
         title={t('title')}
         onClick={() => setOpen((v) => !v)}
         className={cn(
-          'flex size-12 items-center justify-center rounded-full text-xl shadow-card transition-transform hover:scale-105',
+          'fixed right-4 bottom-4 z-40 flex size-12 items-center justify-center rounded-full text-xl shadow-card transition-transform hover:scale-105',
+          'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent',
           open ? 'bg-accent text-accent-fg' : 'border border-border bg-surface',
         )}
       >

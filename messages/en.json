@@ -69,9 +69,9 @@
   "settings": {
     "title": "Settings",
     "language": "Language",
-    "theme": "Theme",
+    "theme": "Color theme",
     "themes": {
-      "auto": "Auto (follow system)",
+      "auto": "Auto",
       "classic": "Classic",
       "midnight": "Midnight"
     },
@@ -82,7 +82,9 @@
     "on": "On",
     "off": "Off",
     "open": "Open settings",
-    "close": "Close settings"
+    "close": "Close settings",
+    "appearance": "Appearance",
+    "autoHint": "Follow the system light/dark mode"
   },
   "profile": {
     "pickTitle": "Who's playing?",
