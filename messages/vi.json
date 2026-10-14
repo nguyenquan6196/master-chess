@@ -303,5 +303,33 @@
     "notation": "Ký hiệu",
     "strategy": "Nguyên tắc",
     "tactics": "Chiến thuật"
+  },
+  "learn": {
+    "title": "Học cờ vua",
+    "subtitle": "Từng bước từ luật cơ bản đến chiến thuật. Mỗi bài vài phút, có bàn cờ để thử ngay.",
+    "continue": "Học tiếp",
+    "start": "Bắt đầu học",
+    "progress": "{done}/{total} bài",
+    "minutes": "{minutes} phút",
+    "locked": "Hoàn thành bài “{lesson}” để mở khoá",
+    "goToLesson": "Tới bài đó",
+    "completed": "Đã hoàn thành",
+    "review": "Ôn lại",
+    "tryIt": "Thử ngay",
+    "tryAgain": "Thử lại",
+    "first": "Về đầu",
+    "prev": "Nước trước",
+    "next": "Nước sau",
+    "last": "Tới cuối",
+    "quizTitle": "Kiểm tra nhanh",
+    "answerAll": "Trả lời hết các câu để hoàn thành bài.",
+    "finish": "Hoàn thành bài học",
+    "finished": "Hoàn thành! 🎉",
+    "score": "Đúng {percent}%",
+    "nextLesson": "Bài tiếp theo",
+    "practiceMore": "Luyện thêm: {theme}",
+    "backToLessons": "Danh sách bài học",
+    "noTranslation": "Bài này chưa có bản dịch, đang hiển thị bản {language}.",
+    "allDone": "Bạn đã học hết các bài! 🎓"
   }
 }

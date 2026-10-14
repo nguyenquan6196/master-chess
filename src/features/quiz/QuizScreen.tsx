@@ -18,7 +18,7 @@ import { useSession } from '@/services/profile/session';
 import { saveQuizScore } from '@/services/puzzles/puzzles';
 import { loadQuizTexts, QUIZ_QUESTIONS } from '@/services/quiz/quizContent';
 import { useSettings } from '@/services/settings/store';
-import { QuizQuestionView } from './QuizQuestionView';
+import { QuestionView } from '@/components/board/QuestionView';
 
 const QUESTIONS_PER_ROUND = 10;
 type TopicKey = QuizTopic | 'all';
@@ -26,6 +26,7 @@ type TopicKey = QuizTopic | 'all';
 export function QuizScreen() {
   const t = useTranslations('quiz');
   const tt = useTranslations('quizTopics');
+  const tg = useTranslations('game');
   const locale = useSettings((s) => s.locale);
   const quizBest = useSession((s) => s.profile?.quizBest ?? {});
   const [texts, setTexts] = useState<Record<string, QuizText> | null>(null);
@@ -140,12 +141,27 @@ export function QuizScreen() {
         />
       </div>
       {text && (
-        <QuizQuestionView
+        <QuestionView
           key={q.id}
           question={q}
           text={text}
           answered={answered}
           onAnswer={onAnswer}
+          labels={{
+            selectHint: t('selectHint'),
+            moveHint: t('moveHint'),
+            check: t('check'),
+            promotion: {
+              title: tg('choosePromotion'),
+              cancel: tg('cancel'),
+              pieces: {
+                q: tg('pieces.q'),
+                r: tg('pieces.r'),
+                b: tg('pieces.b'),
+                n: tg('pieces.n'),
+              },
+            },
+          }}
         />
       )}
       {answered !== null && (

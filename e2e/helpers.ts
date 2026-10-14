@@ -1,9 +1,9 @@
-import { expect, type Page } from '@playwright/test';
+import { expect, type Locator, type Page } from '@playwright/test';
 
-/** Clicks the origin then the destination square (click-to-move). */
-export async function move(page: Page, uci: string) {
-  await page.locator(`[data-square="${uci.slice(0, 2)}"]`).click();
-  await page.locator(`[data-square="${uci.slice(2, 4)}"]`).click();
+/** Clicks the origin then the destination square (click-to-move), optionally inside `scope`. */
+export async function move(page: Page, uci: string, scope: Page | Locator = page) {
+  await scope.locator(`[data-square="${uci.slice(0, 2)}"]`).click();
+  await scope.locator(`[data-square="${uci.slice(2, 4)}"]`).click();
 }
 
 /** Creates a fresh player on the "who's playing?" screen. */

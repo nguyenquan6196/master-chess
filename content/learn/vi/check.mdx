@@ -1,0 +1,33 @@
+## Chiếu
+
+Khi một quân tấn công Vua, Vua đang bị **chiếu**. Bên bị chiếu **phải thoát chiếu ngay** ở nước tiếp theo, bằng một trong ba cách:
+
+1. **Chạy** — đưa Vua sang ô an toàn.
+2. **Chặn** — đặt một quân vào giữa Vua và quân đang chiếu.
+3. **Ăn** — ăn quân đang chiếu.
+
+<Board fen="4r1k1/8/8/8/8/8/8/4K3 w - - 0 1" arrows="e8e1">Xe Đen đang chiếu Vua Trắng dọc cột e.</Board>
+
+<Exercise kind="make-move" fen="4r1k1/8/8/8/8/8/3B4/4K3 w - - 0 1" answers="d2e3" explain="Be3 chặn đường của Xe. Tượng đứng chắn giữa Vua và Xe nên Vua hết bị chiếu.">
+Vua Trắng bị chiếu. Hãy **chặn chiếu** bằng Tượng.
+</Exercise>
+
+<Exercise kind="make-move" fen="4k3/8/8/8/8/8/4q3/3RK3 w - - 0 1" answers="e1e2" explain="Kxe2: Hậu Đen đứng sát Vua mà không có ai bảo vệ, nên Vua ăn luôn!">
+Hậu Đen đang chiếu và không được bảo vệ. Hãy **ăn quân đang chiếu**.
+</Exercise>
+
+## Chiếu hết
+
+Nếu Vua bị chiếu mà **không có cách nào thoát** — không chạy, không chặn, không ăn được — đó là **chiếu hết** và ván cờ kết thúc. Bên chiếu hết thắng.
+
+<MoveSequence moves="f3 e5 g4 Qh4#">"Chiếu hết nhanh nhất": chỉ sau 2 nước, Trắng đã thua vì mở đường cho Hậu Đen.</MoveSequence>
+
+## Hòa pat
+
+Nếu đến lượt một bên mà Vua **không bị chiếu** nhưng **không còn nước đi hợp lệ nào**, ván cờ là **hòa** — gọi là **hòa pat**.
+
+<Board fen="7k/5Q2/6K1/8/8/8/8/8 b - - 0 1">Đến lượt Đen: Vua không bị chiếu nhưng mọi ô đều bị kiểm soát. Hòa pat!</Board>
+
+<Callout type="warning">
+Khi đang thắng đậm, hãy cẩn thận đừng để đối phương rơi vào hòa pat. Luôn để Vua đối phương còn ít nhất một nước đi, cho tới khi bạn chiếu hết.
+</Callout>

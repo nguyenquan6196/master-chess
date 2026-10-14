@@ -303,5 +303,33 @@
     "notation": "Notation",
     "strategy": "Principles",
     "tactics": "Tactics"
+  },
+  "learn": {
+    "title": "Learn chess",
+    "subtitle": "Step by step from the basic rules to tactics. A few minutes per lesson, with boards to try things on.",
+    "continue": "Continue",
+    "start": "Start learning",
+    "progress": "{done}/{total} lessons",
+    "minutes": "{minutes} min",
+    "locked": "Finish “{lesson}” to unlock",
+    "goToLesson": "Go to that lesson",
+    "completed": "Completed",
+    "review": "Review",
+    "tryIt": "Try it",
+    "tryAgain": "Try again",
+    "first": "First",
+    "prev": "Previous move",
+    "next": "Next move",
+    "last": "Last",
+    "quizTitle": "Quick check",
+    "answerAll": "Answer every question to finish the lesson.",
+    "finish": "Finish lesson",
+    "finished": "Completed! 🎉",
+    "score": "{percent}% correct",
+    "nextLesson": "Next lesson",
+    "practiceMore": "Practice more: {theme}",
+    "backToLessons": "All lessons",
+    "noTranslation": "This lesson isn't translated yet; showing the {language} version.",
+    "allDone": "You've finished every lesson! 🎓"
   }
 }

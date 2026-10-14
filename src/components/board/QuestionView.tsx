@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
-import { useTranslations } from 'use-intl';
-import { ChessBoard, type SquareMark } from '@/components/board/ChessBoard';
-import { Button } from '@/components/ui/Button';
-import { cn } from '@/components/ui/cn';
+import { useState, type ReactNode } from 'react';
+import { Button } from '../ui/Button';
+import { cn } from '../ui/cn';
+import { ChessBoard, type SquareMark } from './ChessBoard';
+import type { PromotionLabels } from './PromotionPicker';
 import { moveToUci, turnOf, type MoveInput } from '@/core/chess/game';
 import {
   checkChoice,
@@ -14,28 +14,42 @@ import {
   type QuizText,
 } from '@/core/quiz/quiz';
 
+export interface QuestionLabels {
+  selectHint: string;
+  moveHint: string;
+  check: string;
+  promotion: PromotionLabels;
+}
+
 interface Props {
   question: QuizQuestion;
   text: QuizText;
   /** null while unanswered. */
   answered: boolean | null;
   onAnswer: (correct: boolean) => void;
+  labels: QuestionLabels;
+  /** Narrower layout (board above the text) for use inside lessons. */
+  compact?: boolean;
+  /** Custom prompt (e.g. rich text from a lesson) instead of `text.prompt`. */
+  prompt?: ReactNode;
 }
 
-export function QuizQuestionView({ question: q, text, answered, onAnswer }: Props) {
-  const t = useTranslations('quiz');
-  const tg = useTranslations('game');
+/** One quiz question (choice / select-squares / make-move); shared by Quiz and lessons. */
+export function QuestionView({
+  question: q,
+  text,
+  answered,
+  onAnswer,
+  labels,
+  compact,
+  prompt,
+}: Props) {
   const [choice, setChoice] = useState<string | null>(null);
   const [selected, setSelected] = useState<string[]>([]);
   const [played, setPlayed] = useState<string | null>(null);
   const locked = answered !== null;
 
   const fen = 'fen' in q ? q.fen : undefined;
-  const promotionLabels = {
-    title: tg('choosePromotion'),
-    cancel: tg('cancel'),
-    pieces: { q: tg('pieces.q'), r: tg('pieces.r'), b: tg('pieces.b'), n: tg('pieces.n') },
-  };
 
   // Square marks for select-squares (selection, then the corrected answer).
   const marks: Record<string, SquareMark> = {};
@@ -65,9 +79,9 @@ export function QuizQuestionView({ question: q, text, answered, onAnswer }: Prop
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,480px)_1fr]">
+    <div className={cn('grid gap-6', !compact && 'lg:grid-cols-[minmax(0,480px)_1fr]')}>
       {fen && (
-        <div className="mx-auto w-full max-w-[480px]">
+        <div className={cn('mx-auto w-full', compact ? 'max-w-[360px]' : 'max-w-[480px]')}>
           <ChessBoard
             fen={fen}
             orientation={turnOf(fen) === 'b' && q.kind === 'make-move' ? 'black' : 'white'}
@@ -80,13 +94,13 @@ export function QuizQuestionView({ question: q, text, answered, onAnswer }: Prop
             }
             onMove={onMove}
             onSquareSelect={q.kind === 'select-squares' ? toggleSquare : undefined}
-            promotionLabels={promotionLabels}
+            promotionLabels={labels.promotion}
           />
         </div>
       )}
 
-      <div className={cn('flex flex-col gap-4', !fen && 'lg:col-span-2')}>
-        <p className="font-display text-xl font-semibold">{text.prompt}</p>
+      <div className={cn('flex flex-col gap-4', !fen && !compact && 'lg:col-span-2')}>
+        {prompt ?? <p className="font-display text-xl font-semibold">{text.prompt}</p>}
 
         {q.kind === 'choice' && (
           <ul className="flex flex-col gap-2">
@@ -120,21 +134,23 @@ export function QuizQuestionView({ question: q, text, answered, onAnswer }: Prop
 
         {q.kind === 'select-squares' && (
           <>
-            <p className="text-sm text-muted">{t('selectHint')}</p>
+            <p className="text-sm text-muted">{labels.selectHint}</p>
             {!locked && (
               <div>
                 <Button
                   variant="primary"
                   onClick={() => onAnswer(checkSquares(q, selected).correct)}
                 >
-                  {t('check')}
+                  {labels.check}
                 </Button>
               </div>
             )}
           </>
         )}
 
-        {q.kind === 'make-move' && !locked && <p className="text-sm text-muted">{t('moveHint')}</p>}
+        {q.kind === 'make-move' && !locked && (
+          <p className="text-sm text-muted">{labels.moveHint}</p>
+        )}
       </div>
     </div>
   );

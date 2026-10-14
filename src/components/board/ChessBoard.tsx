@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState, type CSSProperties } from 'react';
+import { useId, useMemo, useState, type CSSProperties } from 'react';
 import { Chessboard, defaultPieces, type ChessboardOptions } from 'react-chessboard';
 import {
   checkedKingSquare,
@@ -76,6 +76,8 @@ export function ChessBoard({
   onSquareSelect,
   className,
 }: ChessBoardProps) {
+  // Unique per board: lessons show several boards on one page.
+  const boardId = `mc-board-${useId().replace(/:/g, '')}`;
   const [selected, setSelected] = useState<Square | null>(null);
   const [pendingPromotion, setPendingPromotion] = useState<{ from: Square; to: Square } | null>(
     null,
@@ -142,7 +144,7 @@ export function ChessBoard({
   }, [fen, lastMove, selected, targets, marks, onSquareSelect]);
 
   const options: ChessboardOptions = {
-    id: 'mc-board',
+    id: boardId,
     position: fen,
     boardOrientation: orientation,
     boardStyle: BOARD_STYLE,

@@ -7,6 +7,8 @@ import {
   legalUciMoves,
   moveToUci,
   newGame,
+  pieceColorAt,
+  turnOf,
   undoMove,
   uciToMove,
   type GameSnapshot,
@@ -110,5 +112,15 @@ describe('core/chess/moveSound', () => {
     expect(moveSound({ flags: 'k' }, playing)).toBe('castle');
     expect(moveSound({ flags: 'cp' }, playing)).toBe('promote');
     expect(moveSound({ flags: 'c' }, { ...playing, inCheck: true })).toBe('check');
+  });
+});
+
+describe('core/chess/game diagrams', () => {
+  it('handles diagram positions without kings in read-only helpers', () => {
+    const empty = '8/8/8/8/8/8/8/8 w - - 0 1';
+    expect(turnOf(empty)).toBe('w');
+    expect(checkedKingSquare(empty)).toBeNull();
+    expect(pieceColorAt(empty, 'e4')).toBeNull();
+    expect(legalTargets('8/8/8/8/3R4/8/8/8 w - - 0 1', 'd4')).toHaveLength(14);
   });
 });

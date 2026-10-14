@@ -1,7 +1,8 @@
+import createMDX from '@next/mdx';
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  pageExtensions: ['ts', 'tsx', 'mdx'],
   cacheComponents: true,
   partialPrefetching: true,
   experimental: {
@@ -19,4 +20,9 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+// Lessons are MDX (content/learn/<locale>/<id>.mdx). Plugins are passed by name for Turbopack.
+const withMDX = createMDX({
+  options: { remarkPlugins: ['remark-gfm'] },
+});
+
+export default withMDX(nextConfig);

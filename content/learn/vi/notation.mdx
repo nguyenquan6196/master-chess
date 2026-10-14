@@ -1,0 +1,35 @@
+Mỗi ô trên bàn cờ có một **cái tên** gồm chữ cái của cột và số của hàng. Ví dụ ô ở cột **e**, hàng **4** tên là **e4**.
+
+<Board squares="e4 d5 a1 h8">Các ô e4, d5, a1 và h8.</Board>
+
+## Ghi lại nước đi
+
+Người chơi cờ dùng **ký hiệu đại số** để ghi ván cờ. Mỗi quân có một chữ viết tắt (theo tiếng Anh):
+
+| Quân | Chữ | Ví dụ |
+|---|---|---|
+| Vua | K | Ke2 |
+| Hậu | Q | Qh5 |
+| Xe | R | Rd1 |
+| Tượng | B | Bc4 |
+| Mã | N | Nf3 |
+| Tốt | _(không có)_ | e4 |
+
+Một nước đi = chữ của quân + ô đến. **Nf3** nghĩa là "Mã đi tới f3". Riêng Tốt chỉ ghi ô đến: **e4**.
+
+## Các ký hiệu đặc biệt
+
+- **x** — ăn quân: _Bxc6_ (Tượng ăn quân ở c6), _exd5_ (Tốt cột e ăn ở d5).
+- **+** — chiếu, **#** — chiếu hết.
+- **O-O** — nhập thành gần, **O-O-O** — nhập thành xa.
+- **=Q** — phong cấp thành Hậu: _e8=Q_.
+
+<MoveSequence moves="e4 e5 Nf3 Nc6 Bb5">Bấm ▶ để xem từng nước: 1. e4 e5 2. Nf3 Nc6 3. Bb5.</MoveSequence>
+
+<Exercise kind="make-move" fen="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1" answers="e2e4" explain="Nước e4 là nước mở đầu phổ biến nhất trong cờ vua.">
+Hãy đi nước **e4**.
+</Exercise>
+
+<Callout type="tip">
+Trong app, danh sách nước đi dùng ký hiệu này, nên đọc quen bạn sẽ dễ xem lại ván của mình.
+</Callout>

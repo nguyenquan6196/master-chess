@@ -1,0 +1,27 @@
+**Nhập thành** là nước đi đặc biệt duy nhất mà **hai quân di chuyển cùng lúc**: Vua và Xe. Nó giúp Vua vào nơi an toàn và đưa Xe ra trận.
+
+## Cách nhập thành
+
+- **Nhập thành gần** (O-O): Vua đi 2 ô về phía Xe gần (e1 → g1), Xe nhảy qua đứng cạnh Vua (h1 → f1).
+- **Nhập thành xa** (O-O-O): Vua đi 2 ô về phía Xe xa (e1 → c1), Xe từ a1 sang d1.
+
+<MoveSequence fen="r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R w KQkq - 0 1" moves="O-O O-O-O">Trắng nhập thành gần, Đen nhập thành xa.</MoveSequence>
+
+<Callout type="tip">
+Trong app, chỉ cần **kéo Vua đi 2 ô** về phía Xe — Xe sẽ tự di chuyển.
+</Callout>
+
+## Bốn điều kiện
+
+<Callout type="rule">
+1. Vua và Xe đó **chưa từng di chuyển**.
+2. Các ô giữa Vua và Xe **phải trống**.
+3. Vua **không đang bị chiếu**.
+4. Vua **không đi qua và không đứng vào** ô bị tấn công.
+</Callout>
+
+<Board fen="4k3/8/8/8/8/8/5r2/R3K2R w KQ - 0 1" squares="f1">Xe Đen kiểm soát f1, nên Trắng không thể nhập thành gần — nhưng nhập thành xa thì được.</Board>
+
+<Exercise kind="make-move" fen="r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4" answers="e1g1" explain="O-O: Vua đã an toàn ở g1 và Xe f1 sẵn sàng tham chiến.">
+Trắng đã ra Mã và Tượng. Giờ hãy **nhập thành gần**.
+</Exercise>

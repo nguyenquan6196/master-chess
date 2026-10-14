@@ -1,0 +1,33 @@
+## Check
+
+When a piece attacks the king, the king is in **check**. The side in check **must get out of check on the very next move**, in one of three ways:
+
+1. **Move** — step the king to a safe square.
+2. **Block** — put a piece between the king and the attacker.
+3. **Capture** — take the checking piece.
+
+<Board fen="4r1k1/8/8/8/8/8/8/4K3 w - - 0 1" arrows="e8e1">The black rook checks the white king along the e-file.</Board>
+
+<Exercise kind="make-move" fen="4r1k1/8/8/8/8/8/3B4/4K3 w - - 0 1" answers="d2e3" explain="Be3 blocks the rook. With the bishop in between, the king is no longer in check.">
+The white king is in check. **Block the check** with your bishop.
+</Exercise>
+
+<Exercise kind="make-move" fen="4k3/8/8/8/8/8/4q3/3RK3 w - - 0 1" answers="e1e2" explain="Kxe2: the black queen is right next to the king with no protection, so the king simply takes it!">
+The black queen gives check and is undefended. **Capture the checking piece**.
+</Exercise>
+
+## Checkmate
+
+If the king is in check and there is **no way out** — it cannot move, block or capture — it is **checkmate** and the game is over. The side that delivered mate wins.
+
+<MoveSequence moves="f3 e5 g4 Qh4#">The fastest possible checkmate: after just 2 moves, White loses for opening the way for the black queen.</MoveSequence>
+
+## Stalemate
+
+If it is a side's turn, their king is **not in check**, but they have **no legal moves**, the game is a **draw** — called **stalemate**.
+
+<Board fen="7k/5Q2/6K1/8/8/8/8/8 b - - 0 1">Black to move: the king is not in check, but every square is covered. Stalemate!</Board>
+
+<Callout type="warning">
+When you are winning big, be careful not to stalemate your opponent. Always leave the enemy king at least one move until you deliver mate.
+</Callout>

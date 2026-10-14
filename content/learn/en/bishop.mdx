@@ -1,0 +1,21 @@
+Each side has **2 bishops**: one on light squares, one on dark squares.
+
+## How it moves
+
+A bishop moves **diagonally**, any number of squares, as long as **nothing is in the way**. Because it only moves diagonally, a bishop **stays on one color all game**.
+
+<Board fen="4k3/8/8/8/3B4/8/8/4K3 w - - 0 1" show="d4">A bishop on d4 controls two long diagonals.</Board>
+
+## Blocked, and capturing
+
+A bishop cannot pass through pieces. It can **capture** an enemy piece in its path, but must stop before one of its own.
+
+<Board fen="4k3/8/1p6/8/3B4/8/5P2/4K3 w - - 0 1" show="d4">The bishop can capture the b6 pawn but is blocked by its own pawn on f2.</Board>
+
+<Exercise kind="make-move" fen="4k3/6r1/8/8/8/2B5/8/4K3 w - - 0 1" answers="c3g7" explain="Bxg7: the bishop slides along the c3–g7 diagonal and wins the rook for free.">
+The black rook on g7 is undefended. Capture it with your **bishop**.
+</Exercise>
+
+<Callout type="tip">
+Bishops love **open diagonals**. A bishop stuck behind its own pawns is called a "bad bishop".
+</Callout>

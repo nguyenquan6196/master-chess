@@ -20,6 +20,7 @@ const profile: Profile = {
   puzzleRating: DEFAULT_PUZZLE_RATING,
   rushBest: { '3m': 12 },
   quizBest: { all: 0.8 },
+  lessons: { pawn: { completedAt: 3, score: 1 } },
 };
 
 const attempt: PuzzleAttempt = {
@@ -81,8 +82,8 @@ describe('core/profile/saveFile', () => {
 });
 
 describe('core/profile/saveFile migration', () => {
-  it('upgrades a v1 file (no puzzle data) to v2', () => {
-    const v2Only = ['puzzleRating', 'rushBest', 'quizBest'];
+  it('upgrades a v1 file (no puzzle or lesson data) to the current version', () => {
+    const v2Only = ['puzzleRating', 'rushBest', 'quizBest', 'lessons'];
     const v1Profile = Object.fromEntries(
       Object.entries(profile).filter(([k]) => !v2Only.includes(k)),
     );
@@ -96,7 +97,8 @@ describe('core/profile/saveFile migration', () => {
     const parsed = parseSaveFile(JSON.stringify(v1));
     expect(parsed.ok).toBe(true);
     if (!parsed.ok) return;
-    expect(parsed.data.schemaVersion).toBe(2);
+    expect(parsed.data.schemaVersion).toBe(SAVE_SCHEMA_VERSION);
+    expect(parsed.data.profile.lessons).toEqual({});
     expect(parsed.data.profile.puzzleRating).toEqual(DEFAULT_PUZZLE_RATING);
     expect(parsed.data.profile.rushBest).toEqual({});
     expect(parsed.data.puzzleAttempts).toEqual([]);

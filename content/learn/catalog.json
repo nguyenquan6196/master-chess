@@ -1,0 +1,284 @@
+{
+  "chapters": [
+    {
+      "id": "basics",
+      "emoji": "♟️",
+      "title": { "vi": "Cơ bản", "en": "Basics", "ja": "基本" },
+      "lessons": [
+        {
+          "id": "board",
+          "emoji": "🏁",
+          "minutes": 4,
+          "requires": [],
+          "title": { "vi": "Bàn cờ", "en": "The board", "ja": "チェス盤" },
+          "summary": {
+            "vi": "64 ô, hàng ngang, cột dọc và cách đặt bàn cờ cho đúng.",
+            "en": "64 squares, ranks, files and setting up the board correctly.",
+            "ja": "64マス、ランクとファイル、盤の正しい置き方。"
+          },
+          "quiz": ["board-squares", "board-corner", "who-moves-first"]
+        },
+        {
+          "id": "notation",
+          "emoji": "🔤",
+          "minutes": 4,
+          "requires": ["board"],
+          "title": {
+            "vi": "Tên ô và ký hiệu",
+            "en": "Squares & notation",
+            "ja": "マスの名前と棋譜"
+          },
+          "summary": {
+            "vi": "Gọi tên từng ô và đọc ký hiệu nước đi như e4, Nf3, O-O.",
+            "en": "Name every square and read moves like e4, Nf3, O-O.",
+            "ja": "マスの名前と、e4・Nf3・O-O などの棋譜の読み方。"
+          },
+          "quiz": ["notation-square", "notation-capture", "notation-check-mate", "notation-knight"]
+        },
+        {
+          "id": "pawn",
+          "emoji": "♙",
+          "minutes": 5,
+          "requires": ["notation"],
+          "title": { "vi": "Tốt", "en": "The pawn", "ja": "ポーン" },
+          "summary": {
+            "vi": "Quân nhỏ nhất: đi thẳng, ăn chéo, không bao giờ lùi.",
+            "en": "The smallest piece: moves straight, captures diagonally, never goes back.",
+            "ja": "一番小さな駒：まっすぐ進み、斜めに取り、後ろには戻れない。"
+          },
+          "quiz": ["pawn-backward", "pawn-two-steps", "sq-pawn-capture"]
+        },
+        {
+          "id": "knight",
+          "emoji": "♘",
+          "minutes": 5,
+          "requires": ["pawn"],
+          "title": { "vi": "Mã", "en": "The knight", "ja": "ナイト" },
+          "summary": {
+            "vi": "Đi hình chữ L và là quân duy nhất nhảy qua được quân khác.",
+            "en": "Moves in an L-shape and is the only piece that can jump.",
+            "ja": "L字に動き、他の駒を飛び越えられる唯一の駒。"
+          },
+          "quiz": ["knight-jumps", "sq-knight-center", "sq-knight-corner"]
+        },
+        {
+          "id": "bishop",
+          "emoji": "♗",
+          "minutes": 4,
+          "requires": ["knight"],
+          "title": { "vi": "Tượng", "en": "The bishop", "ja": "ビショップ" },
+          "summary": {
+            "vi": "Đi chéo bao xa cũng được, luôn ở trên một màu ô.",
+            "en": "Moves diagonally any distance and stays on one color.",
+            "ja": "斜めにどこまでも進み、ずっと同じ色のマスにいる。"
+          },
+          "quiz": ["bishop-color", "sq-bishop"]
+        },
+        {
+          "id": "rook",
+          "emoji": "♖",
+          "minutes": 4,
+          "requires": ["bishop"],
+          "title": { "vi": "Xe", "en": "The rook", "ja": "ルーク" },
+          "summary": {
+            "vi": "Đi thẳng theo hàng và cột — mạnh nhất khi có đường mở.",
+            "en": "Moves along ranks and files — strongest on open lines.",
+            "ja": "縦横にまっすぐ進む。開いたラインで最も強い。"
+          },
+          "quiz": ["sq-rook", "value-rook"]
+        },
+        {
+          "id": "queen",
+          "emoji": "♕",
+          "minutes": 4,
+          "requires": ["rook"],
+          "title": { "vi": "Hậu", "en": "The queen", "ja": "クイーン" },
+          "summary": {
+            "vi": "Quân mạnh nhất: kết hợp Xe và Tượng.",
+            "en": "The strongest piece: a rook and a bishop in one.",
+            "ja": "最強の駒：ルークとビショップを合わせた動き。"
+          },
+          "quiz": ["sq-queen", "queen-own-color", "value-queen"]
+        },
+        {
+          "id": "king",
+          "emoji": "♔",
+          "minutes": 5,
+          "requires": ["queen"],
+          "title": { "vi": "Vua", "en": "The king", "ja": "キング" },
+          "summary": {
+            "vi": "Quân quan trọng nhất: đi 1 ô, không bao giờ được để bị ăn.",
+            "en": "The most important piece: one step at a time, must never be captured.",
+            "ja": "最も大切な駒：1マスずつ動き、決して取られてはいけない。"
+          },
+          "quiz": ["sq-king", "kings-adjacent", "check-meaning"]
+        },
+        {
+          "id": "values",
+          "emoji": "⚖️",
+          "minutes": 5,
+          "requires": ["king"],
+          "title": { "vi": "Giá trị quân cờ", "en": "Piece values", "ja": "駒の価値" },
+          "summary": {
+            "vi": "Tốt 1, Mã 3, Tượng 3, Xe 5, Hậu 9 — và khi nào nên đổi quân.",
+            "en": "Pawn 1, knight 3, bishop 3, rook 5, queen 9 — and when to trade.",
+            "ja": "ポーン1・ナイト3・ビショップ3・ルーク5・クイーン9、そして交換の考え方。"
+          },
+          "quiz": ["value-queen", "value-minor", "mv-hanging"],
+          "practiceTheme": "hangingPiece"
+        }
+      ]
+    },
+    {
+      "id": "rules",
+      "emoji": "📜",
+      "title": { "vi": "Luật chơi", "en": "Rules", "ja": "ルール" },
+      "lessons": [
+        {
+          "id": "check",
+          "emoji": "⚔️",
+          "minutes": 6,
+          "requires": ["values"],
+          "title": {
+            "vi": "Chiếu, chiếu hết, hòa pat",
+            "en": "Check, mate & stalemate",
+            "ja": "チェック・メイト・ステイルメイト"
+          },
+          "summary": {
+            "vi": "Ba cách thoát chiếu, khi nào là chiếu hết, khi nào là hòa pat.",
+            "en": "Three ways out of check, what checkmate is, and stalemate.",
+            "ja": "チェックから逃れる3つの方法、チェックメイトとステイルメイト。"
+          },
+          "quiz": ["checkmate-meaning", "sq-escape-check", "mv-escape-check", "stalemate-result"],
+          "practiceTheme": "mateIn1"
+        },
+        {
+          "id": "castling",
+          "emoji": "🏰",
+          "minutes": 5,
+          "requires": ["check"],
+          "title": { "vi": "Nhập thành", "en": "Castling", "ja": "キャスリング" },
+          "summary": {
+            "vi": "Nước đặc biệt đưa Vua vào nơi an toàn — và 4 điều kiện.",
+            "en": "The special move that tucks the king away — and its four conditions.",
+            "ja": "キングを安全な場所に移す特別な手と、その4つの条件。"
+          },
+          "quiz": ["mv-castle-short", "mv-castle-long", "castle-in-check", "castle-king-moved"],
+          "practiceTheme": "castling"
+        },
+        {
+          "id": "en-passant",
+          "emoji": "👻",
+          "minutes": 4,
+          "requires": ["castling"],
+          "title": { "vi": "Bắt tốt qua đường", "en": "En passant", "ja": "アンパッサン" },
+          "summary": {
+            "vi": "Luật lạ nhất của cờ vua, chỉ có một cơ hội duy nhất.",
+            "en": "Chess's strangest rule — and you only get one chance.",
+            "ja": "チェスで一番不思議なルール。チャンスは一度だけ。"
+          },
+          "quiz": ["mv-en-passant", "en-passant-timing"],
+          "practiceTheme": "enPassant"
+        },
+        {
+          "id": "promotion",
+          "emoji": "👑",
+          "minutes": 4,
+          "requires": ["en-passant"],
+          "title": { "vi": "Phong cấp", "en": "Promotion", "ja": "プロモーション" },
+          "summary": {
+            "vi": "Tốt đi tới hàng cuối sẽ hoá thành quân mạnh hơn.",
+            "en": "A pawn that reaches the last rank becomes a stronger piece.",
+            "ja": "最終ランクに着いたポーンは強い駒に変わる。"
+          },
+          "quiz": ["mv-promote", "promotion-pieces"],
+          "practiceTheme": "promotion"
+        },
+        {
+          "id": "draws",
+          "emoji": "🤝",
+          "minutes": 5,
+          "requires": ["promotion"],
+          "title": { "vi": "Các trường hợp hòa", "en": "Draws", "ja": "引き分け" },
+          "summary": {
+            "vi": "Hòa pat, lặp lại 3 lần, luật 50 nước và không đủ quân.",
+            "en": "Stalemate, threefold repetition, the fifty-move rule and insufficient material.",
+            "ja": "ステイルメイト、同一局面3回、50手ルール、戦力不足。"
+          },
+          "quiz": ["draw-threefold", "draw-fifty", "draw-insufficient"]
+        }
+      ]
+    },
+    {
+      "id": "principles",
+      "emoji": "🧠",
+      "title": { "vi": "Nguyên tắc", "en": "Principles", "ja": "考え方" },
+      "lessons": [
+        {
+          "id": "opening",
+          "emoji": "🚀",
+          "minutes": 6,
+          "requires": ["draws"],
+          "title": {
+            "vi": "Nguyên tắc khai cuộc",
+            "en": "Opening principles",
+            "ja": "オープニングの原則"
+          },
+          "summary": {
+            "vi": "Chiếm trung tâm, phát triển quân, nhập thành sớm.",
+            "en": "Take the center, develop your pieces, castle early.",
+            "ja": "センターを取り、駒を展開し、早めにキャスリング。"
+          },
+          "quiz": ["opening-center", "opening-develop", "opening-castle"],
+          "practiceTheme": "opening"
+        },
+        {
+          "id": "tactics",
+          "emoji": "🗡️",
+          "minutes": 7,
+          "requires": ["opening"],
+          "title": { "vi": "Đòn chiến thuật cơ bản", "en": "Basic tactics", "ja": "基本の戦術" },
+          "summary": {
+            "vi": "Chĩa đôi, ghim và xiên — ba đòn giúp bạn thắng quân.",
+            "en": "Forks, pins and skewers — three ways to win material.",
+            "ja": "フォーク・ピン・スキュア：駒得する3つの手筋。"
+          },
+          "quiz": ["tactic-fork", "tactic-pin", "tactic-skewer", "mv-fork"],
+          "practiceTheme": "fork"
+        },
+        {
+          "id": "mates",
+          "emoji": "🎯",
+          "minutes": 6,
+          "requires": ["tactics"],
+          "title": {
+            "vi": "Các thế chiếu hết cơ bản",
+            "en": "Basic checkmates",
+            "ja": "基本のチェックメイト"
+          },
+          "summary": {
+            "vi": "Chiếu hết hàng cuối, chiếu hết bằng Hậu và Vua phối hợp.",
+            "en": "Back-rank mate and mating with queen and king together.",
+            "ja": "バックランクメイトと、クイーンとキングの協力メイト。"
+          },
+          "quiz": ["mv-mate-back-rank", "mv-mate-queen"],
+          "practiceTheme": "backRankMate"
+        },
+        {
+          "id": "endgame",
+          "emoji": "🏁",
+          "minutes": 6,
+          "requires": ["mates"],
+          "title": { "vi": "Tàn cuộc cơ bản", "en": "Basic endgames", "ja": "基本のエンドゲーム" },
+          "summary": {
+            "vi": "Vua phải tích cực, đẩy tốt thông và chiếu hết bằng Xe.",
+            "en": "Activate your king, push passed pawns and mate with a rook.",
+            "ja": "キングを活躍させ、パスポーンを進め、ルークでメイト。"
+          },
+          "quiz": ["draw-insufficient", "mv-promote"],
+          "practiceTheme": "endgame"
+        }
+      ]
+    }
+  ]
+}

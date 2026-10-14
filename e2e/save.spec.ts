@@ -19,7 +19,9 @@ test('export the save file, delete the player and import it back', async ({ page
   ]);
   const path = await download.path();
   const save = JSON.parse(readFileSync(path, 'utf8'));
-  expect(save).toMatchObject({ app: 'master-chess', schemaVersion: 2 });
+  expect(save.app).toBe('master-chess');
+  expect(save.schemaVersion).toBeGreaterThanOrEqual(3);
+  expect(save.profile.lessons).toEqual({});
   expect(save.profile.name).toBe('Người lưu');
   expect(save.games).toHaveLength(1);
   expect(Array.isArray(save.puzzleAttempts)).toBe(true);

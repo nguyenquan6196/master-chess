@@ -303,5 +303,33 @@
     "notation": "棋譜表記",
     "strategy": "考え方",
     "tactics": "戦術"
+  },
+  "learn": {
+    "title": "チェスを学ぶ",
+    "subtitle": "基本ルールから戦術まで一歩ずつ。1レッスン数分、盤面で試しながら学べます。",
+    "continue": "続きから",
+    "start": "学習を始める",
+    "progress": "{done}/{total} レッスン",
+    "minutes": "{minutes}分",
+    "locked": "「{lesson}」を終えると解放されます",
+    "goToLesson": "そのレッスンへ",
+    "completed": "完了",
+    "review": "復習する",
+    "tryIt": "やってみよう",
+    "tryAgain": "もう一度",
+    "first": "最初へ",
+    "prev": "前の手",
+    "next": "次の手",
+    "last": "最後へ",
+    "quizTitle": "確認クイズ",
+    "answerAll": "すべての問題に答えるとレッスン完了です。",
+    "finish": "レッスンを完了",
+    "finished": "完了！🎉",
+    "score": "正答率 {percent}%",
+    "nextLesson": "次のレッスン",
+    "practiceMore": "もっと練習：{theme}",
+    "backToLessons": "レッスン一覧",
+    "noTranslation": "このレッスンはまだ翻訳されていません。{language}版を表示しています。",
+    "allDone": "すべてのレッスンを終えました！🎓"
   }
 }

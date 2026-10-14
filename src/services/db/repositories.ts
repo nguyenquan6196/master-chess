@@ -33,6 +33,7 @@ export const profileRepo = {
       puzzleRating: { ...DEFAULT_PUZZLE_RATING },
       rushBest: {},
       quizBest: {},
+      lessons: {},
     };
     await getDb().profiles.add(profile);
     return profile;
@@ -52,7 +53,7 @@ export const profileRepo = {
 
   async update(
     id: string,
-    patch: Partial<Pick<Profile, 'puzzleRating' | 'rushBest' | 'quizBest'>>,
+    patch: Partial<Pick<Profile, 'puzzleRating' | 'rushBest' | 'quizBest' | 'lessons'>>,
   ): Promise<void> {
     await getDb().profiles.update(id, patch);
   },

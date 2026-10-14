@@ -1,10 +1,15 @@
 'use client';
 
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'use-intl';
 import { Button } from '@/components/ui/Button';
 import type { PuzzleSession } from '@/core/puzzle/session';
-import { TRAINING_THEMES, type Puzzle, type TrainingTheme } from '@/core/puzzle/types';
+import {
+  isTrainingTheme,
+  TRAINING_THEMES,
+  type Puzzle,
+  type TrainingTheme,
+} from '@/core/puzzle/types';
 import { puzzleRepo } from '@/services/db/repositories';
 import { useSession } from '@/services/profile/session';
 import { nextThemePuzzle, recordPuzzleAttempt } from '@/services/puzzles/puzzles';
@@ -15,26 +20,42 @@ export function ThemeTraining() {
   const t = useTranslations('puzzle');
   const tp = useTranslations('practice');
   const tt = useTranslations('puzzleThemes');
-  const [theme, setTheme] = useState<TrainingTheme | null>(null);
+  // A lesson can link straight to a theme: /practice/themes#fork
+  const [theme, setTheme] = useState<TrainingTheme | null>(() => {
+    const hash = typeof window === 'undefined' ? '' : window.location.hash.slice(1);
+    return isTrainingTheme(hash) ? hash : null;
+  });
   const [puzzle, setPuzzle] = useState<Puzzle | null>(null);
   const [state, setState] = useState<'loading' | 'ready' | 'error' | 'empty'>('loading');
   const seen = useRef<Set<string> | null>(null);
   const recorded = useRef(false);
 
-  const loadNext = useCallback(async (th: TrainingTheme) => {
+  const fetchPuzzle = useCallback(async (th: TrainingTheme): Promise<Puzzle | null> => {
     const profile = useSession.getState().profile;
-    if (!profile) return;
-    setState('loading');
-    try {
-      seen.current ??= await puzzleRepo.seenIds(profile.id);
-      const p = await nextThemePuzzle(th, profile.puzzleRating.rating, seen.current);
-      recorded.current = false;
-      setPuzzle(p);
-      setState(p ? 'ready' : 'empty');
-    } catch {
-      setState('error');
-    }
+    if (!profile) return null;
+    seen.current ??= await puzzleRepo.seenIds(profile.id);
+    return nextThemePuzzle(th, profile.puzzleRating.rating, seen.current);
   }, []);
+
+  const show = useCallback((p: Puzzle | null) => {
+    recorded.current = false;
+    setPuzzle(p);
+    setState(p ? 'ready' : 'empty');
+  }, []);
+
+  const loadNext = useCallback(
+    (th: TrainingTheme) => {
+      setState('loading');
+      fetchPuzzle(th).then(show, () => setState('error'));
+    },
+    [fetchPuzzle, show],
+  );
+
+  // Theme chosen from the URL hash on first render.
+  const initialTheme = useRef(theme);
+  useEffect(() => {
+    if (initialTheme.current) fetchPuzzle(initialTheme.current).then(show, () => setState('error'));
+  }, [fetchPuzzle, show]);
 
   const record = useCallback(async (session: PuzzleSession, ms: number) => {
     const profile = useSession.getState().profile;
@@ -56,7 +77,7 @@ export function ThemeTraining() {
                 type="button"
                 onClick={() => {
                   setTheme(th);
-                  void loadNext(th);
+                  loadNext(th);
                 }}
                 className="w-full rounded-xl border border-border bg-surface px-3 py-3 text-left text-sm font-semibold transition-transform hover:-translate-y-0.5 hover:border-accent"
               >
@@ -78,7 +99,7 @@ export function ThemeTraining() {
         </Button>
       </div>
       {state !== 'ready' || !puzzle ? (
-        <PuzzleStatus state={state} onRetry={() => void loadNext(theme)} />
+        <PuzzleStatus state={state} onRetry={() => loadNext(theme)} />
       ) : (
         <PuzzleRunner
           key={puzzle.id}
@@ -87,7 +108,7 @@ export function ThemeTraining() {
           onMistake={(s, ms) => void record(s, ms)}
           actions={(solver) =>
             solver.solved && (
-              <Button variant="primary" onClick={() => void loadNext(theme)}>
+              <Button variant="primary" onClick={() => loadNext(theme)}>
                 {t('next')} →
               </Button>
             )

@@ -1,0 +1,31 @@
+A **tactic** is a short sequence of moves that wins material or delivers mate. Here are the three most basic ones.
+
+## The fork
+
+One piece **attacks two enemy pieces at once**. Your opponent can only save one.
+
+<Exercise kind="make-move" fen="4k3/8/q7/1N6/8/8/8/4K3 w - - 0 1" answers="b5c7" explain="Nc7+ checks the king and attacks the queen at the same time. The king must move, and you take the queen!">
+Find the knight move that **forks the black king and queen**.
+</Exercise>
+
+<Callout type="tip">
+The knight is the "fork master": it attacks in an L-shape that other pieces struggle to defend against.
+</Callout>
+
+## The pin
+
+A piece **cannot** (or should not) move because it would expose a more valuable piece behind it.
+
+<Board fen="4k3/8/2n5/1B6/8/8/8/4K3 w - - 0 1" arrows="b5e8">The b5 bishop pins the c6 knight to the king: the knight may not move.</Board>
+
+<Exercise kind="make-move" fen="4k3/8/4n3/8/8/8/8/R4K2 w - - 0 1" answers="a1e1" explain="Re1 pins the knight to the king. It cannot run, and you can attack it again.">
+Use your rook to **pin the black knight to the king**.
+</Exercise>
+
+## The skewer
+
+The reverse of a pin: attack a **valuable piece in front**, forcing it to move and expose the piece behind.
+
+<Exercise kind="make-move" fen="3q4/8/8/3k4/8/8/8/R3K3 w - - 0 1" answers="a1d1" explain="Rd1+! The king must leave the d-file, and then the rook takes the queen on d8.">
+**Skewer** the black king and queen with your rook.
+</Exercise>

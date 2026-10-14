@@ -20,6 +20,14 @@ export interface MoveInput {
 
 export const START_FEN = new Chess().fen();
 
+/**
+ * Loads a position for read-only queries (legal targets, colors, check). Diagrams in
+ * lessons may omit kings, which strict validation rejects, so validation is skipped.
+ */
+function view(fen: string): Chess {
+  return new Chess(fen, { skipValidation: true });
+}
+
 /** Immutable snapshot of a game, safe to keep in React state. */
 export interface GameSnapshot {
   startFen: string;
@@ -78,13 +86,13 @@ export function undoMove(game: GameSnapshot): GameSnapshot {
 
 /** Destination squares the piece on `square` can legally move to. */
 export function legalTargets(fen: string, square: Square): Square[] {
-  const chess = new Chess(fen);
+  const chess = view(fen);
   return chess.moves({ square, verbose: true }).map((m) => m.to);
 }
 
 /** True when moving from→to is a legal pawn move that requires choosing a promotion piece. */
 export function isPromotionMove(fen: string, from: Square, to: Square): boolean {
-  const chess = new Chess(fen);
+  const chess = view(fen);
   return chess
     .moves({ square: from, verbose: true })
     .some((m) => m.to === to && m.promotion !== undefined);
@@ -92,17 +100,17 @@ export function isPromotionMove(fen: string, from: Square, to: Square): boolean 
 
 /** Square of the king of the side to move if it is in check, otherwise null. */
 export function checkedKingSquare(fen: string): Square | null {
-  const chess = new Chess(fen);
+  const chess = view(fen);
   if (!chess.inCheck()) return null;
   return chess.findPiece({ type: 'k', color: chess.turn() })[0] ?? null;
 }
 
 export function pieceColorAt(fen: string, square: Square): Color | null {
-  return new Chess(fen).get(square)?.color ?? null;
+  return view(fen).get(square)?.color ?? null;
 }
 
 export function turnOf(fen: string): Color {
-  return new Chess(fen).turn();
+  return view(fen).turn();
 }
 
 export function toPgn(game: GameSnapshot, headers: Record<string, string> = {}): string {
@@ -128,4 +136,41 @@ export function moveToUci(move: { from: string; to: string; promotion?: string }
 /** All legal moves of the side to move, in UCI notation. */
 export function legalUciMoves(fen: string): string[] {
   return new Chess(fen).moves({ verbose: true }).map(moveToUci);
+}
+
+export interface LinePosition {
+  fen: string;
+  /** The move that led to this position (null for the start). */
+  move: { from: string; to: string; san: string } | null;
+}
+
+/**
+ * Positions along a line of SAN moves (e.g. "e4 e5 Nf3"), starting with `startFen`.
+ * Stops at the first illegal move.
+ */
+export function positionsFromSan(
+  sans: readonly string[],
+  startFen: string = START_FEN,
+): LinePosition[] {
+  const chess = new Chess(startFen);
+  const out: LinePosition[] = [{ fen: chess.fen(), move: null }];
+  for (const san of sans) {
+    try {
+      const m = chess.move(san);
+      out.push({ fen: chess.fen(), move: { from: m.from, to: m.to, san: m.san } });
+    } catch {
+      break;
+    }
+  }
+  return out;
+}
+
+/** True when `fen` loads as a legal chess position. */
+export function isValidFen(fen: string): boolean {
+  try {
+    new Chess(fen);
+    return true;
+  } catch {
+    return false;
+  }
 }

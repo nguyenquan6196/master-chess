@@ -10,7 +10,7 @@
 | 0 | Khởi tạo & nền tảng (gồm CI, kiến trúc phân lớp) — ✅ xong | 1.5 tuần | Repo, Next.js, bàn cờ chơi 2 người cùng máy |
 | 1 | Đấu bot (MVP) — ✅ xong | 2 tuần | Chơi với Stockfish, 8 mức độ khó |
 | 2 | Puzzle & Quiz — ✅ code xong, chờ chơi thử | 2 tuần | Puzzle rated, theo chủ đề, quiz |
-| 3 | Learn | 2–3 tuần | 15–20 bài học MDX tương tác |
+| 3 | Learn — ✅ code xong, chờ đọc thử | 2–3 tuần | 18 bài học MDX tương tác × 3 ngôn ngữ |
 | 4 | Bot persona & Game Review | 2 tuần | Phong cách bot, phân tích ván sau trận |
 | 5 | Hoa hòe: theme, âm thanh, ngôn ngữ, gamification | 3–4 tuần | 8 theme + tuỳ chỉnh, nhạc nền, vi/en/ja, XP, huy hiệu, PWA |
 | 6 | 3D board | 2 tuần | Chế độ 3D tuỳ chọn |
@@ -108,20 +108,23 @@
 
 **Done khi:** giải puzzle liên tục không lặp, rating thay đổi hợp lý. ✅ Kiểm tra thực tế: puzzle ~874 cho người chơi 800; xem lời giải → 800 → 680. **Cần bạn chơi thử** để cảm nhận độ khó/điểm.
 
-## Phase 3 — Learn
-- [ ] Cấu hình MDX (`@next/mdx` hoặc `next-mdx-remote`) + frontmatter
-- [ ] Component: `InteractiveBoard`, `MoveSequence`, `Callout`, `LessonQuiz`
-- [ ] Trang danh sách khoá học + tiến độ (% hoàn thành, khoá bài theo prerequisite)
-- [ ] Viết nội dung (ưu tiên):
-  - [ ] Chương 1 – Cơ bản: bàn cờ & ký hiệu, 6 quân cờ, giá trị quân (8 bài)
-  - [ ] Chương 2 – Luật: nhập thành, bắt tốt qua đường, phong cấp, chiếu/hết/hòa pat, các luật hòa (5 bài)
-  - [ ] Chương 3 – Nguyên tắc: khai cuộc, chiến thuật cơ bản, tàn cuộc cơ bản (5–7 bài)
+## Phase 3 — Learn — ✅ code xong (2026-10-15)
+- [x] MDX qua `@next/mdx` (Turbopack, `remark-gfm`); trang `/learn/[lessonId]` prerender cả 18 bài; mỗi trang render đủ 3 bản ngôn ngữ, client hiện theo cài đặt (thiếu bản dịch → hiện bản khác + thông báo). Metadata bài học để trong `content/learn/catalog.json` (thay cho frontmatter)
+- [x] Component dùng trong MDX (không cần import): `Board` (fen, ô đánh dấu, mũi tên, chấm nước đi của 1 quân), `MoveSequence` (⏮ ◀ ▶ ⏭ + danh sách nước), `Callout` (tip/warning/rule/fun), `Exercise` (đi quân / chọn ô, làm lại được). `QuestionView` chuyển xuống `components/board` để Quiz và bài học dùng chung
+- [x] Trang danh sách bài: tiến độ tổng & theo chương, "Học tiếp", khoá bài theo `requires` (màn khoá chỉ đường tới bài cần học trước)
+- [x] Cuối bài: quiz 2–4 câu từ ngân hàng quiz → "Hoàn thành bài học" (lưu điểm tốt nhất) → bài tiếp theo + "Luyện thêm" mở thẳng chủ đề puzzle (`/practice/themes#fork`)
+- [x] Nội dung **18 bài × 3 ngôn ngữ** (vi/en/ja):
+  - [x] Chương 1 – Cơ bản (9): bàn cờ, tên ô & ký hiệu, Tốt, Mã, Tượng, Xe, Hậu, Vua, giá trị quân
+  - [x] Chương 2 – Luật (5): chiếu/chiếu hết/hòa pat, nhập thành, bắt tốt qua đường, phong cấp, các trường hợp hòa
+  - [x] Chương 3 – Nguyên tắc (4): khai cuộc, chiến thuật (chĩa đôi/ghim/xiên), thế chiếu hết cơ bản, tàn cuộc cơ bản
   - [ ] Chương 4 – Khai cuộc phổ biến (để sau MVP)
-- [ ] Liên kết bài học ↔ puzzle theme tương ứng ("Luyện thêm 10 bài chĩa đôi")
-- [ ] `content/learn/CLAUDE.md`: cách viết bài (cấu trúc, độ dài, giọng văn theo GLOSSARY)
-- [ ] Skill `add-lesson`: tạo MDX từ template, kiểm tra FEN/nước đi hợp lệ bằng chess.js, quiz cuối bài, bản 3 ngôn ngữ (viết từ 1–2 bài đầu)
+- [x] Liên kết bài học ↔ chủ đề puzzle
+- [x] Dữ liệu v3: `profile.lessons` (Dexie version 3 + migrate; file save `schemaVersion` 3 + migrate)
+- [x] `content/learn/CLAUDE.md` (cách viết bài) + skill `add-lesson`
+- [x] Test: catalog + **toàn bộ 54 file MDX** (mọi FEN, chuỗi nước, đáp án bài tập đều được kiểm bằng chess.js); E2E học (mở khoá, hoàn thành, bài tập, đổi ngôn ngữ) → tổng 24 E2E pass
+- Sửa trong lúc làm: sơ đồ thiếu Vua làm sập trang (helpers đọc thế cờ giờ bỏ qua kiểm tra hợp lệ); nhiều bàn cờ trên 1 trang trùng `id` (giờ mỗi bàn 1 id riêng)
 
-**Done khi:** người chưa biết chơi đi hết Chương 1–2 và chơi được với bot thấp nhất.
+**Done khi:** người chưa biết chơi đi hết Chương 1–2 và chơi được với bot thấp nhất. → **Cần bạn đọc thử** vài bài (nội dung do AI viết, nên soát thuật ngữ & văn phong, nhất là bản tiếng Nhật).
 
 ## Phase 4 — Bot persona & Game Review
 - [ ] Style bonus từ MultiPV (Tấn công / Phòng thủ / Thế trận / Hỗn loạn / Cân bằng)

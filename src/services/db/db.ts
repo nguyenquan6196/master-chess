@@ -1,6 +1,7 @@
 import Dexie, { type Table } from 'dexie';
 import {
   withProfileDefaultsV2,
+  withProfileDefaultsV3,
   type GameRecord,
   type Profile,
   type PuzzleAttempt,
@@ -30,6 +31,17 @@ export class MasterChessDB extends Dexie {
           .toCollection()
           .modify((p: Record<string, unknown>) => {
             Object.assign(p, withProfileDefaultsV2(p));
+          }),
+      );
+    // v3 (Phase 3): lesson progress on profiles.
+    this.version(3)
+      .stores({})
+      .upgrade((tx) =>
+        tx
+          .table('profiles')
+          .toCollection()
+          .modify((p: Record<string, unknown>) => {
+            Object.assign(p, withProfileDefaultsV3(p));
           }),
       );
   }

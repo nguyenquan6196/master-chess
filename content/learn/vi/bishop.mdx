@@ -1,0 +1,21 @@
+Mỗi bên có **2 Tượng**: một Tượng đi trên ô sáng, một Tượng đi trên ô tối.
+
+## Cách đi
+
+Tượng đi **chéo**, bao nhiêu ô cũng được, miễn là **không có quân nào cản đường**. Vì chỉ đi chéo, Tượng **ở trên một màu ô suốt cả ván**.
+
+<Board fen="4k3/8/8/8/3B4/8/8/4K3 w - - 0 1" show="d4">Tượng ở d4 kiểm soát hai đường chéo dài.</Board>
+
+## Bị chặn và ăn quân
+
+Tượng không đi xuyên qua quân khác. Nếu gặp quân đối phương, Tượng có thể **ăn** nó; nếu gặp quân mình thì phải dừng trước đó.
+
+<Board fen="4k3/8/1p6/8/3B4/8/5P2/4K3 w - - 0 1" show="d4">Tượng có thể ăn Tốt b6, nhưng bị Tốt f2 của mình chặn.</Board>
+
+<Exercise kind="make-move" fen="4k3/6r1/8/8/8/2B5/8/4K3 w - - 0 1" answers="c3g7" explain="Bxg7: Tượng đi dọc đường chéo c3–g7 và ăn Xe miễn phí.">
+Xe Đen ở g7 không được bảo vệ. Hãy dùng **Tượng** để ăn nó.
+</Exercise>
+
+<Callout type="tip">
+Tượng thích những **đường chéo mở**. Một Tượng bị kẹt sau Tốt của chính mình gọi là "Tượng xấu".
+</Callout>

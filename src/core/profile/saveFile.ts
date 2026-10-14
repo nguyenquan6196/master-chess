@@ -4,13 +4,14 @@ import {
   ProfileSchema,
   PuzzleAttemptSchema,
   withProfileDefaultsV2,
+  withProfileDefaultsV3,
   type GameRecord,
   type Profile,
   type PuzzleAttempt,
 } from './schema';
 
 /** Bump when the save format changes, and add a step to `migrateSaveFile`. */
-export const SAVE_SCHEMA_VERSION = 2;
+export const SAVE_SCHEMA_VERSION = 3;
 export const SAVE_APP_ID = 'master-chess';
 
 export const SaveFileSchema = z.object({
@@ -48,6 +49,11 @@ function migrateSaveFile(data: Record<string, unknown>): Record<string, unknown>
     // v2 (Phase 2): puzzle rating, rush/quiz bests on the profile; puzzle attempts list.
     const profile = typeof d.profile === 'object' && d.profile ? d.profile : {};
     d = { ...d, schemaVersion: 2, profile: withProfileDefaultsV2(profile), puzzleAttempts: [] };
+  }
+  if (d.schemaVersion === 2) {
+    // v3 (Phase 3): lesson progress on the profile.
+    const profile = typeof d.profile === 'object' && d.profile ? d.profile : {};
+    d = { ...d, schemaVersion: 3, profile: withProfileDefaultsV3(profile) };
   }
   return d;
 }

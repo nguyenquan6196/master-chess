@@ -63,6 +63,11 @@ export const ProfileSchema = z.object({
   rushBest: z.partialRecord(z.enum(RUSH_DURATIONS), z.number().int().min(0)),
   /** Best quiz result per topic (or "all"), as a 0–1 ratio. */
   quizBest: z.record(z.string(), z.number().min(0).max(1)),
+  /** Added in schema v3 (Phase 3): completed lessons with their quiz score (0–1). */
+  lessons: z.record(
+    z.string(),
+    z.object({ completedAt: z.number(), score: z.number().min(0).max(1) }),
+  ),
 });
 export type Profile = z.infer<typeof ProfileSchema>;
 
@@ -75,6 +80,12 @@ export function withProfileDefaultsV2<T extends object>(
     rushBest: {},
     quizBest: {},
   };
+  return { ...defaults, ...p };
+}
+
+/** Fields added in schema v3. */
+export function withProfileDefaultsV3<T extends object>(p: T): Pick<Profile, 'lessons'> & T {
+  const defaults: Pick<Profile, 'lessons'> = { lessons: {} };
   return { ...defaults, ...p };
 }
 

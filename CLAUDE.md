@@ -63,7 +63,7 @@ npm run typecheck    # next typegen && tsc --noEmit
 npm run lint         # ESLint, gồm quy tắc chia lớp
 npm run test         # Vitest (src/**/*.test.ts)
 npm run check-i18n   # 3 file ngôn ngữ đủ key
-npm run test:e2e     # Playwright (desktop + mobile), tự bật dev server
+npm run test:e2e     # Playwright (desktop + mobile), tự bật dev server; E2E_BASE_URL=http://localhost:3002 để chạy với server có sẵn
 npm run build
 ```
 Hook PostToolUse (`.claude/hooks/format.mjs`) tự chạy ESLint --fix + Prettier trên file vừa sửa. Husky chạy lint-staged khi commit.
@@ -71,10 +71,10 @@ Hook PostToolUse (`.claude/hooks/format.mjs`) tự chạy ESLint --fix + Prettie
 ## Thêm nội dung (registry — không sửa code lõi)
 | Thêm | Ở đâu |
 |---|---|
-| Bài học | `content/learn/<locale>/<chapter>/<lesson>.mdx` |
+| Bài học | `content/learn/catalog.json` + `content/learn/<locale>/<lesson>.mdx` (skill `add-lesson`) |
 | Bot | `content/bots/<id>.json` |
 | Theme | `public/themes/<id>/manifest.json` + asset |
 | Quiz | `content/quiz/questions.json` + `content/quiz/<locale>.json` (skill `add-quiz`) |
 | Ngôn ngữ | `messages/<locale>.json` + `content/*/<locale>/` |
 
-Skills: `.claude/skills/new-feature` (quy trình làm 1 tính năng mới), `.claude/skills/add-quiz` (thêm câu quiz 3 ngôn ngữ, build lại bộ puzzle). Subagent `reviewer` (`.claude/agents/`) soát thay đổi theo Definition of Done. Các skill thêm nội dung (bài học, bot, theme…) viết dần sau khi có ví dụ thật đầu tiên.
+Skills: `.claude/skills/new-feature` (quy trình làm 1 tính năng mới), `.claude/skills/add-quiz` (thêm câu quiz 3 ngôn ngữ, build lại bộ puzzle), `.claude/skills/add-lesson` (thêm bài học MDX 3 ngôn ngữ). Subagent `reviewer` (`.claude/agents/`) soát thay đổi theo Definition of Done. Các skill thêm nội dung (bài học, bot, theme…) viết dần sau khi có ví dụ thật đầu tiên.

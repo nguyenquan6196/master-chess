@@ -1,0 +1,27 @@
+**Castling** is the only move where **two pieces move at once**: the king and a rook. It tucks the king away and brings the rook into play.
+
+## How to castle
+
+- **Kingside** (O-O): the king moves 2 squares toward the near rook (e1 → g1), and the rook jumps next to it (h1 → f1).
+- **Queenside** (O-O-O): the king moves 2 squares toward the far rook (e1 → c1), and the rook goes from a1 to d1.
+
+<MoveSequence fen="r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R w KQkq - 0 1" moves="O-O O-O-O">White castles kingside, Black castles queenside.</MoveSequence>
+
+<Callout type="tip">
+In this app, just **drag the king two squares** toward the rook — the rook moves by itself.
+</Callout>
+
+## The four conditions
+
+<Callout type="rule">
+1. Neither the king nor that rook **has moved before**.
+2. The squares between them **are empty**.
+3. The king is **not in check**.
+4. The king **does not pass through or land on** an attacked square.
+</Callout>
+
+<Board fen="4k3/8/8/8/8/8/5r2/R3K2R w KQ - 0 1" squares="f1">The black rook controls f1, so White cannot castle kingside — but queenside is fine.</Board>
+
+<Exercise kind="make-move" fen="r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4" answers="e1g1" explain="O-O: the king is safe on g1 and the f1 rook is ready for action.">
+White has developed a knight and a bishop. Now **castle kingside**.
+</Exercise>

@@ -1,0 +1,29 @@
+Không phải ván nào cũng có người thắng. Ván cờ **hòa** trong các trường hợp sau:
+
+| Trường hợp | Ý nghĩa |
+|---|---|
+| Hòa pat | Đến lượt mà không bị chiếu nhưng không có nước đi hợp lệ |
+| Lặp lại 3 lần | Cùng một thế cờ xuất hiện 3 lần (cùng bên đến lượt) |
+| Luật 50 nước | 50 nước mỗi bên không ăn quân, không đi Tốt |
+| Không đủ quân | Không bên nào còn đủ quân để chiếu hết |
+| Thỏa thuận | Hai người chơi đồng ý hòa |
+
+## Lặp lại 3 lần
+
+<MoveSequence moves="Nf3 Nf6 Ng1 Ng8 Nf3 Nf6 Ng1 Ng8">Hai bên đi Mã ra rồi về. Thế cờ ban đầu xuất hiện lần thứ 3 — hòa.</MoveSequence>
+
+## Không đủ quân chiếu hết
+
+Vua đấu Vua, Vua + Tượng đấu Vua, hoặc Vua + Mã đấu Vua đều **không thể chiếu hết** — ván cờ hòa ngay.
+
+<Board fen="8/8/4k3/8/8/2B5/4K3/8 w - - 0 1">Chỉ có một Tượng thì không thể chiếu hết. Hòa!</Board>
+
+## Đừng để hòa khi đang thắng
+
+<Exercise kind="make-move" fen="7k/8/6K1/8/8/8/8/5Q2 w - - 0 1" answers="f1f8" mate explain="Qf8#! Còn nếu đi Qf7 thì Vua Đen không còn nước nào mà không bị chiếu — hòa pat.">
+Trắng hơn cả một Hậu. Hãy **chiếu hết** — cẩn thận đừng để hòa pat!
+</Exercise>
+
+<Callout type="tip">
+Khi đang kém thế, hòa là kết quả tốt! Hãy tìm cách lặp lại nước đi hoặc đổi hết quân.
+</Callout>
