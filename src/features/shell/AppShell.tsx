@@ -2,11 +2,12 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState, type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { useTranslations } from 'use-intl';
 import { cn } from '@/components/ui/cn';
 import { useSession } from '@/services/profile/session';
 import { LanguageSelect } from './LanguageSelect';
+import { MobileMenu } from './MobileMenu';
 import { SettingsFab } from './SettingsFab';
 
 const NAV_ITEMS = [
@@ -18,7 +19,6 @@ const NAV_ITEMS = [
 export function AppShell({ children, settings }: { children: ReactNode; settings: ReactNode }) {
   const t = useTranslations('nav');
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
   const profile = useSession((s) => s.profile);
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
@@ -30,7 +30,6 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
           <Link
             href="/"
             className="flex shrink-0 items-center gap-2 font-display text-xl font-bold whitespace-nowrap text-fg"
-            onClick={() => setOpen(false)}
             aria-label="Master Chess"
           >
             <span aria-hidden className="text-2xl">
@@ -63,7 +62,6 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
               <Link
                 href="/profile"
                 title={t('profile')}
-                onClick={() => setOpen(false)}
                 className={cn(
                   'flex max-w-40 items-center gap-2 rounded-full border px-2 py-1 text-sm font-semibold',
                   isActive('/profile') ? 'border-accent' : 'border-border hover:bg-surface-2',
@@ -75,37 +73,8 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
             )}
           </div>
 
-          <button
-            type="button"
-            className="rounded-lg p-2 text-fg hover:bg-surface-2 sm:hidden"
-            aria-label={t('menu')}
-            aria-expanded={open}
-            onClick={() => setOpen((v) => !v)}
-          >
-            ☰
-          </button>
+          <MobileMenu items={NAV_ITEMS} isActive={isActive} />
         </div>
-
-        {open && (
-          <nav className="flex flex-col border-t border-border px-4 py-2 sm:hidden">
-            {NAV_ITEMS.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className={cn(
-                  'rounded-lg px-3 py-2 font-medium',
-                  isActive(item.href) ? 'text-accent' : 'text-fg',
-                )}
-              >
-                <span aria-hidden className="mr-2">
-                  {item.icon}
-                </span>
-                {t(item.key)}
-              </Link>
-            ))}
-          </nav>
-        )}
       </header>
 
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 pt-6 pb-24">{children}</main>
