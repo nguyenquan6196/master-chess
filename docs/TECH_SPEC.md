@@ -204,6 +204,41 @@ interface Engine {
 ```
 Một worker cho bot, một worker riêng cho phân tích/eval bar để không chặn nhau.
 
+### 6.7 Hệ thống Rank người chơi (chốt 2026-10-14)
+
+**Nguyên tắc:** bot động vật là **đối thủ** (giữ nguyên tên, tính cách, thoại); rank là **danh hiệu của người chơi**. Mỗi bot là **"trùm canh giữ"** một bậc rank.
+
+| Rank | Elo người chơi | Bậc con | Trùm canh giữ | Quân giữa huy hiệu | Màu chủ đạo |
+|---|---|---|---|---|---|
+| Đồng | < 600 | III · II · I | 🐣 Gà con | Tốt | Đồng nâu |
+| Bạc | 600–899 | III · II · I | 🐢 Rùa | Mã | Bạc xám |
+| Vàng | 900–1199 | III · II · I | 🦊 Cáo | Tượng | Vàng kim |
+| Bạch Kim | 1200–1499 | III · II · I | 🐺 Sói | Xe | Xanh ngọc |
+| Kim Cương | 1500–1799 | III · II · I | 🦁 Sư tử | Hậu | Xanh dương pha lê |
+| Tinh Anh | 1800–2099 | III · II · I | 🦅 Đại bàng | Vua | Tím |
+| Cao Thủ | 2100–2399 | — | 🐉 Rồng | Vua + vương miện | Đỏ thẫm + viền vàng |
+| Thách Đấu | ≥ 2400 | — | 👑 Kiện tướng | Vua vàng + hào quang | Xanh đêm + vàng |
+
+**Cách tính điểm**
+- Mỗi người chơi có **rating ván đấu** (Glicko-2, bắt đầu ~400, RD cao để lên nhanh những ván đầu). Ván đấu bot cập nhật rating theo Elo **đã hiệu chỉnh** của bot (`scripts/calibrate-bots`, Phase 4).
+- Bậc con: chia đều khoảng Elo của rank thành III → II → I; hiển thị thanh tiến độ "Vàng II · 45/100".
+- **Trận thăng hạng:** đủ điểm lên rank mới → phải **thắng trùm của rank đó** mới được lên (thua thì giữ ở bậc I, đánh lại được). Trùm là điểm nhấn: thoại riêng, nhạc "đấu trùm" (spec §7.1).
+- **Ván không tính điểm:** có dùng gợi ý/đi lại → ván "luyện tập", không cộng/trừ rating (hiện rõ trước khi bấm).
+- **Không tụt hạng vì nghỉ lâu** (app học tập, không phạt). Có thể tụt bậc con khi thua, nhưng không tụt rank đã đạt qua trận thăng hạng (giữ "sàn" rank).
+- **Rating puzzle tách riêng** (Phase 2) — không ảnh hưởng rank đấu.
+- Thẻ bot hiển thị "Ngang hạng Vàng"; gợi ý đối thủ tiếp theo dựa trên rank hiện tại.
+
+**Dữ liệu** (Phase 4): thêm vào profile `rating { value, rd, vol, games }`, `rankFloor`, `pendingPromotion?`; mỗi `GameRecord` thêm `rated: boolean`, `ratingDelta?`. Cần Dexie version 2 + `SAVE_SCHEMA_VERSION` 2.
+
+**Huy hiệu (emblem)** — Phase 5. Bản phác đã duyệt: [docs/design/rank-emblems-draft.svg](design/rank-emblems-draft.svg).
+- Dáng **khiên** làm nền, càng lên cao càng nhiều lớp: Đồng (khiên + viền mộc) → Bạc (viền kim loại) → Vàng (cánh nhỏ) → Bạch Kim (cánh + đá quý) → Kim Cương (cánh pha lê + đá quý lớn) → Tinh Anh (cánh pha lê + vương miện + lửa) → Cao Thủ (cánh phượng hoàng + vương miện) → Thách Đấu (cánh vàng + nguyệt quế + vương miện nạm đá + tia hào quang).
+- **Quân cờ ở giữa** (cột "Quân giữa huy hiệu") để mang chất cờ vua, không giống huy hiệu game MOBA. Không sao chép thiết kế của Liên Quân/LMHT.
+- Làm bằng **SVG nhiều lớp** (component React, không dùng ảnh raster): dải màu kim loại, viền highlight, chi tiết chạm khắc đơn giản.
+- **Animation** (CSS/SVG, tắt khi `prefers-reduced-motion`): vệt sáng ánh kim chạy ngang (từ Vàng), lấp lánh đá quý (từ Bạch Kim), cánh vỗ nhẹ (từ Kim Cương), lửa/tia sáng xoay (Tinh Anh trở lên), hào quang nhịp thở (Thách Đấu).
+- **Màn lên hạng**: huy hiệu cũ vỡ thành hạt sáng → huy hiệu mới bay vào, xoay, phóng to; confetti + âm thanh chiến thắng. Màn **trận thăng hạng** riêng giới thiệu trùm.
+- Nơi hiển thị: header (nhỏ, cạnh avatar), trang Hồ sơ (lớn + thanh tiến độ), thẻ bot ("ngang hạng"), màn kết quả ván (+/− điểm), lịch sử.
+- **Nâng cấp tuỳ chọn sau này:** thay SVG bằng tranh minh hoạ (Midjourney/designer) theo đúng bố cục trên; component nhận `variant` để thay ảnh không sửa code. Claude chuẩn bị brief chi tiết cho từng bậc khi cần.
+
 ## 7. Giao diện & "hoa hòe"
 
 - **Theme**: nền, bàn cờ, quân cờ, nút/menu, mũi tên… xem §7.2. Font xem §7.3, ngôn ngữ xem §7.4.

@@ -128,6 +128,11 @@
 - [ ] Thoại bot theo sự kiện
 - [ ] `scripts/calibrate-bots.ts`: cho bot tự đấu với Stockfish UCI_Elo để hiệu chỉnh Elo
 - [ ] Adaptive difficulty (gợi ý bot tiếp theo dựa trên kết quả)
+- [ ] **Hệ thống Rank — phần logic** (spec §6.7): 8 rank Đồng → Thách Đấu, bậc con III/II/I, mỗi bot là "trùm canh giữ" 1 rank
+  - [ ] `core/rating/`: Glicko-2, ánh xạ rating → rank/bậc con/tiến độ, luật trận thăng hạng, "sàn" rank, ván có gợi ý/đi lại = không tính điểm (+ unit test)
+  - [ ] Dữ liệu: `rating`, `rankFloor`, `pendingPromotion` trong profile; `rated`, `ratingDelta` trong GameRecord → Dexie v2 + `SAVE_SCHEMA_VERSION` 2 + migrate
+  - [ ] UI tạm (chưa cần huy hiệu đẹp): rank + thanh tiến độ ở Hồ sơ, "+/− điểm" ở màn kết quả, "Ngang hạng X" trên thẻ bot, màn trận thăng hạng
+  - [ ] Dùng Elo bot đã hiệu chỉnh (`calibrate-bots`) để tính điểm
 - [ ] Game Review: phân loại nước (Best/Good/Inaccuracy/Mistake/Blunder), accuracy, biểu đồ eval, "thử lại nước sai"
 
 ## Phase 5 — Hoa hòe
@@ -146,7 +151,13 @@
   - [ ] SFX đầy đủ + UI click; sound pack (classic / arcade / fantasy)
   - [ ] Căng thẳng động (đồng hồ < 30 s / eval thua nặng)
   - [ ] Settings → Âm thanh: âm lượng Master/Nhạc/SFX/UI, chế độ nhạc auto/cố định/tắt, sound pack, nút nghe thử; nút loa tắt nhanh trên header
-- [ ] XP, streak, huy hiệu, trang Profile
+- [ ] **Huy hiệu Rank — phần hình** (spec §6.7, bản phác đã duyệt: `docs/design/rank-emblems-draft.svg`):
+  - [ ] Component `RankEmblem` (SVG nhiều lớp, 8 bậc, nhiều kích thước) dựa trên bản phác; trau chuốt: dải màu kim loại, viền highlight, chi tiết chạm khắc, quân cờ vẽ vector thay ký tự
+  - [ ] Animation (tắt khi `prefers-reduced-motion`): vệt ánh kim chạy ngang, đá quý lấp lánh, cánh vỗ nhẹ, lửa/tia sáng xoay, hào quang Thách Đấu
+  - [ ] Màn lên hạng (huy hiệu cũ vỡ hạt → huy hiệu mới bay vào + confetti + âm thanh) và màn giới thiệu trùm trước trận thăng hạng
+  - [ ] Gắn huy hiệu vào header, Hồ sơ, thẻ bot, màn kết quả, lịch sử
+  - [ ] (Tuỳ chọn) Brief cho designer/Midjourney để vẽ bản minh hoạ cao cấp; `RankEmblem` hỗ trợ `variant` để thay ảnh không sửa code
+- [ ] XP, streak, thành tích (achievement), trang Profile
 - [ ] Responsive mobile hoàn chỉnh; PWA (chơi offline)
 
 ## Phase 6 — 3D
