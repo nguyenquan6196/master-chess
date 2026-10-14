@@ -27,6 +27,8 @@ export interface ChessBoardProps {
   /** Return false to reject the move (e.g. illegal); the board snaps back. */
   onMove?: (move: MoveInput) => boolean;
   promotionLabels: PromotionLabels;
+  /** Highlight arrows, e.g. a hint. Colors come from the theme (`--mc-arrow-hint`). */
+  arrows?: { from: string; to: string }[];
   className?: string;
 }
 
@@ -35,6 +37,12 @@ const LIGHT_SQUARE: CSSProperties = { backgroundColor: 'var(--mc-board-light)' }
 const DARK_SQUARE: CSSProperties = { backgroundColor: 'var(--mc-board-dark)' };
 const LIGHT_NOTATION: CSSProperties = { color: 'var(--mc-board-notation-light)', fontWeight: 600 };
 const DARK_NOTATION: CSSProperties = { color: 'var(--mc-board-notation-dark)', fontWeight: 600 };
+
+/** SVG attributes can't read CSS variables, so resolve the theme color at render time. */
+function themeColor(name: string): string {
+  if (typeof window === 'undefined') return 'transparent';
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || 'currentColor';
+}
 
 const MOVE_DOT = 'radial-gradient(circle, var(--mc-hl-move) 24%, transparent 26%)';
 const CAPTURE_RING = 'radial-gradient(circle, transparent 58%, var(--mc-hl-move) 60%)';
@@ -47,6 +55,7 @@ export function ChessBoard({
   lastMove,
   onMove,
   promotionLabels,
+  arrows,
   className,
 }: ChessBoardProps) {
   const [selected, setSelected] = useState<Square | null>(null);
@@ -117,6 +126,11 @@ export function ChessBoard({
     lightSquareNotationStyle: LIGHT_NOTATION,
     darkSquareNotationStyle: DARK_NOTATION,
     squareStyles,
+    arrows: (arrows ?? []).map((a) => ({
+      startSquare: a.from,
+      endSquare: a.to,
+      color: themeColor('--mc-arrow-hint'),
+    })),
     animationDurationInMs: 180,
     allowDrawingArrows: true,
     canDragPiece: ({ piece }) => canMoveColor(piece.pieceType[0] as Color),

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Baloo_2, Be_Vietnam_Pro, M_PLUS_Rounded_1c, Noto_Sans_JP } from 'next/font/google';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { ProfileGate } from '@/features/profile/ProfileGate';
 import { AppShell } from '@/features/shell/AppShell';
 import { AppProviders } from '@/services/AppProviders';
 import { DEFAULT_LOCALE } from '@/services/i18n/config';
@@ -34,6 +35,12 @@ const mplus = M_PLUS_Rounded_1c({
   display: 'swap',
 });
 
+/**
+ * The whole app sits behind the client-side "who's playing?" gate (ADR 0002), so pages
+ * are intentionally not part of the static shell (also skips static-shell validation).
+ */
+export const instant = false;
+
 export const metadata: Metadata = {
   title: { default: 'Master Chess', template: '%s · Master Chess' },
   description: 'Học, luyện tập và đấu cờ vua — Learn, practice and play chess.',
@@ -57,7 +64,9 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       </head>
       <body className="flex min-h-full flex-col">
         <AppProviders>
-          <AppShell>{children}</AppShell>
+          <ProfileGate>
+            <AppShell>{children}</AppShell>
+          </ProfileGate>
         </AppProviders>
         <SpeedInsights />
       </body>

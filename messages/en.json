@@ -9,12 +9,18 @@
     "practice": "Practice",
     "play": "Play",
     "settings": "Settings",
-    "menu": "Open menu"
+    "menu": "Open menu",
+    "profile": "Profile",
+    "history": "History"
   },
   "common": {
     "comingSoon": "Coming soon",
     "comingSoonDesc": "This feature is being built. Check back later!",
-    "backHome": "Back to home"
+    "backHome": "Back to home",
+    "cancel": "Cancel",
+    "ok": "OK",
+    "close": "Close",
+    "confirm": "Confirm"
   },
   "home": {
     "title": "Welcome to Master Chess",
@@ -68,6 +74,135 @@
       "auto": "Auto (follow system)",
       "classic": "Classic",
       "midnight": "Midnight"
+    },
+    "sound": "Sound",
+    "sfx": "Sound effects",
+    "volume": "Volume",
+    "test": "Test",
+    "on": "On",
+    "off": "Off"
+  },
+  "profile": {
+    "pickTitle": "Who's playing?",
+    "pickSubtitle": "Choose a player to continue your progress, or create a new one.",
+    "newPlayer": "New player",
+    "nameLabel": "Your name",
+    "namePlaceholder": "e.g. Alex",
+    "avatarLabel": "Choose an avatar",
+    "create": "Start",
+    "cancel": "Cancel",
+    "lastActive": "Last played {date}",
+    "importFromFile": "Import from save file",
+    "switch": "Switch player",
+    "title": "Profile",
+    "stats": "Stats",
+    "played": "Played",
+    "win": "Won",
+    "loss": "Lost",
+    "draw": "Drawn",
+    "viewHistory": "View game history",
+    "data": "Data",
+    "dataDesc": "Data is stored only in this browser. Export a file to back it up or move it to another device.",
+    "export": "Export data",
+    "import": "Import data",
+    "importConfirm": "Import data for “{name}”? If this player already exists on this device, their current progress will be replaced.",
+    "importDone": "Imported data for {name}.",
+    "importError": {
+      "invalid-json": "The file couldn't be read.",
+      "not-a-save-file": "This is not a Master Chess save file.",
+      "newer-version": "The file was made by a newer version of the app.",
+      "invalid-data": "The data in the file is corrupted."
+    },
+    "edit": "Edit",
+    "save": "Save",
+    "delete": "Delete player",
+    "deleteConfirm": "Delete {name} and all their history? This cannot be undone."
+  },
+  "bots": {
+    "chick": {
+      "name": "Chick",
+      "desc": "Just learning, moves almost at random. Perfect for your first game!"
+    },
+    "turtle": {
+      "name": "Turtle",
+      "desc": "Slow and steady… sometimes. Still leaves pieces hanging."
+    },
+    "fox": {
+      "name": "Fox",
+      "desc": "Starting to set traps, but still makes mistakes."
+    },
+    "wolf": {
+      "name": "Wolf",
+      "desc": "Plays with a plan and rarely gives away pieces."
+    },
+    "lion": {
+      "name": "Lion",
+      "desc": "A tough opponent for regular players."
+    },
+    "eagle": {
+      "name": "Eagle",
+      "desc": "Sees far ahead, with sharp tactics."
+    },
+    "dragon": {
+      "name": "Dragon",
+      "desc": "Very strong — every mistake gets punished."
+    },
+    "master": {
+      "name": "Master",
+      "desc": "Full engine strength. Good luck!"
     }
+  },
+  "botGame": {
+    "title": "Play vs Bot",
+    "chooseBot": "Choose your opponent",
+    "yourColor": "You play",
+    "random": "Random",
+    "timeControl": "Time control",
+    "noLimit": "No limit",
+    "start": "Start",
+    "continueTitle": "Unfinished game",
+    "continueDesc": "Vs {bot} · {count, plural, one {# move} other {# moves}}",
+    "continue": "Continue",
+    "abandon": "Abandon",
+    "abandonConfirm": "Abandon the unfinished game? It will count as a loss.",
+    "thinking": "{bot} is thinking…",
+    "you": "You",
+    "hint": "Hint",
+    "resign": "Resign",
+    "resignConfirm": "Are you sure you want to resign?",
+    "offerDraw": "Offer a draw",
+    "drawDeclined": "{bot} declined the draw.",
+    "evalBar": "Evaluation bar",
+    "engineLoading": "Loading engine…",
+    "engineError": "Couldn't load the chess engine. Try reloading the page.",
+    "result": {
+      "win": "You won! 🎉",
+      "loss": "You lost",
+      "draw": "Draw"
+    },
+    "reason": {
+      "checkmate": "Checkmate",
+      "stalemate": "Stalemate",
+      "threefold": "Threefold repetition",
+      "insufficient": "Insufficient material",
+      "fifty-moves": "Fifty-move rule",
+      "resign": "Resignation",
+      "timeout": "Timeout",
+      "agreement": "Draw by agreement"
+    },
+    "rematch": "Rematch",
+    "changeBot": "Change opponent",
+    "viewBoard": "View board"
+  },
+  "history": {
+    "title": "Game history",
+    "empty": "No games yet. Play a bot to get started!",
+    "vs": "vs {bot}",
+    "moves": "{count, plural, one {# move} other {# moves}}",
+    "asWhite": "As White",
+    "asBlack": "As Black",
+    "assists": "{hints} hints · {undos} undos",
+    "copyPgn": "Copy PGN",
+    "copied": "Copied!"
   }
 }

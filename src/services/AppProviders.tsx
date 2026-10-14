@@ -4,6 +4,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { IntlProvider } from 'use-intl';
 import { DEFAULT_LOCALE, detectLocale, type Locale } from './i18n/config';
 import { DEFAULT_MESSAGES, loadMessages, type Messages } from './i18n/messages';
+import { restoreSession, syncSettingsToProfile } from './profile/actions';
 import { useSettings } from './settings/store';
 import { resolveTheme } from './theme/themes';
 
@@ -17,10 +18,13 @@ export function AppProviders({ children }: { children: ReactNode }) {
   });
 
   useEffect(() => {
-    void Promise.resolve(useSettings.persist.rehydrate()).then(() => {
-      const s = useSettings.getState();
-      if (!s.localeChosen) s.setLocale(detectLocale(navigator.languages));
-    });
+    void Promise.resolve(useSettings.persist.rehydrate())
+      .then(() => {
+        const s = useSettings.getState();
+        if (!s.localeChosen) s.setLocale(detectLocale(navigator.languages));
+      })
+      .then(restoreSession);
+    return syncSettingsToProfile();
   }, []);
 
   useEffect(() => {

@@ -67,7 +67,7 @@ const eslintConfig = defineConfig([
       },
     ]),
   },
-  globalIgnores(['.next/**', 'out/**', 'build/**', 'next-env.d.ts', 'coverage/**']),
+  globalIgnores(['.next/**', 'out/**', 'build/**', 'next-env.d.ts', 'coverage/**', 'public/**']),
 ]);
 
 export default eslintConfig;

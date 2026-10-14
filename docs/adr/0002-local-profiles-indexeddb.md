@@ -7,3 +7,5 @@
 **Quyết định.** Profile theo tên, lưu IndexedDB (Dexie) trên trình duyệt; chuyển máy bằng file save JSON (export/import) có `schemaVersion`. Không làm cloud save (spec §8.3 chỉ để tham khảo).
 
 **Hệ quả.** Dữ liệu chỉ có trên máy + trình duyệt đó; mất nếu xoá dữ liệu trình duyệt. Mọi thay đổi schema phải có migrate (Dexie `version()` + migrate file save). Phase 0 tạm lưu settings ở localStorage, Phase 1 chuyển vào profile.
+
+Cập nhật 2026-10-14: toàn bộ app nằm sau màn "Ai đang chơi?" (`ProfileGate` ở root layout), nên HTML tĩnh chỉ là khung trống và root layout đặt `export const instant = false` (Next 16 Cache Components). Nếu sau này trang Learn cần SEO, chỉ gate các khu vực cần dữ liệu người chơi.

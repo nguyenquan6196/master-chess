@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useState, type ReactNode } from 'react';
 import { useTranslations } from 'use-intl';
 import { cn } from '@/components/ui/cn';
+import { useSession } from '@/services/profile/session';
 
 const NAV_ITEMS = [
   { href: '/learn', key: 'learn', icon: '📖' },
@@ -17,6 +18,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const t = useTranslations('nav');
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const profile = useSession((s) => s.profile);
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
@@ -50,9 +52,24 @@ export function AppShell({ children }: { children: ReactNode }) {
             ))}
           </nav>
 
+          {profile && (
+            <Link
+              href="/profile"
+              title={t('profile')}
+              onClick={() => setOpen(false)}
+              className={cn(
+                'ml-auto flex max-w-40 items-center gap-2 rounded-full border px-2 py-1 text-sm font-semibold sm:ml-2',
+                isActive('/profile') ? 'border-accent' : 'border-border hover:bg-surface-2',
+              )}
+            >
+              <span aria-hidden>{profile.avatar}</span>
+              <span className="hidden truncate md:inline">{profile.name}</span>
+            </Link>
+          )}
+
           <button
             type="button"
-            className="ml-auto rounded-lg p-2 text-fg hover:bg-surface-2 sm:hidden"
+            className="rounded-lg p-2 text-fg hover:bg-surface-2 sm:hidden"
             aria-label={t('menu')}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}

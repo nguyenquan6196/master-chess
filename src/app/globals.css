@@ -12,6 +12,8 @@
   --color-accent-hover: var(--mc-accent-hover);
   --color-accent-fg: var(--mc-accent-fg);
   --color-danger: var(--mc-danger);
+  --color-side-white: var(--mc-side-white);
+  --color-side-black: var(--mc-side-black);
   --font-sans: var(--mc-font-body);
   --font-display: var(--mc-font-heading);
   --shadow-card: var(--mc-shadow);

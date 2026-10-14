@@ -27,6 +27,9 @@
   --mc-hl-selected: rgb(255 235 59 / 0.6);
   --mc-hl-move: rgb(0 0 0 / 0.18);
   --mc-hl-check: rgb(231 76 60 / 0.85);
+  --mc-arrow-hint: rgb(93 140 59 / 0.85);
+  --mc-side-white: #f5f5f0;
+  --mc-side-black: #2b2b2b;
 }
 
 [data-theme='midnight'] {
@@ -51,6 +54,9 @@
   --mc-hl-selected: rgb(124 140 255 / 0.65);
   --mc-hl-move: rgb(10 10 30 / 0.35);
   --mc-hl-check: rgb(255 82 82 / 0.85);
+  --mc-arrow-hint: rgb(124 140 255 / 0.9);
+  --mc-side-white: #e9e9f2;
+  --mc-side-black: #0b0b12;
 }
 
 /* Fonts per language (spec §7.3). Font variables come from next/font in app/layout.tsx. */

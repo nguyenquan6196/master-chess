@@ -52,12 +52,12 @@ Web app cờ vua chạy hoàn toàn trên trình duyệt, deploy lên Vercel, g�
 | Luật cờ | **chess.js** (BSD-2) | Chuẩn de-facto, có FEN/PGN, SAN, kiểm tra chiếu/hết/hòa |
 | Bàn cờ 2D | **react-chessboard** (MIT) | Kéo-thả, click-to-move, mũi tên, highlight ô, custom pieces. (Thay thế: chessground – GPL, đẹp hơn nhưng ràng buộc license) |
 | Bàn cờ 3D | **react-three-fiber + drei** | Model quân cờ GLTF; chế độ tuỳ chọn, lazy-load |
-| Engine | **Stockfish 17/18 WASM – bản "lite single-thread"** (~7 MB) trong Web Worker | Không cần header COOP/COEP; bản multi-thread mạnh hơn nhưng cần cấu hình header |
+| Engine | **Stockfish 19 WASM – bản "lite single-thread"** (~1.9 MB, stockfish.js) trong Web Worker | Không cần header COOP/COEP; bản multi-thread mạnh hơn nhưng cần cấu hình header |
 | State | Zustand | Nhẹ, đủ cho game state + settings |
 | Lưu trữ | IndexedDB qua **Dexie** | Tiến độ học, lịch sử ván (PGN), puzzle rating |
 | Nội dung bài học | **MDX** + component nhúng `<InteractiveBoard fen=... />` | Viết lý thuyết như markdown, chèn bàn cờ tương tác |
 | Puzzle data | **Lichess puzzle DB** (CC0, ~4–5 triệu bài) | Lọc trước ~5–20k bài, chia file JSON theo rating/theme |
-| Âm thanh | Howler.js | Tiếng đi quân, ăn quân, chiếu |
+| Âm thanh | Phase 1: Web Audio tổng hợp (`src/services/audio/sfx.ts`); Phase 5: Howler.js cho nhạc nền | Tiếng đi quân, ăn quân, chiếu |
 | i18n | use-intl (vi/en/ja), client-side — ADR 0005 | Tiếng Việt mặc định, xem §7.4 |
 | Font | next/font/google: Be Vietnam Pro, Baloo 2, Noto Sans JP… | Xem §7.3 |
 | Theme | CSS variables + manifest JSON | Xem §7.2 |

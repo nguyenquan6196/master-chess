@@ -48,7 +48,7 @@ export function GameStatusBanner({ status }: { status: GameStatus }) {
             aria-hidden
             className={cn(
               'inline-block size-4 rounded-full border border-border',
-              status.turn === 'w' ? 'bg-white' : 'bg-neutral-900',
+              status.turn === 'w' ? 'bg-side-white' : 'bg-side-black',
             )}
           />
         )}

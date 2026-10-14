@@ -105,6 +105,27 @@ export function turnOf(fen: string): Color {
   return new Chess(fen).turn();
 }
 
-export function toPgn(game: GameSnapshot): string {
-  return replay(game.startFen, game.history).pgn();
+export function toPgn(game: GameSnapshot, headers: Record<string, string> = {}): string {
+  const chess = replay(game.startFen, game.history);
+  for (const [k, v] of Object.entries(headers)) chess.setHeader(k, v);
+  return chess.pgn();
+}
+
+/** "e7e8q" → { from: 'e7', to: 'e8', promotion: 'q' }. */
+export function uciToMove(uci: string): MoveInput {
+  const promotion = uci[4] as PromotionPiece | undefined;
+  return {
+    from: uci.slice(0, 2) as Square,
+    to: uci.slice(2, 4) as Square,
+    ...(promotion ? { promotion } : {}),
+  };
+}
+
+export function moveToUci(move: { from: string; to: string; promotion?: string }): string {
+  return `${move.from}${move.to}${move.promotion ?? ''}`;
+}
+
+/** All legal moves of the side to move, in UCI notation. */
+export function legalUciMoves(fen: string): string[] {
+  return new Chess(fen).moves({ verbose: true }).map(moveToUci);
 }

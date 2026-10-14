@@ -9,12 +9,18 @@
     "practice": "Luyện tập",
     "play": "Đấu cờ",
     "settings": "Cài đặt",
-    "menu": "Mở menu"
+    "menu": "Mở menu",
+    "profile": "Hồ sơ",
+    "history": "Lịch sử"
   },
   "common": {
     "comingSoon": "Sắp ra mắt",
     "comingSoonDesc": "Tính năng này đang được xây dựng. Quay lại sau nhé!",
-    "backHome": "Về trang chủ"
+    "backHome": "Về trang chủ",
+    "cancel": "Huỷ",
+    "ok": "OK",
+    "close": "Đóng",
+    "confirm": "Đồng ý"
   },
   "home": {
     "title": "Chào mừng đến Master Chess",
@@ -68,6 +74,135 @@
       "auto": "Tự động (theo hệ thống)",
       "classic": "Classic",
       "midnight": "Midnight"
+    },
+    "sound": "Âm thanh",
+    "sfx": "Hiệu ứng âm thanh",
+    "volume": "Âm lượng",
+    "test": "Nghe thử",
+    "on": "Bật",
+    "off": "Tắt"
+  },
+  "profile": {
+    "pickTitle": "Ai đang chơi?",
+    "pickSubtitle": "Chọn người chơi để tiếp tục tiến độ, hoặc tạo người chơi mới.",
+    "newPlayer": "Người chơi mới",
+    "nameLabel": "Tên của bạn",
+    "namePlaceholder": "Ví dụ: Quân",
+    "avatarLabel": "Chọn ảnh đại diện",
+    "create": "Bắt đầu",
+    "cancel": "Huỷ",
+    "lastActive": "Chơi lần cuối {date}",
+    "importFromFile": "Nhập từ file save",
+    "switch": "Đổi người chơi",
+    "title": "Hồ sơ",
+    "stats": "Thống kê",
+    "played": "Đã chơi",
+    "win": "Thắng",
+    "loss": "Thua",
+    "draw": "Hòa",
+    "viewHistory": "Xem lịch sử ván",
+    "data": "Dữ liệu",
+    "dataDesc": "Dữ liệu chỉ lưu trên trình duyệt này. Hãy xuất file để sao lưu hoặc chuyển sang máy khác.",
+    "export": "Xuất dữ liệu",
+    "import": "Nhập dữ liệu",
+    "importConfirm": "Nhập dữ liệu của “{name}”? Nếu người chơi này đã có trên máy, tiến độ hiện tại của họ sẽ bị thay thế.",
+    "importDone": "Đã nhập dữ liệu của {name}.",
+    "importError": {
+      "invalid-json": "File không đọc được.",
+      "not-a-save-file": "Đây không phải file save của Master Chess.",
+      "newer-version": "File được tạo bởi phiên bản mới hơn của app.",
+      "invalid-data": "Dữ liệu trong file bị lỗi."
+    },
+    "edit": "Sửa",
+    "save": "Lưu",
+    "delete": "Xoá người chơi",
+    "deleteConfirm": "Xoá {name} và toàn bộ lịch sử? Không thể hoàn tác."
+  },
+  "bots": {
+    "chick": {
+      "name": "Gà con",
+      "desc": "Mới tập chơi, hay đi lung tung. Hợp cho buổi đầu tiên!"
+    },
+    "turtle": {
+      "name": "Rùa",
+      "desc": "Chậm mà chắc… đôi khi. Vẫn hay để hở quân."
+    },
+    "fox": {
+      "name": "Cáo",
+      "desc": "Bắt đầu biết giăng bẫy nhưng vẫn mắc lỗi."
+    },
+    "wolf": {
+      "name": "Sói",
+      "desc": "Chơi có kế hoạch, ít khi cho không quân."
+    },
+    "lion": {
+      "name": "Sư tử",
+      "desc": "Đối thủ đáng gờm cho người chơi thường xuyên."
+    },
+    "eagle": {
+      "name": "Đại bàng",
+      "desc": "Nhìn xa, chiến thuật sắc bén."
+    },
+    "dragon": {
+      "name": "Rồng",
+      "desc": "Rất mạnh — mỗi sai lầm đều bị trừng phạt."
+    },
+    "master": {
+      "name": "Kiện tướng",
+      "desc": "Sức mạnh tối đa của engine. Chúc may mắn!"
     }
+  },
+  "botGame": {
+    "title": "Đấu với bot",
+    "chooseBot": "Chọn đối thủ",
+    "yourColor": "Bạn cầm quân",
+    "random": "Ngẫu nhiên",
+    "timeControl": "Thời gian",
+    "noLimit": "Không giới hạn",
+    "start": "Bắt đầu",
+    "continueTitle": "Ván đang dở",
+    "continueDesc": "Với {bot} · {count} nước",
+    "continue": "Chơi tiếp",
+    "abandon": "Bỏ ván",
+    "abandonConfirm": "Bỏ ván đang dở? Ván đó sẽ được tính là thua.",
+    "thinking": "{bot} đang suy nghĩ…",
+    "you": "Bạn",
+    "hint": "Gợi ý",
+    "resign": "Xin thua",
+    "resignConfirm": "Bạn chắc chắn muốn xin thua?",
+    "offerDraw": "Đề nghị hòa",
+    "drawDeclined": "{bot} từ chối hòa.",
+    "evalBar": "Thanh đánh giá",
+    "engineLoading": "Đang tải engine…",
+    "engineError": "Không tải được engine cờ. Hãy thử tải lại trang.",
+    "result": {
+      "win": "Bạn thắng! 🎉",
+      "loss": "Bạn thua",
+      "draw": "Hòa"
+    },
+    "reason": {
+      "checkmate": "Chiếu hết",
+      "stalemate": "Hòa pat",
+      "threefold": "Lặp lại 3 lần",
+      "insufficient": "Không đủ quân chiếu hết",
+      "fifty-moves": "Luật 50 nước",
+      "resign": "Xin thua",
+      "timeout": "Hết giờ",
+      "agreement": "Hòa theo thỏa thuận"
+    },
+    "rematch": "Chơi lại",
+    "changeBot": "Đổi đối thủ",
+    "viewBoard": "Xem bàn cờ"
+  },
+  "history": {
+    "title": "Lịch sử ván",
+    "empty": "Chưa có ván nào. Đấu với bot để bắt đầu!",
+    "vs": "vs {bot}",
+    "moves": "{count} nước",
+    "asWhite": "Cầm Trắng",
+    "asBlack": "Cầm Đen",
+    "assists": "{hints} gợi ý · {undos} lần đi lại",
+    "copyPgn": "Sao chép PGN",
+    "copied": "Đã sao chép!"
   }
 }

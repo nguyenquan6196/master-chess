@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { applyMove, newGame, toPgn, undoMove, type GameSnapshot } from '@/core/chess/game';
 import { GameStatusBanner } from './GameStatusBanner';
-import { MoveList } from './MoveList';
+import { MoveList } from '@/components/board/MoveList';
 
 const COPIED_FEEDBACK_MS = 1500;
 

@@ -8,7 +8,7 @@
 | Phase | Tên | Thời lượng | Kết quả |
 |---|---|---|---|
 | 0 | Khởi tạo & nền tảng (gồm CI, kiến trúc phân lớp) — ✅ xong | 1.5 tuần | Repo, Next.js, bàn cờ chơi 2 người cùng máy |
-| 1 | Đấu bot (MVP) | 2 tuần | Chơi với Stockfish, 8 mức độ khó |
+| 1 | Đấu bot (MVP) — ✅ code xong, chờ chơi thử | 2 tuần | Chơi với Stockfish, 8 mức độ khó |
 | 2 | Puzzle & Quiz | 2 tuần | Puzzle rated, theo chủ đề, quiz |
 | 3 | Learn | 2–3 tuần | 15–20 bài học MDX tương tác |
 | 4 | Bot persona & Game Review | 2 tuần | Phong cách bot, phân tích ván sau trận |
@@ -74,24 +74,25 @@
 
 **Done khi:** chơi trọn 1 ván 2 người, phát hiện đúng chiếu hết/hòa. ✅ (local)
 
-## Phase 1 — Đấu bot (MVP)
-- [ ] Tải Stockfish WASM lite single-thread vào `public/engine/`
-- [ ] `src/services/engine`: Web Worker + giao tiếp UCI (`uci`, `isready`, `position fen`, `go depth/movetime`, parse `info ... multipv ... score`, `bestmove`)
-- [ ] `BotController` + bảng 8 mức (spec §6.3), gồm lớp blunder/softmax cho Elo < 1300
-- [ ] Màn hình chọn bot: avatar, Elo, mô tả; chọn màu, time control
-- [ ] Đồng hồ cờ; Hint, Undo, Resign, Offer draw
-- [ ] Hồ sơ người chơi cục bộ (spec §8.1): màn nhập tên / chọn người chơi, mọi dữ liệu gắn `profileId`
-- [ ] Autosave ván đang chơi dở, mở lại đánh tiếp
-- [ ] `AudioManager` (Howler.js) + SFX cơ bản: đi quân, ăn quân, chiếu, kết thúc ván; mở khoá âm thanh ở cú click chọn người chơi (nhạc nền làm ở Phase 5)
-- [ ] Màn kết thúc ván; lưu PGN vào IndexedDB; trang lịch sử ván
-- [ ] Xuất/nhập save dạng file JSON (spec §8.2)
-- [ ] Eval bar (worker phân tích riêng), bật/tắt
-- [ ] Playwright E2E (chơi hết 1 ván với bot, autosave + mở lại, import/export) + size-limit/Lighthouse CI ở chế độ cảnh báo
-- [ ] Skill `new-feature` (dựng khung feature theo `src/features/CLAUDE.md` + checklist DoD)
-- [ ] Skill `add-bot`: persona JSON + thoại 3 ngôn ngữ theo GLOSSARY (viết từ bot đầu tiên)
-- [ ] Subagent `reviewer`: soát thay đổi theo DoD (đúng lớp, không hardcode chữ/màu, có test, có CREDITS)
+## Phase 1 — Đấu bot (MVP) — ✅ code xong (2026-10-14)
+- [x] Stockfish **19** lite single-thread (~1.9 MB, `public/engine/`, kèm `COPYING.txt` + `CREDITS.md`). Đo: depth 12 ≈ 70 ms (Node, laptop)
+- [x] `src/services/engine/StockfishEngine.ts`: Web Worker + UCI, tìm kiếm tuần tự (lệnh mới tự `stop` lệnh cũ), MultiPV, giới hạn Elo, báo lỗi khi không tải được engine; 2 engine riêng: `bot` và `analysis`
+- [x] 8 mức bot (`src/core/bot/levels.ts`): 4 mức thấp lấy mẫu softmax trên MultiPV + tỉ lệ nước ngẫu nhiên; Sư tử/Đại bàng/Rồng dùng `UCI_Elo`; Kiện tướng full sức. Có độ trễ "suy nghĩ" giả lập
+- [x] Màn chọn bot: emoji, tên, Elo ước lượng, mô tả (3 ngôn ngữ); chọn màu (Trắng/Ngẫu nhiên/Đen), thời gian (∞, 10+0, 5+3, 3+2)
+- [x] Đồng hồ (có increment, hết giờ = thua); Gợi ý (mũi tên), Đi lại, Xin thua (xác nhận), Đề nghị hòa (bot nhận khi đang kém hoặc thế cân bằng sau 60 nửa nước)
+- [x] Hồ sơ người chơi (IndexedDB/Dexie): màn "Ai đang chơi?", tạo (tên + avatar), sửa, xoá, đổi người chơi; cài đặt lưu theo từng người; tải lại tab vẫn giữ người chơi (sessionStorage)
+- [x] Tự lưu ván sau mỗi nước; mở lại → thẻ "Ván đang dở" (Chơi tiếp / Bỏ ván); đồng hồ không tính thời gian rời đi
+- [x] Âm thanh cơ bản: đi quân, ăn quân, nhập thành, chiếu, phong cấp, bắt đầu/thắng/thua/hòa; bật/tắt + âm lượng trong Cài đặt. *Khác plan:* tổng hợp bằng Web Audio (không file âm thanh, không cần Howler) — Howler + nhạc nền ở Phase 5
+- [x] Hộp kết quả ván (Chơi lại / Đổi đối thủ / Xem bàn cờ); lưu PGN (có header); trang Lịch sử (kết quả, lý do, số gợi ý/đi lại, sao chép PGN); thống kê trong trang Hồ sơ
+- [x] Xuất/nhập file save JSON (zod validate, `schemaVersion`, xác nhận trước khi ghi đè)
+- [x] Thanh đánh giá (engine `analysis`, depth 10), bật/tắt, lưu theo người chơi
+- [x] Playwright E2E (desktop + mobile, 6 test): ván 2 người + chiếu hết + đi lại; ván với bot + bot trả lời + tự lưu + chơi tiếp + xin thua + lịch sử; nhớ người chơi + đổi người chơi. CI chạy ở chế độ cảnh báo. *Dời:* size-limit/Lighthouse → mục Deploy (đo trên bản deploy mới có ý nghĩa)
+- [x] Skill `new-feature` (`.claude/skills/new-feature/`)
+- [ ] Skill `add-bot` → làm ở Phase 4 khi bot chuyển sang file persona JSON + thoại (hiện bot cấu hình trong code `src/core/bot/levels.ts`)
+- [x] Subagent `reviewer` (`.claude/agents/reviewer.md`)
+- [x] Unit test (43) cho `core`: UCI parser, chọn nước bot, đồng hồ, ván bot (đi quân/chiếu hết/xin thua/đi lại/hết giờ/tiếp tục), file save, thống kê. `services` (Web Worker, IndexedDB) được kiểm qua E2E
 
-**Done khi:** người mới thắng được bot thấp nhất, bot Master không thua ván nào trong test thủ công.
+**Done khi:** người mới thắng được bot thấp nhất, bot Master không thua ván nào trong test thủ công. → **Cần bạn chơi thử** để xác nhận cảm giác độ khó (đặc biệt Gà con có dễ thật không).
 
 ## Phase 2 — Puzzle & Quiz
 - [ ] Tải `lichess_db_puzzle.csv` (database.lichess.org)

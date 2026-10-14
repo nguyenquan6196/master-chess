@@ -1,4 +1,6 @@
-export const LOCALES = ['vi', 'en', 'ja'] as const;
+import { LOCALE_VALUES } from '@/core/profile/schema';
+
+export const LOCALES = LOCALE_VALUES;
 export type Locale = (typeof LOCALES)[number];
 
 export const DEFAULT_LOCALE: Locale = 'vi';

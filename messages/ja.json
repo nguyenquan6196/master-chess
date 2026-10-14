@@ -9,12 +9,18 @@
     "practice": "練習",
     "play": "対戦",
     "settings": "設定",
-    "menu": "メニューを開く"
+    "menu": "メニューを開く",
+    "profile": "プロフィール",
+    "history": "履歴"
   },
   "common": {
     "comingSoon": "近日公開",
     "comingSoonDesc": "この機能は現在開発中です。また後で見に来てください！",
-    "backHome": "ホームに戻る"
+    "backHome": "ホームに戻る",
+    "cancel": "キャンセル",
+    "ok": "OK",
+    "close": "閉じる",
+    "confirm": "OK"
   },
   "home": {
     "title": "Master Chess へようこそ",
@@ -68,6 +74,135 @@
       "auto": "自動（システムに合わせる）",
       "classic": "Classic",
       "midnight": "Midnight"
+    },
+    "sound": "サウンド",
+    "sfx": "効果音",
+    "volume": "音量",
+    "test": "テスト",
+    "on": "オン",
+    "off": "オフ"
+  },
+  "profile": {
+    "pickTitle": "だれがプレイしますか？",
+    "pickSubtitle": "プレイヤーを選んで続きから遊ぶか、新しく作成してください。",
+    "newPlayer": "新しいプレイヤー",
+    "nameLabel": "名前",
+    "namePlaceholder": "例：たろう",
+    "avatarLabel": "アイコンを選ぶ",
+    "create": "はじめる",
+    "cancel": "キャンセル",
+    "lastActive": "最終プレイ {date}",
+    "importFromFile": "セーブファイルから読み込む",
+    "switch": "プレイヤーを切り替え",
+    "title": "プロフィール",
+    "stats": "成績",
+    "played": "対局数",
+    "win": "勝ち",
+    "loss": "負け",
+    "draw": "引き分け",
+    "viewHistory": "対局履歴を見る",
+    "data": "データ",
+    "dataDesc": "データはこのブラウザにのみ保存されます。バックアップや別の端末への移行にはファイルを書き出してください。",
+    "export": "データを書き出す",
+    "import": "データを読み込む",
+    "importConfirm": "「{name}」のデータを読み込みますか？このプレイヤーがすでにある場合、現在の進捗は置き換えられます。",
+    "importDone": "{name} のデータを読み込みました。",
+    "importError": {
+      "invalid-json": "ファイルを読み取れませんでした。",
+      "not-a-save-file": "Master Chess のセーブファイルではありません。",
+      "newer-version": "新しいバージョンのアプリで作成されたファイルです。",
+      "invalid-data": "ファイルのデータが壊れています。"
+    },
+    "edit": "編集",
+    "save": "保存",
+    "delete": "プレイヤーを削除",
+    "deleteConfirm": "{name} とすべての履歴を削除しますか？元に戻せません。"
+  },
+  "bots": {
+    "chick": {
+      "name": "ひよこ",
+      "desc": "練習中で、ほとんど適当に指します。はじめての対局にぴったり！"
+    },
+    "turtle": {
+      "name": "カメ",
+      "desc": "ゆっくり着実…ときどき。まだ駒をタダで取られがち。"
+    },
+    "fox": {
+      "name": "キツネ",
+      "desc": "罠をしかけ始めたけれど、まだミスもします。"
+    },
+    "wolf": {
+      "name": "オオカミ",
+      "desc": "計画的に指し、駒をタダで渡すことはめったにありません。"
+    },
+    "lion": {
+      "name": "ライオン",
+      "desc": "よく指す人にとっての手ごわい相手です。"
+    },
+    "eagle": {
+      "name": "ワシ",
+      "desc": "先を読み、鋭い戦術を使います。"
+    },
+    "dragon": {
+      "name": "ドラゴン",
+      "desc": "とても強い — どんなミスも見逃しません。"
+    },
+    "master": {
+      "name": "マスター",
+      "desc": "エンジン本来の強さです。幸運を！"
     }
+  },
+  "botGame": {
+    "title": "ボットと対戦",
+    "chooseBot": "対戦相手を選ぶ",
+    "yourColor": "あなたの色",
+    "random": "ランダム",
+    "timeControl": "持ち時間",
+    "noLimit": "無制限",
+    "start": "対局開始",
+    "continueTitle": "途中の対局",
+    "continueDesc": "{bot} と対戦中 · {count}手",
+    "continue": "続ける",
+    "abandon": "放棄する",
+    "abandonConfirm": "途中の対局を放棄しますか？負けとして記録されます。",
+    "thinking": "{bot} が考えています…",
+    "you": "あなた",
+    "hint": "ヒント",
+    "resign": "投了",
+    "resignConfirm": "本当に投了しますか？",
+    "offerDraw": "引き分けを提案",
+    "drawDeclined": "{bot} は引き分けを断りました。",
+    "evalBar": "評価バー",
+    "engineLoading": "エンジンを読み込み中…",
+    "engineError": "チェスエンジンを読み込めませんでした。ページを再読み込みしてください。",
+    "result": {
+      "win": "あなたの勝ち！🎉",
+      "loss": "あなたの負け",
+      "draw": "引き分け"
+    },
+    "reason": {
+      "checkmate": "チェックメイト",
+      "stalemate": "ステイルメイト",
+      "threefold": "同一局面3回",
+      "insufficient": "戦力不足",
+      "fifty-moves": "50手ルール",
+      "resign": "投了",
+      "timeout": "時間切れ",
+      "agreement": "合意による引き分け"
+    },
+    "rematch": "再戦",
+    "changeBot": "相手を変える",
+    "viewBoard": "盤面を見る"
+  },
+  "history": {
+    "title": "対局履歴",
+    "empty": "まだ対局がありません。ボットと対戦してみましょう！",
+    "vs": "vs {bot}",
+    "moves": "{count}手",
+    "asWhite": "白番",
+    "asBlack": "黒番",
+    "assists": "ヒント {hints} 回 · 待った {undos} 回",
+    "copyPgn": "PGNをコピー",
+    "copied": "コピーしました！"
   }
 }

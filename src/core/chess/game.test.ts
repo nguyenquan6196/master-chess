@@ -4,11 +4,15 @@ import {
   checkedKingSquare,
   isPromotionMove,
   legalTargets,
+  legalUciMoves,
+  moveToUci,
   newGame,
   undoMove,
+  uciToMove,
   type GameSnapshot,
   type MoveInput,
 } from './game';
+import { moveSound } from './moveSound';
 
 function play(moves: string[], game: GameSnapshot = newGame()): GameSnapshot {
   return moves.reduce((g, m) => {
@@ -80,5 +84,31 @@ describe('core/chess/game', () => {
     const back = undoMove(g);
     expect(back.history.map((m) => m.san)).toEqual(['e4']);
     expect(back.status).toMatchObject({ turn: 'b' });
+  });
+});
+
+describe('core/chess/game uci helpers', () => {
+  it('converts between UCI strings and moves', () => {
+    expect(uciToMove('e7e8q')).toEqual({ from: 'e7', to: 'e8', promotion: 'q' });
+    expect(uciToMove('g1f3')).toEqual({ from: 'g1', to: 'f3' });
+    expect(moveToUci({ from: 'a7', to: 'a8', promotion: 'n' })).toBe('a7a8n');
+  });
+
+  it('lists 20 legal moves from the start position', () => {
+    const moves = legalUciMoves(newGame().fen);
+    expect(moves).toHaveLength(20);
+    expect(moves).toContain('g1f3');
+  });
+});
+
+describe('core/chess/moveSound', () => {
+  const playing = { kind: 'playing', turn: 'w', inCheck: false } as const;
+  it('maps move flags to sounds', () => {
+    expect(moveSound({ flags: 'n' }, playing)).toBe('move');
+    expect(moveSound({ flags: 'c' }, playing)).toBe('capture');
+    expect(moveSound({ flags: 'e' }, playing)).toBe('capture');
+    expect(moveSound({ flags: 'k' }, playing)).toBe('castle');
+    expect(moveSound({ flags: 'cp' }, playing)).toBe('promote');
+    expect(moveSound({ flags: 'c' }, { ...playing, inCheck: true })).toBe('check');
   });
 });

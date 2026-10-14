@@ -63,6 +63,7 @@ npm run typecheck    # next typegen && tsc --noEmit
 npm run lint         # ESLint, gồm quy tắc chia lớp
 npm run test         # Vitest (src/**/*.test.ts)
 npm run check-i18n   # 3 file ngôn ngữ đủ key
+npm run test:e2e     # Playwright (desktop + mobile), tự bật dev server
 npm run build
 ```
 Hook PostToolUse (`.claude/hooks/format.mjs`) tự chạy ESLint --fix + Prettier trên file vừa sửa. Husky chạy lint-staged khi commit.
@@ -76,4 +77,4 @@ Hook PostToolUse (`.claude/hooks/format.mjs`) tự chạy ESLint --fix + Prettie
 | Quiz | `content/quiz/<locale>.json` |
 | Ngôn ngữ | `messages/<locale>.json` + `content/*/<locale>/` |
 
-Skills cho các việc này sẽ nằm ở `.claude/skills/` (viết dần sau khi có ví dụ thật đầu tiên).
+Skills: `.claude/skills/new-feature` (quy trình làm 1 tính năng mới). Subagent `reviewer` (`.claude/agents/`) soát thay đổi theo Definition of Done. Các skill thêm nội dung (bài học, bot, theme…) viết dần sau khi có ví dụ thật đầu tiên.
