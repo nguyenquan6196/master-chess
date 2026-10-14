@@ -40,8 +40,7 @@ test('learn: a locked lesson shows what to finish first', async ({ page }) => {
 
 test('learn: lesson content follows the language setting', async ({ page }) => {
   await createPlayer(page);
-  await page.goto('/settings');
-  await page.getByRole('button', { name: 'English' }).click();
+  await page.getByRole('combobox', { name: 'Ngôn ngữ' }).selectOption('en');
   await page.goto('/learn/board');
   await expect(page.getByRole('heading', { name: 'Ranks and files' })).toBeVisible();
 });

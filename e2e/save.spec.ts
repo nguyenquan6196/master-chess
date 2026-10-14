@@ -34,7 +34,7 @@ test('export the save file, delete the player and import it back', async ({ page
   await page.locator('input[type="file"]').setInputFiles(path);
   await page.getByRole('dialog').getByRole('button', { name: 'Nhập dữ liệu' }).click();
   // The restored player is selected and we land back on their profile page.
-  await expect(page.getByText('Người lưu').first()).toBeVisible();
+  await expect(page.locator('main').getByText('Người lưu')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Hồ sơ' })).toBeVisible();
   await page.goto('/history');
   await expect(page.getByText('vs Gà con')).toBeVisible();

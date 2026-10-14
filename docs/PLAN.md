@@ -126,6 +126,12 @@
 
 **Done khi:** người chưa biết chơi đi hết Chương 1–2 và chơi được với bot thấp nhất. → **Cần bạn đọc thử** vài bài (nội dung do AI viết, nên soát thuật ngữ & văn phong, nhất là bản tiếng Nhật).
 
+### Cập nhật giao diện sau Phase 3 (2026-10-15, theo góp ý)
+- [x] Favicon: icon SVG quân Mã (`src/app/icon.svg`) thay logo Next.js
+- [x] Chọn ngôn ngữ chuyển lên thanh menu, bên trái nút người chơi
+- [x] Cài đặt thành **nút nổi ⚙️ góc phải dưới**, bấm để mở/đóng bảng (giao diện + âm thanh); bỏ trang `/settings` và mục "Cài đặt" trên menu. Phase 5: các mục theme/nhạc/sound pack mới sẽ thêm vào bảng này
+- [x] Mobile: logo chỉ còn icon khi màn hình < 440px để vừa chỗ
+
 ## Phase 4 — Bot persona & Game Review
 - [ ] Style bonus từ MultiPV (Tấn công / Phòng thủ / Thế trận / Hỗn loạn / Cân bằng)
 - [ ] Opening book riêng mỗi persona (`scripts/build-book.ts` từ PGN)
@@ -146,8 +152,8 @@
   - [ ] 8 theme có sẵn (Classic, Gỗ, Cẩm thạch, Neon, Arcade, Fantasy, Sakura, Midnight)
   - [ ] Tuỳ chỉnh từng phần: nền (màu đơn sắc / gradient / ảnh / ảnh tự tải lên), bàn cờ, bộ quân, highlight & mũi tên, màu nhấn, kiểu nút
   - [ ] Thanh làm tối/làm mờ nền; nền động (cánh hoa, hạt) tôn trọng `prefers-reduced-motion`
-  - [ ] Settings → Giao diện: lưới thẻ xem trước + live preview trên bàn cờ mẫu
-- [ ] Settings → Language: vi/en/ja; dịch đủ UI, thoại bot, quiz; bài học dịch dần (fallback + thông báo)
+  - [ ] Bảng cài đặt nổi → Giao diện: lưới thẻ xem trước + live preview trên bàn cờ mẫu (có thể mở rộng bảng thành toàn màn hình)
+- [ ] Ngôn ngữ (chọn trên menu): vi/en/ja; dịch đủ UI, thoại bot, quiz; bài học dịch dần (fallback + thông báo)
 - [ ] Skill `add-theme` (manifest + asset + CREDITS) và skill `sync-i18n` (dịch key còn thiếu vi → en/ja theo GLOSSARY)
 - [ ] Animation, hiệu ứng chiếu/phong cấp
 - [ ] Âm thanh (spec §7.1):
@@ -155,7 +161,7 @@
   - [ ] Nhạc nền theo màn + theo độ khó bot, crossfade khi chuyển màn, dừng khi ẩn tab
   - [ ] SFX đầy đủ + UI click; sound pack (classic / arcade / fantasy)
   - [ ] Căng thẳng động (đồng hồ < 30 s / eval thua nặng)
-  - [ ] Settings → Âm thanh: âm lượng Master/Nhạc/SFX/UI, chế độ nhạc auto/cố định/tắt, sound pack, nút nghe thử; nút loa tắt nhanh trên header
+  - [ ] Bảng cài đặt → Âm thanh: âm lượng Master/Nhạc/SFX/UI, chế độ nhạc auto/cố định/tắt, sound pack, nút nghe thử; nút loa tắt nhanh trên header
 - [ ] **Huy hiệu Rank — phần hình** (spec §6.7, bản phác đã duyệt: `docs/design/rank-emblems-draft.svg`):
   - [ ] Component `RankEmblem` (SVG nhiều lớp, 8 bậc, nhiều kích thước) dựa trên bản phác; trau chuốt: dải màu kim loại, viền highlight, chi tiết chạm khắc, quân cờ vẽ vector thay ký tự
   - [ ] Animation (tắt khi `prefers-reduced-motion`): vệt ánh kim chạy ngang, đá quý lấp lánh, cánh vỗ nhẹ, lửa/tia sáng xoay, hào quang Thách Đấu

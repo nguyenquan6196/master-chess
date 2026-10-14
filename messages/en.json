@@ -80,7 +80,9 @@
     "volume": "Volume",
     "test": "Test",
     "on": "On",
-    "off": "Off"
+    "off": "Off",
+    "open": "Open settings",
+    "close": "Close settings"
   },
   "profile": {
     "pickTitle": "Who's playing?",

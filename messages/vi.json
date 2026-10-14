@@ -80,7 +80,9 @@
     "volume": "Âm lượng",
     "test": "Nghe thử",
     "on": "Bật",
-    "off": "Tắt"
+    "off": "Tắt",
+    "open": "Mở cài đặt",
+    "close": "Đóng cài đặt"
   },
   "profile": {
     "pickTitle": "Ai đang chơi?",

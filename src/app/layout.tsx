@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Baloo_2, Be_Vietnam_Pro, M_PLUS_Rounded_1c, Noto_Sans_JP } from 'next/font/google';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ProfileGate } from '@/features/profile/ProfileGate';
+import { SettingsPanel } from '@/features/settings/SettingsPanel';
 import { AppShell } from '@/features/shell/AppShell';
 import { AppProviders } from '@/services/AppProviders';
 import { DEFAULT_LOCALE } from '@/services/i18n/config';
@@ -66,7 +67,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       <body className="flex min-h-full flex-col" suppressHydrationWarning>
         <AppProviders>
           <ProfileGate>
-            <AppShell>{children}</AppShell>
+            <AppShell settings={<SettingsPanel />}>{children}</AppShell>
           </ProfileGate>
         </AppProviders>
         <SpeedInsights />
