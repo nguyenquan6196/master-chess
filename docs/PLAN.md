@@ -8,7 +8,7 @@
 | Phase | Tên | Thời lượng | Kết quả |
 |---|---|---|---|
 | 0 | Khởi tạo & nền tảng (gồm CI, kiến trúc phân lớp) — ✅ xong | 1.5 tuần | Repo, Next.js, bàn cờ chơi 2 người cùng máy |
-| 1 | Đấu bot (MVP) — ✅ code xong, chờ chơi thử | 2 tuần | Chơi với Stockfish, 8 mức độ khó |
+| 1 | Đấu bot (MVP) — ✅ xong | 2 tuần | Chơi với Stockfish, 8 mức độ khó |
 | 2 | Puzzle & Quiz | 2 tuần | Puzzle rated, theo chủ đề, quiz |
 | 3 | Learn | 2–3 tuần | 15–20 bài học MDX tương tác |
 | 4 | Bot persona & Game Review | 2 tuần | Phong cách bot, phân tích ván sau trận |
@@ -92,7 +92,7 @@
 - [x] Subagent `reviewer` (`.claude/agents/reviewer.md`)
 - [x] Unit test (43) cho `core`: UCI parser, chọn nước bot, đồng hồ, ván bot (đi quân/chiếu hết/xin thua/đi lại/hết giờ/tiếp tục), file save, thống kê. `services` (Web Worker, IndexedDB) được kiểm qua E2E
 
-**Done khi:** người mới thắng được bot thấp nhất, bot Master không thua ván nào trong test thủ công. → **Cần bạn chơi thử** để xác nhận cảm giác độ khó (đặc biệt Gà con có dễ thật không).
+**Done khi:** người mới thắng được bot thấp nhất, bot Master không thua ván nào trong test thủ công. ✅ Người chơi thử thắng Gà con bằng chiếu hết (2026-10-14). Còn theo dõi: cảm giác độ khó các mức giữa.
 
 ## Phase 2 — Puzzle & Quiz
 - [ ] Tải `lichess_db_puzzle.csv` (database.lichess.org)

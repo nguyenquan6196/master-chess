@@ -62,7 +62,8 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
       </head>
-      <body className="flex min-h-full flex-col">
+      {/* Browser extensions (e.g. ColorZilla's cz-shortcut-listen) add attributes to <body>. */}
+      <body className="flex min-h-full flex-col" suppressHydrationWarning>
         <AppProviders>
           <ProfileGate>
             <AppShell>{children}</AppShell>
