@@ -122,13 +122,19 @@ export const puzzleRepo = {
     return new Set(keys);
   },
 
-  listByProfile(profileId: string, limit = 100): Promise<PuzzleAttempt[]> {
+  /** Most recent attempts first. */
+  listRecent(profileId: string, limit = 100): Promise<PuzzleAttempt[]> {
     return getDb()
       .puzzleAttempts.where('[profileId+at]')
       .between([profileId, -Infinity], [profileId, Infinity])
       .reverse()
       .limit(limit)
       .toArray();
+  },
+
+  /** Every attempt of the player (for save files). */
+  listAll(profileId: string): Promise<PuzzleAttempt[]> {
+    return getDb().puzzleAttempts.where('profileId').equals(profileId).toArray();
   },
 
   async findAttempt(profileId: string, puzzleId: string): Promise<PuzzleAttempt | undefined> {

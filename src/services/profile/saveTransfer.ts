@@ -17,7 +17,7 @@ export async function exportProfile(profileId: string): Promise<void> {
   const profile = await profileRepo.get(profileId);
   if (!profile) return;
   const games = await gameRepo.listByProfile(profileId);
-  const attempts = await puzzleRepo.listByProfile(profileId, Number.MAX_SAFE_INTEGER);
+  const attempts = await puzzleRepo.listAll(profileId);
   const now = Date.now();
   const file = buildSaveFile(profile, games, attempts, now);
   const blob = new Blob([JSON.stringify(file, null, 2)], { type: 'application/json' });
