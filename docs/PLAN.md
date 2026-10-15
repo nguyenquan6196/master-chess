@@ -11,7 +11,7 @@
 | 1 | Đấu bot (MVP) — ✅ xong | 2 tuần | Chơi với Stockfish, 8 mức độ khó |
 | 2 | Puzzle & Quiz — ✅ code xong, chờ chơi thử | 2 tuần | Puzzle rated, theo chủ đề, quiz |
 | 3 | Learn — ✅ code xong, chờ đọc thử | 2–3 tuần | 18 bài học MDX tương tác × 3 ngôn ngữ |
-| 4 | Bot persona & Game Review | 2 tuần | Phong cách bot, phân tích ván sau trận |
+| 4 | Bot persona & Game Review — ✅ code xong, chờ chơi thử | 2 tuần | Phong cách bot, phân tích ván sau trận |
 | 5 | Hoa hòe: theme, âm thanh, ngôn ngữ, gamification | 3–4 tuần | 8 theme + tuỳ chỉnh, nhạc nền, vi/en/ja, XP, huy hiệu, PWA |
 | 6 | 3D board | 2 tuần | Chế độ 3D tuỳ chọn |
 | 7 | (Tuỳ chọn) Cloud | — | Tài khoản, đồng bộ, AI Coach, PvP |
@@ -138,7 +138,7 @@
 - [x] Nền caro mờ của màn welcome thành **nền chung cho mọi màn** (biến theme `--mc-backdrop-*` trong `themes.css`, Midnight mờ hơn)
 - [x] Màn "Ai đang chơi?" làm mới: 2 cột — giới thiệu app + bàn cờ demo tự chạy (khai cuộc Ý) + 3 mục Học/Luyện tập/Đấu cờ; thẻ người chơi có avatar, rating puzzle; ô "+ Người chơi mới" nét đứt; chọn ngôn ngữ có cờ; nền ô cờ mờ. Mobile: thẻ người chơi lên trước
 
-## Phase 4 — Bot persona & Game Review
+## Phase 4 — Bot persona & Game Review — ✅ code xong (2026-10-15)
 - [x] Style bonus từ MultiPV (Tấn công / Phòng thủ / Thế trận / Hỗn loạn / Cân bằng): `core/bot/styles.ts` — chỉ cộng điểm cho nước cách nước tốt nhất ≤ 80cp; bot yếu cộng vào softmax, bot mạnh chọn trong MultiPV 4 quanh nước của limiter (+ test)
 - [x] Opening book riêng mỗi phong cách: `content/books/openings.json` (dòng SAN viết tay + trọng số, nạp lúc chạy → không cần script build), `core/bot/book.ts` tra theo thế cờ cho cả Trắng lẫn Đen, dùng tới nước thứ 24, bot ≥ 700 Elo (+ test kiểm hợp lệ)
 - [x] Ma trận chọn bot = Độ khó × Phong cách; chế độ Custom (slider Elo 250–3000, nội suy tham số bot yếu / UCI_Elo / full strength)
@@ -149,7 +149,7 @@
   - [x] `core/rating/`: Glicko-2, ánh xạ rating → rank/bậc con/tiến độ, luật trận thăng hạng, "sàn" rank, ván có gợi ý/đi lại = không tính điểm (+ unit test)
   - [x] Dữ liệu: `gameRating`, `rankFloor` trong profile (trận thăng hạng suy ra từ rating, không cần lưu `pendingPromotion`); `style`, `customElo`, `rated`, `ratingDelta`, `ratingAfter`, `promotion` trong GameRecord → Dexie v4 + `SAVE_SCHEMA_VERSION` 4 + migrate (có test). Tính điểm 1 lần trong transaction (`services/rating/gameRating.ts`)
   - [x] UI tạm (chưa cần huy hiệu đẹp): rank + thanh tiến độ ở Hồ sơ, icon rank trên header, "+/− điểm" ở màn kết quả & lịch sử, "Trùm hạng X" trên thẻ bot, banner trận thăng hạng, nhãn Tính điểm/Luyện tập + hỏi xác nhận trước khi dùng gợi ý/đi lại
-  - [ ] Dùng Elo bot đã hiệu chỉnh (`calibrate-bots`) để tính điểm
+  - [x] Dùng Elo bot đã hiệu chỉnh (`calibrate-bots`) để tính điểm. Lần chạy 2026-10-15 phát hiện Sói mạnh hơn Sư tử (thắng 7/8) → giảm độ sâu/tăng ngẫu nhiên cho Cáo & Sói; kết quả cuối: Rùa ≈640, Cáo ≈860, Sói ≈1230 < Sư tử 1400 → Elo mới Rùa 600, Cáo 850, Sói 1200
 - [x] Game Review (`/review#<gameId>`, mở từ Lịch sử hoặc hộp kết quả): Stockfish depth 12 trên engine phân tích, lưu kết quả vào ván (`review`, không đổi thứ tự lịch sử); phân loại Best/Good/Inaccuracy/Mistake/Blunder theo % thắng bị mất (công thức Lichess), accuracy 2 bên, biểu đồ eval bấm để nhảy nước, phím ← →, hiện nước tốt nhất, **thử lại nước sai** (chấm bằng engine). `core/review/review.ts` + test; E2E
 - [x] Sửa: trang mở bằng `<Link>` có `#hash` (Review, `/practice/themes#fork` từ bài học) đọc hash quá sớm → hook `useLocationHash`
 

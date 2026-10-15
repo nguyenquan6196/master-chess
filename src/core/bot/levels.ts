@@ -1,6 +1,6 @@
 /**
- * Bot difficulty ladder (spec §6.3). Elo values are rough estimates until calibrated
- * by scripts/calibrate-bots (Phase 4). Names/descriptions live in messages under `bots.<id>`.
+ * Bot difficulty ladder (spec §6.3). Weak-bot Elo values come from scripts/calibrate-bots
+ * (2026-10-15, 8 games per pair, UCI_Elo bots as anchors). Names/descriptions live in messages under `bots.<id>`.
  */
 
 /** Weak bots: sample among the engine's top moves, sometimes play a random legal move. */
@@ -67,7 +67,7 @@ export const BOT_LEVELS: readonly (BotLevel & { id: BotId })[] = [
   {
     id: 'turtle',
     emoji: '🐢',
-    elo: 500,
+    elo: 600,
     tier: 1,
     strategy: { kind: 'sampled', depth: 2, multiPV: 6, randomMoveRate: 0.3, temperatureCp: 200 },
     thinkTimeMs: [600, 1400],
@@ -75,17 +75,17 @@ export const BOT_LEVELS: readonly (BotLevel & { id: BotId })[] = [
   {
     id: 'fox',
     emoji: '🦊',
-    elo: 800,
+    elo: 850,
     tier: 2,
-    strategy: { kind: 'sampled', depth: 4, multiPV: 5, randomMoveRate: 0.15, temperatureCp: 120 },
+    strategy: { kind: 'sampled', depth: 2, multiPV: 5, randomMoveRate: 0.22, temperatureCp: 160 },
     thinkTimeMs: [600, 1500],
   },
   {
     id: 'wolf',
     emoji: '🐺',
-    elo: 1100,
+    elo: 1200,
     tier: 2,
-    strategy: { kind: 'sampled', depth: 6, multiPV: 4, randomMoveRate: 0.06, temperatureCp: 60 },
+    strategy: { kind: 'sampled', depth: 3, multiPV: 5, randomMoveRate: 0.12, temperatureCp: 100 },
     thinkTimeMs: [700, 1600],
   },
   {
