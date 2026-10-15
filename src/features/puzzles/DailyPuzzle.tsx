@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useFormatter, useTranslations } from 'use-intl';
+import { BackButton } from '@/components/ui/BackButton';
 import { Card } from '@/components/ui/Card';
 import type { PuzzleSession } from '@/core/puzzle/session';
 import type { Puzzle } from '@/core/puzzle/types';
@@ -14,6 +15,7 @@ import { PuzzleStatus } from './PuzzleStatus';
 export function DailyPuzzle() {
   const t = useTranslations('puzzle');
   const tp = useTranslations('practice');
+  const tn = useTranslations('nav');
   const format = useFormatter();
   const profileId = useSession((s) => s.profile?.id);
   const [puzzle, setPuzzle] = useState<Puzzle | null>(null);
@@ -44,6 +46,7 @@ export function DailyPuzzle() {
 
   return (
     <div className="flex flex-col gap-4">
+      <BackButton href="/practice" label={tn('practice')} />
       <h1 className="font-display text-3xl font-bold">{tp('daily')}</h1>
       <p className="text-muted">
         {t('dailyTitle', { date: format.dateTime(today, { dateStyle: 'long' }) })}

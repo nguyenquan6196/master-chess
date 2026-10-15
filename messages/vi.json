@@ -257,7 +257,8 @@
     "final": "Bạn giải được {score} câu",
     "newRecord": "Kỷ lục mới! 🏆",
     "again": "Chơi lại",
-    "skip": "Bỏ qua"
+    "skip": "Bỏ qua",
+    "quit": "Thoát"
   },
   "quiz": {
     "title": "Trắc nghiệm",
@@ -276,7 +277,8 @@
     "again": "Làm lại",
     "otherTopic": "Chủ đề khác",
     "answerWas": "Đáp án: {move}",
-    "count": "{count} câu"
+    "count": "{count} câu",
+    "topics": "Chủ đề"
   },
   "puzzleThemes": {
     "mateIn1": "Chiếu hết 1 nước",

@@ -101,3 +101,25 @@ test('quiz: answer a full generated round', async ({ page }) => {
   await expect(page.getByText('🤖 Máy tạo')).toBeVisible();
   await answerRound(page);
 });
+
+test('browser back leaves a sub-screen one step at a time', async ({ page }) => {
+  await page.goto('/practice');
+  await page.goto('/practice/quiz');
+  await page
+    .getByRole('button', { name: /Quân cờ/ })
+    .first()
+    .click();
+  await expect(page.getByText('Câu 1/10')).toBeVisible();
+  await page.goBack();
+  await expect(page).toHaveURL(/\/practice\/quiz$/);
+  await expect(page.getByText('Luyện tập thêm')).toBeVisible();
+  // The in-page back button goes up one level too.
+  await page
+    .getByRole('button', { name: /Quân cờ/ })
+    .first()
+    .click();
+  await page.getByRole('button', { name: 'Chủ đề', exact: true }).click();
+  await expect(page.getByText('Luyện tập thêm')).toBeVisible();
+  await page.goBack();
+  await expect(page).toHaveURL(/\/practice$/);
+});

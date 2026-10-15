@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'use-intl';
+import { BackButton } from '@/components/ui/BackButton';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
 import type { Color } from '@/core/chess/game';
@@ -10,6 +11,7 @@ import type { GameRecord } from '@/core/profile/schema';
 import { playSfx } from '@/services/audio/sfx';
 import { gameRepo } from '@/services/db/repositories';
 import { getEngine } from '@/services/engine/StockfishEngine';
+import { useHistoryStep } from '@/services/navigation/historyStep';
 import { useSession } from '@/services/profile/session';
 import { BotGameView } from './BotGameView';
 import { BotSetup, type SetupChoice } from './BotSetup';
@@ -29,11 +31,13 @@ function pickColor(choice: SetupChoice['color']): Color {
 export function BotGameScreen() {
   const t = useTranslations('botGame');
   const tc = useTranslations('common');
+  const tn = useTranslations('nav');
   const profileId = useSession((s) => s.profile?.id);
   const [view, setView] = useState<View>({ kind: 'loading' });
   const [lastChoice, setLastChoice] = useState<SetupChoice>(DEFAULT_CHOICE);
   /** Abandoning the unfinished game (optionally starting a new one) needs confirmation. */
   const [pendingAbandon, setPendingAbandon] = useState<{ next: SetupChoice | null } | null>(null);
+  useHistoryStep(view.kind === 'game', () => void backToSetup());
 
   useEffect(() => {
     if (!profileId) return;
@@ -94,23 +98,27 @@ export function BotGameScreen() {
 
   if (view.kind === 'game') {
     return (
-      <BotGameView
-        key={view.game.id}
-        initial={view.game}
-        onRematch={(g) =>
-          void start(
-            { botId: g.botId, color: g.playerColor, timeControl: g.clock.timeControl },
-            null,
-          )
-        }
-        onChangeBot={() => void backToSetup()}
-      />
+      <div className="flex flex-col gap-4">
+        <BackButton onClick={() => void backToSetup()} label={t('changeBot')} />
+        <BotGameView
+          key={view.game.id}
+          initial={view.game}
+          onRematch={(g) =>
+            void start(
+              { botId: g.botId, color: g.playerColor, timeControl: g.clock.timeControl },
+              null,
+            )
+          }
+          onChangeBot={() => void backToSetup()}
+        />
+      </div>
     );
   }
 
   const ongoing = view.ongoing;
   return (
-    <>
+    <div className="flex flex-col gap-4">
+      <BackButton href="/play" label={tn('play')} />
       <BotSetup
         initial={lastChoice}
         ongoing={ongoing}
@@ -144,6 +152,6 @@ export function BotGameScreen() {
       >
         {t('abandonConfirm')}
       </Modal>
-    </>
+    </div>
   );
 }

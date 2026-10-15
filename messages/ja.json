@@ -257,7 +257,8 @@
     "final": "{score}問解きました",
     "newRecord": "自己ベスト更新！🏆",
     "again": "もう一度",
-    "skip": "スキップ"
+    "skip": "スキップ",
+    "quit": "やめる"
   },
   "quiz": {
     "title": "クイズ",
@@ -276,7 +277,8 @@
     "again": "もう一度",
     "otherTopic": "別のトピック",
     "answerWas": "正解：{move}",
-    "count": "{count}問"
+    "count": "{count}問",
+    "topics": "トピック"
   },
   "puzzleThemes": {
     "mateIn1": "1手詰め",

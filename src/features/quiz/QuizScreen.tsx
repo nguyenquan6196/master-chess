@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'use-intl';
 import { QuestionView } from '@/components/board/QuestionView';
+import { BackButton } from '@/components/ui/BackButton';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { cn } from '@/components/ui/cn';
@@ -20,6 +21,7 @@ import { playSfx } from '@/services/audio/sfx';
 import { useSession } from '@/services/profile/session';
 import { saveQuizScore } from '@/services/puzzles/puzzles';
 import { loadQuizTexts, QUIZ_QUESTIONS } from '@/services/quiz/quizContent';
+import { useHistoryStep } from '@/services/navigation/historyStep';
 import { useSettings } from '@/services/settings/store';
 
 const QUESTIONS_PER_ROUND = 10;
@@ -86,6 +88,7 @@ export function QuizScreen() {
   const tt = useTranslations('quizTopics');
   const tgen = useTranslations('quizGen');
   const tg = useTranslations('game');
+  const tn = useTranslations('nav');
   const locale = useSettings((s) => s.locale);
   const quizBest = useSession((s) => s.profile?.quizBest ?? {});
   const [texts, setTexts] = useState<Record<string, QuizText> | null>(null);
@@ -94,6 +97,7 @@ export function QuizScreen() {
   const [results, setResults] = useState<boolean[]>([]);
   const [answered, setAnswered] = useState<boolean | null>(null);
   const [newBest, setNewBest] = useState(false);
+  useHistoryStep(round !== null, () => setRound(null));
 
   useEffect(() => {
     let cancelled = false;
@@ -172,6 +176,7 @@ export function QuizScreen() {
     return (
       <div className="flex flex-col gap-8">
         <section className="flex flex-col gap-4">
+          <BackButton href="/practice" label={tn('practice')} />
           <h1 className="font-display text-3xl font-bold">📝 {t('title')}</h1>
           <h2 className="text-sm font-semibold text-muted">{t('chooseTopic')}</h2>
           <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -222,20 +227,23 @@ export function QuizScreen() {
   if (index >= total) {
     const correct = results.filter(Boolean).length;
     return (
-      <Card className="relative mx-auto mt-6 flex max-w-md flex-col items-center gap-3 text-center">
-        <Confetti trigger={correct / total >= 0.7 ? correct + 1 : null} />
-        <p className="text-5xl" aria-hidden>
-          {correct / total >= 0.7 ? '🏆' : '📚'}
-        </p>
-        <h1 className="font-display text-2xl font-bold">{t('result', { correct, total })}</h1>
-        {newBest && <p className="font-semibold text-accent">🏆</p>}
-        <div className="flex flex-wrap justify-center gap-2">
-          <Button variant="primary" onClick={() => start(round.mode, round.topic)}>
-            {t('again')}
-          </Button>
-          <Button onClick={() => setRound(null)}>{t('otherTopic')}</Button>
-        </div>
-      </Card>
+      <div className="flex flex-col gap-4">
+        <BackButton onClick={() => setRound(null)} label={t('topics')} />
+        <Card className="relative mx-auto mt-6 flex max-w-md flex-col items-center gap-3 text-center">
+          <Confetti trigger={correct / total >= 0.7 ? correct + 1 : null} />
+          <p className="text-5xl" aria-hidden>
+            {correct / total >= 0.7 ? '🏆' : '📚'}
+          </p>
+          <h1 className="font-display text-2xl font-bold">{t('result', { correct, total })}</h1>
+          {newBest && <p className="font-semibold text-accent">🏆</p>}
+          <div className="flex flex-wrap justify-center gap-2">
+            <Button variant="primary" onClick={() => start(round.mode, round.topic)}>
+              {t('again')}
+            </Button>
+            <Button onClick={() => setRound(null)}>{t('otherTopic')}</Button>
+          </div>
+        </Card>
+      </div>
     );
   }
 
@@ -245,6 +253,7 @@ export function QuizScreen() {
 
   return (
     <div className="flex flex-col gap-4">
+      <BackButton onClick={() => setRound(null)} label={t('topics')} />
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h1 className="flex items-center gap-2 font-display text-2xl font-bold">
           {tt(round.topic)}

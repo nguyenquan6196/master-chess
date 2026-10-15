@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'use-intl';
+import { BackButton } from '@/components/ui/BackButton';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { cn } from '@/components/ui/cn';
@@ -19,6 +20,7 @@ import {
 import { isCleanSolve, type PuzzleSession } from '@/core/puzzle/session';
 import type { Puzzle } from '@/core/puzzle/types';
 import { playSfx } from '@/services/audio/sfx';
+import { useHistoryStep } from '@/services/navigation/historyStep';
 import { useSession } from '@/services/profile/session';
 import { nextPuzzleNear, recordPuzzleAttempt, saveRushScore } from '@/services/puzzles/puzzles';
 import { PuzzleRunner } from './PuzzleRunner';
@@ -32,6 +34,7 @@ const NEXT_DELAY_MS = 500;
 export function PuzzleRush() {
   const t = useTranslations('rush');
   const tp = useTranslations('practice');
+  const tn = useTranslations('nav');
   const rushBest = useSession((s) => s.profile?.rushBest ?? {});
   const [run, setRun] = useState<RushState | null>(null);
   const [puzzle, setPuzzle] = useState<Puzzle | null>(null);
@@ -40,6 +43,7 @@ export function PuzzleRush() {
   const [record, setRecord] = useState(false);
   const runRef = useRef<RushState | null>(null);
   const finished = useRef(false);
+  useHistoryStep(run !== null, () => setRun(null));
 
   const loadNext = useCallback(async (state: RushState) => {
     setLoadState('loading');
@@ -108,6 +112,7 @@ export function PuzzleRush() {
   if (!run) {
     return (
       <div className="flex flex-col gap-4">
+        <BackButton href="/practice" label={tn('practice')} />
         <h1 className="font-display text-3xl font-bold">⚡ {t('title')}</h1>
         <p className="text-muted">{t('intro')}</p>
         <div className="flex flex-wrap gap-3">
@@ -166,6 +171,7 @@ export function PuzzleRush() {
 
   return (
     <div className="flex flex-col gap-4">
+      <BackButton onClick={() => setRun(null)} label={t('quit')} />
       <h1 className="font-display text-3xl font-bold">⚡ {t('title')}</h1>
       {loadState !== 'ready' || !puzzle ? (
         <>

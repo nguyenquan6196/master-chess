@@ -257,7 +257,8 @@
     "final": "You solved {score, plural, one {# puzzle} other {# puzzles}}",
     "newRecord": "New record! 🏆",
     "again": "Play again",
-    "skip": "Skip"
+    "skip": "Skip",
+    "quit": "Quit"
   },
   "quiz": {
     "title": "Quiz",
@@ -276,7 +277,8 @@
     "again": "Try again",
     "otherTopic": "Another topic",
     "answerWas": "The answer: {move}",
-    "count": "{count, plural, one {# question} other {# questions}}"
+    "count": "{count, plural, one {# question} other {# questions}}",
+    "topics": "Topics"
   },
   "puzzleThemes": {
     "mateIn1": "Mate in 1",

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'use-intl';
+import { BackButton } from '@/components/ui/BackButton';
 import { Button } from '@/components/ui/Button';
 import type { PuzzleSession } from '@/core/puzzle/session';
 import {
@@ -11,6 +12,7 @@ import {
   type TrainingTheme,
 } from '@/core/puzzle/types';
 import { puzzleRepo } from '@/services/db/repositories';
+import { useHistoryStep } from '@/services/navigation/historyStep';
 import { useSession } from '@/services/profile/session';
 import { nextThemePuzzle, recordPuzzleAttempt } from '@/services/puzzles/puzzles';
 import { PuzzleRunner } from './PuzzleRunner';
@@ -20,6 +22,7 @@ export function ThemeTraining() {
   const t = useTranslations('puzzle');
   const tp = useTranslations('practice');
   const tt = useTranslations('puzzleThemes');
+  const tn = useTranslations('nav');
   // A lesson can link straight to a theme: /practice/themes#fork
   const [theme, setTheme] = useState<TrainingTheme | null>(() => {
     const hash = typeof window === 'undefined' ? '' : window.location.hash.slice(1);
@@ -28,6 +31,7 @@ export function ThemeTraining() {
   const [puzzle, setPuzzle] = useState<Puzzle | null>(null);
   const [state, setState] = useState<'loading' | 'ready' | 'error' | 'empty'>('loading');
   const seen = useRef<Set<string> | null>(null);
+  useHistoryStep(theme !== null, () => setTheme(null));
   const recorded = useRef(false);
 
   const fetchPuzzle = useCallback(async (th: TrainingTheme): Promise<Puzzle | null> => {
@@ -68,6 +72,7 @@ export function ThemeTraining() {
   if (!theme) {
     return (
       <div className="flex flex-col gap-4">
+        <BackButton href="/practice" label={tn('practice')} />
         <h1 className="font-display text-3xl font-bold">{tp('themes')}</h1>
         <h2 className="text-sm font-semibold text-muted">{t('chooseTheme')}</h2>
         <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
@@ -92,12 +97,8 @@ export function ThemeTraining() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center gap-3">
-        <h1 className="font-display text-3xl font-bold">{tt(theme)}</h1>
-        <Button variant="ghost" onClick={() => setTheme(null)}>
-          ← {t('chooseTheme')}
-        </Button>
-      </div>
+      <BackButton onClick={() => setTheme(null)} label={t('chooseTheme')} />
+      <h1 className="font-display text-3xl font-bold">{tt(theme)}</h1>
       {state !== 'ready' || !puzzle ? (
         <PuzzleStatus state={state} onRetry={() => loadNext(theme)} />
       ) : (

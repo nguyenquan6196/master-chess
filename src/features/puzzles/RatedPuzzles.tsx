@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'use-intl';
+import { BackButton } from '@/components/ui/BackButton';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { cn } from '@/components/ui/cn';
@@ -16,6 +17,7 @@ import { PuzzleStatus } from './PuzzleStatus';
 export function RatedPuzzles() {
   const t = useTranslations('puzzle');
   const tp = useTranslations('practice');
+  const tn = useTranslations('nav');
   const rating = useSession((s) => s.profile?.puzzleRating.rating ?? 0);
   const [puzzle, setPuzzle] = useState<Puzzle | null>(null);
   const [state, setState] = useState<'loading' | 'ready' | 'error' | 'empty'>('loading');
@@ -78,6 +80,7 @@ export function RatedPuzzles() {
 
   return (
     <div className="flex flex-col gap-4">
+      <BackButton href="/practice" label={tn('practice')} />
       <h1 className="font-display text-3xl font-bold">{tp('rated')}</h1>
       {state !== 'ready' || !puzzle ? (
         <PuzzleStatus state={state} onRetry={loadNext} />
