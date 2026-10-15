@@ -5,7 +5,8 @@ import { usePathname } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { useTranslations } from 'use-intl';
 import { cn } from '@/components/ui/cn';
-import { RANK_ICONS, rankTitle } from '@/components/ui/RankBadge';
+import { rankTitle } from '@/components/ui/RankBadge';
+import { RankEmblem } from '@/components/ui/RankEmblem';
 import { RANKS, rankStatus } from '@/core/rating/rank';
 import { useSession } from '@/services/profile/session';
 import { LanguageSelect } from './LanguageSelect';
@@ -77,14 +78,7 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
               >
                 <span aria-hidden>{profile.avatar}</span>
                 <span className="hidden truncate md:inline">{profile.name}</span>
-                {rank && (
-                  <span
-                    aria-hidden
-                    className="grid size-5 place-items-center rounded-full bg-surface-2 text-xs"
-                  >
-                    {RANK_ICONS[RANKS[rank.rankIndex].id]}
-                  </span>
-                )}
+                {rank && <RankEmblem rank={RANKS[rank.rankIndex].id} size={22} animated={false} />}
               </Link>
             )}
           </div>

@@ -1,17 +1,6 @@
-import { RANKS, type RankId, type RankStatus } from '@/core/rating/rank';
+import { RANKS, type RankStatus } from '@/core/rating/rank';
 import { cn } from './cn';
-
-/** Temporary emblem until the SVG shields of Phase 5: the rank's centre piece. */
-export const RANK_ICONS: Record<RankId, string> = {
-  bronze: '♟',
-  silver: '♞',
-  gold: '♝',
-  platinum: '♜',
-  diamond: '♛',
-  elite: '♚',
-  grandmaster: '👑',
-  challenger: '🏆',
-};
+import { RankEmblem } from './RankEmblem';
 
 const ROMAN = { 1: 'I', 2: 'II', 3: 'III' } as const;
 
@@ -37,7 +26,7 @@ export function RankBadge({
         className,
       )}
     >
-      <span aria-hidden>{RANK_ICONS[RANKS[status.rankIndex].id]}</span>
+      <RankEmblem rank={RANKS[status.rankIndex].id} size={18} animated={false} />
       {rankTitle(status, rankName)}
     </span>
   );

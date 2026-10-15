@@ -7,6 +7,8 @@ import { useFormatter, useTranslations } from 'use-intl';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { cn } from '@/components/ui/cn';
+import { RankEmblem } from '@/components/ui/RankEmblem';
+import { RANKS } from '@/core/rating/rank';
 import { resolveBotLevel } from '@/core/bot/levels';
 import { STYLE_ICONS } from '@/core/bot/styles';
 import type { GameResult } from '@/core/profile/schema';
@@ -92,8 +94,17 @@ export function HistoryScreen() {
                   </span>
                 )}
                 {g.promotion && (
-                  <span className="text-xs font-semibold text-muted">
-                    ⚔️ {tk('promotionMatch')}
+                  <span
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-muted"
+                    title={tk('promotionMatch')}
+                  >
+                    <RankEmblem
+                      rank={RANKS[g.promotion.to].id}
+                      size={22}
+                      animated={false}
+                      className={g.promotion.passed ? undefined : 'opacity-40 grayscale'}
+                    />
+                    {tk('promotionMatch')}
                   </span>
                 )}
                 {g.result && (

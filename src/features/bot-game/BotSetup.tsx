@@ -5,6 +5,7 @@ import { useTranslations } from 'use-intl';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { cn } from '@/components/ui/cn';
+import { RankEmblem } from '@/components/ui/RankEmblem';
 import {
   BOT_LEVELS,
   CUSTOM_ELO,
@@ -166,8 +167,9 @@ export function BotSetup({
                   <span className="font-display font-semibold">{tb(`${b.id}.name`)}</span>
                   <span className="text-xs font-semibold text-accent tabular-nums">~{b.elo}</span>
                   {guards && (
-                    <span className="rounded-full bg-surface-2 px-2 py-0.5 text-[11px] font-semibold text-muted">
-                      👑 {tk('bossOf', { rank: tr(guards.id) })}
+                    <span className="inline-flex items-center gap-1 rounded-full bg-surface-2 py-0.5 pr-2 pl-1 text-[11px] font-semibold text-muted">
+                      <RankEmblem rank={guards.id} size={18} animated={false} />
+                      {tk('bossOf', { rank: tr(guards.id) })}
                     </span>
                   )}
                 </button>

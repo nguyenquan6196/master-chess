@@ -112,3 +112,187 @@ body::before {
   background: var(--mc-surface-2);
   font-weight: 600;
 }
+
+/* Rank emblem animations (components/ui/RankEmblem). SVG transforms use view-box units. */
+.mc-emblem-animated .mc-emblem-shine {
+  animation: mc-emblem-shine 3.2s ease-in-out infinite;
+}
+.mc-emblem-animated .mc-emblem-gem {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mc-emblem-sparkle 2.4s ease-in-out infinite;
+}
+.mc-emblem-animated .mc-emblem-wing {
+  transform-origin: 32px -10px;
+  animation: mc-emblem-flap 2.8s ease-in-out infinite;
+}
+.mc-emblem-animated .mc-emblem-rays {
+  transform-origin: 0 -4px;
+  animation: mc-emblem-spin 18s linear infinite;
+}
+.mc-emblem-animated .mc-emblem-flames {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  animation: mc-emblem-flicker 0.9s ease-in-out infinite alternate;
+}
+.mc-emblem-animated .mc-emblem-halo {
+  transform-origin: 0 0;
+  animation: mc-emblem-breathe 3s ease-in-out infinite;
+}
+@keyframes mc-emblem-shine {
+  0%,
+  35% {
+    transform: translateX(0);
+  }
+  75%,
+  100% {
+    transform: translateX(170px);
+  }
+}
+@keyframes mc-emblem-sparkle {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(1.25);
+  }
+}
+@keyframes mc-emblem-flap {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-7deg);
+  }
+}
+@keyframes mc-emblem-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes mc-emblem-flicker {
+  from {
+    transform: scaleY(0.9);
+    opacity: 0.85;
+  }
+  to {
+    transform: scaleY(1.1);
+    opacity: 1;
+  }
+}
+@keyframes mc-emblem-breathe {
+  0%,
+  100% {
+    transform: scale(0.92);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mc-emblem-animated * {
+    animation: none !important;
+  }
+}
+
+/* Rank-up celebration and boss intro (components/ui/RankUpOverlay). */
+.mc-rankup-old {
+  animation: mc-rankup-burst 0.9s ease-in forwards;
+}
+.mc-rankup-shard {
+  opacity: 0;
+  animation: mc-rankup-shard 0.9s ease-out 0.55s forwards;
+}
+.mc-rankup-new {
+  opacity: 0;
+  animation: mc-rankup-in 1.1s cubic-bezier(0.2, 1.4, 0.4, 1) 1.1s forwards;
+}
+.mc-rankup-text {
+  opacity: 0;
+  animation: mc-fade-up 0.5s ease-out 2s forwards;
+}
+.mc-boss-card {
+  animation: mc-fade-up 0.45s ease-out both;
+}
+.mc-boss-emoji {
+  display: inline-block;
+  animation: mc-boss-stomp 1.6s ease-in-out infinite;
+}
+@keyframes mc-rankup-burst {
+  0% {
+    transform: scale(1);
+    filter: brightness(1);
+    opacity: 1;
+  }
+  55% {
+    transform: scale(1.12) rotate(-4deg);
+    filter: brightness(1.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.4);
+    filter: brightness(3) blur(6px);
+    opacity: 0;
+  }
+}
+@keyframes mc-rankup-shard {
+  0% {
+    transform: translate(0, 0) scale(1.4);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--dx), var(--dy)) scale(0.2);
+    opacity: 0;
+  }
+}
+@keyframes mc-rankup-in {
+  0% {
+    transform: translateY(-160px) scale(0.2) rotate(-200deg);
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+@keyframes mc-fade-up {
+  from {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes mc-boss-stomp {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-6px) scale(1.06);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mc-rankup-old,
+  .mc-rankup-shard {
+    display: none;
+  }
+  .mc-rankup-new,
+  .mc-rankup-text,
+  .mc-boss-card,
+  .mc-boss-emoji {
+    animation: none;
+    opacity: 1;
+  }
+}

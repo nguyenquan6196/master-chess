@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import { useTranslations } from 'use-intl';
 import { Card } from '@/components/ui/Card';
-import { RANK_ICONS, rankTitle } from '@/components/ui/RankBadge';
+import { rankTitle } from '@/components/ui/RankBadge';
+import { RankEmblem } from '@/components/ui/RankEmblem';
 import type { Profile } from '@/core/profile/schema';
 import { RANKS, rankStatus } from '@/core/rating/rank';
 
@@ -21,12 +22,7 @@ export function RankCard({ profile }: { profile: Profile }) {
     <Card className="flex flex-col gap-3">
       <h2 className="font-display text-lg font-semibold">🏆 {tk('title')}</h2>
       <div className="flex items-center gap-4">
-        <span
-          aria-hidden
-          className="grid size-16 shrink-0 place-items-center rounded-2xl bg-surface-2 text-4xl"
-        >
-          {RANK_ICONS[rank.id]}
-        </span>
+        <RankEmblem rank={rank.id} size={96} />
         <div className="min-w-0 flex-1">
           <p className="font-display text-2xl font-bold">{rankTitle(status, tr(rank.id))}</p>
           <p className="text-sm text-muted tabular-nums">
@@ -48,6 +44,17 @@ export function RankCard({ profile }: { profile: Profile }) {
           </div>
         </div>
       </div>
+      <ol className="flex flex-wrap items-end justify-between gap-1 rounded-xl bg-surface-2 p-2">
+        {RANKS.map((r, i) => (
+          <li
+            key={r.id}
+            title={tr(r.id)}
+            className={i > status.rankIndex ? 'opacity-35 grayscale' : undefined}
+          >
+            <RankEmblem rank={r.id} size={i === status.rankIndex ? 40 : 30} animated={false} />
+          </li>
+        ))}
+      </ol>
       {promotion && (
         <Link
           href="/play/bot"

@@ -453,7 +453,9 @@
     "resultPractice": "Practice game — not rated.",
     "promoted": "🎉 Promoted to {rank}!",
     "promotionFailed": "Promotion match not passed yet. Try again!",
-    "next": "Suggested opponent"
+    "next": "Suggested opponent",
+    "bossStart": "Fight!",
+    "rankUpClose": "Awesome!"
   },
   "review": {
     "title": "Game review",

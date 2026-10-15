@@ -9,6 +9,8 @@ import { MoveList } from '@/components/board/MoveList';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { Modal } from '@/components/ui/Modal';
+import { RankBadge } from '@/components/ui/RankBadge';
+import { BossIntroOverlay, RankUpOverlay } from '@/components/ui/RankUpOverlay';
 import { STYLE_ICONS } from '@/core/bot/styles';
 import type { GameRecord } from '@/core/profile/schema';
 import { RANKS, rankStatus } from '@/core/rating/rank';
@@ -43,14 +45,16 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
   const [pendingAssist, setPendingAssist] = useState<(() => void) | null>(null);
   const withAssist = (action: () => void) => (g.rated ? setPendingAssist(() => action) : action());
 
-  const pendingPromotion = profile
-    ? rankStatus(profile.gameRating.rating, profile.rankFloor).promotionTo
-    : null;
+  const myRank = profile ? rankStatus(profile.gameRating.rating, profile.rankFloor) : null;
+  const pendingPromotion = myRank?.promotionTo ?? null;
   const isPromotionMatch =
     record.status === 'ongoing' &&
     pendingPromotion !== null &&
     RANKS[pendingPromotion].boss === record.botId;
   const chat = useBotChat(record, snapshot, g.botColor, isPromotionMatch);
+  const [introOpen, setIntroOpen] = useState(() => isPromotionMatch && initial.moves.length === 0);
+  const [rankUpDismissed, setRankUpDismissed] = useState(false);
+  const rankUp = record.promotion?.passed && !rankUpDismissed ? record.promotion.to : null;
   const ratingBefore =
     record.ratingAfter !== undefined && record.ratingDelta !== undefined
       ? record.ratingAfter - record.ratingDelta
@@ -245,7 +249,7 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
       </Modal>
 
       <Modal
-        open={finished && !resultDismissed}
+        open={finished && !resultDismissed && rankUp === null}
         title={record.result ? t(`result.${record.result}`) : ''}
         onClose={() => setResultDismissed(true)}
         actions={
@@ -274,6 +278,13 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
         </p>
         {record.rated && ratingBefore !== null && record.ratingDelta !== undefined && (
           <p className="mt-2 font-semibold tabular-nums">
+            {myRank && (
+              <RankBadge
+                className="mr-2 align-middle"
+                status={myRank}
+                rankName={tr(RANKS[myRank.rankIndex].id)}
+              />
+            )}
             {tk('resultRated', { before: ratingBefore, after: record.ratingAfter ?? 0 })}{' '}
             <span className={record.ratingDelta >= 0 ? 'text-accent' : 'text-danger'}>
               ({record.ratingDelta >= 0 ? '+' : ''}
@@ -292,6 +303,27 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
           </p>
         )}
       </Modal>
+
+      {introOpen && (
+        <BossIntroOverlay
+          bossEmoji={level.emoji}
+          rank={RANKS[pendingPromotion ?? 0].id}
+          title={tk('promotionMatch')}
+          bossName={botName}
+          line={chat}
+          startLabel={tk('bossStart')}
+          onStart={() => setIntroOpen(false)}
+        />
+      )}
+      {rankUp !== null && (
+        <RankUpOverlay
+          from={RANKS[Math.max(rankUp - 1, 0)].id}
+          to={RANKS[rankUp].id}
+          title={tk('promoted', { rank: tr(RANKS[rankUp].id) })}
+          closeLabel={tk('rankUpClose')}
+          onClose={() => setRankUpDismissed(true)}
+        />
+      )}
     </div>
   );
 }

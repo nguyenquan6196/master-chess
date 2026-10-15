@@ -453,7 +453,9 @@
     "resultPractice": "練習対局 — ポイント変動なし。",
     "promoted": "🎉 {rank}に昇格！",
     "promotionFailed": "昇格戦はまだ突破できていません。もう一度挑戦しよう！",
-    "next": "おすすめの相手"
+    "next": "おすすめの相手",
+    "bossStart": "勝負！",
+    "rankUpClose": "やった！"
   },
   "review": {
     "title": "対局の振り返り",

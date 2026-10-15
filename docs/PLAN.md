@@ -170,11 +170,11 @@
   - [ ] SFX đầy đủ + UI click; sound pack (classic / arcade / fantasy)
   - [ ] Căng thẳng động (đồng hồ < 30 s / eval thua nặng)
   - [ ] Bảng cài đặt → Âm thanh: âm lượng Master/Nhạc/SFX/UI, chế độ nhạc auto/cố định/tắt, sound pack, nút nghe thử; nút loa tắt nhanh trên header
-- [ ] **Huy hiệu Rank — phần hình** (spec §6.7, bản phác đã duyệt: `docs/design/rank-emblems-draft.svg`):
-  - [ ] Component `RankEmblem` (SVG nhiều lớp, 8 bậc, nhiều kích thước) dựa trên bản phác; trau chuốt: dải màu kim loại, viền highlight, chi tiết chạm khắc, quân cờ vẽ vector thay ký tự
-  - [ ] Animation (tắt khi `prefers-reduced-motion`): vệt ánh kim chạy ngang, đá quý lấp lánh, cánh vỗ nhẹ, lửa/tia sáng xoay, hào quang Thách Đấu
-  - [ ] Màn lên hạng (huy hiệu cũ vỡ hạt → huy hiệu mới bay vào + confetti + âm thanh) và màn giới thiệu trùm trước trận thăng hạng
-  - [ ] Gắn huy hiệu vào header, Hồ sơ, thẻ bot, màn kết quả, lịch sử
+- [x] **Huy hiệu Rank — phần hình** (spec §6.7, bản phác đã duyệt: `docs/design/rank-emblems-draft.svg`):
+  - [x] Component `RankEmblem` (SVG nhiều lớp, 8 bậc, nhiều kích thước) dựa trên bản phác; trau chuốt: dải màu kim loại, viền highlight, chi tiết chạm khắc, quân cờ vẽ vector thay ký tự
+  - [x] Animation (tắt khi `prefers-reduced-motion`): vệt ánh kim chạy ngang, đá quý lấp lánh, cánh vỗ nhẹ, lửa/tia sáng xoay, hào quang Thách Đấu
+  - [x] Màn lên hạng (huy hiệu cũ vỡ hạt → huy hiệu mới bay vào + confetti + âm thanh) và màn giới thiệu trùm trước trận thăng hạng
+  - [x] Gắn huy hiệu vào header, Hồ sơ (kèm dải 8 hạng), thẻ bot, màn kết quả, lịch sử (trận thăng hạng)
   - [ ] (Tuỳ chọn) Brief cho designer/Midjourney để vẽ bản minh hoạ cao cấp; `RankEmblem` hỗ trợ `variant` để thay ảnh không sửa code
 - [ ] XP, streak, thành tích (achievement), trang Profile
 - [ ] Responsive mobile hoàn chỉnh; PWA (chơi offline)

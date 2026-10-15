@@ -453,7 +453,9 @@
     "resultPractice": "Ván luyện tập — không tính điểm.",
     "promoted": "🎉 Lên hạng {rank}!",
     "promotionFailed": "Chưa qua trận thăng hạng. Thử lại nhé!",
-    "next": "Đối thủ gợi ý"
+    "next": "Đối thủ gợi ý",
+    "bossStart": "Vào trận!",
+    "rankUpClose": "Tuyệt vời!"
   },
   "review": {
     "title": "Xem lại ván",
