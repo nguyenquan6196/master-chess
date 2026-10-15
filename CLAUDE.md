@@ -63,6 +63,7 @@ npm run typecheck    # next typegen && tsc --noEmit
 npm run lint         # ESLint, gồm quy tắc chia lớp
 npm run test         # Vitest (src/**/*.test.ts)
 npm run check-i18n   # 3 file ngôn ngữ đủ key
+npm run calibrate-bots  # cho bot đấu nhau (Stockfish trong Node) → gợi ý Elo cho levels.ts; chậm, chạy nền
 npm run test:e2e     # Playwright (desktop + mobile), tự bật dev server; E2E_BASE_URL=http://localhost:3002 để chạy với server có sẵn
 npm run build
 ```
@@ -72,7 +73,8 @@ Hook PostToolUse (`.claude/hooks/format.mjs`) tự chạy ESLint --fix + Prettie
 | Thêm | Ở đâu |
 |---|---|
 | Bài học | `content/learn/catalog.json` + `content/learn/<locale>/<lesson>.mdx` (skill `add-lesson`) |
-| Bot | `content/bots/<id>.json` |
+| Bot | tham số `src/core/bot/levels.ts` + tên `messages/*/bots.<id>` + thoại `content/bots/dialogue.<locale>.json` |
+| Opening book | `content/books/openings.json` (dòng SAN theo phong cách) |
 | Theme | `public/themes/<id>/manifest.json` + asset |
 | Quiz | `content/quiz/questions.json` + `content/quiz/<locale>.json` (skill `add-quiz`) |
 | Ngôn ngữ | `messages/<locale>.json` + `content/*/<locale>/` |

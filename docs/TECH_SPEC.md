@@ -228,7 +228,7 @@ Một worker cho bot, một worker riêng cho phân tích/eval bar để không 
 - **Rating puzzle tách riêng** (Phase 2) — không ảnh hưởng rank đấu.
 - Thẻ bot hiển thị "Ngang hạng Vàng"; gợi ý đối thủ tiếp theo dựa trên rank hiện tại.
 
-**Dữ liệu** (Phase 4): thêm vào profile `rating { value, rd, vol, games }`, `rankFloor`, `pendingPromotion?`; mỗi `GameRecord` thêm `rated: boolean`, `ratingDelta?`. Cần Dexie version 2 + `SAVE_SCHEMA_VERSION` 2.
+**Dữ liệu** (đã làm ở Phase 4): profile thêm `gameRating { rating, rd, vol }` (bắt đầu 400, RD 350) và `rankFloor` (rank đã đạt qua trận thăng hạng). Trận thăng hạng **suy ra** từ rating (`rankStatus().promotionTo`), không lưu `pendingPromotion`. `GameRecord` thêm `style`, `customElo?`, `rated?`, `ratingDelta?`, `ratingAfter?`, `promotion?`, `review?`. Dexie version 4 + `SAVE_SCHEMA_VERSION` 4. Bậc con: mỗi rank rộng 300 điểm → mỗi bậc 100 điểm (Đồng tính từ 300).
 
 **Huy hiệu (emblem)** — Phase 5. Bản phác đã duyệt: [docs/design/rank-emblems-draft.svg](design/rank-emblems-draft.svg).
 - Dáng **khiên** làm nền, càng lên cao càng nhiều lớp: Đồng (khiên + viền mộc) → Bạc (viền kim loại) → Vàng (cánh nhỏ) → Bạch Kim (cánh + đá quý) → Kim Cương (cánh pha lê + đá quý lớn) → Tinh Anh (cánh pha lê + vương miện + lửa) → Cao Thủ (cánh phượng hoàng + vương miện) → Thách Đấu (cánh vàng + nguyệt quế + vương miện nạm đá + tia hào quang).
