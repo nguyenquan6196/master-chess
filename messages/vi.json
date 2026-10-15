@@ -11,7 +11,9 @@
     "settings": "Cài đặt",
     "menu": "Mở menu",
     "profile": "Hồ sơ",
-    "history": "Lịch sử"
+    "history": "Lịch sử",
+    "mute": "Tắt tiếng",
+    "unmute": "Bật tiếng"
   },
   "common": {
     "comingSoon": "Sắp ra mắt",
@@ -166,7 +168,35 @@
     "imageHint": "Ảnh chỉ lưu trên máy này (không có trong file save).",
     "dim": "Làm nhạt nền",
     "blur": "Làm mờ nền",
-    "motion": "Nền chuyển động"
+    "motion": "Nền chuyển động",
+    "muteAll": "Tắt toàn bộ âm thanh",
+    "master": "Âm lượng tổng",
+    "music": "Nhạc nền",
+    "musicModes": {
+      "auto": "Tự động",
+      "fixed": "Cố định",
+      "off": "Tắt"
+    },
+    "musicHint": "Tự động: nhạc đổi theo màn hình và độ khó của bot, dồn dập hơn khi sắp hết giờ.",
+    "track": "Bản nhạc",
+    "tracks": {
+      "menu": "Thư thái",
+      "learn": "Học bài",
+      "practice": "Luyện tập",
+      "rush": "Tốc độ",
+      "bot1": "Nhẹ nhàng",
+      "bot2": "Tập trung",
+      "bot3": "Căng thẳng",
+      "bot4": "Đấu trùm"
+    },
+    "musicVolume": "Âm lượng nhạc",
+    "uiVolume": "Tiếng bấm nút",
+    "soundPack": "Bộ âm thanh",
+    "soundPacks": {
+      "classic": "Cổ điển",
+      "arcade": "Arcade 8-bit",
+      "fantasy": "Huyền ảo"
+    }
   },
   "profile": {
     "pickTitle": "Ai đang chơi?",

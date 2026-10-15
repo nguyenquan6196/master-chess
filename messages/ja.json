@@ -11,7 +11,9 @@
     "settings": "設定",
     "menu": "メニューを開く",
     "profile": "プロフィール",
-    "history": "履歴"
+    "history": "履歴",
+    "mute": "ミュート",
+    "unmute": "ミュート解除"
   },
   "common": {
     "comingSoon": "近日公開",
@@ -166,7 +168,35 @@
     "imageHint": "画像はこの端末だけに保存されます（セーブファイルには含まれません）。",
     "dim": "背景を薄く",
     "blur": "背景をぼかす",
-    "motion": "動く背景"
+    "motion": "動く背景",
+    "muteAll": "すべてミュート",
+    "master": "全体の音量",
+    "music": "BGM",
+    "musicModes": {
+      "auto": "自動",
+      "fixed": "固定",
+      "off": "オフ"
+    },
+    "musicHint": "自動：画面とボットの強さに合わせて曲が変わり、時間がないと激しくなります。",
+    "track": "曲",
+    "tracks": {
+      "menu": "のんびり",
+      "learn": "勉強",
+      "practice": "練習",
+      "rush": "スピード",
+      "bot1": "やさしい",
+      "bot2": "集中",
+      "bot3": "緊張",
+      "bot4": "ボス戦"
+    },
+    "musicVolume": "BGM の音量",
+    "uiVolume": "ボタンの音",
+    "soundPack": "サウンドパック",
+    "soundPacks": {
+      "classic": "クラシック",
+      "arcade": "8ビット",
+      "fantasy": "ファンタジー"
+    }
   },
   "profile": {
     "pickTitle": "だれがプレイしますか？",

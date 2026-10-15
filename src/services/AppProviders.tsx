@@ -3,6 +3,8 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { IntlProvider } from 'use-intl';
 import { useShallow } from 'zustand/react/shallow';
+import { installAudioUnlock } from './audio/engine';
+import { installUiClickSounds } from './audio/sfx';
 import { DEFAULT_LOCALE, detectLocale, type Locale } from './i18n/config';
 import { DEFAULT_MESSAGES, loadMessages, type Messages } from './i18n/messages';
 import { restoreSession, syncSettingsToProfile } from './profile/actions';
@@ -43,7 +45,14 @@ export function AppProviders({ children }: { children: ReactNode }) {
         if (!s.localeChosen) s.setLocale(detectLocale(navigator.languages));
       })
       .then(restoreSession);
-    return syncSettingsToProfile();
+    const stopSync = syncSettingsToProfile();
+    const stopUnlock = installAudioUnlock();
+    const stopClicks = installUiClickSounds();
+    return () => {
+      stopSync();
+      stopUnlock();
+      stopClicks();
+    };
   }, []);
 
   useEffect(() => {

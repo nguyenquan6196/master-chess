@@ -11,7 +11,9 @@
     "settings": "Settings",
     "menu": "Open menu",
     "profile": "Profile",
-    "history": "History"
+    "history": "History",
+    "mute": "Mute",
+    "unmute": "Unmute"
   },
   "common": {
     "comingSoon": "Coming soon",
@@ -166,7 +168,35 @@
     "imageHint": "The image stays on this device only (not in save files).",
     "dim": "Fade background",
     "blur": "Blur background",
-    "motion": "Animated background"
+    "motion": "Animated background",
+    "muteAll": "Mute everything",
+    "master": "Master volume",
+    "music": "Music",
+    "musicModes": {
+      "auto": "Auto",
+      "fixed": "Fixed",
+      "off": "Off"
+    },
+    "musicHint": "Auto: the music follows the screen and the bot’s strength, and speeds up in time trouble.",
+    "track": "Track",
+    "tracks": {
+      "menu": "Relaxed",
+      "learn": "Study",
+      "practice": "Practice",
+      "rush": "Speed",
+      "bot1": "Gentle",
+      "bot2": "Focused",
+      "bot3": "Tense",
+      "bot4": "Boss fight"
+    },
+    "musicVolume": "Music volume",
+    "uiVolume": "Button clicks",
+    "soundPack": "Sound pack",
+    "soundPacks": {
+      "classic": "Classic",
+      "arcade": "8-bit arcade",
+      "fantasy": "Fantasy"
+    }
   },
   "profile": {
     "pickTitle": "Who's playing?",

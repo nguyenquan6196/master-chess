@@ -19,6 +19,7 @@ import {
 } from '@/core/puzzle/rush';
 import { isCleanSolve, type PuzzleSession } from '@/core/puzzle/session';
 import type { Puzzle } from '@/core/puzzle/types';
+import { useMusicScene } from '@/services/audio/musicDirector';
 import { playSfx } from '@/services/audio/sfx';
 import { useHistoryStep } from '@/services/navigation/historyStep';
 import { useSession } from '@/services/profile/session';
@@ -30,6 +31,7 @@ const TICK_MS = 200;
 /** Wall clock, read only from event handlers and timers (never during render). */
 const wallClock = () => Date.now();
 const NEXT_DELAY_MS = 500;
+const RUSH_TENSE_MS = 30_000;
 
 export function PuzzleRush() {
   const t = useTranslations('rush');
@@ -95,6 +97,13 @@ export function PuzzleRush() {
     const profile = useSession.getState().profile;
     if (profile) void saveRushScore(profile, run.duration, run.score).then(setRecord);
   }, [run]);
+
+  // Music gets tense in the last seconds of a run.
+  const tense = !!run && !run.over && rushRemainingMs(run, now || run.startedAt) < RUSH_TENSE_MS;
+  useEffect(() => {
+    useMusicScene.getState().setScene(tense ? { track: 'rush', intensity: 1 } : null);
+  }, [tense]);
+  useEffect(() => () => useMusicScene.getState().setScene(null), []);
 
   const onResult = useCallback(
     (session: PuzzleSession, solved: boolean, ms: number) => {

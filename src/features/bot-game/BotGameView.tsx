@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslations } from 'use-intl';
 import { ChessBoard } from '@/components/board/ChessBoard';
 import { EvalBar } from '@/components/board/EvalBar';
@@ -12,13 +12,21 @@ import { Modal } from '@/components/ui/Modal';
 import { RankBadge } from '@/components/ui/RankBadge';
 import { BossIntroOverlay, RankUpOverlay } from '@/components/ui/RankUpOverlay';
 import { STYLE_ICONS } from '@/core/bot/styles';
+import { isTimed, remainingAt } from '@/core/game/clock';
+import { scoreToCp } from '@/core/engine/uci';
 import type { GameRecord } from '@/core/profile/schema';
 import { RANKS, rankStatus } from '@/core/rating/rank';
+import { useMusicScene } from '@/services/audio/musicDirector';
+import { BOT_TIER_TRACK } from '@/services/audio/musicTracks';
+import { playSfx } from '@/services/audio/sfx';
 import { useSession } from '@/services/profile/session';
 import { useSettings } from '@/services/settings/store';
 import { PlayerBar } from './PlayerBar';
 import { useBotChat } from './useBotChat';
 import { useBotGame } from './useBotGame';
+
+/** When the music gets tense (spec §7.1). */
+const TENSION = { lowTimeMs: 30_000, losingCp: -300 } as const;
 
 interface BotGameViewProps {
   initial: GameRecord;
@@ -55,6 +63,26 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
   const [introOpen, setIntroOpen] = useState(() => isPromotionMatch && initial.moves.length === 0);
   const [rankUpDismissed, setRankUpDismissed] = useState(false);
   const rankUp = record.promotion?.passed && !rankUpDismissed ? record.promotion.to : null;
+
+  const finished = record.status === 'finished';
+
+  // Music: the bot tier's track; tension in time trouble or when losing badly.
+  const timeTrouble =
+    !finished &&
+    isTimed(record.clock) &&
+    remainingAt(record.clock, record.playerColor, g.now) < TENSION.lowTimeMs;
+  const evalCp = g.evaluation ? scoreToCp(g.evaluation) : 0;
+  const losingBadly =
+    !finished && (record.playerColor === 'w' ? evalCp : -evalCp) < TENSION.losingCp;
+  const intensity = timeTrouble ? 1 : losingBadly ? 0.6 : isPromotionMatch ? 0.35 : 0;
+  const musicTrack = BOT_TIER_TRACK[level.tier];
+  useEffect(() => {
+    useMusicScene.getState().setScene({ track: musicTrack, intensity });
+  }, [musicTrack, intensity]);
+  useEffect(() => () => useMusicScene.getState().setScene(null), []);
+  useEffect(() => {
+    if (rankUp !== null) playSfx('rankUp');
+  }, [rankUp]);
   const ratingBefore =
     record.ratingAfter !== undefined && record.ratingDelta !== undefined
       ? record.ratingAfter - record.ratingDelta
@@ -64,7 +92,6 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
   const botName = tb(`${level.id}.name`);
   const last = snapshot.history[snapshot.history.length - 1];
   const turn = snapshot.status.kind === 'playing' ? snapshot.status.turn : null;
-  const finished = record.status === 'finished';
 
   const statusLine = g.engineError
     ? t('engineError')

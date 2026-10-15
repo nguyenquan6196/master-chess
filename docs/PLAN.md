@@ -164,12 +164,12 @@
 - [ ] Ngôn ngữ (chọn trên menu): vi/en/ja; dịch đủ UI, thoại bot, quiz; bài học dịch dần (fallback + thông báo)
 - [ ] Skill `add-theme` (manifest + asset + CREDITS) và skill `sync-i18n` (dịch key còn thiếu vi → en/ja theo GLOSSARY)
 - [ ] Animation, hiệu ứng chiếu/phong cấp
-- [ ] Âm thanh (spec §7.1):
-  - [ ] Tìm/tạo asset: SFX (CC0), nhạc menu, Learn, Practice, Puzzle Rush, 4 mức bot (+ bản "căng" cho mỗi mức), stinger thắng/thua/hòa; ghi `CREDITS.md`
-  - [ ] Nhạc nền theo màn + theo độ khó bot, crossfade khi chuyển màn, dừng khi ẩn tab
-  - [ ] SFX đầy đủ + UI click; sound pack (classic / arcade / fantasy)
-  - [ ] Căng thẳng động (đồng hồ < 30 s / eval thua nặng)
-  - [ ] Bảng cài đặt → Âm thanh: âm lượng Master/Nhạc/SFX/UI, chế độ nhạc auto/cố định/tắt, sound pack, nút nghe thử; nút loa tắt nhanh trên header
+- [x] Âm thanh (spec §7.1) — **toàn bộ tổng hợp bằng Web Audio, không file** (không cần Howler):
+  - [x] Nhạc tự sinh (`services/audio/music.ts` + công thức `musicTracks.ts`): 8 bài — menu, Learn, Practice, Puzzle Rush, 4 mức bot; bản "căng" = tham số `intensity` (nhanh hơn, sáng hơn, trống dày, drone); stinger thắng/thua/hòa/lên hạng trong SFX
+  - [x] Nhạc nền theo màn + theo độ khó bot, crossfade khi chuyển màn, dừng khi ẩn tab
+  - [x] SFX đầy đủ + UI click; sound pack (classic / arcade / fantasy)
+  - [x] Căng thẳng động (đồng hồ < 30 s / eval thua nặng khi bật thanh đánh giá / trận thăng hạng; Rush 30 s cuối)
+  - [x] Bảng cài đặt → Âm thanh: âm lượng Master/Nhạc/SFX/UI, chế độ nhạc auto/cố định/tắt, sound pack, nút nghe thử; nút loa tắt nhanh trên header
 - [x] **Huy hiệu Rank — phần hình** (spec §6.7, bản phác đã duyệt: `docs/design/rank-emblems-draft.svg`):
   - [x] Component `RankEmblem` (SVG nhiều lớp, 8 bậc, nhiều kích thước) dựa trên bản phác; trau chuốt: dải màu kim loại, viền highlight, chi tiết chạm khắc, quân cờ vẽ vector thay ký tự
   - [x] Animation (tắt khi `prefers-reduced-motion`): vệt ánh kim chạy ngang, đá quý lấp lánh, cánh vỗ nhẹ, lửa/tia sáng xoay, hào quang Thách Đấu

@@ -11,6 +11,7 @@ import { rankTitle } from '@/components/ui/RankBadge';
 import { RankEmblem } from '@/components/ui/RankEmblem';
 import { RANKS, rankStatus } from '@/core/rating/rank';
 import { useSession } from '@/services/profile/session';
+import { useMusicDirector } from '@/services/audio/musicDirector';
 import { useSettings } from '@/services/settings/store';
 import { THEME_INFO } from '@/services/theme/appearance';
 import { useResolvedTheme } from '@/services/theme/useResolvedTheme';
@@ -30,6 +31,9 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
   const profile = useSession((s) => s.profile);
   const pieceSet = useSettings((s) => s.pieceSet);
   const moveAnimation = useSettings((s) => s.moveAnimation);
+  useMusicDirector(pathname);
+  const muted = useSettings((s) => s.muted);
+  const toggleMute = () => useSettings.getState().update({ muted: !muted });
   const resolvedTheme = useResolvedTheme();
   const backdropMotion = useSettings((s) => s.backdropMotion);
   const backdrop = useSettings((s) => s.backdrop);
@@ -76,6 +80,16 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
           </nav>
 
           <div className="ml-auto flex items-center gap-2 sm:ml-2">
+            <button
+              type="button"
+              onClick={toggleMute}
+              aria-pressed={muted}
+              aria-label={muted ? t('unmute') : t('mute')}
+              title={muted ? t('unmute') : t('mute')}
+              className="grid size-9 place-items-center rounded-full border border-border text-base hover:bg-surface-2"
+            >
+              <span aria-hidden>{muted ? '🔇' : '🔊'}</span>
+            </button>
             <LanguageSelect />
             {profile && (
               <Link
