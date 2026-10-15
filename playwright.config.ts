@@ -15,6 +15,9 @@ export default defineConfig({
     baseURL: EXTERNAL ?? `http://localhost:${PORT}`,
     locale: 'vi-VN',
     trace: 'retain-on-failure',
+    // Tests mock /puzzles with page.route, which a service worker would bypass.
+    // The offline test opts back in.
+    serviceWorkers: 'block',
   },
   projects: [
     { name: 'desktop', use: { ...devices['Desktop Chrome'] } },

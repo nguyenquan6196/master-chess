@@ -43,7 +43,7 @@ app/ → features/ → services/ → core/
 
 **Engine:** Stockfish luôn chạy trong Web Worker, không bao giờ trên main thread; tái sử dụng worker; `stop` khi rời màn.
 
-**Asset** (ảnh, nhạc, SFX, bộ quân, font): chỉ dùng nguồn có license cho phép (CC0, CC-BY, Unsplash/Pexels…), **ghi vào `CREDITS.md`** cùng thư mục. Không lấy asset của chess.com / lichess trừ khi license cho phép rõ ràng.
+**Asset** (ảnh, nhạc, SFX, bộ quân, font): hiện tất cả đều **tự tạo** (CSS/SVG/Web Audio, chốt Phase 5). Nếu thêm asset ngoài: chỉ dùng nguồn có license cho phép (CC0, CC-BY, Unsplash/Pexels…), **ghi vào `CREDITS.md`** cùng thư mục. Không lấy asset của chess.com / lichess trừ khi license cho phép rõ ràng.
 
 **TypeScript strict**, không `any`.
 
@@ -75,8 +75,8 @@ Hook PostToolUse (`.claude/hooks/format.mjs`) tự chạy ESLint --fix + Prettie
 | Bài học | `content/learn/catalog.json` + `content/learn/<locale>/<lesson>.mdx` (skill `add-lesson`) |
 | Bot | tham số `src/core/bot/levels.ts` + tên `messages/*/bots.<id>` + thoại `content/bots/dialogue.<locale>.json` |
 | Opening book | `content/books/openings.json` (dòng SAN theo phong cách) |
-| Theme | `public/themes/<id>/manifest.json` + asset |
+| Theme | `src/styles/themes.css` + `services/theme/appearance.ts` + id trong `core/profile/settingsOptions.ts` (skill `add-theme`) |
 | Quiz | `content/quiz/questions.json` + `content/quiz/<locale>.json` (skill `add-quiz`) |
 | Ngôn ngữ | `messages/<locale>.json` + `content/*/<locale>/` |
 
-Skills: `.claude/skills/new-feature` (quy trình làm 1 tính năng mới), `.claude/skills/add-quiz` (thêm câu quiz 3 ngôn ngữ, build lại bộ puzzle), `.claude/skills/add-lesson` (thêm bài học MDX 3 ngôn ngữ). Subagent `reviewer` (`.claude/agents/`) soát thay đổi theo Definition of Done. Các skill thêm nội dung (bài học, bot, theme…) viết dần sau khi có ví dụ thật đầu tiên.
+Skills: `.claude/skills/new-feature` (quy trình làm 1 tính năng mới), `.claude/skills/add-quiz` (thêm câu quiz 3 ngôn ngữ, build lại bộ puzzle), `.claude/skills/add-lesson` (thêm bài học MDX 3 ngôn ngữ), `.claude/skills/add-theme` (theme/preset giao diện), `.claude/skills/sync-i18n` (đồng bộ bản dịch). Subagent `reviewer` (`.claude/agents/`) soát thay đổi theo Definition of Done. Các skill thêm nội dung (bài học, bot, theme…) viết dần sau khi có ví dụ thật đầu tiên.

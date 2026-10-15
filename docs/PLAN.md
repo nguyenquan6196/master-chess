@@ -153,7 +153,7 @@
 - [x] Game Review (`/review#<gameId>`, mở từ Lịch sử hoặc hộp kết quả): Stockfish depth 12 trên engine phân tích, lưu kết quả vào ván (`review`, không đổi thứ tự lịch sử); phân loại Best/Good/Inaccuracy/Mistake/Blunder theo % thắng bị mất (công thức Lichess), accuracy 2 bên, biểu đồ eval bấm để nhảy nước, phím ← →, hiện nước tốt nhất, **thử lại nước sai** (chấm bằng engine). `core/review/review.ts` + test; E2E
 - [x] Sửa: trang mở bằng `<Link>` có `#hash` (Review, `/practice/themes#fork` từ bài học) đọc hash quá sớm → hook `useLocationHash`
 
-## Phase 5 — Hoa hòe
+## Phase 5 — Hoa hòe — ✅ code xong (2026-10-15)
 - [x] Theme (spec §7.2) — asset **tự tạo, không tải** (chốt 2026-10-15):
   - [x] Asset tự vẽ: nền CSS (vân gỗ, cẩm thạch, lưới neon, pixel, trời sao + cực quang, cánh hoa), 3 bộ quân SVG tự vẽ (Tối giản, Viền neon, Ký tự) + bộ mặc định; kiểu nút bằng bo góc (không dùng skin ảnh 9-slice)
   - [x] 8 theme có sẵn (Classic, Gỗ, Cẩm thạch, Neon, Arcade, Fantasy, Sakura, Midnight)
@@ -161,8 +161,8 @@
   - [x] Tuỳ chỉnh từng phần: nền (theo chủ đề / trơn / màu / 5 dải màu / ảnh tự tải lên — thu nhỏ ≤1920px, lưu IndexedDB bảng `media`, không vào file save), 8 kiểu bàn, 4 bộ quân, tô sáng nước đi, 8 màu nhấn, kiểu nút, tốc độ hiệu ứng quân. Áp trước khi vẽ trang (boot script) để không nháy
   - [x] Thanh làm nhạt/làm mờ nền; nền động bằng canvas (cánh hoa, sao, hạt neon, pixel, bụi gỗ), dừng khi ẩn tab, tắt khi `prefers-reduced-motion`
   - [x] Bảng cài đặt nổi → Giao diện: lưới thẻ xem trước + bàn cờ xem trước trực tiếp, nút phóng to bảng
-- [ ] Ngôn ngữ (chọn trên menu): vi/en/ja; dịch đủ UI, thoại bot, quiz; bài học dịch dần (fallback + thông báo)
-- [ ] Skill `add-theme` (manifest + asset + CREDITS) và skill `sync-i18n` (dịch key còn thiếu vi → en/ja theo GLOSSARY)
+- [x] Ngôn ngữ (chọn trên menu): vi/en/ja; dịch đủ UI, thoại bot, quiz, bài học (18 bài × 3 ngôn ngữ); test kiểm đủ key/nội dung
+- [x] Skill `add-theme` (CSS + preset + tên 3 ngôn ngữ, không asset ngoài) và skill `sync-i18n` (dịch key còn thiếu vi → en/ja theo GLOSSARY)
 - [x] Animation, hiệu ứng chiếu/phong cấp: ô Vua bị chiếu nhấp nháy, ô phong cấp loé sáng, confetti khi thắng bot; theo cài đặt tốc độ hiệu ứng và `prefers-reduced-motion`
 - [x] Âm thanh (spec §7.1) — **toàn bộ tổng hợp bằng Web Audio, không file** (không cần Howler):
   - [x] Nhạc tự sinh (`services/audio/music.ts` + công thức `musicTracks.ts`): 8 bài — menu, Learn, Practice, Puzzle Rush, 4 mức bot; bản "căng" = tham số `intensity` (nhanh hơn, sáng hơn, trống dày, drone); stinger thắng/thua/hòa/lên hạng trong SFX
@@ -175,9 +175,9 @@
   - [x] Animation (tắt khi `prefers-reduced-motion`): vệt ánh kim chạy ngang, đá quý lấp lánh, cánh vỗ nhẹ, lửa/tia sáng xoay, hào quang Thách Đấu
   - [x] Màn lên hạng (huy hiệu cũ vỡ hạt → huy hiệu mới bay vào + confetti + âm thanh) và màn giới thiệu trùm trước trận thăng hạng
   - [x] Gắn huy hiệu vào header, Hồ sơ (kèm dải 8 hạng), thẻ bot, màn kết quả, lịch sử (trận thăng hạng)
-  - [ ] (Tuỳ chọn) Brief cho designer/Midjourney để vẽ bản minh hoạ cao cấp; `RankEmblem` hỗ trợ `variant` để thay ảnh không sửa code
+  - [ ] (Tuỳ chọn, chưa làm) Brief cho designer/Midjourney để vẽ bản minh hoạ cao cấp; `RankEmblem` hỗ trợ `variant` để thay ảnh không sửa code
 - [x] XP, streak, thành tích (achievement), trang Profile: `core/progress` (XP theo bài học/quiz/puzzle/Rush/ván cờ/xem lại, cấp độ, chuỗi ngày theo lịch, 25 thành tích) + `services/progress` (ghi tuần tự, toast); Dexie v6 + save v6; thẻ Cấp độ/Chuỗi ngày/Thành tích ở Hồ sơ
-- [ ] Responsive mobile hoàn chỉnh; PWA (chơi offline)
+- [x] Responsive mobile hoàn chỉnh (đo tự động: không trang nào tràn ngang ở 375px); PWA: `app/manifest.ts` + icon PNG xuất từ SVG, service worker `public/sw.js` (trang: mạng trước/cache khi offline; asset, Stockfish, puzzle: cache trước) — chơi được offline cả đấu bot (E2E `offline.spec.ts`)
 
 ## Phase 6 — 3D
 - [ ] Spike: react-three-fiber + model GLTF quân cờ (CC0 hoặc tự dựng)
