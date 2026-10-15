@@ -87,7 +87,8 @@ export function undoMove(game: GameSnapshot): GameSnapshot {
 /** Destination squares the piece on `square` can legally move to. */
 export function legalTargets(fen: string, square: Square): Square[] {
   const chess = view(fen);
-  return chess.moves({ square, verbose: true }).map((m) => m.to);
+  // A promotion yields one move per piece: keep each square once.
+  return [...new Set(chess.moves({ square, verbose: true }).map((m) => m.to))];
 }
 
 /** True when moving from→to is a legal pawn move that requires choosing a promotion piece. */

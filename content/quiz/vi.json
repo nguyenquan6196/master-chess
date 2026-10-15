@@ -1043,5 +1043,1029 @@
   "str-mv-king-endgame": {
     "prompt": "Tàn cuộc chỉ còn Tốt. Hãy đưa Vua tiến về trung tâm.",
     "explanation": "Ke2 hoặc Kd2: trong tàn cuộc, Vua phải tích cực tiến lên."
+  },
+  "sq-rook-h1": {
+    "prompt": "Bấm vào tất cả các ô mà Xe ở h1 có thể đi tới.",
+    "explanation": "Xe đi dọc cột h và sang trái tới f1 — Vua ở e1 chặn đường."
+  },
+  "sq-bishop-a3": {
+    "prompt": "Bấm vào tất cả các ô mà Tượng ở a3 có thể đi tới.",
+    "explanation": "Từ a3, Tượng có hai đường chéo: lên tới f8 và xuống c1."
+  },
+  "sq-knight-h4": {
+    "prompt": "Bấm vào tất cả các ô mà Mã ở h4 có thể đi tới.",
+    "explanation": "Ở rìa bàn cờ, Mã chỉ còn 4 ô: g6, f5, f3, g2."
+  },
+  "sq-knight-b1-start": {
+    "prompt": "Bấm vào tất cả các ô mà Mã ở b1 có thể đi tới.",
+    "explanation": "Ở vị trí ban đầu, Mã b1 nhảy qua hàng Tốt tới a3 hoặc c3."
+  },
+  "sq-pawn-e2-blocked-e4": {
+    "prompt": "Bấm vào tất cả các ô mà Tốt ở e2 có thể đi tới.",
+    "explanation": "Tốt muốn đi 2 ô nhưng e4 đã có quân, nên chỉ đi được e3."
+  },
+  "sq-pawn-black-d7": {
+    "prompt": "Bấm vào tất cả các ô mà Tốt ở d7 có thể đi tới.",
+    "explanation": "Tốt Đen đi xuống phía hàng 1. Ở nước đầu, nó đi được 1 hoặc 2 ô: d6, d5."
+  },
+  "sq-queen-d1-open": {
+    "prompt": "Bấm vào tất cả các ô mà Hậu ở d1 có thể đi tới.",
+    "explanation": "Sau 1.e4 e5, đường chéo d1–h5 mở ra: Hậu đi được e2, f3, g4, h5."
+  },
+  "sq-bishop-f1-open": {
+    "prompt": "Bấm vào tất cả các ô mà Tượng ở f1 có thể đi tới.",
+    "explanation": "Tốt e4 đã đi, Tượng f1 có cả đường chéo tới a6."
+  },
+  "sq-king-opposition": {
+    "prompt": "Bấm vào tất cả các ô mà Vua ở e4 có thể đi tới.",
+    "explanation": "Hai Vua không được đứng cạnh nhau, nên d5, e5, f5 bị cấm."
+  },
+  "sq-rook-pinned-file": {
+    "prompt": "Bấm vào tất cả các ô mà Xe ở e2 có thể đi tới.",
+    "explanation": "Xe e2 bị ghim vào Vua: nó chỉ được đi dọc cột e, kể cả ăn Xe e8."
+  },
+  "sq-bishop-pinned-diag": {
+    "prompt": "Bấm vào tất cả các ô mà Tượng ở d2 có thể đi tới.",
+    "explanation": "Tượng d2 bị Tượng b4 ghim: chỉ được đi trên đường ghim — c3 hoặc ăn b4."
+  },
+  "sq-pawn-promote-three": {
+    "prompt": "Bấm vào tất cả các ô mà Tốt ở b7 có thể đi tới.",
+    "explanation": "Tốt b7 có thể đi thẳng b8 hoặc ăn chéo a8, c8 — ô nào cũng là phong cấp!"
+  },
+  "sq-king-castle-one-side": {
+    "prompt": "Bấm vào tất cả các ô mà Vua ở e1 có thể đi tới.",
+    "explanation": "Tượng f1 chặn phía Vua, nên Vua chỉ nhập thành xa được (c1)."
+  },
+  "sq-pawn-en-passant": {
+    "prompt": "Bấm vào tất cả các ô mà Tốt ở e5 có thể đi tới.",
+    "explanation": "Tốt d vừa đi 2 ô qua mặt Tốt e5, nên e5 có thể bắt tốt qua đường ở d6."
+  },
+  "sq-queen-blockers": {
+    "prompt": "Bấm vào tất cả các ô mà Hậu ở e4 có thể đi tới.",
+    "explanation": "Hậu dừng lại ở quân đối phương (c6, e6, g4 — ăn được) và trước quân mình (c4, e2)."
+  },
+  "knight-max-moves": {
+    "prompt": "Mã có nhiều nhất bao nhiêu nước đi?",
+    "explanation": "Ở giữa bàn cờ, Mã có tối đa 8 ô theo hình chữ L.",
+    "choices": {
+      "4": "4",
+      "8": "8",
+      "12": "12"
+    }
+  },
+  "queen-max-squares": {
+    "prompt": "Hậu ở trung tâm bàn cờ trống kiểm soát tối đa bao nhiêu ô?",
+    "explanation": "Hậu ở d4 hoặc e4 kiểm soát 27 ô — nhiều nhất trong các quân.",
+    "choices": {
+      "21": "21",
+      "27": "27",
+      "32": "32"
+    }
+  },
+  "rook-squares-always": {
+    "prompt": "Trên bàn cờ trống, Xe luôn kiểm soát bao nhiêu ô?",
+    "explanation": "Ở đâu cũng vậy: 7 ô trên cột + 7 ô trên hàng = 14.",
+    "choices": {
+      "14": "14",
+      "16": "16",
+      "depends": "Tuỳ vị trí"
+    }
+  },
+  "bishop-light-dark": {
+    "prompt": "Tượng đi ô sáng có bao giờ tới được ô tối không?",
+    "explanation": "Không bao giờ: đi chéo thì màu ô không đổi.",
+    "choices": {
+      "never": "Không bao giờ",
+      "capture": "Khi ăn quân",
+      "promotion": "Khi phong cấp"
+    }
+  },
+  "pawn-capture-direction": {
+    "prompt": "Tốt ăn quân theo hướng nào?",
+    "explanation": "Tốt đi thẳng nhưng ăn chéo một ô về phía trước.",
+    "choices": {
+      "diagonal": "Chéo một ô về phía trước",
+      "straight": "Thẳng phía trước",
+      "sideways": "Sang ngang"
+    }
+  },
+  "king-step": {
+    "prompt": "Trừ khi nhập thành, mỗi nước Vua đi được mấy ô?",
+    "explanation": "Vua đi 1 ô theo mọi hướng; chỉ khi nhập thành nó mới đi 2 ô.",
+    "choices": {
+      "one": "1 ô",
+      "two": "2 ô",
+      "any": "Bao nhiêu cũng được"
+    }
+  },
+  "pieces-total": {
+    "prompt": "Khi bắt đầu, mỗi bên có tổng cộng bao nhiêu quân?",
+    "explanation": "8 Tốt + 2 Xe + 2 Mã + 2 Tượng + Hậu + Vua = 16.",
+    "choices": {
+      "12": "12",
+      "16": "16",
+      "20": "20"
+    }
+  },
+  "knight-start-squares": {
+    "prompt": "Hai Mã Trắng bắt đầu ở những ô nào?",
+    "explanation": "Mã đứng cạnh Xe: b1 và g1 (Đen: b8 và g8).",
+    "choices": {
+      "b1g1": "b1 và g1",
+      "c1f1": "c1 và f1",
+      "a1h1": "a1 và h1"
+    }
+  },
+  "king-start-file": {
+    "prompt": "Vua đứng ở cột nào khi bắt đầu ván?",
+    "explanation": "Cả hai Vua đứng ở cột e: e1 và e8.",
+    "choices": {
+      "d": "Cột d",
+      "e": "Cột e",
+      "f": "Cột f"
+    }
+  },
+  "value-pawn": {
+    "prompt": "Một Tốt có giá trị khoảng bao nhiêu điểm?",
+    "explanation": "Tốt là đơn vị cơ bản: 1 điểm.",
+    "choices": {
+      "1": "1",
+      "2": "2",
+      "3": "3"
+    }
+  },
+  "two-rooks-vs-queen": {
+    "prompt": "Theo điểm quân, hai Xe so với một Hậu thế nào?",
+    "explanation": "Hai Xe = 10 điểm, Hậu = 9 điểm: hai Xe nhỉnh hơn một chút.",
+    "choices": {
+      "rooks": "Hai Xe hơn một chút",
+      "queen": "Hậu hơn nhiều",
+      "equal": "Đúng bằng nhau"
+    }
+  },
+  "capture-own-piece": {
+    "prompt": "Có được ăn quân của chính mình không?",
+    "explanation": "Không. Chỉ được ăn quân đối phương.",
+    "choices": {
+      "no": "Không",
+      "yes": "Có"
+    }
+  },
+  "king-never-captured": {
+    "prompt": "Vua có bao giờ bị ăn và bỏ ra khỏi bàn cờ không?",
+    "explanation": "Không. Ván cờ kết thúc ngay khi Vua bị chiếu hết, trước khi bị ăn.",
+    "choices": {
+      "never": "Không bao giờ",
+      "sometimes": "Thỉnh thoảng",
+      "endgame": "Chỉ ở tàn cuộc"
+    }
+  },
+  "two-queens": {
+    "prompt": "Một bên có thể có hai Hậu cùng lúc không?",
+    "explanation": "Có! Phong cấp Tốt thành Hậu khi Hậu cũ vẫn còn trên bàn.",
+    "choices": {
+      "yes": "Có, nhờ phong cấp",
+      "no": "Không, tối đa một Hậu"
+    }
+  },
+  "pawn-first-move": {
+    "prompt": "Ở nước đầu tiên, Tốt phải đi bao nhiêu ô?",
+    "explanation": "Tuỳ bạn chọn: 1 hoặc 2 ô.",
+    "choices": {
+      "oneOrTwo": "1 hoặc 2 ô, tuỳ chọn",
+      "two": "Bắt buộc 2 ô",
+      "one": "Chỉ 1 ô"
+    }
+  },
+  "mv-en-passant-black": {
+    "prompt": "Đen đi. Tốt Trắng vừa đi e2–e4. Hãy bắt tốt qua đường!",
+    "explanation": "dxe3 e.p.: Tốt d4 ăn chéo vào e3 như thể Tốt Trắng chỉ đi 1 ô."
+  },
+  "mv-underpromote-knight": {
+    "prompt": "Hãy phong cấp Tốt thành quân có thể chiếu Vua Đen ngay.",
+    "explanation": "d8=N+: Mã ở d8 chiếu Vua f7. Phong cấp không bắt buộc phải là Hậu!"
+  },
+  "mv-castle-legal-side": {
+    "prompt": "Hãy nhập thành — nhưng chỉ có một cách là hợp lệ!",
+    "explanation": "Tượng c4 kiểm soát f1, nên không được nhập thành gần. O-O-O thì hợp lệ."
+  },
+  "mv-king-takes-queen": {
+    "prompt": "Vua Trắng bị chiếu. Hãy thoát chiếu.",
+    "explanation": "Kxe2: Hậu đứng sát Vua mà không được bảo vệ, nên Vua ăn luôn được."
+  },
+  "mv-block-with-knight": {
+    "prompt": "Tượng Đen chiếu. Hãy dùng Mã để chặn chiếu.",
+    "explanation": "Nc3 hoặc Nd2 đứng vào đường chéo giữa Tượng và Vua."
+  },
+  "mv-promote-black": {
+    "prompt": "Đen đi: hãy phong cấp Tốt thành Hậu.",
+    "explanation": "a1=Q+: Tốt Đen tới hàng 1 và trở thành Hậu."
+  },
+  "mv-castle-black-short": {
+    "prompt": "Đen đi: hãy nhập thành gần.",
+    "explanation": "O-O: Vua Đen sang g8, Xe h8 sang f8."
+  },
+  "sq-escape-queen-e3": {
+    "prompt": "Bấm vào tất cả các ô mà Vua ở e1 có thể đi tới.",
+    "explanation": "Hậu e3 kiểm soát d2, e2, f2. Vua chỉ còn d1 hoặc f1."
+  },
+  "sq-king-protected-rook": {
+    "prompt": "Bấm vào tất cả các ô mà Vua ở e1 có thể đi tới.",
+    "explanation": "Xe d2 được Xe d8 bảo vệ nên Vua không ăn được; e2, f2, d1 đều bị kiểm soát. Chỉ còn f1."
+  },
+  "sq-no-castle-through": {
+    "prompt": "Bấm vào tất cả các ô mà Vua ở e1 có thể đi tới.",
+    "explanation": "Xe f8 kiểm soát cả cột f, nên Vua không được đi f1, f2 và cũng không được nhập thành."
+  },
+  "sq-en-passant-black": {
+    "prompt": "Bấm vào tất cả các ô mà Tốt ở d4 có thể đi tới.",
+    "explanation": "Tốt d4 đi thẳng tới d3, hoặc bắt tốt qua đường ở e3."
+  },
+  "sq-escape-knight-check": {
+    "prompt": "Bấm vào tất cả các ô mà Vua ở e1 có thể đi tới.",
+    "explanation": "Mã chiếu không chặn được, Vua phải chạy. Mã d3 còn kiểm soát f2, nên Vua có d1, d2, e2, f1."
+  },
+  "touch-move": {
+    "prompt": "Theo luật \"chạm quân\" (khi đánh cờ thật), nếu bạn cố ý chạm vào quân của mình thì sao?",
+    "explanation": "Bạn phải đi quân đó (nếu nó có nước hợp lệ).",
+    "choices": {
+      "mustMove": "Phải đi quân đó",
+      "nothing": "Không sao cả",
+      "lose": "Bị xử thua"
+    }
+  },
+  "castle-once": {
+    "prompt": "Mỗi bên được nhập thành mấy lần trong một ván?",
+    "explanation": "Chỉ một lần.",
+    "choices": {
+      "once": "1 lần",
+      "twice": "2 lần",
+      "any": "Không giới hạn"
+    }
+  },
+  "castle-rook-returned": {
+    "prompt": "Xe h1 đã đi rồi quay về h1. Còn được nhập thành gần không?",
+    "explanation": "Không. Xe đã từng di chuyển thì mất quyền nhập thành phía đó.",
+    "choices": {
+      "no": "Không",
+      "yes": "Có"
+    }
+  },
+  "castle-after-old-check": {
+    "prompt": "Vua từng bị chiếu, đã chặn chiếu (Vua chưa đi). Sau này có được nhập thành không?",
+    "explanation": "Có. Chỉ cấm nhập thành khi đang bị chiếu; bị chiếu trước đó không sao.",
+    "choices": {
+      "yes": "Có",
+      "no": "Không"
+    }
+  },
+  "en-passant-optional": {
+    "prompt": "Bắt tốt qua đường có bắt buộc không?",
+    "explanation": "Không bắt buộc — trừ khi đó là nước đi hợp lệ duy nhất.",
+    "choices": {
+      "optional": "Không, tuỳ bạn",
+      "mandatory": "Có, luôn bắt buộc"
+    }
+  },
+  "promotion-mandatory": {
+    "prompt": "Tốt đi tới hàng cuối có bắt buộc phong cấp không?",
+    "explanation": "Có. Tốt không thể ở lại là Tốt trên hàng cuối.",
+    "choices": {
+      "yes": "Có, bắt buộc",
+      "no": "Không, có thể giữ là Tốt"
+    }
+  },
+  "stalemate-vs-mate": {
+    "prompt": "Hòa pat khác chiếu hết ở điểm nào?",
+    "explanation": "Cả hai đều không còn nước đi, nhưng khi hòa pat thì Vua không bị chiếu.",
+    "choices": {
+      "notInCheck": "Hòa pat: Vua không bị chiếu",
+      "noPieces": "Hòa pat: không còn quân nào",
+      "same": "Không khác gì"
+    }
+  },
+  "timeout-lone-king": {
+    "prompt": "Bạn hết giờ, nhưng đối thủ chỉ còn mỗi Vua. Kết quả?",
+    "explanation": "Hòa: đối thủ không thể chiếu hết bằng bất kỳ cách nào.",
+    "choices": {
+      "draw": "Hòa",
+      "lose": "Bạn thua",
+      "win": "Bạn thắng"
+    }
+  },
+  "two-kings-only": {
+    "prompt": "Trên bàn chỉ còn hai Vua. Kết quả?",
+    "explanation": "Hòa ngay vì không bên nào chiếu hết được.",
+    "choices": {
+      "draw": "Hòa",
+      "white": "Trắng thắng",
+      "continue": "Chơi tiếp tới khi hết giờ"
+    }
+  },
+  "king-knight-vs-king": {
+    "prompt": "Vua + Mã đấu với Vua đơn độc. Kết quả?",
+    "explanation": "Hòa — một Mã không đủ để chiếu hết.",
+    "choices": {
+      "draw": "Hòa",
+      "win": "Bên có Mã thắng"
+    }
+  },
+  "threefold-not-consecutive": {
+    "prompt": "Để hòa do lặp lại 3 lần, các lần lặp có cần liên tiếp không?",
+    "explanation": "Không. Chỉ cần cùng một thế cờ (cùng bên đi) xuất hiện 3 lần trong ván.",
+    "choices": {
+      "no": "Không cần",
+      "yes": "Có, phải liên tiếp"
+    }
+  },
+  "king-into-check": {
+    "prompt": "Vua có được tự đi vào ô đang bị tấn công không?",
+    "explanation": "Không. Vua không bao giờ được tự đặt mình vào thế bị chiếu.",
+    "choices": {
+      "no": "Không",
+      "yes": "Có"
+    }
+  },
+  "resign-meaning": {
+    "prompt": "\"Xin thua\" nghĩa là gì?",
+    "explanation": "Người xin thua chịu thua ván cờ ngay lập tức.",
+    "choices": {
+      "lose": "Chịu thua ngay",
+      "draw": "Xin hòa",
+      "pause": "Tạm dừng ván"
+    }
+  },
+  "flag-fall": {
+    "prompt": "Bạn hết giờ khi đối thủ vẫn còn đủ quân để chiếu hết. Kết quả?",
+    "explanation": "Bạn thua do hết giờ.",
+    "choices": {
+      "lose": "Bạn thua",
+      "draw": "Hòa",
+      "extra": "Được cộng thêm giờ"
+    }
+  },
+  "say-check": {
+    "prompt": "Khi chiếu, bạn có bắt buộc phải nói \"chiếu\" không?",
+    "explanation": "Không bắt buộc — đối thủ phải tự nhận ra.",
+    "choices": {
+      "no": "Không bắt buộc",
+      "yes": "Có, nếu không sẽ bị phạt"
+    }
+  },
+  "seventy-five-moves": {
+    "prompt": "Sau 75 nước mỗi bên không ăn quân và không đi Tốt thì sao?",
+    "explanation": "Ván cờ tự động hòa, không cần ai yêu cầu (với 50 nước thì phải yêu cầu).",
+    "choices": {
+      "automatic": "Tự động hòa",
+      "claim": "Chỉ hòa nếu có người yêu cầu",
+      "nothing": "Chơi tiếp bình thường"
+    }
+  },
+  "nt-play-d4": {
+    "prompt": "Hãy đi nước d4.",
+    "explanation": "Tốt d2 tiến 2 ô tới d4."
+  },
+  "nt-play-nc3": {
+    "prompt": "Hãy đi nước Nc3.",
+    "explanation": "Mã b1 nhảy tới c3."
+  },
+  "nt-play-c4": {
+    "prompt": "Hãy đi nước c4.",
+    "explanation": "Khai cuộc Anh: Tốt c tiến tới c4."
+  },
+  "nt-play-black-e5": {
+    "prompt": "Hãy đi nước 1...e5.",
+    "explanation": "\"1...\" nghĩa là nước của Đen ở lượt 1: Tốt e7 tới e5."
+  },
+  "nt-play-black-nf6": {
+    "prompt": "Hãy đi nước 1...Nf6.",
+    "explanation": "Phòng thủ Alekhine: Mã g8 nhảy tới f6."
+  },
+  "nt-play-black-c5": {
+    "prompt": "Hãy đi nước 1...c5.",
+    "explanation": "Phòng thủ Sicilia: Tốt c7 tiến tới c5."
+  },
+  "nt-play-bb5": {
+    "prompt": "Hãy đi nước Bb5.",
+    "explanation": "Khai cuộc Tây Ban Nha: Tượng f1 tới b5, ghim Mã c6."
+  },
+  "nt-play-qxd5": {
+    "prompt": "Hãy đi nước 2...Qxd5.",
+    "explanation": "Hậu Đen ăn lại Tốt ở d5."
+  },
+  "nt-play-black-oo": {
+    "prompt": "Hãy đi nước 4...O-O.",
+    "explanation": "Đen nhập thành gần: Vua tới g8, Xe tới f8."
+  },
+  "nt-play-kd2": {
+    "prompt": "Hãy đi nước Kd2.",
+    "explanation": "K là Vua: Vua e1 bước lên d2."
+  },
+  "nt-play-ra8-mate": {
+    "prompt": "Hãy đi nước Ra8#.",
+    "explanation": "Xe tới a8 — \"#\" nghĩa là chiếu hết hàng cuối."
+  },
+  "nt-play-exf6-ep": {
+    "prompt": "Hãy đi nước exf6 e.p..",
+    "explanation": "\"e.p.\" là bắt tốt qua đường: Tốt e5 ăn sang f6."
+  },
+  "nt-play-axb8n": {
+    "prompt": "Hãy đi nước axb8=N.",
+    "explanation": "Tốt a7 ăn Mã ở b8 và phong cấp thành Mã."
+  },
+  "nt-play-r1d3": {
+    "prompt": "Hãy đi nước R1d3.",
+    "explanation": "Hai Xe cùng cột d đều tới được d3; số \"1\" chỉ Xe ở hàng 1."
+  },
+  "nt-play-black-qh4-mate": {
+    "prompt": "Hãy đi nước 2...Qh4#.",
+    "explanation": "Chiếu hết nhanh nhất có thể — \"Fool’s Mate\"!"
+  },
+  "nt-play-bxc6": {
+    "prompt": "Hãy đi nước Bxc6.",
+    "explanation": "Tượng b5 ăn Mã c6 (biến Đổi quân của khai cuộc Tây Ban Nha)."
+  },
+  "nt-read-d5": {
+    "prompt": "Ô d5 nằm ở đâu?",
+    "explanation": "Chữ cái là cột, số là hàng: cột d, hàng 5.",
+    "choices": {
+      "dFile5": "Cột d, hàng 5",
+      "d5thRank": "Hàng d, cột 5",
+      "corner": "Ở góc bàn cờ"
+    }
+  },
+  "nt-h1-color": {
+    "prompt": "Ô h1 màu gì?",
+    "explanation": "Ô góc bên phải của mỗi người chơi luôn là ô sáng — h1 là ô sáng.",
+    "choices": {
+      "light": "Sáng",
+      "dark": "Tối"
+    }
+  },
+  "nt-a1-color": {
+    "prompt": "Ô a1 màu gì?",
+    "explanation": "a1 là ô tối (h1 sáng, các ô xen kẽ màu).",
+    "choices": {
+      "light": "Sáng",
+      "dark": "Tối"
+    }
+  },
+  "nt-ep": {
+    "prompt": "\"e.p.\" trong ký hiệu nghĩa là gì?",
+    "explanation": "e.p. = en passant = bắt tốt qua đường.",
+    "choices": {
+      "enPassant": "Bắt tốt qua đường",
+      "endPosition": "Thế cờ cuối",
+      "equal": "Thế cờ cân bằng"
+    }
+  },
+  "nt-ooo": {
+    "prompt": "\"O-O-O\" là gì?",
+    "explanation": "Ba chữ O là nhập thành xa (phía Hậu); hai chữ O là nhập thành gần.",
+    "choices": {
+      "long": "Nhập thành xa",
+      "short": "Nhập thành gần",
+      "draw": "Hòa"
+    }
+  },
+  "nt-k-letter": {
+    "prompt": "Chữ \"K\" là quân nào?",
+    "explanation": "K = King = Vua. (Mã dùng chữ N để không trùng.)",
+    "choices": {
+      "king": "Vua",
+      "knight": "Mã",
+      "rook": "Xe"
+    }
+  },
+  "nt-r-letter": {
+    "prompt": "Chữ cái nào ký hiệu Xe?",
+    "explanation": "R = Rook = Xe.",
+    "choices": {
+      "R": "R",
+      "C": "C",
+      "X": "X"
+    }
+  },
+  "nt-no-letter": {
+    "prompt": "Trong nước \"d4\", quân nào di chuyển?",
+    "explanation": "Không có chữ cái đầu thì đó là Tốt.",
+    "choices": {
+      "pawn": "Tốt",
+      "queen": "Hậu",
+      "king": "Vua"
+    }
+  },
+  "nt-fen": {
+    "prompt": "FEN dùng để làm gì?",
+    "explanation": "FEN là một dòng chữ mô tả đầy đủ một thế cờ (vị trí quân, lượt đi, quyền nhập thành…).",
+    "choices": {
+      "position": "Mô tả một thế cờ",
+      "game": "Lưu cả ván cờ",
+      "rating": "Tính điểm Elo"
+    }
+  },
+  "nt-move-pair": {
+    "prompt": "Trong ký hiệu, một \"nước\" có số thứ tự (vd \"5.\") gồm những gì?",
+    "explanation": "Một nước của Trắng và một nước của Đen, ví dụ \"5. Nf3 Nc6\".",
+    "choices": {
+      "both": "Một nước Trắng + một nước Đen",
+      "white": "Chỉ nước của Trắng",
+      "three": "Ba nước liên tiếp"
+    }
+  },
+  "nt-h-file": {
+    "prompt": "Nhìn từ phía Trắng, cột ngoài cùng bên phải là cột nào?",
+    "explanation": "Từ trái sang phải: a, b, c … h. Cột phải cùng là h.",
+    "choices": {
+      "h": "Cột h",
+      "a": "Cột a",
+      "8": "Cột 8"
+    }
+  },
+  "nt-black-back-rank": {
+    "prompt": "Các quân Đen (không phải Tốt) đứng ở hàng nào khi bắt đầu?",
+    "explanation": "Hàng 8; Tốt Đen đứng ở hàng 7.",
+    "choices": {
+      "8": "Hàng 8",
+      "7": "Hàng 7",
+      "1": "Hàng 1"
+    }
+  },
+  "nt-white-pawn-rank": {
+    "prompt": "Tốt Trắng bắt đầu ở hàng nào?",
+    "explanation": "Hàng 2, ngay trước các quân khác.",
+    "choices": {
+      "1": "Hàng 1",
+      "2": "Hàng 2",
+      "7": "Hàng 7"
+    }
+  },
+  "nt-why-nbd2": {
+    "prompt": "Vì sao có lúc phải viết \"Nbd2\" thay vì \"Nd2\"?",
+    "explanation": "Vì hai Mã đều đi tới d2 được; chữ \"b\" cho biết Mã nào đi.",
+    "choices": {
+      "twoKnights": "Hai Mã cùng tới được d2",
+      "capture": "Vì đó là nước ăn quân",
+      "style": "Chỉ là cách viết đẹp hơn"
+    }
+  },
+  "nt-brilliant": {
+    "prompt": "Dấu \"!!\" nghĩa là gì?",
+    "explanation": "\"!!\" là nước tuyệt hay — thường là một đòn thí quân bất ngờ.",
+    "choices": {
+      "brilliant": "Nước tuyệt hay",
+      "blunder": "Sai lầm nặng",
+      "check": "Chiếu đôi"
+    }
+  },
+  "nt-zero-one": {
+    "prompt": "Kết quả \"0-1\" nghĩa là gì?",
+    "explanation": "Số bên trái là điểm của Trắng: 0-1 là Đen thắng.",
+    "choices": {
+      "black": "Đen thắng",
+      "white": "Trắng thắng",
+      "draw": "Hòa"
+    }
+  },
+  "str-mv-defend-e5": {
+    "prompt": "Đen đi. Mã f3 tấn công Tốt e5. Hãy bảo vệ nó bằng cách phát triển Mã.",
+    "explanation": "Nc6: vừa bảo vệ e5, vừa đưa một quân nhẹ ra trận."
+  },
+  "str-mv-run-passed-pawn": {
+    "prompt": "Vua Đen ở rất xa. Hãy đẩy Tốt thông về phía ô phong cấp.",
+    "explanation": "Vua Đen nằm ngoài \"hình vuông\" của Tốt nên không đuổi kịp — cứ thế tiến lên!"
+  },
+  "str-mv-rook-seventh": {
+    "prompt": "Hãy đưa Xe lên hàng 7 của đối phương.",
+    "explanation": "Rd7: Xe trên hàng 7 tấn công các Tốt và giam Vua Đen ở hàng cuối."
+  },
+  "str-mv-knight-center": {
+    "prompt": "Mã ở rìa bàn cờ. Hãy đưa nó về gần trung tâm hơn.",
+    "explanation": "Nb5 hoặc Nc4: càng gần trung tâm, Mã càng kiểm soát nhiều ô."
+  },
+  "str-mv-fianchetto": {
+    "prompt": "Tốt g đã lên g3. Hãy hoàn thành fianchetto.",
+    "explanation": "Bg2: Tượng đứng trên đường chéo dài h1–a8."
+  },
+  "str-mv-rook-behind-passer": {
+    "prompt": "Tốt a5 là Tốt thông. Hãy đặt Xe ở vị trí tốt nhất để hỗ trợ nó.",
+    "explanation": "Ra1: Xe đứng phía sau Tốt thông, càng Tốt tiến thì Xe càng mạnh."
+  },
+  "str-blockade": {
+    "prompt": "Ô ngay trước một Tốt cô lập của đối phương là chỗ lý tưởng cho quân nào của bạn?",
+    "explanation": "Mã: nó chặn Tốt và không bị Tốt nào đuổi đi.",
+    "choices": {
+      "knight": "Mã",
+      "queen": "Hậu",
+      "king": "Vua"
+    }
+  },
+  "str-tempo": {
+    "prompt": "\"Tempo\" trong cờ vua là gì?",
+    "explanation": "Một tempo là một nước đi — đơn vị thời gian. \"Mất tempo\" là phí một nước.",
+    "choices": {
+      "time": "Một nước đi (đơn vị thời gian)",
+      "clock": "Tốc độ đồng hồ",
+      "pawn": "Một Tốt"
+    }
+  },
+  "str-zugzwang": {
+    "prompt": "\"Zugzwang\" là tình huống gì?",
+    "explanation": "Bên phải đi rơi vào thế mọi nước đi đều làm thế cờ xấu hơn — giá mà được \"bỏ lượt\".",
+    "choices": {
+      "anyMoveWorse": "Phải đi nhưng nước nào cũng xấu đi",
+      "noMoves": "Không còn nước đi",
+      "timeTrouble": "Sắp hết giờ"
+    }
+  },
+  "str-open-bishop": {
+    "prompt": "Trong thế cờ mở (nhiều đường thông), quân nào thường mạnh hơn: Tượng hay Mã?",
+    "explanation": "Tượng — nó phát huy trên các đường chéo dài.",
+    "choices": {
+      "bishop": "Tượng",
+      "knight": "Mã",
+      "same": "Như nhau"
+    }
+  },
+  "str-closed-knight": {
+    "prompt": "Trong thế cờ đóng (chuỗi Tốt khóa chặt), quân nào thường mạnh hơn?",
+    "explanation": "Mã — nó nhảy qua được các chuỗi Tốt, còn Tượng thì bị chặn.",
+    "choices": {
+      "knight": "Mã",
+      "bishop": "Tượng",
+      "same": "Như nhau"
+    }
+  },
+  "str-chain-base": {
+    "prompt": "Khi tấn công một chuỗi Tốt, nên nhắm vào đâu?",
+    "explanation": "Vào gốc chuỗi — Tốt cuối cùng không được Tốt nào bảo vệ.",
+    "choices": {
+      "base": "Gốc chuỗi",
+      "head": "Đầu chuỗi",
+      "middle": "Giữa chuỗi"
+    }
+  },
+  "str-backward-pawn": {
+    "prompt": "\"Tốt bị tụt hậu\" là Tốt như thế nào?",
+    "explanation": "Tốt nằm sau các Tốt bên cạnh, không được chúng bảo vệ và khó tiến lên.",
+    "choices": {
+      "behind": "Nằm sau các Tốt bên cạnh, không được bảo vệ",
+      "doubled": "Hai Tốt cùng cột",
+      "passed": "Tốt thông"
+    }
+  },
+  "str-pawn-majority": {
+    "prompt": "Bạn có 3 Tốt đấu 2 ở cánh Hậu. Lợi thế đó dùng để làm gì?",
+    "explanation": "Đẩy chúng lên để tạo một Tốt thông.",
+    "choices": {
+      "passer": "Tạo một Tốt thông",
+      "castle": "Nhập thành về phía đó",
+      "nothing": "Không có ích gì"
+    }
+  },
+  "str-connected-passers": {
+    "prompt": "Hai Tốt thông đứng cạnh nhau (liên kết) thường thế nào?",
+    "explanation": "Rất mạnh: chúng bảo vệ nhau khi cùng tiến lên.",
+    "choices": {
+      "strong": "Rất mạnh",
+      "weak": "Yếu",
+      "illegal": "Không được phép"
+    }
+  },
+  "str-king-center-open-file": {
+    "prompt": "Cột e đã mở mà Vua của bạn vẫn ở e1. Điều đó thế nào?",
+    "explanation": "Rất nguy hiểm: Xe và Hậu đối phương có thể tấn công thẳng vào Vua. Hãy nhập thành!",
+    "choices": {
+      "danger": "Nguy hiểm, nên nhập thành",
+      "fine": "Không sao",
+      "good": "Tốt cho tấn công"
+    }
+  },
+  "str-develop-first": {
+    "prompt": "Trước khi tấn công, bạn nên làm gì trước?",
+    "explanation": "Phát triển quân và đưa Vua về nơi an toàn — tấn công bằng một quân thường thất bại.",
+    "choices": {
+      "develop": "Phát triển quân, nhập thành",
+      "queen": "Đưa Hậu lên tấn công ngay",
+      "pawns": "Đẩy hết Tốt cánh"
+    }
+  },
+  "str-knights-first": {
+    "prompt": "Quy tắc kinh nghiệm: trong khai cuộc thường phát triển quân nào trước?",
+    "explanation": "Mã trước Tượng — vì ô tốt nhất của Mã (f3, c3) thường đã rõ ràng.",
+    "choices": {
+      "knights": "Mã trước Tượng",
+      "bishops": "Tượng trước Mã",
+      "rooks": "Xe trước tiên"
+    }
+  },
+  "str-poisoned-pawn": {
+    "prompt": "Dùng Hậu ăn Tốt b2 của đối phương ngay trong khai cuộc thường thế nào?",
+    "explanation": "Rất mạo hiểm: Hậu bị kẹt ở góc và bạn mất nhiều nước để rút ra.",
+    "choices": {
+      "risky": "Mạo hiểm, Hậu dễ bị nhốt",
+      "free": "Luôn là một Tốt miễn phí",
+      "illegal": "Không hợp lệ"
+    }
+  },
+  "str-weak-square": {
+    "prompt": "\"Ô yếu\" trong thế cờ là gì?",
+    "explanation": "Ô mà Tốt của bạn không bao giờ bảo vệ được nữa — quân đối phương có thể chiếm lâu dài.",
+    "choices": {
+      "noPawnCover": "Ô Tốt mình không còn bảo vệ được",
+      "dark": "Mọi ô tối",
+      "empty": "Ô trống"
+    }
+  },
+  "str-trade-when-behind": {
+    "prompt": "Khi đang thua quân, bạn nên làm gì với việc đổi quân?",
+    "explanation": "Tránh đổi quân: còn nhiều quân thì còn nhiều cơ hội phản công.",
+    "choices": {
+      "avoid": "Tránh đổi quân",
+      "trade": "Đổi càng nhiều càng tốt",
+      "queens": "Đổi Hậu ngay"
+    }
+  },
+  "str-rook-pawn-draw": {
+    "prompt": "Vua + Tốt cột a đấu Vua, và Vua phòng thủ đã đứng ở góc a8. Kết quả thường là?",
+    "explanation": "Hòa: Vua phòng thủ không thể bị đẩy ra khỏi góc.",
+    "choices": {
+      "draw": "Hòa",
+      "win": "Bên có Tốt thắng"
+    }
+  },
+  "str-lucena": {
+    "prompt": "\"Thế Lucena\" trong tàn cuộc Xe nổi tiếng với kỹ thuật nào?",
+    "explanation": "\"Xây cầu\": dùng Xe che chắn cho Vua để đưa Tốt lên phong cấp — một thế thắng.",
+    "choices": {
+      "bridge": "\"Xây cầu\" để thắng",
+      "defence": "Phòng thủ để hòa",
+      "mate": "Chiếu hết bằng hai Xe"
+    }
+  },
+  "str-philidor": {
+    "prompt": "\"Thế Philidor\" trong tàn cuộc Xe là gì?",
+    "explanation": "Cách phòng thủ chuẩn để cầm hòa Xe + Tốt đấu Xe: giữ Xe ở hàng thứ 3.",
+    "choices": {
+      "defence": "Cách phòng thủ để cầm hòa",
+      "attack": "Một đòn tấn công Vua",
+      "opening": "Một khai cuộc"
+    }
+  },
+  "str-kq-vs-k": {
+    "prompt": "Vua + Hậu đấu Vua đơn độc, chơi đúng thì kết quả là?",
+    "explanation": "Luôn thắng: Hậu và Vua phối hợp dồn Vua đối phương ra rìa rồi chiếu hết (cẩn thận hòa pat!).",
+    "choices": {
+      "win": "Thắng",
+      "draw": "Hòa"
+    }
+  },
+  "str-kbn-vs-k": {
+    "prompt": "Vua + Tượng + Mã đấu Vua đơn độc thì sao?",
+    "explanation": "Thắng được, nhưng khó: phải dồn Vua vào góc cùng màu với Tượng trong 50 nước.",
+    "choices": {
+      "hardWin": "Thắng được nhưng khó",
+      "draw": "Luôn hòa",
+      "easy": "Thắng rất dễ"
+    }
+  },
+  "str-two-knights": {
+    "prompt": "Vua + hai Mã có ép chiếu hết được Vua đơn độc không?",
+    "explanation": "Không — nếu bên kia phòng thủ đúng, hai Mã không ép chiếu hết được.",
+    "choices": {
+      "no": "Không ép được",
+      "yes": "Có, dễ dàng"
+    }
+  },
+  "str-improve-worst": {
+    "prompt": "Không có đòn chiến thuật nào. Một kế hoạch tốt là gì?",
+    "explanation": "Cải thiện quân hoạt động kém nhất của bạn.",
+    "choices": {
+      "worstPiece": "Cải thiện quân kém nhất",
+      "random": "Đi một nước ngẫu nhiên",
+      "pawnRush": "Đẩy hết Tốt lên"
+    }
+  },
+  "str-ask-threat": {
+    "prompt": "Sau mỗi nước của đối thủ, câu hỏi đầu tiên nên tự hỏi là gì?",
+    "explanation": "\"Đối thủ đang dọa gì?\" — kiểm tra chiếu, ăn quân và các đe dọa.",
+    "choices": {
+      "threat": "Đối thủ đang dọa gì?",
+      "fast": "Đi nhanh để tiết kiệm giờ",
+      "mine": "Chỉ nghĩ tới kế hoạch của mình"
+    }
+  },
+  "str-space": {
+    "prompt": "\"Lợi thế không gian\" nghĩa là gì?",
+    "explanation": "Tốt của bạn tiến xa hơn, cho quân của bạn nhiều chỗ để di chuyển hơn đối phương.",
+    "choices": {
+      "room": "Có nhiều chỗ cho quân di chuyển hơn",
+      "time": "Có nhiều thời gian hơn",
+      "pieces": "Có nhiều quân hơn"
+    }
+  },
+  "mv-mate-queen-bishop-g7": {
+    "prompt": "Trắng đi: chiếu hết trong 1 nước.",
+    "explanation": "Qg7#: Hậu được Tượng b2 bảo vệ dọc đường chéo dài."
+  },
+  "mv-mate-rook-knight": {
+    "prompt": "Trắng đi: chiếu hết trong 1 nước.",
+    "explanation": "Ra8#: Mã f5 khống chế g7, Xe chiếu dọc hàng 8."
+  },
+  "mv-mate-black-back-rank": {
+    "prompt": "Đen đi: chiếu hết trong 1 nước.",
+    "explanation": "Rd1#: Vua Trắng bị kẹt sau ba Tốt của mình."
+  },
+  "mv-mate-black-queen": {
+    "prompt": "Đen đi: chiếu hết trong 1 nước.",
+    "explanation": "Qf1#: Hậu chiếu dọc hàng 1, các Tốt g2, h2 chặn đường thoát của Vua."
+  },
+  "mv-mate-queen-knight-g7": {
+    "prompt": "Trắng đi: chiếu hết trong 1 nước.",
+    "explanation": "Qg7#: Mã f5 bảo vệ Hậu, Vua Đen không ăn được và không có ô chạy."
+  },
+  "mv-mate-queen-rook-h-file": {
+    "prompt": "Trắng đi: chiếu hết trong 1 nước.",
+    "explanation": "Qh2#: Xe g1 khóa cột g, Hậu chiếu dọc cột h."
+  },
+  "mv-mate-pawn": {
+    "prompt": "Trắng đi: chiếu hết trong 1 nước.",
+    "explanation": "g7#: một Tốt cũng chiếu hết được! Vua f7 bảo vệ Tốt và khống chế g8."
+  },
+  "mv-fork-two-rooks": {
+    "prompt": "Hãy dùng Mã chĩa đôi hai Xe Đen.",
+    "explanation": "Nc5 tấn công cả Xe a6 lẫn Xe e6 — Đen mất một Xe."
+  },
+  "mv-skewer-bishop-queen": {
+    "prompt": "Vua và Hậu Đen cùng nằm trên một đường chéo. Hãy xiên chúng!",
+    "explanation": "Bb3+: Vua f7 phải tránh, sau đó Tượng ăn Hậu g8."
+  },
+  "mv-pin-queen": {
+    "prompt": "Hãy ghim Hậu Đen vào Vua.",
+    "explanation": "Bc4: Hậu không được rời đường chéo; nếu Qxc4 thì bxc4 — Đen mất Hậu lấy Tượng."
+  },
+  "mv-discovered-attack-queen": {
+    "prompt": "Tượng e4 đang che đường của Xe e1. Hãy dùng tấn công mở để thắng Hậu!",
+    "explanation": "Bxa8+: Tượng ăn Hậu và mở đường cho Xe chiếu Vua — chiếu mở."
+  },
+  "mv-take-hanging-rook": {
+    "prompt": "Xe Đen không được bảo vệ. Hãy ăn nó!",
+    "explanation": "Nxf5: một Xe miễn phí."
+  },
+  "mv-make-luft": {
+    "prompt": "Đen dọa Rd1#. Hãy đẩy một Tốt để Vua có ô thoát.",
+    "explanation": "Ví dụ h3: Vua có \"lỗ thở\" ở h2, không còn sợ chiếu hết hàng cuối."
+  },
+  "tactic-zwischenzug": {
+    "prompt": "\"Nước trung gian\" (zwischenzug) là gì?",
+    "explanation": "Thay vì đi nước \"bắt buộc\" (như ăn lại), bạn chen vào một nước mạnh hơn trước, thường là chiếu hoặc đe dọa.",
+    "choices": {
+      "inBetween": "Chen một nước mạnh trước khi đi nước được chờ đợi",
+      "waiting": "Một nước chờ",
+      "draw": "Đề nghị hòa"
+    }
+  },
+  "tactic-overload": {
+    "prompt": "Quân \"bị quá tải\" là quân như thế nào?",
+    "explanation": "Một quân phải làm hai nhiệm vụ bảo vệ cùng lúc — tấn công một thứ, thứ kia sẽ sụp.",
+    "choices": {
+      "twoJobs": "Phải bảo vệ hai thứ cùng lúc",
+      "attacked": "Bị nhiều quân tấn công",
+      "trapped": "Không còn ô đi"
+    }
+  },
+  "tactic-decoy": {
+    "prompt": "Đòn \"nhử\" (decoy) là gì?",
+    "explanation": "Thí quân để kéo quân đối phương (thường là Vua hoặc Hậu) vào một ô xấu.",
+    "choices": {
+      "lure": "Kéo quân đối phương vào ô xấu",
+      "hide": "Giấu quân của mình",
+      "trade": "Đổi quân ngang giá"
+    }
+  },
+  "tactic-windmill": {
+    "prompt": "Đòn \"cối xay gió\" là gì?",
+    "explanation": "Một chuỗi chiếu mở lặp lại, mỗi lần quân đi lại ăn thêm một quân của đối phương.",
+    "choices": {
+      "repeatDiscovered": "Chuỗi chiếu mở lặp lại, ăn liên tiếp",
+      "castle": "Nhập thành hai lần",
+      "kingWalk": "Vua đi vòng quanh"
+    }
+  },
+  "tactic-greek-gift": {
+    "prompt": "Đòn thí Tượng ở h7 (Bxh7+) để tấn công Vua đã nhập thành có tên là gì?",
+    "explanation": "\"Món quà Hy Lạp\" — một đòn thí kinh điển.",
+    "choices": {
+      "greekGift": "Món quà Hy Lạp",
+      "fool": "Chiếu hết kẻ ngốc",
+      "fried": "Gan rán"
+    }
+  },
+  "tactic-desperado": {
+    "prompt": "Quân \"desperado\" là gì?",
+    "explanation": "Một quân đằng nào cũng mất, nên nó \"liều\" ăn càng nhiều càng tốt trước khi bị ăn.",
+    "choices": {
+      "doomed": "Quân sắp mất liều ăn thêm trước khi chết",
+      "king": "Vua đi lên tấn công",
+      "pawn": "Tốt sắp phong cấp"
+    }
+  },
+  "tactic-trapped-piece": {
+    "prompt": "Quân \"bị nhốt\" là gì?",
+    "explanation": "Quân bị tấn công mà mọi ô có thể đi đều không an toàn — nó sẽ bị bắt.",
+    "choices": {
+      "noSquares": "Không còn ô an toàn nào để chạy",
+      "pinned": "Bị ghim vào Vua",
+      "protected": "Được bảo vệ hai lần"
+    }
+  },
+  "tactic-remove-defender": {
+    "prompt": "\"Loại bỏ quân phòng thủ\" nghĩa là gì?",
+    "explanation": "Ăn hoặc đổi quân đang bảo vệ một quân/ô quan trọng, rồi tấn công thứ đã mất bảo vệ.",
+    "choices": {
+      "removeGuard": "Diệt quân bảo vệ rồi tấn công thứ nó giữ",
+      "retreat": "Rút quân về phòng thủ",
+      "castle": "Nhập thành"
+    }
+  },
+  "tactic-cct": {
+    "prompt": "Khi tìm đòn chiến thuật, nên xét các nước theo thứ tự nào?",
+    "explanation": "Chiếu → ăn quân → đe dọa: những nước \"ép buộc\" nhất trước.",
+    "choices": {
+      "checksCaptures": "Chiếu, ăn quân, đe dọa",
+      "pawns": "Nước Tốt trước",
+      "quiet": "Nước yên lặng trước"
+    }
+  },
+  "tactic-sacrifice": {
+    "prompt": "\"Thí quân\" là gì?",
+    "explanation": "Cố ý bỏ quân để đổi lấy lợi thế lớn hơn: chiếu hết, thắng nhiều quân hơn, hoặc tấn công mạnh.",
+    "choices": {
+      "giveForGain": "Cố ý bỏ quân để được lợi hơn",
+      "blunder": "Mất quân do sơ suất",
+      "trade": "Đổi quân ngang giá"
+    }
+  },
+  "tactic-royal-fork": {
+    "prompt": "Chĩa đôi cùng lúc Vua và Hậu thường được gọi là gì?",
+    "explanation": "\"Chĩa đôi hoàng gia\" — gần như luôn thắng Hậu.",
+    "choices": {
+      "royal": "Chĩa đôi hoàng gia",
+      "family": "Chĩa đôi gia đình",
+      "double": "Chiếu đôi"
+    }
+  },
+  "tactic-relative-pin": {
+    "prompt": "Quân bị ghim \"tương đối\" (phía sau là Hậu, không phải Vua). Nó có được di chuyển không?",
+    "explanation": "Được — nước đi vẫn hợp lệ, nhưng thường sẽ mất quân phía sau.",
+    "choices": {
+      "canMove": "Được, nhưng thường mất quân phía sau",
+      "cannot": "Không bao giờ được"
+    }
+  },
+  "tactic-skewer-vs-pin": {
+    "prompt": "Xiên khác ghim ở điểm nào?",
+    "explanation": "Khi xiên, quân giá trị hơn đứng phía trước và phải tránh, để lộ quân phía sau.",
+    "choices": {
+      "frontValuable": "Xiên: quân giá trị hơn đứng phía trước",
+      "backValuable": "Xiên: quân giá trị hơn đứng phía sau",
+      "same": "Giống hệt nhau"
+    }
+  },
+  "tactic-discovered-check-power": {
+    "prompt": "Vì sao chiếu mở thường rất mạnh?",
+    "explanation": "Đối thủ phải lo thoát chiếu, nên quân vừa đi có thể làm bất cứ điều gì — ví dụ ăn Hậu.",
+    "choices": {
+      "freeMove": "Quân vừa đi được \"tự do\" làm việc khác",
+      "twoPoints": "Được cộng điểm",
+      "endsGame": "Luôn kết thúc ván"
+    }
+  },
+  "tactic-perpetual": {
+    "prompt": "\"Chiếu vĩnh viễn\" (chiếu liên tục không dứt) dẫn tới kết quả gì?",
+    "explanation": "Hòa — thế cờ sẽ lặp lại ba lần. Một cách cứu ván hay khi đang thua.",
+    "choices": {
+      "draw": "Hòa",
+      "win": "Bên chiếu thắng",
+      "lose": "Bên chiếu thua"
+    }
+  },
+  "tactic-stalemate-trick": {
+    "prompt": "Bên đang thua nặng (chỉ còn Vua và vài quân) có thể tìm cách hòa bằng gì?",
+    "explanation": "Bẫy hòa pat: thí nốt quân để Vua mình không còn nước đi mà không bị chiếu.",
+    "choices": {
+      "stalemate": "Bẫy hòa pat",
+      "resign": "Xin thua",
+      "castle": "Nhập thành"
+    }
+  },
+  "tactic-luft": {
+    "prompt": "\"Lỗ thở\" (luft) cho Vua là gì?",
+    "explanation": "Đẩy một Tốt trước Vua để tạo ô thoát, phòng chiếu hết hàng cuối.",
+    "choices": {
+      "escapeSquare": "Một ô thoát tạo bằng cách đẩy Tốt",
+      "castle": "Nhập thành xa",
+      "shield": "Hàng Tốt chưa đi"
+    }
   }
 }

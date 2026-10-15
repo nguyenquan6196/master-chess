@@ -1212,5 +1212,1212 @@
     "level": 2,
     "fen": "4k3/pp3ppp/8/8/8/8/PP3PPP/4K3 w - - 0 1",
     "answers": ["e1e2", "e1d2"]
+  },
+  {
+    "id": "sq-rook-h1",
+    "kind": "select-squares",
+    "topic": "pieces",
+    "level": 1,
+    "fen": "4k3/8/8/8/8/8/8/4K2R w - - 0 1",
+    "square": "h1"
+  },
+  {
+    "id": "sq-bishop-a3",
+    "kind": "select-squares",
+    "topic": "pieces",
+    "level": 1,
+    "fen": "4k3/8/8/8/8/B7/8/4K3 w - - 0 1",
+    "square": "a3"
+  },
+  {
+    "id": "sq-knight-h4",
+    "kind": "select-squares",
+    "topic": "pieces",
+    "level": 1,
+    "fen": "4k3/8/8/8/7N/8/8/4K3 w - - 0 1",
+    "square": "h4"
+  },
+  {
+    "id": "sq-knight-b1-start",
+    "kind": "select-squares",
+    "topic": "pieces",
+    "level": 1,
+    "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+    "square": "b1"
+  },
+  {
+    "id": "sq-pawn-e2-blocked-e4",
+    "kind": "select-squares",
+    "topic": "pieces",
+    "level": 2,
+    "fen": "4k3/8/8/8/4p3/8/4P3/4K3 w - - 0 1",
+    "square": "e2"
+  },
+  {
+    "id": "sq-pawn-black-d7",
+    "kind": "select-squares",
+    "topic": "pieces",
+    "level": 1,
+    "fen": "4k3/3p4/8/8/8/8/8/4K3 b - - 0 1",
+    "square": "d7"
+  },
+  {
+    "id": "sq-queen-d1-open",
+    "kind": "select-squares",
+    "topic": "pieces",
+    "level": 2,
+    "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+    "square": "d1"
+  },
+  {
+    "id": "sq-bishop-f1-open",
+    "kind": "select-squares",
+    "topic": "pieces",
+    "level": 2,
+    "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+    "square": "f1"
+  },
+  {
+    "id": "sq-king-opposition",
+    "kind": "select-squares",
+    "topic": "pieces",
+    "level": 2,
+    "fen": "8/8/4k3/8/4K3/8/8/8 w - - 0 1",
+    "square": "e4"
+  },
+  {
+    "id": "sq-rook-pinned-file",
+    "kind": "select-squares",
+    "topic": "pieces",
+    "level": 3,
+    "fen": "4r1k1/8/8/8/8/8/4R3/4K3 w - - 0 1",
+    "square": "e2"
+  },
+  {
+    "id": "sq-bishop-pinned-diag",
+    "kind": "select-squares",
+    "topic": "pieces",
+    "level": 3,
+    "fen": "4k3/8/8/8/1b6/8/3B4/4K3 w - - 0 1",
+    "square": "d2"
+  },
+  {
+    "id": "sq-pawn-promote-three",
+    "kind": "select-squares",
+    "topic": "pieces",
+    "level": 2,
+    "fen": "r1n1k3/1P6/8/8/8/8/8/4K3 w - - 0 1",
+    "square": "b7"
+  },
+  {
+    "id": "sq-king-castle-one-side",
+    "kind": "select-squares",
+    "topic": "pieces",
+    "level": 3,
+    "fen": "r3k2r/8/8/8/8/8/8/R3KB1R w KQkq - 0 1",
+    "square": "e1"
+  },
+  {
+    "id": "sq-pawn-en-passant",
+    "kind": "select-squares",
+    "topic": "pieces",
+    "level": 3,
+    "fen": "4k3/8/8/3pP3/8/8/8/4K3 w - d6 0 1",
+    "square": "e5"
+  },
+  {
+    "id": "sq-queen-blockers",
+    "kind": "select-squares",
+    "topic": "pieces",
+    "level": 3,
+    "fen": "4k3/8/2p1p3/8/2P1Q1p1/8/4P3/4K3 w - - 0 1",
+    "square": "e4"
+  },
+  {
+    "id": "knight-max-moves",
+    "kind": "choice",
+    "topic": "pieces",
+    "level": 1,
+    "choices": ["4", "8", "12"],
+    "answer": "8"
+  },
+  {
+    "id": "queen-max-squares",
+    "kind": "choice",
+    "topic": "pieces",
+    "level": 2,
+    "choices": ["21", "27", "32"],
+    "answer": "27"
+  },
+  {
+    "id": "rook-squares-always",
+    "kind": "choice",
+    "topic": "pieces",
+    "level": 2,
+    "choices": ["14", "16", "depends"],
+    "answer": "14"
+  },
+  {
+    "id": "bishop-light-dark",
+    "kind": "choice",
+    "topic": "pieces",
+    "level": 1,
+    "choices": ["never", "capture", "promotion"],
+    "answer": "never"
+  },
+  {
+    "id": "pawn-capture-direction",
+    "kind": "choice",
+    "topic": "pieces",
+    "level": 1,
+    "choices": ["diagonal", "straight", "sideways"],
+    "answer": "diagonal"
+  },
+  {
+    "id": "king-step",
+    "kind": "choice",
+    "topic": "pieces",
+    "level": 1,
+    "choices": ["one", "two", "any"],
+    "answer": "one"
+  },
+  {
+    "id": "pieces-total",
+    "kind": "choice",
+    "topic": "pieces",
+    "level": 1,
+    "choices": ["12", "16", "20"],
+    "answer": "16"
+  },
+  {
+    "id": "knight-start-squares",
+    "kind": "choice",
+    "topic": "pieces",
+    "level": 1,
+    "choices": ["b1g1", "c1f1", "a1h1"],
+    "answer": "b1g1"
+  },
+  {
+    "id": "king-start-file",
+    "kind": "choice",
+    "topic": "pieces",
+    "level": 1,
+    "choices": ["d", "e", "f"],
+    "answer": "e"
+  },
+  {
+    "id": "value-pawn",
+    "kind": "choice",
+    "topic": "pieces",
+    "level": 1,
+    "choices": ["1", "2", "3"],
+    "answer": "1"
+  },
+  {
+    "id": "two-rooks-vs-queen",
+    "kind": "choice",
+    "topic": "pieces",
+    "level": 2,
+    "choices": ["rooks", "queen", "equal"],
+    "answer": "rooks"
+  },
+  {
+    "id": "capture-own-piece",
+    "kind": "choice",
+    "topic": "pieces",
+    "level": 1,
+    "choices": ["no", "yes"],
+    "answer": "no"
+  },
+  {
+    "id": "king-never-captured",
+    "kind": "choice",
+    "topic": "pieces",
+    "level": 2,
+    "choices": ["never", "sometimes", "endgame"],
+    "answer": "never"
+  },
+  {
+    "id": "two-queens",
+    "kind": "choice",
+    "topic": "pieces",
+    "level": 2,
+    "choices": ["yes", "no"],
+    "answer": "yes"
+  },
+  {
+    "id": "pawn-first-move",
+    "kind": "choice",
+    "topic": "pieces",
+    "level": 1,
+    "choices": ["oneOrTwo", "two", "one"],
+    "answer": "oneOrTwo"
+  },
+  {
+    "id": "mv-en-passant-black",
+    "kind": "make-move",
+    "topic": "rules",
+    "level": 2,
+    "fen": "4k3/8/8/8/3pP3/8/8/4K3 b - e3 0 1",
+    "answers": ["d4e3"]
+  },
+  {
+    "id": "mv-underpromote-knight",
+    "kind": "make-move",
+    "topic": "rules",
+    "level": 3,
+    "fen": "8/3P1k2/8/8/8/8/8/4K3 w - - 0 1",
+    "answers": ["d7d8n"]
+  },
+  {
+    "id": "mv-castle-legal-side",
+    "kind": "make-move",
+    "topic": "rules",
+    "level": 3,
+    "fen": "4k3/8/8/8/2b5/8/8/R3K2R w KQ - 0 1",
+    "answers": ["e1c1"]
+  },
+  {
+    "id": "mv-king-takes-queen",
+    "kind": "make-move",
+    "topic": "rules",
+    "level": 2,
+    "fen": "4k3/8/8/8/8/8/4q3/4K3 w - - 0 1",
+    "answers": ["e1e2"]
+  },
+  {
+    "id": "mv-block-with-knight",
+    "kind": "make-move",
+    "topic": "rules",
+    "level": 2,
+    "fen": "4k3/8/8/8/1b6/8/8/1N2K3 w - - 0 1",
+    "answers": ["b1c3", "b1d2"]
+  },
+  {
+    "id": "mv-promote-black",
+    "kind": "make-move",
+    "topic": "rules",
+    "level": 1,
+    "fen": "4k3/8/8/8/8/8/p7/4K3 b - - 0 1",
+    "answers": ["a2a1q"]
+  },
+  {
+    "id": "mv-castle-black-short",
+    "kind": "make-move",
+    "topic": "rules",
+    "level": 1,
+    "fen": "r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R b KQkq - 0 1",
+    "answers": ["e8g8"]
+  },
+  {
+    "id": "sq-escape-queen-e3",
+    "kind": "select-squares",
+    "topic": "rules",
+    "level": 2,
+    "fen": "4k3/8/8/8/8/4q3/8/4K3 w - - 0 1",
+    "square": "e1"
+  },
+  {
+    "id": "sq-king-protected-rook",
+    "kind": "select-squares",
+    "topic": "rules",
+    "level": 3,
+    "fen": "3rk3/8/8/8/8/8/3r4/4K3 w - - 0 1",
+    "square": "e1"
+  },
+  {
+    "id": "sq-no-castle-through",
+    "kind": "select-squares",
+    "topic": "rules",
+    "level": 3,
+    "fen": "k4r2/8/8/8/8/8/8/4K2R w K - 0 1",
+    "square": "e1"
+  },
+  {
+    "id": "sq-en-passant-black",
+    "kind": "select-squares",
+    "topic": "rules",
+    "level": 2,
+    "fen": "4k3/8/8/8/3pP3/8/8/4K3 b - e3 0 1",
+    "square": "d4"
+  },
+  {
+    "id": "sq-escape-knight-check",
+    "kind": "select-squares",
+    "topic": "rules",
+    "level": 2,
+    "fen": "4k3/8/8/8/8/3n4/8/4K3 w - - 0 1",
+    "square": "e1"
+  },
+  {
+    "id": "touch-move",
+    "kind": "choice",
+    "topic": "rules",
+    "level": 2,
+    "choices": ["mustMove", "nothing", "lose"],
+    "answer": "mustMove"
+  },
+  {
+    "id": "castle-once",
+    "kind": "choice",
+    "topic": "rules",
+    "level": 1,
+    "choices": ["once", "twice", "any"],
+    "answer": "once"
+  },
+  {
+    "id": "castle-rook-returned",
+    "kind": "choice",
+    "topic": "rules",
+    "level": 2,
+    "choices": ["no", "yes"],
+    "answer": "no"
+  },
+  {
+    "id": "castle-after-old-check",
+    "kind": "choice",
+    "topic": "rules",
+    "level": 3,
+    "choices": ["yes", "no"],
+    "answer": "yes"
+  },
+  {
+    "id": "en-passant-optional",
+    "kind": "choice",
+    "topic": "rules",
+    "level": 2,
+    "choices": ["optional", "mandatory"],
+    "answer": "optional"
+  },
+  {
+    "id": "promotion-mandatory",
+    "kind": "choice",
+    "topic": "rules",
+    "level": 2,
+    "choices": ["yes", "no"],
+    "answer": "yes"
+  },
+  {
+    "id": "stalemate-vs-mate",
+    "kind": "choice",
+    "topic": "rules",
+    "level": 2,
+    "choices": ["notInCheck", "noPieces", "same"],
+    "answer": "notInCheck"
+  },
+  {
+    "id": "timeout-lone-king",
+    "kind": "choice",
+    "topic": "rules",
+    "level": 3,
+    "choices": ["draw", "lose", "win"],
+    "answer": "draw"
+  },
+  {
+    "id": "two-kings-only",
+    "kind": "choice",
+    "topic": "rules",
+    "level": 1,
+    "choices": ["draw", "white", "continue"],
+    "answer": "draw"
+  },
+  {
+    "id": "king-knight-vs-king",
+    "kind": "choice",
+    "topic": "rules",
+    "level": 2,
+    "choices": ["draw", "win"],
+    "answer": "draw"
+  },
+  {
+    "id": "threefold-not-consecutive",
+    "kind": "choice",
+    "topic": "rules",
+    "level": 3,
+    "choices": ["no", "yes"],
+    "answer": "no"
+  },
+  {
+    "id": "king-into-check",
+    "kind": "choice",
+    "topic": "rules",
+    "level": 1,
+    "choices": ["no", "yes"],
+    "answer": "no"
+  },
+  {
+    "id": "resign-meaning",
+    "kind": "choice",
+    "topic": "rules",
+    "level": 1,
+    "choices": ["lose", "draw", "pause"],
+    "answer": "lose"
+  },
+  {
+    "id": "flag-fall",
+    "kind": "choice",
+    "topic": "rules",
+    "level": 2,
+    "choices": ["lose", "draw", "extra"],
+    "answer": "lose"
+  },
+  {
+    "id": "say-check",
+    "kind": "choice",
+    "topic": "rules",
+    "level": 1,
+    "choices": ["no", "yes"],
+    "answer": "no"
+  },
+  {
+    "id": "seventy-five-moves",
+    "kind": "choice",
+    "topic": "rules",
+    "level": 3,
+    "choices": ["automatic", "claim", "nothing"],
+    "answer": "automatic"
+  },
+  {
+    "id": "nt-play-d4",
+    "kind": "make-move",
+    "topic": "notation",
+    "level": 1,
+    "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+    "answers": ["d2d4"]
+  },
+  {
+    "id": "nt-play-nc3",
+    "kind": "make-move",
+    "topic": "notation",
+    "level": 1,
+    "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+    "answers": ["b1c3"]
+  },
+  {
+    "id": "nt-play-c4",
+    "kind": "make-move",
+    "topic": "notation",
+    "level": 1,
+    "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+    "answers": ["c2c4"]
+  },
+  {
+    "id": "nt-play-black-e5",
+    "kind": "make-move",
+    "topic": "notation",
+    "level": 1,
+    "fen": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1",
+    "answers": ["e7e5"]
+  },
+  {
+    "id": "nt-play-black-nf6",
+    "kind": "make-move",
+    "topic": "notation",
+    "level": 2,
+    "fen": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1",
+    "answers": ["g8f6"]
+  },
+  {
+    "id": "nt-play-black-c5",
+    "kind": "make-move",
+    "topic": "notation",
+    "level": 1,
+    "fen": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1",
+    "answers": ["c7c5"]
+  },
+  {
+    "id": "nt-play-bb5",
+    "kind": "make-move",
+    "topic": "notation",
+    "level": 2,
+    "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3",
+    "answers": ["f1b5"]
+  },
+  {
+    "id": "nt-play-qxd5",
+    "kind": "make-move",
+    "topic": "notation",
+    "level": 2,
+    "fen": "rnbqkbnr/ppp1pppp/8/3P4/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 2",
+    "answers": ["d8d5"]
+  },
+  {
+    "id": "nt-play-black-oo",
+    "kind": "make-move",
+    "topic": "notation",
+    "level": 2,
+    "fen": "rnbqk2r/pppp1ppp/5n2/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQ1RK1 b kq - 5 4",
+    "answers": ["e8g8"]
+  },
+  {
+    "id": "nt-play-kd2",
+    "kind": "make-move",
+    "topic": "notation",
+    "level": 1,
+    "fen": "8/8/4k3/8/8/8/8/4K3 w - - 0 1",
+    "answers": ["e1d2"]
+  },
+  {
+    "id": "nt-play-ra8-mate",
+    "kind": "make-move",
+    "topic": "notation",
+    "level": 2,
+    "fen": "6k1/5ppp/8/8/8/8/8/R5K1 w - - 0 1",
+    "answers": ["a1a8"]
+  },
+  {
+    "id": "nt-play-exf6-ep",
+    "kind": "make-move",
+    "topic": "notation",
+    "level": 3,
+    "fen": "4k3/8/8/4Pp2/8/8/8/4K3 w - f6 0 1",
+    "answers": ["e5f6"]
+  },
+  {
+    "id": "nt-play-axb8n",
+    "kind": "make-move",
+    "topic": "notation",
+    "level": 3,
+    "fen": "1n2k3/P7/8/8/8/8/8/4K3 w - - 0 1",
+    "answers": ["a7b8n"]
+  },
+  {
+    "id": "nt-play-r1d3",
+    "kind": "make-move",
+    "topic": "notation",
+    "level": 3,
+    "fen": "6k1/8/8/3R4/8/8/8/3R2K1 w - - 0 1",
+    "answers": ["d1d3"]
+  },
+  {
+    "id": "nt-play-black-qh4-mate",
+    "kind": "make-move",
+    "topic": "notation",
+    "level": 2,
+    "fen": "rnbqkbnr/pppp1ppp/8/4p3/6P1/5P2/PPPPP2P/RNBQKBNR b KQkq g3 0 2",
+    "answers": ["d8h4"]
+  },
+  {
+    "id": "nt-play-bxc6",
+    "kind": "make-move",
+    "topic": "notation",
+    "level": 2,
+    "fen": "r1bqkbnr/1ppp1ppp/p1n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 4",
+    "answers": ["b5c6"]
+  },
+  {
+    "id": "nt-read-d5",
+    "kind": "choice",
+    "topic": "notation",
+    "level": 1,
+    "choices": ["dFile5", "d5thRank", "corner"],
+    "answer": "dFile5"
+  },
+  {
+    "id": "nt-h1-color",
+    "kind": "choice",
+    "topic": "notation",
+    "level": 1,
+    "choices": ["light", "dark"],
+    "answer": "light"
+  },
+  {
+    "id": "nt-a1-color",
+    "kind": "choice",
+    "topic": "notation",
+    "level": 2,
+    "choices": ["light", "dark"],
+    "answer": "dark"
+  },
+  {
+    "id": "nt-ep",
+    "kind": "choice",
+    "topic": "notation",
+    "level": 2,
+    "choices": ["enPassant", "endPosition", "equal"],
+    "answer": "enPassant"
+  },
+  {
+    "id": "nt-ooo",
+    "kind": "choice",
+    "topic": "notation",
+    "level": 1,
+    "choices": ["long", "short", "draw"],
+    "answer": "long"
+  },
+  {
+    "id": "nt-k-letter",
+    "kind": "choice",
+    "topic": "notation",
+    "level": 1,
+    "choices": ["king", "knight", "rook"],
+    "answer": "king"
+  },
+  {
+    "id": "nt-r-letter",
+    "kind": "choice",
+    "topic": "notation",
+    "level": 1,
+    "choices": ["R", "C", "X"],
+    "answer": "R"
+  },
+  {
+    "id": "nt-no-letter",
+    "kind": "choice",
+    "topic": "notation",
+    "level": 1,
+    "choices": ["pawn", "queen", "king"],
+    "answer": "pawn"
+  },
+  {
+    "id": "nt-fen",
+    "kind": "choice",
+    "topic": "notation",
+    "level": 3,
+    "choices": ["position", "game", "rating"],
+    "answer": "position"
+  },
+  {
+    "id": "nt-move-pair",
+    "kind": "choice",
+    "topic": "notation",
+    "level": 2,
+    "choices": ["both", "white", "three"],
+    "answer": "both"
+  },
+  {
+    "id": "nt-h-file",
+    "kind": "choice",
+    "topic": "notation",
+    "level": 1,
+    "choices": ["h", "a", "8"],
+    "answer": "h"
+  },
+  {
+    "id": "nt-black-back-rank",
+    "kind": "choice",
+    "topic": "notation",
+    "level": 1,
+    "choices": ["8", "7", "1"],
+    "answer": "8"
+  },
+  {
+    "id": "nt-white-pawn-rank",
+    "kind": "choice",
+    "topic": "notation",
+    "level": 1,
+    "choices": ["1", "2", "7"],
+    "answer": "2"
+  },
+  {
+    "id": "nt-why-nbd2",
+    "kind": "choice",
+    "topic": "notation",
+    "level": 2,
+    "choices": ["twoKnights", "capture", "style"],
+    "answer": "twoKnights"
+  },
+  {
+    "id": "nt-brilliant",
+    "kind": "choice",
+    "topic": "notation",
+    "level": 2,
+    "choices": ["brilliant", "blunder", "check"],
+    "answer": "brilliant"
+  },
+  {
+    "id": "nt-zero-one",
+    "kind": "choice",
+    "topic": "notation",
+    "level": 1,
+    "choices": ["black", "white", "draw"],
+    "answer": "black"
+  },
+  {
+    "id": "str-mv-defend-e5",
+    "kind": "make-move",
+    "topic": "strategy",
+    "level": 1,
+    "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2",
+    "answers": ["b8c6"]
+  },
+  {
+    "id": "str-mv-run-passed-pawn",
+    "kind": "make-move",
+    "topic": "strategy",
+    "level": 2,
+    "fen": "8/8/8/8/k7/8/6P1/6K1 w - - 0 1",
+    "answers": ["g2g4", "g2g3"]
+  },
+  {
+    "id": "str-mv-rook-seventh",
+    "kind": "make-move",
+    "topic": "strategy",
+    "level": 2,
+    "fen": "r5k1/5ppp/8/8/8/8/5PPP/3R2K1 w - - 0 1",
+    "answers": ["d1d7"]
+  },
+  {
+    "id": "str-mv-knight-center",
+    "kind": "make-move",
+    "topic": "strategy",
+    "level": 1,
+    "fen": "k7/8/8/8/8/N7/8/K7 w - - 0 1",
+    "answers": ["a3b5", "a3c4"]
+  },
+  {
+    "id": "str-mv-fianchetto",
+    "kind": "make-move",
+    "topic": "strategy",
+    "level": 2,
+    "fen": "rnbqkb1r/ppp1pppp/5n2/3p4/8/5NP1/PPPPPP1P/RNBQKB1R w KQkq - 1 3",
+    "answers": ["f1g2"]
+  },
+  {
+    "id": "str-mv-rook-behind-passer",
+    "kind": "make-move",
+    "topic": "strategy",
+    "level": 3,
+    "fen": "6k1/5ppp/8/P7/8/8/5PPP/4R1K1 w - - 0 1",
+    "answers": ["e1a1"]
+  },
+  {
+    "id": "str-blockade",
+    "kind": "choice",
+    "topic": "strategy",
+    "level": 3,
+    "choices": ["knight", "queen", "king"],
+    "answer": "knight"
+  },
+  {
+    "id": "str-tempo",
+    "kind": "choice",
+    "topic": "strategy",
+    "level": 2,
+    "choices": ["time", "clock", "pawn"],
+    "answer": "time"
+  },
+  {
+    "id": "str-zugzwang",
+    "kind": "choice",
+    "topic": "strategy",
+    "level": 3,
+    "choices": ["anyMoveWorse", "noMoves", "timeTrouble"],
+    "answer": "anyMoveWorse"
+  },
+  {
+    "id": "str-open-bishop",
+    "kind": "choice",
+    "topic": "strategy",
+    "level": 2,
+    "choices": ["bishop", "knight", "same"],
+    "answer": "bishop"
+  },
+  {
+    "id": "str-closed-knight",
+    "kind": "choice",
+    "topic": "strategy",
+    "level": 2,
+    "choices": ["knight", "bishop", "same"],
+    "answer": "knight"
+  },
+  {
+    "id": "str-chain-base",
+    "kind": "choice",
+    "topic": "strategy",
+    "level": 3,
+    "choices": ["base", "head", "middle"],
+    "answer": "base"
+  },
+  {
+    "id": "str-backward-pawn",
+    "kind": "choice",
+    "topic": "strategy",
+    "level": 3,
+    "choices": ["behind", "doubled", "passed"],
+    "answer": "behind"
+  },
+  {
+    "id": "str-pawn-majority",
+    "kind": "choice",
+    "topic": "strategy",
+    "level": 3,
+    "choices": ["passer", "castle", "nothing"],
+    "answer": "passer"
+  },
+  {
+    "id": "str-connected-passers",
+    "kind": "choice",
+    "topic": "strategy",
+    "level": 2,
+    "choices": ["strong", "weak", "illegal"],
+    "answer": "strong"
+  },
+  {
+    "id": "str-king-center-open-file",
+    "kind": "choice",
+    "topic": "strategy",
+    "level": 2,
+    "choices": ["danger", "fine", "good"],
+    "answer": "danger"
+  },
+  {
+    "id": "str-develop-first",
+    "kind": "choice",
+    "topic": "strategy",
+    "level": 1,
+    "choices": ["develop", "queen", "pawns"],
+    "answer": "develop"
+  },
+  {
+    "id": "str-knights-first",
+    "kind": "choice",
+    "topic": "strategy",
+    "level": 2,
+    "choices": ["knights", "bishops", "rooks"],
+    "answer": "knights"
+  },
+  {
+    "id": "str-poisoned-pawn",
+    "kind": "choice",
+    "topic": "strategy",
+    "level": 3,
+    "choices": ["risky", "free", "illegal"],
+    "answer": "risky"
+  },
+  {
+    "id": "str-weak-square",
+    "kind": "choice",
+    "topic": "strategy",
+    "level": 3,
+    "choices": ["noPawnCover", "dark", "empty"],
+    "answer": "noPawnCover"
+  },
+  {
+    "id": "str-trade-when-behind",
+    "kind": "choice",
+    "topic": "strategy",
+    "level": 2,
+    "choices": ["avoid", "trade", "queens"],
+    "answer": "avoid"
+  },
+  {
+    "id": "str-rook-pawn-draw",
+    "kind": "choice",
+    "topic": "strategy",
+    "level": 3,
+    "choices": ["draw", "win"],
+    "answer": "draw"
+  },
+  {
+    "id": "str-lucena",
+    "kind": "choice",
+    "topic": "strategy",
+    "level": 3,
+    "choices": ["bridge", "defence", "mate"],
+    "answer": "bridge"
+  },
+  {
+    "id": "str-philidor",
+    "kind": "choice",
+    "topic": "strategy",
+    "level": 3,
+    "choices": ["defence", "attack", "opening"],
+    "answer": "defence"
+  },
+  {
+    "id": "str-kq-vs-k",
+    "kind": "choice",
+    "topic": "strategy",
+    "level": 1,
+    "choices": ["win", "draw"],
+    "answer": "win"
+  },
+  {
+    "id": "str-kbn-vs-k",
+    "kind": "choice",
+    "topic": "strategy",
+    "level": 3,
+    "choices": ["hardWin", "draw", "easy"],
+    "answer": "hardWin"
+  },
+  {
+    "id": "str-two-knights",
+    "kind": "choice",
+    "topic": "strategy",
+    "level": 3,
+    "choices": ["no", "yes"],
+    "answer": "no"
+  },
+  {
+    "id": "str-improve-worst",
+    "kind": "choice",
+    "topic": "strategy",
+    "level": 2,
+    "choices": ["worstPiece", "random", "pawnRush"],
+    "answer": "worstPiece"
+  },
+  {
+    "id": "str-ask-threat",
+    "kind": "choice",
+    "topic": "strategy",
+    "level": 1,
+    "choices": ["threat", "fast", "mine"],
+    "answer": "threat"
+  },
+  {
+    "id": "str-space",
+    "kind": "choice",
+    "topic": "strategy",
+    "level": 2,
+    "choices": ["room", "time", "pieces"],
+    "answer": "room"
+  },
+  {
+    "id": "mv-mate-queen-bishop-g7",
+    "kind": "make-move",
+    "topic": "tactics",
+    "level": 2,
+    "fen": "5rk1/5p1p/8/8/8/2Q5/1B6/6K1 w - - 0 1",
+    "answers": ["c3g7"],
+    "mate": true
+  },
+  {
+    "id": "mv-mate-rook-knight",
+    "kind": "make-move",
+    "topic": "tactics",
+    "level": 2,
+    "fen": "7k/7p/6p1/5N2/8/8/8/R5K1 w - - 0 1",
+    "answers": ["a1a8"],
+    "mate": true
+  },
+  {
+    "id": "mv-mate-black-back-rank",
+    "kind": "make-move",
+    "topic": "tactics",
+    "level": 1,
+    "fen": "3r2k1/8/8/8/8/8/5PPP/6K1 b - - 0 1",
+    "answers": ["d8d1"],
+    "mate": true
+  },
+  {
+    "id": "mv-mate-black-queen",
+    "kind": "make-move",
+    "topic": "tactics",
+    "level": 2,
+    "fen": "6k1/8/8/8/5q2/8/6PP/7K b - - 0 1",
+    "answers": ["f4f1"],
+    "mate": true
+  },
+  {
+    "id": "mv-mate-queen-knight-g7",
+    "kind": "make-move",
+    "topic": "tactics",
+    "level": 2,
+    "fen": "6k1/5p1p/8/5N2/3Q4/8/8/6K1 w - - 0 1",
+    "answers": ["d4g7"],
+    "mate": true
+  },
+  {
+    "id": "mv-mate-queen-rook-h-file",
+    "kind": "make-move",
+    "topic": "tactics",
+    "level": 2,
+    "fen": "7k/8/8/8/8/8/Q7/6RK w - - 0 1",
+    "answers": ["a2h2"],
+    "mate": true
+  },
+  {
+    "id": "mv-mate-pawn",
+    "kind": "make-move",
+    "topic": "tactics",
+    "level": 3,
+    "fen": "7k/5K1p/6P1/8/8/8/8/8 w - - 0 1",
+    "answers": ["g6g7"],
+    "mate": true
+  },
+  {
+    "id": "mv-fork-two-rooks",
+    "kind": "make-move",
+    "topic": "tactics",
+    "level": 2,
+    "fen": "6k1/8/r3r3/8/8/1N6/8/6K1 w - - 0 1",
+    "answers": ["b3c5"]
+  },
+  {
+    "id": "mv-skewer-bishop-queen",
+    "kind": "make-move",
+    "topic": "tactics",
+    "level": 3,
+    "fen": "6q1/5k2/8/8/8/8/8/3B3K w - - 0 1",
+    "answers": ["d1b3"]
+  },
+  {
+    "id": "mv-pin-queen",
+    "kind": "make-move",
+    "topic": "tactics",
+    "level": 3,
+    "fen": "6k1/8/4q3/8/8/1P6/8/5BK1 w - - 0 1",
+    "answers": ["f1c4"]
+  },
+  {
+    "id": "mv-discovered-attack-queen",
+    "kind": "make-move",
+    "topic": "tactics",
+    "level": 3,
+    "fen": "q3k3/8/8/8/4B3/8/8/4R1K1 w - - 0 1",
+    "answers": ["e4a8"]
+  },
+  {
+    "id": "mv-take-hanging-rook",
+    "kind": "make-move",
+    "topic": "tactics",
+    "level": 1,
+    "fen": "4k3/8/8/5r2/8/4N3/8/4K3 w - - 0 1",
+    "answers": ["e3f5"]
+  },
+  {
+    "id": "mv-make-luft",
+    "kind": "make-move",
+    "topic": "tactics",
+    "level": 2,
+    "fen": "3r2k1/5ppp/8/8/8/8/5PPP/6K1 w - - 0 1",
+    "answers": ["h2h3", "g2g3", "f2f3"]
+  },
+  {
+    "id": "tactic-zwischenzug",
+    "kind": "choice",
+    "topic": "tactics",
+    "level": 3,
+    "choices": ["inBetween", "waiting", "draw"],
+    "answer": "inBetween"
+  },
+  {
+    "id": "tactic-overload",
+    "kind": "choice",
+    "topic": "tactics",
+    "level": 3,
+    "choices": ["twoJobs", "attacked", "trapped"],
+    "answer": "twoJobs"
+  },
+  {
+    "id": "tactic-decoy",
+    "kind": "choice",
+    "topic": "tactics",
+    "level": 3,
+    "choices": ["lure", "hide", "trade"],
+    "answer": "lure"
+  },
+  {
+    "id": "tactic-windmill",
+    "kind": "choice",
+    "topic": "tactics",
+    "level": 3,
+    "choices": ["repeatDiscovered", "castle", "kingWalk"],
+    "answer": "repeatDiscovered"
+  },
+  {
+    "id": "tactic-greek-gift",
+    "kind": "choice",
+    "topic": "tactics",
+    "level": 3,
+    "choices": ["greekGift", "fool", "fried"],
+    "answer": "greekGift"
+  },
+  {
+    "id": "tactic-desperado",
+    "kind": "choice",
+    "topic": "tactics",
+    "level": 3,
+    "choices": ["doomed", "king", "pawn"],
+    "answer": "doomed"
+  },
+  {
+    "id": "tactic-trapped-piece",
+    "kind": "choice",
+    "topic": "tactics",
+    "level": 2,
+    "choices": ["noSquares", "pinned", "protected"],
+    "answer": "noSquares"
+  },
+  {
+    "id": "tactic-remove-defender",
+    "kind": "choice",
+    "topic": "tactics",
+    "level": 2,
+    "choices": ["removeGuard", "retreat", "castle"],
+    "answer": "removeGuard"
+  },
+  {
+    "id": "tactic-cct",
+    "kind": "choice",
+    "topic": "tactics",
+    "level": 1,
+    "choices": ["checksCaptures", "pawns", "quiet"],
+    "answer": "checksCaptures"
+  },
+  {
+    "id": "tactic-sacrifice",
+    "kind": "choice",
+    "topic": "tactics",
+    "level": 1,
+    "choices": ["giveForGain", "blunder", "trade"],
+    "answer": "giveForGain"
+  },
+  {
+    "id": "tactic-royal-fork",
+    "kind": "choice",
+    "topic": "tactics",
+    "level": 2,
+    "choices": ["royal", "family", "double"],
+    "answer": "royal"
+  },
+  {
+    "id": "tactic-relative-pin",
+    "kind": "choice",
+    "topic": "tactics",
+    "level": 2,
+    "choices": ["canMove", "cannot"],
+    "answer": "canMove"
+  },
+  {
+    "id": "tactic-skewer-vs-pin",
+    "kind": "choice",
+    "topic": "tactics",
+    "level": 2,
+    "choices": ["frontValuable", "backValuable", "same"],
+    "answer": "frontValuable"
+  },
+  {
+    "id": "tactic-discovered-check-power",
+    "kind": "choice",
+    "topic": "tactics",
+    "level": 3,
+    "choices": ["freeMove", "twoPoints", "endsGame"],
+    "answer": "freeMove"
+  },
+  {
+    "id": "tactic-perpetual",
+    "kind": "choice",
+    "topic": "tactics",
+    "level": 2,
+    "choices": ["draw", "win", "lose"],
+    "answer": "draw"
+  },
+  {
+    "id": "tactic-stalemate-trick",
+    "kind": "choice",
+    "topic": "tactics",
+    "level": 3,
+    "choices": ["stalemate", "resign", "castle"],
+    "answer": "stalemate"
+  },
+  {
+    "id": "tactic-luft",
+    "kind": "choice",
+    "topic": "tactics",
+    "level": 2,
+    "choices": ["escapeSquare", "castle", "shield"],
+    "answer": "escapeSquare"
   }
 ]

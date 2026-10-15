@@ -1043,5 +1043,1029 @@
   "str-mv-king-endgame": {
     "prompt": "ポーンだけの終盤です。キングを中央に向かわせましょう。",
     "explanation": "Ke2 か Kd2。終盤ではキングを積極的に使います。"
+  },
+  "sq-rook-h1": {
+    "prompt": "h1 のルークが動けるマスをすべてクリックしてください。",
+    "explanation": "ルークは h ファイルを上へ、左は f1 まで。e1 のキングがじゃまをします。"
+  },
+  "sq-bishop-a3": {
+    "prompt": "a3 のビショップが動けるマスをすべてクリックしてください。",
+    "explanation": "a3 のビショップには2本の対角線があります。f8 までと c1 までです。"
+  },
+  "sq-knight-h4": {
+    "prompt": "h4 のナイトが動けるマスをすべてクリックしてください。",
+    "explanation": "盤の端ではナイトは4マスだけ：g6・f5・f3・g2。"
+  },
+  "sq-knight-b1-start": {
+    "prompt": "b1 のナイトが動けるマスをすべてクリックしてください。",
+    "explanation": "初期配置では、b1 のナイトはポーンを飛び越えて a3 か c3 へ行けます。"
+  },
+  "sq-pawn-e2-blocked-e4": {
+    "prompt": "e2 のポーンが動けるマスをすべてクリックしてください。",
+    "explanation": "2マス進みたくても e4 に駒があるので、e3 だけです。"
+  },
+  "sq-pawn-black-d7": {
+    "prompt": "d7 のポーンが動けるマスをすべてクリックしてください。",
+    "explanation": "黒のポーンは1段目の方向へ進みます。最初は1マスか2マス：d6・d5。"
+  },
+  "sq-queen-d1-open": {
+    "prompt": "d1 のクイーンが動けるマスをすべてクリックしてください。",
+    "explanation": "1.e4 e5 のあと d1–h5 の対角線が開き、クイーンは e2・f3・g4・h5 に行けます。"
+  },
+  "sq-bishop-f1-open": {
+    "prompt": "f1 のビショップが動けるマスをすべてクリックしてください。",
+    "explanation": "e ポーンが進んだので、f1 のビショップは a6 までの対角線を使えます。"
+  },
+  "sq-king-opposition": {
+    "prompt": "e4 のキングが動けるマスをすべてクリックしてください。",
+    "explanation": "2つのキングは隣り合えないので、d5・e5・f5 には行けません。"
+  },
+  "sq-rook-pinned-file": {
+    "prompt": "e2 のルークが動けるマスをすべてクリックしてください。",
+    "explanation": "e2 のルークはキングにピンされています。e ファイル上だけ動けます（e8 を取るのも OK）。"
+  },
+  "sq-bishop-pinned-diag": {
+    "prompt": "d2 のビショップが動けるマスをすべてクリックしてください。",
+    "explanation": "d2 のビショップは b4 のビショップにピンされています。ピンの線上の c3 か b4 を取る手だけです。"
+  },
+  "sq-pawn-promote-three": {
+    "prompt": "b7 のポーンが動けるマスをすべてクリックしてください。",
+    "explanation": "b7 のポーンは b8 に進むか、a8・c8 を斜めに取れます。どれもプロモーションです！"
+  },
+  "sq-king-castle-one-side": {
+    "prompt": "e1 のキングが動けるマスをすべてクリックしてください。",
+    "explanation": "f1 のビショップがキング側をふさいでいるので、キャスリングはクイーン側（c1）だけです。"
+  },
+  "sq-pawn-en-passant": {
+    "prompt": "e5 のポーンが動けるマスをすべてクリックしてください。",
+    "explanation": "d ポーンが2マス進んで e5 の横を通ったので、d6 にアンパッサンできます。"
+  },
+  "sq-queen-blockers": {
+    "prompt": "e4 のクイーンが動けるマスをすべてクリックしてください。",
+    "explanation": "クイーンは相手の駒（c6・e6・g4 は取れる）で止まり、自分の駒（c4・e2）の手前で止まります。"
+  },
+  "knight-max-moves": {
+    "prompt": "ナイトの動ける手は最大いくつ？",
+    "explanation": "盤の中央ならL字に最大8マスです。",
+    "choices": {
+      "4": "4",
+      "8": "8",
+      "12": "12"
+    }
+  },
+  "queen-max-squares": {
+    "prompt": "何もない盤の中央のクイーンは最大何マスに利きますか？",
+    "explanation": "d4 や e4 のクイーンは27マスに利きます。どの駒よりも多いです。",
+    "choices": {
+      "21": "21",
+      "27": "27",
+      "32": "32"
+    }
+  },
+  "rook-squares-always": {
+    "prompt": "何もない盤で、ルークはいつも何マスに利きますか？",
+    "explanation": "どこにいても、ファイル7マス＋ランク7マス＝14マスです。",
+    "choices": {
+      "14": "14",
+      "16": "16",
+      "depends": "場所による"
+    }
+  },
+  "bishop-light-dark": {
+    "prompt": "明るいマスのビショップが暗いマスに行けることはありますか？",
+    "explanation": "ありません。斜めに動く限り、マスの色は変わりません。",
+    "choices": {
+      "never": "決してない",
+      "capture": "駒を取るとき",
+      "promotion": "プロモーションのあと"
+    }
+  },
+  "pawn-capture-direction": {
+    "prompt": "ポーンはどの方向に駒を取りますか？",
+    "explanation": "ポーンはまっすぐ進みますが、取るときは斜め前に1マスです。",
+    "choices": {
+      "diagonal": "斜め前に1マス",
+      "straight": "まっすぐ前",
+      "sideways": "横"
+    }
+  },
+  "king-step": {
+    "prompt": "キャスリング以外で、キングは1手に何マス動けますか？",
+    "explanation": "キングはどの方向にも1マス。2マス動くのはキャスリングのときだけです。",
+    "choices": {
+      "one": "1マス",
+      "two": "2マス",
+      "any": "何マスでも"
+    }
+  },
+  "pieces-total": {
+    "prompt": "最初、それぞれの駒は全部でいくつ？",
+    "explanation": "ポーン8＋ルーク2＋ナイト2＋ビショップ2＋クイーン＋キング＝16。",
+    "choices": {
+      "12": "12",
+      "16": "16",
+      "20": "20"
+    }
+  },
+  "knight-start-squares": {
+    "prompt": "白のナイトは最初どこにいますか？",
+    "explanation": "ルークの隣、b1 と g1 です（黒は b8 と g8）。",
+    "choices": {
+      "b1g1": "b1 と g1",
+      "c1f1": "c1 と f1",
+      "a1h1": "a1 と h1"
+    }
+  },
+  "king-start-file": {
+    "prompt": "キングは最初どのファイルにいますか？",
+    "explanation": "両方のキングは e ファイル、e1 と e8 です。",
+    "choices": {
+      "d": "d ファイル",
+      "e": "e ファイル",
+      "f": "f ファイル"
+    }
+  },
+  "value-pawn": {
+    "prompt": "ポーンの価値はだいたい何点？",
+    "explanation": "ポーンは基本の単位で1点です。",
+    "choices": {
+      "1": "1",
+      "2": "2",
+      "3": "3"
+    }
+  },
+  "two-rooks-vs-queen": {
+    "prompt": "点数で比べると、ルーク2つとクイーン1つは？",
+    "explanation": "ルーク2つ＝10点、クイーン＝9点。ルーク2つが少し上です。",
+    "choices": {
+      "rooks": "ルーク2つが少し上",
+      "queen": "クイーンがずっと上",
+      "equal": "ちょうど同じ"
+    }
+  },
+  "capture-own-piece": {
+    "prompt": "自分の駒を取ることはできますか？",
+    "explanation": "いいえ。取れるのは相手の駒だけです。",
+    "choices": {
+      "no": "いいえ",
+      "yes": "はい"
+    }
+  },
+  "king-never-captured": {
+    "prompt": "キングが取られて盤から取り除かれることはありますか？",
+    "explanation": "ありません。取られる前に、チェックメイトの時点で対局が終わります。",
+    "choices": {
+      "never": "決してない",
+      "sometimes": "ときどきある",
+      "endgame": "終盤だけある"
+    }
+  },
+  "two-queens": {
+    "prompt": "同じ側にクイーンが2つあることはありますか？",
+    "explanation": "あります！元のクイーンが残ったままポーンをクイーンにプロモーションすればOKです。",
+    "choices": {
+      "yes": "ある（プロモーションで）",
+      "no": "ない（最大1つ）"
+    }
+  },
+  "pawn-first-move": {
+    "prompt": "ポーンは最初の1手で何マス進まなければいけませんか？",
+    "explanation": "自由に選べます。1マスでも2マスでもOKです。",
+    "choices": {
+      "oneOrTwo": "1か2マス（選べる）",
+      "two": "必ず2マス",
+      "one": "1マスだけ"
+    }
+  },
+  "mv-en-passant-black": {
+    "prompt": "黒の番。白が e2–e4 と指しました。アンパッサンで取りましょう！",
+    "explanation": "dxe3 e.p.：白のポーンが1マスだけ進んだものとして、d4 のポーンが e3 で取ります。"
+  },
+  "mv-underpromote-knight": {
+    "prompt": "黒のキングにすぐチェックできる駒にプロモーションしましょう。",
+    "explanation": "d8=N+：d8 のナイトが f7 のキングにチェック。いつもクイーンにする必要はありません！"
+  },
+  "mv-castle-legal-side": {
+    "prompt": "キャスリングしましょう。ただし合法なのは片方だけ！",
+    "explanation": "c4 のビショップが f1 に利いているので、ショートキャスリングはできません。O-O-O なら OK です。"
+  },
+  "mv-king-takes-queen": {
+    "prompt": "白のキングがチェックされています。チェックを外しましょう。",
+    "explanation": "Kxe2：クイーンはキングの隣にいて守られていないので、キングで取れます。"
+  },
+  "mv-block-with-knight": {
+    "prompt": "黒のビショップがチェック。ナイトで間をふさぎましょう。",
+    "explanation": "Nc3 か Nd2 で、ビショップとキングの間の対角線に入ります。"
+  },
+  "mv-promote-black": {
+    "prompt": "黒の番：ポーンをクイーンにプロモーションしましょう。",
+    "explanation": "a1=Q+：黒のポーンが1段目に着いてクイーンになります。"
+  },
+  "mv-castle-black-short": {
+    "prompt": "黒の番：ショートキャスリングをしましょう。",
+    "explanation": "O-O：黒のキングは g8、h8 のルークは f8 へ。"
+  },
+  "sq-escape-queen-e3": {
+    "prompt": "e1 のキングが動けるマスをすべてクリックしてください。",
+    "explanation": "e3 のクイーンが d2・e2・f2 に利いています。キングは d1 か f1 だけです。"
+  },
+  "sq-king-protected-rook": {
+    "prompt": "e1 のキングが動けるマスをすべてクリックしてください。",
+    "explanation": "d2 のルークは d8 のルークに守られているので取れません。e2・f2・d1 も利きの中。残るは f1 だけです。"
+  },
+  "sq-no-castle-through": {
+    "prompt": "e1 のキングが動けるマスをすべてクリックしてください。",
+    "explanation": "f8 のルークが f ファイル全体に利いているので、キングは f1・f2 に行けず、キャスリングもできません。"
+  },
+  "sq-en-passant-black": {
+    "prompt": "d4 のポーンが動けるマスをすべてクリックしてください。",
+    "explanation": "d4 のポーンは d3 に進むか、e3 でアンパッサンできます。"
+  },
+  "sq-escape-knight-check": {
+    "prompt": "e1 のキングが動けるマスをすべてクリックしてください。",
+    "explanation": "ナイトのチェックはさえぎれないので、キングが逃げます。d3 のナイトは f2 にも利くので、d1・d2・e2・f1 です。"
+  },
+  "touch-move": {
+    "prompt": "実際の対局の「タッチムーブ」ルールで、自分の駒にわざと触ったら？",
+    "explanation": "その駒を動かさなければいけません（合法手があれば）。",
+    "choices": {
+      "mustMove": "その駒を動かす",
+      "nothing": "何もない",
+      "lose": "負けになる"
+    }
+  },
+  "castle-once": {
+    "prompt": "1局でキャスリングは何回できますか？",
+    "explanation": "1回だけです。",
+    "choices": {
+      "once": "1回",
+      "twice": "2回",
+      "any": "何回でも"
+    }
+  },
+  "castle-rook-returned": {
+    "prompt": "h1 のルークが動いてから h1 に戻りました。まだショートキャスリングできますか？",
+    "explanation": "いいえ。一度動いたルークの側はキャスリングできません。",
+    "choices": {
+      "no": "いいえ",
+      "yes": "はい"
+    }
+  },
+  "castle-after-old-check": {
+    "prompt": "前にチェックされ、間に駒を置いて防ぎました（キングは動いていない）。あとでキャスリングできますか？",
+    "explanation": "できます。禁止なのはチェックされている最中だけで、過去のチェックは関係ありません。",
+    "choices": {
+      "yes": "はい",
+      "no": "いいえ"
+    }
+  },
+  "en-passant-optional": {
+    "prompt": "アンパッサンは必ずしなければいけませんか？",
+    "explanation": "いいえ。それが唯一の合法手でない限り、自由です。",
+    "choices": {
+      "optional": "いいえ、自由",
+      "mandatory": "はい、必ず"
+    }
+  },
+  "promotion-mandatory": {
+    "prompt": "ポーンが最終段に着いたら、必ずプロモーションしますか？",
+    "explanation": "はい。最終段でポーンのままではいられません。",
+    "choices": {
+      "yes": "はい、必ず",
+      "no": "いいえ、ポーンのままでもよい"
+    }
+  },
+  "stalemate-vs-mate": {
+    "prompt": "ステイルメイトとチェックメイトの違いは？",
+    "explanation": "どちらも指せる手がありませんが、ステイルメイトではキングがチェックされていません。",
+    "choices": {
+      "notInCheck": "ステイルメイトはチェックされていない",
+      "noPieces": "ステイルメイトは駒が残っていない",
+      "same": "違いはない"
+    }
+  },
+  "timeout-lone-king": {
+    "prompt": "あなたの時間切れ。でも相手はキングだけです。結果は？",
+    "explanation": "引き分けです。相手はどうやってもチェックメイトできません。",
+    "choices": {
+      "draw": "引き分け",
+      "lose": "あなたの負け",
+      "win": "あなたの勝ち"
+    }
+  },
+  "two-kings-only": {
+    "prompt": "盤上にキング2つだけが残りました。結果は？",
+    "explanation": "どちらもチェックメイトできないので、すぐ引き分けです。",
+    "choices": {
+      "draw": "引き分け",
+      "white": "白の勝ち",
+      "continue": "時間切れまで続ける"
+    }
+  },
+  "king-knight-vs-king": {
+    "prompt": "キング＋ナイト 対 キングだけ。結果は？",
+    "explanation": "引き分けです。ナイト1つではチェックメイトできません。",
+    "choices": {
+      "draw": "引き分け",
+      "win": "ナイトのある側の勝ち"
+    }
+  },
+  "threefold-not-consecutive": {
+    "prompt": "3回同一局面の引き分けで、繰り返しは連続でなければいけませんか？",
+    "explanation": "いいえ。同じ局面（同じ手番）が対局中に3回現れればOKです。",
+    "choices": {
+      "no": "いいえ",
+      "yes": "はい、連続で"
+    }
+  },
+  "king-into-check": {
+    "prompt": "キングは攻撃されているマスに自分から入れますか？",
+    "explanation": "いいえ。キングが自分からチェックされる位置に行くことはできません。",
+    "choices": {
+      "no": "いいえ",
+      "yes": "はい"
+    }
+  },
+  "resign-meaning": {
+    "prompt": "「投了」とは？",
+    "explanation": "投了した側がその場で負けになります。",
+    "choices": {
+      "lose": "その場で負けを認める",
+      "draw": "引き分けを申し出る",
+      "pause": "対局を一時停止する"
+    }
+  },
+  "flag-fall": {
+    "prompt": "相手にはメイトできる駒が残っているのに、あなたの時間が切れました。結果は？",
+    "explanation": "時間切れであなたの負けです。",
+    "choices": {
+      "lose": "あなたの負け",
+      "draw": "引き分け",
+      "extra": "時間が追加される"
+    }
+  },
+  "say-check": {
+    "prompt": "チェックしたとき「チェック」と言わなければいけませんか？",
+    "explanation": "いいえ。相手が自分で気づく必要があります。",
+    "choices": {
+      "no": "いいえ",
+      "yes": "はい、言わないと反則"
+    }
+  },
+  "seventy-five-moves": {
+    "prompt": "お互い75手、駒取りもポーンの移動もなかったら？",
+    "explanation": "申告なしで自動的に引き分けになります（50手の場合は申告が必要）。",
+    "choices": {
+      "automatic": "自動的に引き分け",
+      "claim": "申告すれば引き分け",
+      "nothing": "そのまま続く"
+    }
+  },
+  "nt-play-d4": {
+    "prompt": "d4 を指してください。",
+    "explanation": "d2 のポーンが2マス進んで d4 へ。"
+  },
+  "nt-play-nc3": {
+    "prompt": "Nc3 を指してください。",
+    "explanation": "b1 のナイトが c3 へ跳びます。"
+  },
+  "nt-play-c4": {
+    "prompt": "c4 を指してください。",
+    "explanation": "イングリッシュ・オープニング：c ポーンを c4 へ。"
+  },
+  "nt-play-black-e5": {
+    "prompt": "1...e5 を指してください。",
+    "explanation": "「1...」は1手目の黒の手。e7 のポーンを e5 へ。"
+  },
+  "nt-play-black-nf6": {
+    "prompt": "1...Nf6 を指してください。",
+    "explanation": "アレヒン・ディフェンス：g8 のナイトが f6 へ。"
+  },
+  "nt-play-black-c5": {
+    "prompt": "1...c5 を指してください。",
+    "explanation": "シシリアン・ディフェンス：c7 のポーンを c5 へ。"
+  },
+  "nt-play-bb5": {
+    "prompt": "Bb5 を指してください。",
+    "explanation": "ルイ・ロペス：f1 のビショップを b5 へ、c6 のナイトを狙います。"
+  },
+  "nt-play-qxd5": {
+    "prompt": "2...Qxd5 を指してください。",
+    "explanation": "黒のクイーンが d5 のポーンを取り返します。"
+  },
+  "nt-play-black-oo": {
+    "prompt": "4...O-O を指してください。",
+    "explanation": "黒のショートキャスリング：キングは g8、ルークは f8 へ。"
+  },
+  "nt-play-kd2": {
+    "prompt": "Kd2 を指してください。",
+    "explanation": "K はキング。e1 のキングが d2 へ。"
+  },
+  "nt-play-ra8-mate": {
+    "prompt": "Ra8# を指してください。",
+    "explanation": "ルークを a8 へ。「#」はバックランクメイトです。"
+  },
+  "nt-play-exf6-ep": {
+    "prompt": "exf6 e.p. を指してください。",
+    "explanation": "「e.p.」はアンパッサン。e5 のポーンが f6 に取ります。"
+  },
+  "nt-play-axb8n": {
+    "prompt": "axb8=N を指してください。",
+    "explanation": "a7 のポーンが b8 のナイトを取り、ナイトにプロモーションします。"
+  },
+  "nt-play-r1d3": {
+    "prompt": "R1d3 を指してください。",
+    "explanation": "d ファイルの2つのルークがどちらも d3 に行けます。「1」は1段目のルークです。"
+  },
+  "nt-play-black-qh4-mate": {
+    "prompt": "2...Qh4# を指してください。",
+    "explanation": "最短のチェックメイト「フールズメイト」です！"
+  },
+  "nt-play-bxc6": {
+    "prompt": "Bxc6 を指してください。",
+    "explanation": "b5 のビショップが c6 のナイトを取ります（ルイ・ロペスのエクスチェンジ・バリエーション）。"
+  },
+  "nt-read-d5": {
+    "prompt": "d5 のマスはどこ？",
+    "explanation": "文字がファイル、数字がランク。d ファイルの5段目です。",
+    "choices": {
+      "dFile5": "d ファイルの5段目",
+      "d5thRank": "d 段の5ファイル",
+      "corner": "盤の隅"
+    }
+  },
+  "nt-h1-color": {
+    "prompt": "h1 は何色のマス？",
+    "explanation": "それぞれから見て右下の隅は明るいマス。h1 は明るいマスです。",
+    "choices": {
+      "light": "明るい",
+      "dark": "暗い"
+    }
+  },
+  "nt-a1-color": {
+    "prompt": "a1 は何色のマス？",
+    "explanation": "a1 は暗いマスです（h1 が明るく、色は交互）。",
+    "choices": {
+      "light": "明るい",
+      "dark": "暗い"
+    }
+  },
+  "nt-ep": {
+    "prompt": "棋譜の「e.p.」の意味は？",
+    "explanation": "e.p.＝アンパッサンです。",
+    "choices": {
+      "enPassant": "アンパッサン",
+      "endPosition": "最終局面",
+      "equal": "互角の局面"
+    }
+  },
+  "nt-ooo": {
+    "prompt": "「O-O-O」とは？",
+    "explanation": "O が3つはロングキャスリング（クイーン側）、2つはショートキャスリングです。",
+    "choices": {
+      "long": "ロングキャスリング",
+      "short": "ショートキャスリング",
+      "draw": "引き分け"
+    }
+  },
+  "nt-k-letter": {
+    "prompt": "「K」はどの駒？",
+    "explanation": "K＝キング。（ナイトは重ならないよう N を使います。）",
+    "choices": {
+      "king": "キング",
+      "knight": "ナイト",
+      "rook": "ルーク"
+    }
+  },
+  "nt-r-letter": {
+    "prompt": "ルークを表す文字は？",
+    "explanation": "R＝Rook＝ルークです。",
+    "choices": {
+      "R": "R",
+      "C": "C",
+      "X": "X"
+    }
+  },
+  "nt-no-letter": {
+    "prompt": "「d4」という手で動く駒は？",
+    "explanation": "駒の文字がなければポーンです。",
+    "choices": {
+      "pawn": "ポーン",
+      "queen": "クイーン",
+      "king": "キング"
+    }
+  },
+  "nt-fen": {
+    "prompt": "FEN は何に使いますか？",
+    "explanation": "FEN は1つの局面（駒の位置・手番・キャスリング権など）を1行で表す形式です。",
+    "choices": {
+      "position": "1つの局面を表す",
+      "game": "対局全体を記録する",
+      "rating": "レーティングを計算する"
+    }
+  },
+  "nt-move-pair": {
+    "prompt": "棋譜で番号付きの1手（例「5.」）には何が含まれますか？",
+    "explanation": "白の1手と黒の1手です。例：「5. Nf3 Nc6」。",
+    "choices": {
+      "both": "白の1手＋黒の1手",
+      "white": "白の手だけ",
+      "three": "連続3手"
+    }
+  },
+  "nt-h-file": {
+    "prompt": "白から見て一番右のファイルは？",
+    "explanation": "左から a, b, c … h。一番右は h ファイルです。",
+    "choices": {
+      "h": "h ファイル",
+      "a": "a ファイル",
+      "8": "8 ファイル"
+    }
+  },
+  "nt-black-back-rank": {
+    "prompt": "黒の駒（ポーン以外）は最初何段目？",
+    "explanation": "8段目です。黒のポーンは7段目。",
+    "choices": {
+      "8": "8段目",
+      "7": "7段目",
+      "1": "1段目"
+    }
+  },
+  "nt-white-pawn-rank": {
+    "prompt": "白のポーンは最初何段目？",
+    "explanation": "2段目、ほかの駒のすぐ前です。",
+    "choices": {
+      "1": "1段目",
+      "2": "2段目",
+      "7": "7段目"
+    }
+  },
+  "nt-why-nbd2": {
+    "prompt": "「Nd2」ではなく「Nbd2」と書くのはなぜ？",
+    "explanation": "2つのナイトがどちらも d2 に行けるからです。「b」でどちらか示します。",
+    "choices": {
+      "twoKnights": "2つのナイトが d2 に行ける",
+      "capture": "駒を取る手だから",
+      "style": "見た目がよいから"
+    }
+  },
+  "nt-brilliant": {
+    "prompt": "「!!」の意味は？",
+    "explanation": "「!!」は妙手。たいてい意外な捨て駒です。",
+    "choices": {
+      "brilliant": "妙手",
+      "blunder": "大悪手",
+      "check": "ダブルチェック"
+    }
+  },
+  "nt-zero-one": {
+    "prompt": "結果「0-1」の意味は？",
+    "explanation": "左の数字が白の得点。0-1 は黒の勝ちです。",
+    "choices": {
+      "black": "黒の勝ち",
+      "white": "白の勝ち",
+      "draw": "引き分け"
+    }
+  },
+  "str-mv-defend-e5": {
+    "prompt": "黒の番。f3 のナイトが e5 を狙っています。ナイトを展開して守りましょう。",
+    "explanation": "Nc6：e5 を守りながら、軽い駒を戦いに参加させます。"
+  },
+  "str-mv-run-passed-pawn": {
+    "prompt": "黒のキングは遠くにいます。パスポーンをプロモーションに向けて進めましょう。",
+    "explanation": "黒のキングはポーンの「スクエア」の外なので追いつけません。どんどん進めましょう！"
+  },
+  "str-mv-rook-seventh": {
+    "prompt": "ルークを相手の7段目に入れましょう。",
+    "explanation": "Rd7：7段目のルークはポーンを攻撃し、黒のキングを最下段に閉じ込めます。"
+  },
+  "str-mv-knight-center": {
+    "prompt": "ナイトが端にいます。中央に近づけましょう。",
+    "explanation": "Nb5 か Nc4。中央に近いほど、ナイトの利くマスが増えます。"
+  },
+  "str-mv-fianchetto": {
+    "prompt": "g ポーンが g3 にあります。フィアンケットを完成させましょう。",
+    "explanation": "Bg2：ビショップが長い h1–a8 の対角線に入ります。"
+  },
+  "str-mv-rook-behind-passer": {
+    "prompt": "a5 のポーンはパスポーンです。それを支える一番よいマスにルークを置きましょう。",
+    "explanation": "Ra1：ルークはパスポーンの後ろ。ポーンが進むほどルークが強くなります。"
+  },
+  "str-blockade": {
+    "prompt": "相手の孤立ポーンのすぐ前のマスに置くのに理想的な駒は？",
+    "explanation": "ナイトです。ポーンを止めつつ、ポーンに追い払われません。",
+    "choices": {
+      "knight": "ナイト",
+      "queen": "クイーン",
+      "king": "キング"
+    }
+  },
+  "str-tempo": {
+    "prompt": "チェスの「テンポ」とは？",
+    "explanation": "テンポは1手、つまり時間の単位です。「テンポを損する」とは1手むだにすることです。",
+    "choices": {
+      "time": "1手（時間の単位）",
+      "clock": "時計の速さ",
+      "pawn": "ポーン1つ"
+    }
+  },
+  "str-zugzwang": {
+    "prompt": "「ツークツワンク」とは？",
+    "explanation": "手番の側が、どの手を指しても局面が悪くなる状態です。パスしたくなります。",
+    "choices": {
+      "anyMoveWorse": "どの手も悪くなるのに指さなければならない",
+      "noMoves": "指せる手がない",
+      "timeTrouble": "時間がない"
+    }
+  },
+  "str-open-bishop": {
+    "prompt": "オープンな局面では、ビショップとナイトのどちらが強いことが多い？",
+    "explanation": "ビショップです。長い対角線で力を発揮します。",
+    "choices": {
+      "bishop": "ビショップ",
+      "knight": "ナイト",
+      "same": "同じ"
+    }
+  },
+  "str-closed-knight": {
+    "prompt": "閉じた局面（ポーンが固まっている）では、どちらが強いことが多い？",
+    "explanation": "ナイトです。ポーンを飛び越えられますが、ビショップはふさがれます。",
+    "choices": {
+      "knight": "ナイト",
+      "bishop": "ビショップ",
+      "same": "同じ"
+    }
+  },
+  "str-chain-base": {
+    "prompt": "ポーンの鎖を攻めるときは、どこを狙う？",
+    "explanation": "鎖の根元です。最後のポーンはポーンに守られていません。",
+    "choices": {
+      "base": "根元",
+      "head": "先頭",
+      "middle": "真ん中"
+    }
+  },
+  "str-backward-pawn": {
+    "prompt": "「遅れたポーン（バックワードポーン）」とは？",
+    "explanation": "隣のポーンより後ろに取り残され、守ってもらえず進みにくいポーンです。",
+    "choices": {
+      "behind": "隣より後ろで守られていない",
+      "doubled": "同じファイルの2つのポーン",
+      "passed": "パスポーン"
+    }
+  },
+  "str-pawn-majority": {
+    "prompt": "クイーン側でポーンが3対2です。この多数派は何に使う？",
+    "explanation": "ポーンを進めてパスポーンを作るためです。",
+    "choices": {
+      "passer": "パスポーンを作る",
+      "castle": "そちら側にキャスリング",
+      "nothing": "役に立たない"
+    }
+  },
+  "str-connected-passers": {
+    "prompt": "隣り合った2つのパスポーン（連結パスポーン）は普通どう？",
+    "explanation": "とても強いです。互いに守り合いながら進めます。",
+    "choices": {
+      "strong": "とても強い",
+      "weak": "弱い",
+      "illegal": "反則"
+    }
+  },
+  "str-king-center-open-file": {
+    "prompt": "e ファイルが開いているのに、キングがまだ e1 にいます。どう？",
+    "explanation": "危険です。相手のルークやクイーンが直接キングを狙えます。キャスリングしましょう！",
+    "choices": {
+      "danger": "危険。キャスリングを",
+      "fine": "問題ない",
+      "good": "攻撃に有利"
+    }
+  },
+  "str-develop-first": {
+    "prompt": "攻める前に何をするべき？",
+    "explanation": "駒を展開してキングを安全に。1つの駒だけの攻撃はたいてい失敗します。",
+    "choices": {
+      "develop": "駒の展開とキャスリング",
+      "queen": "すぐクイーンで攻める",
+      "pawns": "端のポーンを全部進める"
+    }
+  },
+  "str-knights-first": {
+    "prompt": "経験則：序盤ではどの駒から展開することが多い？",
+    "explanation": "ビショップよりナイトが先。ナイトのよいマス（f3・c3）は早くから決まっていることが多いからです。",
+    "choices": {
+      "knights": "ナイトが先",
+      "bishops": "ビショップが先",
+      "rooks": "ルークが最初"
+    }
+  },
+  "str-poisoned-pawn": {
+    "prompt": "序盤にクイーンで相手の b2 ポーンを取るのは、普通どう？",
+    "explanation": "危険です。クイーンが隅に閉じ込められたり、戻すのに何手もかかったりします。",
+    "choices": {
+      "risky": "危険。クイーンが閉じ込められやすい",
+      "free": "いつもタダのポーン",
+      "illegal": "反則"
+    }
+  },
+  "str-weak-square": {
+    "prompt": "「弱いマス」とは？",
+    "explanation": "自分のポーンで二度と守れないマス。相手の駒が長く居座れます。",
+    "choices": {
+      "noPawnCover": "もうポーンで守れないマス",
+      "dark": "すべての暗いマス",
+      "empty": "空いているマス"
+    }
+  },
+  "str-trade-when-behind": {
+    "prompt": "駒損しているとき、駒の交換はどうする？",
+    "explanation": "避けましょう。駒が多く残っているほど反撃のチャンスがあります。",
+    "choices": {
+      "avoid": "交換を避ける",
+      "trade": "できるだけ交換",
+      "queens": "すぐクイーン交換"
+    }
+  },
+  "str-rook-pawn-draw": {
+    "prompt": "キング＋a ポーン 対 キングで、守る側のキングが a8 の隅にいます。普通の結果は？",
+    "explanation": "引き分けです。守る側のキングを隅から追い出せません。",
+    "choices": {
+      "draw": "引き分け",
+      "win": "ポーンのある側の勝ち"
+    }
+  },
+  "str-lucena": {
+    "prompt": "ルーク終盤の「ルセナ・ポジション」で有名な技術は？",
+    "explanation": "「橋をかける」：ルークでキングを守ってポーンを昇格させる勝ち方です。",
+    "choices": {
+      "bridge": "「橋をかける」勝ち方",
+      "defence": "引き分けにする守り方",
+      "mate": "ルーク2つのメイト"
+    }
+  },
+  "str-philidor": {
+    "prompt": "ルーク終盤の「フィリドール・ポジション」とは？",
+    "explanation": "ルーク＋ポーン対ルークで引き分けにする基本の守り方。ルークを3段目に置きます。",
+    "choices": {
+      "defence": "引き分けにする守り方",
+      "attack": "キングへの攻撃",
+      "opening": "オープニングの1つ"
+    }
+  },
+  "str-kq-vs-k": {
+    "prompt": "キング＋クイーン 対 キングだけ。正しく指せば結果は？",
+    "explanation": "いつも勝ちです。キングとクイーンで相手キングを端に追い込んでメイト（ステイルメイトに注意！）。",
+    "choices": {
+      "win": "勝ち",
+      "draw": "引き分け"
+    }
+  },
+  "str-kbn-vs-k": {
+    "prompt": "キング＋ビショップ＋ナイト 対 キングだけは？",
+    "explanation": "勝てますが難しいです。50手以内に、ビショップと同じ色の隅へ追い込む必要があります。",
+    "choices": {
+      "hardWin": "勝てるが難しい",
+      "draw": "いつも引き分け",
+      "easy": "とても簡単に勝てる"
+    }
+  },
+  "str-two-knights": {
+    "prompt": "キング＋ナイト2つで、キングだけの相手を必ずメイトできますか？",
+    "explanation": "できません。正しく守られると、ナイト2つではメイトを強制できません。",
+    "choices": {
+      "no": "できない",
+      "yes": "簡単にできる"
+    }
+  },
+  "str-improve-worst": {
+    "prompt": "戦術がない局面。よい方針は？",
+    "explanation": "一番働いていない駒を改善しましょう。",
+    "choices": {
+      "worstPiece": "一番悪い駒を改善",
+      "random": "適当に指す",
+      "pawnRush": "ポーンを全部進める"
+    }
+  },
+  "str-ask-threat": {
+    "prompt": "相手が指したら、まず自分に何を問うべき？",
+    "explanation": "「相手は何を狙っている？」——チェック・駒取り・脅しを確認します。",
+    "choices": {
+      "threat": "相手は何を狙っている？",
+      "fast": "時間節約のため早く指す",
+      "mine": "自分の計画だけ考える"
+    }
+  },
+  "str-space": {
+    "prompt": "「スペースの優位」とは？",
+    "explanation": "ポーンが前に出ていて、相手より駒の動ける場所が広いことです。",
+    "choices": {
+      "room": "駒の動ける場所が広い",
+      "time": "時間が多い",
+      "pieces": "駒が多い"
+    }
+  },
+  "mv-mate-queen-bishop-g7": {
+    "prompt": "白の番：1手でチェックメイトしてください。",
+    "explanation": "Qg7#：クイーンは b2 のビショップに長い対角線で守られています。"
+  },
+  "mv-mate-rook-knight": {
+    "prompt": "白の番：1手でチェックメイトしてください。",
+    "explanation": "Ra8#：f5 のナイトが g7 を押さえ、ルークが8段目でチェックします。"
+  },
+  "mv-mate-black-back-rank": {
+    "prompt": "黒の番：1手でチェックメイトしてください。",
+    "explanation": "Rd1#：白のキングは自分の3つのポーンの後ろに閉じ込められています。"
+  },
+  "mv-mate-black-queen": {
+    "prompt": "黒の番：1手でチェックメイトしてください。",
+    "explanation": "Qf1#：クイーンが1段目でチェックし、g2・h2 のポーンがキングの逃げ道をふさいでいます。"
+  },
+  "mv-mate-queen-knight-g7": {
+    "prompt": "白の番：1手でチェックメイトしてください。",
+    "explanation": "Qg7#：f5 のナイトがクイーンを守り、キングは取れず逃げ場もありません。"
+  },
+  "mv-mate-queen-rook-h-file": {
+    "prompt": "白の番：1手でチェックメイトしてください。",
+    "explanation": "Qh2#：g1 のルークが g ファイルを封じ、クイーンが h ファイルでチェックします。"
+  },
+  "mv-mate-pawn": {
+    "prompt": "白の番：1手でチェックメイトしてください。",
+    "explanation": "g7#：ポーンでもメイトできます！f7 のキングがポーンを守り、g8 も押さえています。"
+  },
+  "mv-fork-two-rooks": {
+    "prompt": "ナイトで黒の2つのルークを両取りしましょう。",
+    "explanation": "Nc5 で a6 と e6 のルークを同時に攻撃。黒はどちらかを失います。"
+  },
+  "mv-skewer-bishop-queen": {
+    "prompt": "黒のキングとクイーンが同じ対角線上にいます。串刺しにしましょう！",
+    "explanation": "Bb3+：f7 のキングが逃げたあと、ビショップが g8 のクイーンを取ります。"
+  },
+  "mv-pin-queen": {
+    "prompt": "黒のクイーンをキングにピンしましょう。",
+    "explanation": "Bc4：クイーンは対角線から離れられません。Qxc4 なら bxc4 で、黒はクイーンをビショップと交換することになります。"
+  },
+  "mv-discovered-attack-queen": {
+    "prompt": "e4 のビショップが e1 のルークの前をふさいでいます。開き攻撃でクイーンを取りましょう！",
+    "explanation": "Bxa8+：ビショップがクイーンを取り、ルークのチェックが開きます。ディスカバードチェックです。"
+  },
+  "mv-take-hanging-rook": {
+    "prompt": "黒のルークは守られていません。取りましょう！",
+    "explanation": "Nxf5：タダでルークが取れます。"
+  },
+  "mv-make-luft": {
+    "prompt": "黒は Rd1# を狙っています。ポーンを1つ突いてキングの逃げ道を作りましょう。",
+    "explanation": "例えば h3：キングに h2 の「逃げ道（ルフト）」ができ、バックランクメイトを防げます。"
+  },
+  "tactic-zwischenzug": {
+    "prompt": "「中間手（ツヴィッシェンツーク）」とは？",
+    "explanation": "予想される手（取り返しなど）の前に、チェックや脅しなどのより強い手をはさむことです。",
+    "choices": {
+      "inBetween": "予想される手の前に強い手をはさむ",
+      "waiting": "待ち手",
+      "draw": "引き分けの申し出"
+    }
+  },
+  "tactic-overload": {
+    "prompt": "「過負荷（オーバーロード）」の駒とは？",
+    "explanation": "同時に2つを守っている駒です。片方を攻めると、もう片方が崩れます。",
+    "choices": {
+      "twoJobs": "同時に2つを守っている",
+      "attacked": "何度も攻撃されている",
+      "trapped": "動けるマスがない"
+    }
+  },
+  "tactic-decoy": {
+    "prompt": "「おとり（デコイ）」とは？",
+    "explanation": "駒を捨てて、相手の駒（キングやクイーンが多い）を悪いマスに引き寄せる戦術です。",
+    "choices": {
+      "lure": "相手の駒を悪いマスに引き寄せる",
+      "hide": "自分の駒を隠す",
+      "trade": "同じ価値の交換"
+    }
+  },
+  "tactic-windmill": {
+    "prompt": "「風車（ウィンドミル）」とは？",
+    "explanation": "ディスカバードチェックを繰り返し、そのたびに駒を取っていく戦術です。",
+    "choices": {
+      "repeatDiscovered": "開きチェックを繰り返して駒を取り続ける",
+      "castle": "2回キャスリング",
+      "kingWalk": "キングの散歩"
+    }
+  },
+  "tactic-greek-gift": {
+    "prompt": "キャスリングしたキングに対する h7 のビショップ捨て（Bxh7+）の名前は？",
+    "explanation": "「ギリシャの贈り物」——古典的な捨て駒です。",
+    "choices": {
+      "greekGift": "ギリシャの贈り物",
+      "fool": "フールズメイト",
+      "fried": "フライドリバー"
+    }
+  },
+  "tactic-desperado": {
+    "prompt": "「デスペラード」の駒とは？",
+    "explanation": "どうせ取られる駒が、取られる前にできるだけ相手の駒を取ることです。",
+    "choices": {
+      "doomed": "どうせ取られる駒が道連れに取る",
+      "king": "攻めに出るキング",
+      "pawn": "昇格直前のポーン"
+    }
+  },
+  "tactic-trapped-piece": {
+    "prompt": "「閉じ込められた駒」とは？",
+    "explanation": "攻撃されていて、どこに逃げても安全なマスがない駒です。取られてしまいます。",
+    "choices": {
+      "noSquares": "安全な逃げ場がない",
+      "pinned": "キングにピンされている",
+      "protected": "2回守られている"
+    }
+  },
+  "tactic-remove-defender": {
+    "prompt": "「守り駒の除去」とは？",
+    "explanation": "大事なものを守っている駒を取るか交換して、守りのなくなったものを攻めることです。",
+    "choices": {
+      "removeGuard": "守り駒を消してから守られていたものを攻める",
+      "retreat": "下がって守る",
+      "castle": "キャスリングする"
+    }
+  },
+  "tactic-cct": {
+    "prompt": "戦術を探すとき、どの順番で手を調べるとよい？",
+    "explanation": "チェック → 駒取り → 脅し。強制力の強い手から調べます。",
+    "choices": {
+      "checksCaptures": "チェック・駒取り・脅し",
+      "pawns": "ポーンの手から",
+      "quiet": "静かな手から"
+    }
+  },
+  "tactic-sacrifice": {
+    "prompt": "「捨て駒（サクリファイス）」とは？",
+    "explanation": "メイトや駒得、強い攻撃など、より大きな得のためにわざと駒を捨てることです。",
+    "choices": {
+      "giveForGain": "より大きな得のためにわざと捨てる",
+      "blunder": "うっかり駒を失う",
+      "trade": "同じ価値の交換"
+    }
+  },
+  "tactic-royal-fork": {
+    "prompt": "キングとクイーンを同時に狙うフォークは何と呼ばれる？",
+    "explanation": "「ロイヤルフォーク」。ほぼ確実にクイーンが取れます。",
+    "choices": {
+      "royal": "ロイヤルフォーク",
+      "family": "ファミリーフォーク",
+      "double": "ダブルチェック"
+    }
+  },
+  "tactic-relative-pin": {
+    "prompt": "「相対ピン」（後ろはキングではなくクイーン）の駒は動けますか？",
+    "explanation": "動けます。合法ですが、たいてい後ろの駒を失います。",
+    "choices": {
+      "canMove": "動けるが、たいてい後ろの駒を失う",
+      "cannot": "決して動けない"
+    }
+  },
+  "tactic-skewer-vs-pin": {
+    "prompt": "スキュアー（串刺し）とピンの違いは？",
+    "explanation": "スキュアーでは価値の高い駒が前にいて、逃げると後ろの駒が取られます。",
+    "choices": {
+      "frontValuable": "スキュアーは価値の高い駒が前",
+      "backValuable": "スキュアーは価値の高い駒が後ろ",
+      "same": "同じもの"
+    }
+  },
+  "tactic-discovered-check-power": {
+    "prompt": "ディスカバードチェックが強いのはなぜ？",
+    "explanation": "相手はチェックの対処に追われるので、動いた駒は何でもできます。例えばクイーンを取るなど。",
+    "choices": {
+      "freeMove": "動いた駒が自由に別の仕事をできる",
+      "twoPoints": "点数が加算される",
+      "endsGame": "いつも対局が終わる"
+    }
+  },
+  "tactic-perpetual": {
+    "prompt": "「永久チェック（パーペチュアルチェック）」の結果は？",
+    "explanation": "引き分けです。同じ局面が3回繰り返されます。負けそうな対局を救う手段です。",
+    "choices": {
+      "draw": "引き分け",
+      "win": "チェックする側の勝ち",
+      "lose": "チェックする側の負け"
+    }
+  },
+  "tactic-stalemate-trick": {
+    "prompt": "大きく負けている側（キングと少しの駒）が引き分けを狙う方法は？",
+    "explanation": "ステイルメイトの罠：最後の駒を捨てて、チェックされていないのに動けない状態を作ります。",
+    "choices": {
+      "stalemate": "ステイルメイトの罠",
+      "resign": "投了",
+      "castle": "キャスリング"
+    }
+  },
+  "tactic-luft": {
+    "prompt": "キングの「ルフト（逃げ道）」とは？",
+    "explanation": "キングの前のポーンを1つ突いて作る逃げ道。バックランクメイトを防ぎます。",
+    "choices": {
+      "escapeSquare": "ポーンを突いて作る逃げ道",
+      "castle": "ロングキャスリング",
+      "shield": "動かしていないポーンの壁"
+    }
   }
 }

@@ -105,6 +105,7 @@
 - [x] Dữ liệu v2: bảng `puzzleAttempts`, profile thêm `puzzleRating`/`rushBest`/`quizBest`; Dexie version 2 + migrate (đã kiểm tra trên dữ liệu thật của Phase 1); file save `schemaVersion` 2 + migrate từ v1 (có test)
 - [x] Skill `add-quiz` (+ hướng dẫn build lại puzzle)
 - [x] E2E: 5 test mới (bộ puzzle giả lập cố định): tính điểm đúng/sai, chủ đề + hằng ngày, Rush, quiz cả vòng → tổng 16 test pass (desktop + mobile)
+- [x] Mở rộng quiz lần 2 (2026-10-15): **300 câu viết tay** × 3 ngôn ngữ, **60 câu mỗi chủ đề** (85 câu đi quân, 37 câu chọn ô; dễ 113 / vừa 123 / khó 64). Sửa `legalTargets` trả trùng ô phong cấp
 - [x] Mở rộng quiz (2026-10-15): **150 câu viết tay** × 3 ngôn ngữ (quân cờ 30, luật 32, ký hiệu 28, nguyên tắc 30, chiến thuật 30; 43 câu đi quân, 17 câu chọn ô); test kiểm thêm "bên vừa đi không được đang bị chiếu" (sửa 1 FEN sai cũ)
 - [x] Phần **Luyện tập thêm 🤖 Máy tạo** dưới phần viết tay: `core/quiz/generate.ts` sinh câu hỏi ngẫu nhiên theo chủ đề (nước đi của quân có vật cản, trạng thái chiếu/chiếu hết/hòa pat, thoát chiếu, đọc ký hiệu, ăn quân treo, chiếu hết 1 nước, đếm điểm quân, chọn nước ăn tốt nhất); điểm tốt nhất lưu riêng `gen:<topic>`; hiện "Đáp án: …" khi đi sai; E2E thêm 1 vòng máy tạo (tổng 26 test pass)
 
@@ -133,6 +134,8 @@
 - [x] Chọn ngôn ngữ chuyển lên thanh menu, bên trái nút người chơi
 - [x] Cài đặt thành **nút nổi ⚙️ góc phải dưới**, bấm để mở/đóng bảng (giao diện + âm thanh); bỏ trang `/settings` và mục "Cài đặt" trên menu. Phase 5: các mục theme/nhạc/sound pack mới sẽ thêm vào bảng này
 - [x] Mobile: logo chỉ còn icon khi màn hình < 440px để vừa chỗ
+- [x] Nút **← quay lại** trên mọi màn con (luyện tập, đấu cờ); nút Back của trình duyệt lùi **từng bước** (vòng quiz → menu quiz → Luyện tập) nhờ `services/navigation/historyStep.ts`; E2E kiểm tra
+- [x] Màn "Ai đang chơi?" làm mới: 2 cột — giới thiệu app + bàn cờ demo tự chạy (khai cuộc Ý) + 3 mục Học/Luyện tập/Đấu cờ; thẻ người chơi có avatar, rating puzzle; ô "+ Người chơi mới" nét đứt; chọn ngôn ngữ có cờ; nền ô cờ mờ. Mobile: thẻ người chơi lên trước
 
 ## Phase 4 — Bot persona & Game Review
 - [ ] Style bonus từ MultiPV (Tấn công / Phòng thủ / Thế trận / Hỗn loạn / Cân bằng)

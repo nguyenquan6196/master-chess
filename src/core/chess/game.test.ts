@@ -123,4 +123,12 @@ describe('core/chess/game diagrams', () => {
     expect(pieceColorAt(empty, 'e4')).toBeNull();
     expect(legalTargets('8/8/8/8/3R4/8/8/8 w - - 0 1', 'd4')).toHaveLength(14);
   });
+
+  it('lists a promotion square once, not once per promotion piece', () => {
+    expect(legalTargets('r1n1k3/1P6/8/8/8/8/8/4K3 w - - 0 1', 'b7').sort()).toEqual([
+      'a8',
+      'b8',
+      'c8',
+    ]);
+  });
 });
