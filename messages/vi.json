@@ -154,6 +154,10 @@
     "master": {
       "name": "Kiện tướng",
       "desc": "Sức mạnh tối đa của engine. Chúc may mắn!"
+    },
+    "custom": {
+      "name": "Tuỳ chỉnh",
+      "desc": "Tự chọn sức mạnh bằng thanh trượt Elo."
     }
   },
   "botGame": {
@@ -196,7 +200,10 @@
     },
     "rematch": "Chơi lại",
     "changeBot": "Đổi đối thủ",
-    "viewBoard": "Xem bàn cờ"
+    "viewBoard": "Xem bàn cờ",
+    "difficulty": "Độ khó",
+    "style": "Phong cách",
+    "customElo": "Elo: {elo}"
   },
   "history": {
     "title": "Lịch sử ván",
@@ -394,5 +401,58 @@
         "equal": "Bằng nhau"
       }
     }
+  },
+  "botStyles": {
+    "balanced": {
+      "name": "Cân bằng",
+      "desc": "Chơi theo engine, không thiên vị."
+    },
+    "aggressive": {
+      "name": "Tấn công",
+      "desc": "Thích chiếu, ăn quân và đẩy Tốt vào Vua."
+    },
+    "defensive": {
+      "name": "Phòng thủ",
+      "desc": "Chắc chắn, thích đổi quân khi đang hơn."
+    },
+    "positional": {
+      "name": "Thế trận",
+      "desc": "Chiếm trung tâm, phát triển quân bài bản."
+    },
+    "chaotic": {
+      "name": "Hỗn loạn",
+      "desc": "Khó đoán, giữ nhiều quân trên bàn."
+    }
+  },
+  "rank": {
+    "bronze": "Đồng",
+    "silver": "Bạc",
+    "gold": "Vàng",
+    "platinum": "Bạch Kim",
+    "diamond": "Kim Cương",
+    "elite": "Tinh Anh",
+    "grandmaster": "Cao Thủ",
+    "challenger": "Thách Đấu"
+  },
+  "ranking": {
+    "title": "Rank đấu bot",
+    "rating": "Điểm rank: {rating}",
+    "progress": "{progress}/{size}",
+    "bossOf": "Trùm hạng {rank}",
+    "promotionTitle": "Trận thăng hạng!",
+    "promotionDesc": "Bạn đã đủ điểm lên {rank}. Hãy đánh bại {bot} để thăng hạng.",
+    "promotionStart": "Vào trận thăng hạng",
+    "promotionMatch": "Trận thăng hạng",
+    "rated": "Tính điểm",
+    "practice": "Luyện tập",
+    "practiceDesc": "Ván này không tính điểm rank (đã dùng gợi ý hoặc đi lại).",
+    "unratedTitle": "Ván sẽ không tính điểm",
+    "unratedDesc": "Dùng gợi ý hoặc đi lại sẽ biến ván này thành ván luyện tập: không cộng, không trừ điểm rank.",
+    "unratedConfirm": "Vẫn dùng",
+    "resultRated": "Điểm rank: {before} → {after}",
+    "resultPractice": "Ván luyện tập — không tính điểm.",
+    "promoted": "🎉 Lên hạng {rank}!",
+    "promotionFailed": "Chưa qua trận thăng hạng. Thử lại nhé!",
+    "next": "Đối thủ gợi ý"
   }
 }

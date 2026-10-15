@@ -154,6 +154,10 @@
     "master": {
       "name": "マスター",
       "desc": "エンジン本来の強さです。幸運を！"
+    },
+    "custom": {
+      "name": "カスタム",
+      "desc": "Elo スライダーで強さを自由に決められます。"
     }
   },
   "botGame": {
@@ -196,7 +200,10 @@
     },
     "rematch": "再戦",
     "changeBot": "相手を変える",
-    "viewBoard": "盤面を見る"
+    "viewBoard": "盤面を見る",
+    "difficulty": "強さ",
+    "style": "スタイル",
+    "customElo": "Elo：{elo}"
   },
   "history": {
     "title": "対局履歴",
@@ -394,5 +401,58 @@
         "equal": "互角"
       }
     }
+  },
+  "botStyles": {
+    "balanced": {
+      "name": "バランス",
+      "desc": "エンジンどおりにクセなく指します。"
+    },
+    "aggressive": {
+      "name": "攻撃型",
+      "desc": "チェック・駒取り・キングへのポーン攻めが好き。"
+    },
+    "defensive": {
+      "name": "守備型",
+      "desc": "手堅く、優勢なら駒を交換します。"
+    },
+    "positional": {
+      "name": "大局型",
+      "desc": "中央を取り、きちんと駒を展開します。"
+    },
+    "chaotic": {
+      "name": "カオス",
+      "desc": "読めない手。駒をたくさん残します。"
+    }
+  },
+  "rank": {
+    "bronze": "ブロンズ",
+    "silver": "シルバー",
+    "gold": "ゴールド",
+    "platinum": "プラチナ",
+    "diamond": "ダイヤモンド",
+    "elite": "エリート",
+    "grandmaster": "グランドマスター",
+    "challenger": "チャレンジャー"
+  },
+  "ranking": {
+    "title": "ボット対戦ランク",
+    "rating": "ランクポイント：{rating}",
+    "progress": "{progress}/{size}",
+    "bossOf": "{rank}のボス",
+    "promotionTitle": "昇格戦！",
+    "promotionDesc": "{rank}に上がるポイントがたまりました。{bot}に勝てば昇格です。",
+    "promotionStart": "昇格戦に挑む",
+    "promotionMatch": "昇格戦",
+    "rated": "レート対局",
+    "practice": "練習",
+    "practiceDesc": "この対局はランクに影響しません（ヒントか待ったを使用）。",
+    "unratedTitle": "レート対象外になります",
+    "unratedDesc": "ヒントや待ったを使うと練習対局になり、ランクポイントは増減しません。",
+    "unratedConfirm": "使う",
+    "resultRated": "ランクポイント：{before} → {after}",
+    "resultPractice": "練習対局 — ポイント変動なし。",
+    "promoted": "🎉 {rank}に昇格！",
+    "promotionFailed": "昇格戦はまだ突破できていません。もう一度挑戦しよう！",
+    "next": "おすすめの相手"
   }
 }

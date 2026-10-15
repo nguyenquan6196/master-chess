@@ -1,4 +1,5 @@
-import type { BotId } from '../bot/levels';
+import type { BotKey } from '../bot/levels';
+import type { BotStyle } from '../bot/styles';
 import {
   applyMove,
   moveToUci,
@@ -25,7 +26,10 @@ import {
 export interface NewBotGame {
   id: string;
   profileId: string;
-  botId: BotId;
+  botId: BotKey;
+  /** Only for the custom bot. */
+  customElo?: number;
+  style: BotStyle;
   playerColor: Color;
   timeControl: TimeControlId;
   now: number;
@@ -37,6 +41,8 @@ export function createBotGame(p: NewBotGame): GameRecord {
     profileId: p.profileId,
     mode: 'bot',
     botId: p.botId,
+    ...(p.botId === 'custom' ? { customElo: p.customElo } : {}),
+    style: p.style,
     playerColor: p.playerColor,
     startFen: START_FEN,
     moves: [],

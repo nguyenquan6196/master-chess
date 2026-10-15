@@ -2,6 +2,8 @@ import Dexie, { type Table } from 'dexie';
 import {
   withProfileDefaultsV2,
   withProfileDefaultsV3,
+  withProfileDefaultsV4,
+  withGameDefaultsV4,
   type GameRecord,
   type Profile,
   type PuzzleAttempt,
@@ -44,6 +46,23 @@ export class MasterChessDB extends Dexie {
             Object.assign(p, withProfileDefaultsV3(p));
           }),
       );
+    // v4 (Phase 4): game rating + rank on profiles; bot style on games.
+    this.version(4)
+      .stores({})
+      .upgrade(async (tx) => {
+        await tx
+          .table('profiles')
+          .toCollection()
+          .modify((p: Record<string, unknown>) => {
+            Object.assign(p, withProfileDefaultsV4(p));
+          });
+        await tx
+          .table('games')
+          .toCollection()
+          .modify((g: Record<string, unknown>) => {
+            Object.assign(g, withGameDefaultsV4(g));
+          });
+      });
   }
 }
 

@@ -154,6 +154,10 @@
     "master": {
       "name": "Master",
       "desc": "Full engine strength. Good luck!"
+    },
+    "custom": {
+      "name": "Custom",
+      "desc": "Pick any strength with the Elo slider."
     }
   },
   "botGame": {
@@ -196,7 +200,10 @@
     },
     "rematch": "Rematch",
     "changeBot": "Change opponent",
-    "viewBoard": "View board"
+    "viewBoard": "View board",
+    "difficulty": "Difficulty",
+    "style": "Style",
+    "customElo": "Elo: {elo}"
   },
   "history": {
     "title": "Game history",
@@ -394,5 +401,58 @@
         "equal": "Equal"
       }
     }
+  },
+  "botStyles": {
+    "balanced": {
+      "name": "Balanced",
+      "desc": "Plays the engine’s way, no bias."
+    },
+    "aggressive": {
+      "name": "Aggressive",
+      "desc": "Loves checks, captures and pawn storms."
+    },
+    "defensive": {
+      "name": "Defensive",
+      "desc": "Solid; trades pieces when ahead."
+    },
+    "positional": {
+      "name": "Positional",
+      "desc": "Takes the center and develops properly."
+    },
+    "chaotic": {
+      "name": "Chaotic",
+      "desc": "Unpredictable; keeps pieces on the board."
+    }
+  },
+  "rank": {
+    "bronze": "Bronze",
+    "silver": "Silver",
+    "gold": "Gold",
+    "platinum": "Platinum",
+    "diamond": "Diamond",
+    "elite": "Elite",
+    "grandmaster": "Grandmaster",
+    "challenger": "Challenger"
+  },
+  "ranking": {
+    "title": "Bot rank",
+    "rating": "Rank points: {rating}",
+    "progress": "{progress}/{size}",
+    "bossOf": "{rank} boss",
+    "promotionTitle": "Promotion match!",
+    "promotionDesc": "You have the points for {rank}. Beat {bot} to rank up.",
+    "promotionStart": "Play the promotion match",
+    "promotionMatch": "Promotion match",
+    "rated": "Rated",
+    "practice": "Practice",
+    "practiceDesc": "This game does not count for rank (hints or take-backs used).",
+    "unratedTitle": "This game will not be rated",
+    "unratedDesc": "Using a hint or a take-back turns this into a practice game: no rank points won or lost.",
+    "unratedConfirm": "Use it anyway",
+    "resultRated": "Rank points: {before} → {after}",
+    "resultPractice": "Practice game — not rated.",
+    "promoted": "🎉 Promoted to {rank}!",
+    "promotionFailed": "Promotion match not passed yet. Try again!",
+    "next": "Suggested opponent"
   }
 }

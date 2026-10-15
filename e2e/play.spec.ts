@@ -41,3 +41,29 @@ test('profile: the player is remembered across reloads and can switch', async ({
   await page.getByRole('button', { name: /Đổi người chơi/ }).click();
   await expect(page.getByRole('button', { name: /Người chơi A/ })).toBeVisible();
 });
+
+test('rank: a rated loss costs points, a hint makes the game practice', async ({ page }) => {
+  await createPlayer(page);
+  await page.goto('/profile');
+  await expect(page.getByText('Đồng II')).toBeVisible();
+
+  // Rated game against an aggressive Fox, resigned at once.
+  await page.goto('/play/bot');
+  await page.getByRole('button', { name: /Cáo/ }).click();
+  await page.getByRole('button', { name: /Tấn công/ }).click();
+  await page.getByRole('button', { name: /Bắt đầu$/ }).click();
+  await expect(page.getByText('🏆 Tính điểm')).toBeVisible();
+  await page.getByRole('button', { name: /Xin thua/ }).click();
+  await page.getByRole('dialog').getByRole('button', { name: 'Xin thua' }).click();
+  await expect(page.getByText(/Điểm rank: 400 → \d+/)).toBeVisible();
+
+  // A hint asks for confirmation, then the game becomes a practice game.
+  await page.getByRole('button', { name: 'Chơi lại' }).last().click();
+  await page.getByRole('button', { name: /Gợi ý/ }).click();
+  await expect(page.getByText('Ván sẽ không tính điểm')).toBeVisible();
+  await page.getByRole('button', { name: 'Vẫn dùng' }).click();
+  await expect(page.getByText('📘 Luyện tập')).toBeVisible();
+
+  await page.goto('/history');
+  await expect(page.getByText(/^-\d+$/)).toBeVisible();
+});

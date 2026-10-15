@@ -8,7 +8,9 @@ import { MoveList } from '@/components/board/MoveList';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { Modal } from '@/components/ui/Modal';
+import { STYLE_ICONS } from '@/core/bot/styles';
 import type { GameRecord } from '@/core/profile/schema';
+import { RANKS, rankStatus } from '@/core/rating/rank';
 import { useSession } from '@/services/profile/session';
 import { useSettings } from '@/services/settings/store';
 import { PlayerBar } from './PlayerBar';
@@ -25,12 +27,30 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
   const tg = useTranslations('game');
   const tc = useTranslations('common');
   const tb = useTranslations('bots');
+  const ts = useTranslations('botStyles');
+  const tk = useTranslations('ranking');
+  const tr = useTranslations('rank');
   const profile = useSession((s) => s.profile);
   const toggleEval = useSettings((s) => s.update);
   const g = useBotGame(initial);
   const { record, snapshot, level } = g;
   const [confirmResign, setConfirmResign] = useState(false);
   const [resultDismissed, setResultDismissed] = useState(false);
+  /** An assist (hint/undo) waiting for confirmation because it makes the game unrated. */
+  const [pendingAssist, setPendingAssist] = useState<(() => void) | null>(null);
+  const withAssist = (action: () => void) => (g.rated ? setPendingAssist(() => action) : action());
+
+  const pendingPromotion = profile
+    ? rankStatus(profile.gameRating.rating, profile.rankFloor).promotionTo
+    : null;
+  const isPromotionMatch =
+    record.status === 'ongoing' &&
+    pendingPromotion !== null &&
+    RANKS[pendingPromotion].boss === record.botId;
+  const ratingBefore =
+    record.ratingAfter !== undefined && record.ratingDelta !== undefined
+      ? record.ratingAfter - record.ratingDelta
+      : null;
 
   const orientation = record.playerColor === 'w' ? 'white' : 'black';
   const botName = tb(`${level.id}.name`);
@@ -52,7 +72,7 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
         <PlayerBar
           avatar={level.emoji}
           name={botName}
-          subtitle={`${level.elo}`}
+          subtitle={`${level.elo}${record.style !== 'balanced' ? ` · ${STYLE_ICONS[record.style]} ${ts(`${record.style}.name`)}` : ''}`}
           color={g.botColor}
           clock={record.clock}
           now={g.now}
@@ -101,12 +121,29 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
           </p>
         )}
 
+        <div className="flex flex-wrap items-center gap-2">
+          {isPromotionMatch && (
+            <span className="rounded-full bg-accent px-3 py-1 text-xs font-bold text-accent-fg">
+              ⚔️ {tk('promotionMatch')}
+            </span>
+          )}
+          <span
+            className="rounded-full bg-surface-2 px-3 py-1 text-xs font-semibold"
+            title={g.rated ? undefined : tk('practiceDesc')}
+          >
+            {g.rated ? `🏆 ${tk('rated')}` : `📘 ${tk('practice')}`}
+          </span>
+        </div>
+
         {!finished ? (
           <div className="flex flex-wrap gap-2">
-            <Button onClick={() => void g.requestHint()} disabled={!g.isPlayerTurn}>
+            <Button
+              onClick={() => withAssist(() => void g.requestHint())}
+              disabled={!g.isPlayerTurn}
+            >
               💡 {t('hint')}
             </Button>
-            <Button onClick={g.undo} disabled={!g.canUndo}>
+            <Button onClick={() => withAssist(g.undo)} disabled={!g.canUndo}>
               ↩️ {tg('undo')}
             </Button>
             <Button onClick={() => void g.offerDraw()}>🤝 {t('offerDraw')}</Button>
@@ -164,6 +201,30 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
       </Modal>
 
       <Modal
+        open={pendingAssist !== null}
+        title={tk('unratedTitle')}
+        onClose={() => setPendingAssist(null)}
+        actions={
+          <>
+            <Button variant="ghost" onClick={() => setPendingAssist(null)}>
+              {tc('cancel')}
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => {
+                pendingAssist?.();
+                setPendingAssist(null);
+              }}
+            >
+              {tk('unratedConfirm')}
+            </Button>
+          </>
+        }
+      >
+        {tk('unratedDesc')}
+      </Modal>
+
+      <Modal
         open={finished && !resultDismissed}
         title={record.result ? t(`result.${record.result}`) : ''}
         onClose={() => setResultDismissed(true)}
@@ -185,6 +246,25 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
           </span>
           {record.endReason && t(`reason.${record.endReason}`)}
         </p>
+        {record.rated && ratingBefore !== null && record.ratingDelta !== undefined && (
+          <p className="mt-2 font-semibold tabular-nums">
+            {tk('resultRated', { before: ratingBefore, after: record.ratingAfter ?? 0 })}{' '}
+            <span className={record.ratingDelta >= 0 ? 'text-accent' : 'text-danger'}>
+              ({record.ratingDelta >= 0 ? '+' : ''}
+              {record.ratingDelta})
+            </span>
+          </p>
+        )}
+        {record.rated === false && (
+          <p className="mt-2 text-sm text-muted">{tk('resultPractice')}</p>
+        )}
+        {record.promotion && (
+          <p className="mt-2 font-display text-lg font-bold text-accent">
+            {record.promotion.passed
+              ? tk('promoted', { rank: tr(RANKS[record.promotion.to].id) })
+              : tk('promotionFailed')}
+          </p>
+        )}
       </Modal>
     </div>
   );

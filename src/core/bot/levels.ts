@@ -41,8 +41,11 @@ export const BOT_IDS = [
 ] as const;
 export type BotId = (typeof BOT_IDS)[number];
 
+/** Ladder bots plus the user-tuned "custom" bot (spec §6.3). */
+export type BotKey = BotId | 'custom';
+
 export interface BotLevel {
-  id: BotId;
+  id: BotKey;
   emoji: string;
   elo: number;
   /** Music/UI intensity bucket (spec §7.1): 1 relaxed … 4 boss. */
@@ -52,7 +55,7 @@ export interface BotLevel {
   thinkTimeMs: readonly [min: number, max: number];
 }
 
-export const BOT_LEVELS: readonly BotLevel[] = [
+export const BOT_LEVELS: readonly (BotLevel & { id: BotId })[] = [
   {
     id: 'chick',
     emoji: '🐣',
@@ -118,6 +121,60 @@ export const BOT_LEVELS: readonly BotLevel[] = [
     thinkTimeMs: [0, 0],
   },
 ];
+
+export const CUSTOM_ELO = { min: 250, max: 3000, step: 50, default: 1000 } as const;
+/** Stockfish's own limiter is used from this Elo up (its floor is ~1320). */
+const LIMITER_MIN_ELO = 1350;
+const FULL_STRENGTH_ELO = 2800;
+
+const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+
+/**
+ * A bot of any strength: below the Stockfish limiter, interpolates the sampled settings
+ * of the neighbouring ladder bots; above it, uses the limiter (or full strength).
+ */
+export function customLevel(rawElo: number): BotLevel {
+  const elo = Math.min(Math.max(Math.round(rawElo), CUSTOM_ELO.min), CUSTOM_ELO.max);
+  const base = { id: 'custom' as const, emoji: '🎛️', elo, thinkTimeMs: [600, 1400] as const };
+  const tier: BotLevel['tier'] = elo < 700 ? 1 : elo < 1300 ? 2 : elo < 2000 ? 3 : 4;
+  if (elo >= FULL_STRENGTH_ELO)
+    return { ...base, tier, strategy: { kind: 'full', movetimeMs: 1500 } };
+  if (elo >= LIMITER_MIN_ELO) {
+    const movetimeMs = Math.round(
+      lerp(300, 800, (elo - LIMITER_MIN_ELO) / (FULL_STRENGTH_ELO - LIMITER_MIN_ELO)),
+    );
+    return { ...base, tier, strategy: { kind: 'limited', elo, movetimeMs } };
+  }
+  const sampled = BOT_LEVELS.filter((b) => b.strategy.kind === 'sampled');
+  // Above the strongest sampled bot: extrapolate from the last pair (capped below).
+  let lo = sampled[sampled.length - 2];
+  let hi = sampled[sampled.length - 1];
+  for (let i = 0; i < sampled.length - 1; i++) {
+    if (elo >= sampled[i].elo && elo <= sampled[i + 1].elo) {
+      lo = sampled[i];
+      hi = sampled[i + 1];
+    }
+  }
+  const t = hi.elo === lo.elo ? 0 : Math.min(Math.max((elo - lo.elo) / (hi.elo - lo.elo), 0), 1.5);
+  const a = lo.strategy as SampledStrategy;
+  const b = hi.strategy as SampledStrategy;
+  return {
+    ...base,
+    tier,
+    strategy: {
+      kind: 'sampled',
+      depth: Math.round(lerp(a.depth, b.depth, t)),
+      multiPV: Math.round(lerp(a.multiPV, b.multiPV, t)),
+      randomMoveRate: Math.max(lerp(a.randomMoveRate, b.randomMoveRate, t), 0.02),
+      temperatureCp: Math.max(lerp(a.temperatureCp, b.temperatureCp, t), 30),
+    },
+  };
+}
+
+/** The level for a stored game: a ladder bot, or the custom bot at its Elo. */
+export function resolveBotLevel(botId: BotKey, customElo?: number): BotLevel {
+  return botId === 'custom' ? customLevel(customElo ?? CUSTOM_ELO.default) : getBotLevel(botId);
+}
 
 export function getBotLevel(id: BotId): BotLevel {
   const level = BOT_LEVELS.find((b) => b.id === id);

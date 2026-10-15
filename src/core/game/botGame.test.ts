@@ -17,6 +17,7 @@ function game(playerColor: 'w' | 'b' = 'w', timeControl: '5+3' | 'none' = 'none'
     id: 'g',
     profileId: 'p',
     botId: 'fox',
+    style: 'balanced',
     playerColor,
     timeControl,
     now: 0,

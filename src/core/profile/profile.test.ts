@@ -21,6 +21,8 @@ const profile: Profile = {
   rushBest: { '3m': 12 },
   quizBest: { all: 0.8 },
   lessons: { pawn: { completedAt: 3, score: 1 } },
+  gameRating: { rating: 650, rd: 120, vol: 0.06 },
+  rankFloor: 1,
 };
 
 const attempt: PuzzleAttempt = {
@@ -42,6 +44,7 @@ function game(id: string, extra: Partial<GameRecord> = {}): GameRecord {
     profileId: 'p1',
     mode: 'bot',
     botId: 'fox',
+    style: 'balanced',
     playerColor: 'w',
     startFen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
     moves: ['e2e4', 'e7e5'],
@@ -83,7 +86,7 @@ describe('core/profile/saveFile', () => {
 
 describe('core/profile/saveFile migration', () => {
   it('upgrades a v1 file (no puzzle or lesson data) to the current version', () => {
-    const v2Only = ['puzzleRating', 'rushBest', 'quizBest', 'lessons'];
+    const v2Only = ['puzzleRating', 'rushBest', 'quizBest', 'lessons', 'gameRating', 'rankFloor'];
     const v1Profile = Object.fromEntries(
       Object.entries(profile).filter(([k]) => !v2Only.includes(k)),
     );
@@ -92,7 +95,7 @@ describe('core/profile/saveFile migration', () => {
       schemaVersion: 1,
       exportedAt: 1,
       profile: v1Profile,
-      games: [game('g1')],
+      games: [{ ...game('g1'), style: undefined }],
     };
     const parsed = parseSaveFile(JSON.stringify(v1));
     expect(parsed.ok).toBe(true);
@@ -103,6 +106,9 @@ describe('core/profile/saveFile migration', () => {
     expect(parsed.data.profile.rushBest).toEqual({});
     expect(parsed.data.puzzleAttempts).toEqual([]);
     expect(parsed.data.games).toHaveLength(1);
+    expect(parsed.data.profile.gameRating.rating).toBe(400);
+    expect(parsed.data.profile.rankFloor).toBe(0);
+    expect(parsed.data.games[0].style).toBe('balanced');
   });
 });
 

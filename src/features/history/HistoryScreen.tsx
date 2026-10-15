@@ -6,7 +6,8 @@ import { useFormatter, useTranslations } from 'use-intl';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { cn } from '@/components/ui/cn';
-import { getBotLevel } from '@/core/bot/levels';
+import { resolveBotLevel } from '@/core/bot/levels';
+import { STYLE_ICONS } from '@/core/bot/styles';
 import type { GameResult } from '@/core/profile/schema';
 import { gameRepo } from '@/services/db/repositories';
 import { useSession } from '@/services/profile/session';
@@ -23,6 +24,8 @@ export function HistoryScreen() {
   const t = useTranslations('history');
   const tg = useTranslations('botGame');
   const tb = useTranslations('bots');
+  const ts = useTranslations('botStyles');
+  const tk = useTranslations('ranking');
   const format = useFormatter();
   const profileId = useSession((s) => s.profile?.id);
   const games = useLiveQuery(
@@ -49,7 +52,7 @@ export function HistoryScreen() {
       {games && finished.length === 0 && <p className="text-muted">{t('empty')}</p>}
       <ul className="flex flex-col gap-3">
         {finished.map((g) => {
-          const level = getBotLevel(g.botId);
+          const level = resolveBotLevel(g.botId, g.customElo);
           return (
             <li key={g.id}>
               <Card className="flex flex-wrap items-center gap-3 p-4">
@@ -62,6 +65,9 @@ export function HistoryScreen() {
                     <span className="text-xs font-normal text-muted">
                       · {g.playerColor === 'w' ? t('asWhite') : t('asBlack')} ·{' '}
                       {t('moves', { count: Math.ceil(g.moves.length / 2) })}
+                      {g.style !== 'balanced' &&
+                        ` · ${STYLE_ICONS[g.style]} ${ts(`${g.style}.name`)}`}
+                      {g.botId === 'custom' && ` · ~${level.elo}`}
                     </span>
                   </p>
                   <p className="text-xs text-muted">
@@ -71,6 +77,23 @@ export function HistoryScreen() {
                       ` · ${t('assists', { hints: g.hintsUsed, undos: g.undosUsed })}`}
                   </p>
                 </div>
+                {g.rated && g.ratingDelta !== undefined && (
+                  <span
+                    className={cn(
+                      'text-sm font-bold tabular-nums',
+                      g.ratingDelta >= 0 ? 'text-accent' : 'text-danger',
+                    )}
+                    title={tk('rated')}
+                  >
+                    {g.ratingDelta >= 0 ? '+' : ''}
+                    {g.ratingDelta}
+                  </span>
+                )}
+                {g.promotion && (
+                  <span className="text-xs font-semibold text-muted">
+                    ⚔️ {tk('promotionMatch')}
+                  </span>
+                )}
                 {g.result && (
                   <span
                     className={cn(

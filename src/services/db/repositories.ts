@@ -1,3 +1,4 @@
+import { GAME_RATING } from '@/core/rating/rank';
 import type { SaveFile } from '@/core/profile/saveFile';
 import {
   DEFAULT_PROFILE_SETTINGS,
@@ -34,6 +35,8 @@ export const profileRepo = {
       rushBest: {},
       quizBest: {},
       lessons: {},
+      gameRating: { ...GAME_RATING.initial },
+      rankFloor: 0,
     };
     await getDb().profiles.add(profile);
     return profile;

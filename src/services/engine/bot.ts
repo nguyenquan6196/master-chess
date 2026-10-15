@@ -1,27 +1,45 @@
 import { chooseSampledMove } from '@/core/bot/choose';
 import type { BotLevel } from '@/core/bot/levels';
+import { applyStyle, pickStyledMove, STYLE_TUNING, type BotStyle } from '@/core/bot/styles';
 import { legalUciMoves, turnOf } from '@/core/chess/game';
 import { scoreToCp, toWhitePov, type EngineScore } from '@/core/engine/uci';
 import { getEngine } from './StockfishEngine';
 
-/** Asks the bot engine for a move at the given level. Returns a UCI move or null. */
-export async function computeBotMove(fen: string, level: BotLevel): Promise<string | null> {
+/** Candidate lines requested from strong bots so a style can pick among them. */
+const STYLED_MULTI_PV = 4;
+
+/** Asks the bot engine for a move at the given level and style. Returns a UCI move or null. */
+export async function computeBotMove(
+  fen: string,
+  level: BotLevel,
+  style: BotStyle = 'balanced',
+): Promise<string | null> {
   const engine = getEngine('bot');
   const s = level.strategy;
 
   if (s.kind === 'sampled') {
     const { lines, bestMove } = await engine.analyze(fen, { depth: s.depth, multiPV: s.multiPV });
-    const candidates = lines.map((l) => ({ move: l.pv[0], scoreCp: scoreToCp(l.score) }));
+    const raw = lines.map((l) => ({ move: l.pv[0], scoreCp: scoreToCp(l.score) }));
     const legal = legalUciMoves(fen);
     if (legal.length === 0) return null;
-    return chooseSampledMove(candidates, legal, s) ?? bestMove;
+    const temperatureCp =
+      style === 'chaotic'
+        ? s.temperatureCp * STYLE_TUNING.chaoticTemperatureFactor
+        : s.temperatureCp;
+    return (
+      chooseSampledMove(applyStyle(fen, raw, style), legal, { ...s, temperatureCp }) ?? bestMove
+    );
   }
 
-  const { bestMove } = await engine.analyze(fen, {
+  const styled = style !== 'balanced';
+  const { bestMove, lines } = await engine.analyze(fen, {
     movetimeMs: s.movetimeMs,
     elo: s.kind === 'limited' ? s.elo : null,
+    multiPV: styled ? STYLED_MULTI_PV : 1,
   });
-  return bestMove;
+  if (!bestMove || !styled) return bestMove;
+  const candidates = lines.map((l) => ({ move: l.pv[0], scoreCp: scoreToCp(l.score) }));
+  return pickStyledMove(fen, candidates, bestMove, style);
 }
 
 export interface PositionEval {

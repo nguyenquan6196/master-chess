@@ -1,5 +1,7 @@
 import { z } from 'zod';
 import { BOT_IDS } from '../bot/levels';
+import { BOT_STYLES } from '../bot/styles';
+import { GAME_RATING } from '../rating/rank';
 import { TIME_CONTROL_IDS } from '../game/clock';
 
 /**
@@ -68,6 +70,10 @@ export const ProfileSchema = z.object({
     z.string(),
     z.object({ completedAt: z.number(), score: z.number().min(0).max(1) }),
   ),
+  /** Added in schema v4 (Phase 4): rating from rated bot games (spec §6.7). */
+  gameRating: RatingSchema,
+  /** Index into RANKS of the highest rank won through a promotion match. */
+  rankFloor: z.number().int().min(0),
 });
 export type Profile = z.infer<typeof ProfileSchema>;
 
@@ -87,6 +93,23 @@ export function withProfileDefaultsV2<T extends object>(
 export function withProfileDefaultsV3<T extends object>(p: T): Pick<Profile, 'lessons'> & T {
   const defaults: Pick<Profile, 'lessons'> = { lessons: {} };
   return { ...defaults, ...p };
+}
+
+/** Fields added in schema v4. */
+export function withProfileDefaultsV4<T extends object>(
+  p: T,
+): Pick<Profile, 'gameRating' | 'rankFloor'> & T {
+  const defaults: Pick<Profile, 'gameRating' | 'rankFloor'> = {
+    gameRating: { ...GAME_RATING.initial },
+    rankFloor: 0,
+  };
+  return { ...defaults, ...p };
+}
+
+/** Game fields added in schema v4 (older games were all against balanced ladder bots). */
+export function withGameDefaultsV4<T extends object>(g: T): Pick<GameRecord, 'style'> & T {
+  const defaults: Pick<GameRecord, 'style'> = { style: 'balanced' };
+  return { ...defaults, ...g };
 }
 
 export const PUZZLE_MODES = ['rated', 'theme', 'rush', 'daily'] as const;
@@ -132,7 +155,11 @@ export const GameRecordSchema = z.object({
   id: z.string().min(1),
   profileId: z.string().min(1),
   mode: z.literal('bot'),
-  botId: z.enum(BOT_IDS),
+  botId: z.enum([...BOT_IDS, 'custom']),
+  /** Strength of the custom bot (only when botId is "custom"). */
+  customElo: z.number().optional(),
+  /** Added in schema v4. */
+  style: z.enum(BOT_STYLES),
   playerColor: ColorSchema,
   startFen: z.string(),
   /** Moves in UCI notation; the position is rebuilt by replaying them. */
@@ -144,6 +171,12 @@ export const GameRecordSchema = z.object({
   pgn: z.string().optional(),
   hintsUsed: z.number().int().min(0),
   undosUsed: z.number().int().min(0),
+  /** Set when the game ends: counted for the player's game rating? */
+  rated: z.boolean().optional(),
+  ratingDelta: z.number().optional(),
+  ratingAfter: z.number().optional(),
+  /** This game was a promotion match into rank `to` (index into RANKS). */
+  promotion: z.object({ to: z.number().int(), passed: z.boolean() }).optional(),
   createdAt: z.number(),
   updatedAt: z.number(),
 });

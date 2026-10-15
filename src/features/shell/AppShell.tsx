@@ -5,6 +5,8 @@ import { usePathname } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { useTranslations } from 'use-intl';
 import { cn } from '@/components/ui/cn';
+import { RANK_ICONS, rankTitle } from '@/components/ui/RankBadge';
+import { RANKS, rankStatus } from '@/core/rating/rank';
 import { useSession } from '@/services/profile/session';
 import { LanguageSelect } from './LanguageSelect';
 import { MobileMenu } from './MobileMenu';
@@ -20,6 +22,8 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
   const t = useTranslations('nav');
   const pathname = usePathname();
   const profile = useSession((s) => s.profile);
+  const tr = useTranslations('rank');
+  const rank = profile ? rankStatus(profile.gameRating.rating, profile.rankFloor) : null;
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
@@ -61,14 +65,26 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
             {profile && (
               <Link
                 href="/profile"
-                title={t('profile')}
+                title={
+                  rank
+                    ? `${t('profile')} · ${rankTitle(rank, tr(RANKS[rank.rankIndex].id))}`
+                    : t('profile')
+                }
                 className={cn(
-                  'flex max-w-40 items-center gap-2 rounded-full border px-2 py-1 text-sm font-semibold',
+                  'flex max-w-48 items-center gap-2 rounded-full border px-2 py-1 text-sm font-semibold',
                   isActive('/profile') ? 'border-accent' : 'border-border hover:bg-surface-2',
                 )}
               >
                 <span aria-hidden>{profile.avatar}</span>
                 <span className="hidden truncate md:inline">{profile.name}</span>
+                {rank && (
+                  <span
+                    aria-hidden
+                    className="grid size-5 place-items-center rounded-full bg-surface-2 text-xs"
+                  >
+                    {RANK_ICONS[RANKS[rank.rankIndex].id]}
+                  </span>
+                )}
               </Link>
             )}
           </div>

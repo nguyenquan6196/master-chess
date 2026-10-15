@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { thinkDelayMs } from '@/core/bot/choose';
-import { botAcceptsDraw, getBotLevel } from '@/core/bot/levels';
+import { botAcceptsDraw, resolveBotLevel } from '@/core/bot/levels';
 import { uciToMove, type MoveInput } from '@/core/chess/game';
 import { moveSound } from '@/core/chess/moveSound';
 import { scoreToCp, type EngineScore } from '@/core/engine/uci';
@@ -19,10 +19,12 @@ import {
 } from '@/core/game/botGame';
 import { isTimed } from '@/core/game/clock';
 import type { GameRecord } from '@/core/profile/schema';
+import { isRatedGame } from '@/core/rating/rank';
 import { playSfx } from '@/services/audio/sfx';
 import { gameRepo } from '@/services/db/repositories';
 import { computeBotMove, evaluatePosition } from '@/services/engine/bot';
 import { getEngine } from '@/services/engine/StockfishEngine';
+import { settleBotGame } from '@/services/rating/gameRating';
 import { useSettings } from '@/services/settings/store';
 
 const CLOCK_TICK_MS = 200;
@@ -38,7 +40,10 @@ export type Notice = 'drawDeclined' | null;
 export function useBotGame(initial: GameRecord) {
   const [record, setRecord] = useState(() => resumeGame(initial, Date.now()));
   const snapshot = useMemo(() => replayGame(record), [record]);
-  const level = getBotLevel(record.botId);
+  const level = useMemo(
+    () => resolveBotLevel(record.botId, record.customElo),
+    [record.botId, record.customElo],
+  );
   const botColor = botColorOf(record);
   const ongoing = record.status === 'ongoing' && snapshot.status.kind === 'playing';
   const isBotTurn =
@@ -68,7 +73,7 @@ export function useBotGame(initial: GameRecord) {
     let cancelled = false;
     const started = Date.now();
     const delay = thinkDelayMs(level.thinkTimeMs);
-    computeBotMove(snapshot.fen, level)
+    computeBotMove(snapshot.fen, level, record.style)
       .then(async (uci) => {
         const wait = delay - (Date.now() - started);
         if (wait > 0) await new Promise((r) => setTimeout(r, wait));
@@ -82,7 +87,21 @@ export function useBotGame(initial: GameRecord) {
       cancelled = true;
       getEngine('bot').stop();
     };
-  }, [isBotTurn, snapshot.fen, level]);
+  }, [isBotTurn, snapshot.fen, level, record.style]);
+
+  // --- Rating: settle the finished game once (rated or practice).
+  const needsSettling = record.status === 'finished' && record.rated === undefined;
+  useEffect(() => {
+    if (!needsSettling) return;
+    let cancelled = false;
+    void settleBotGame(latest.current).then((settled) => {
+      if (!cancelled)
+        setRecord((prev) => (prev.id === settled.id ? { ...prev, ...settled } : prev));
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [needsSettling]);
 
   // --- Sounds for new moves and the end of the game.
   const soundState = useRef({ moves: record.moves.length, status: record.status });
@@ -192,6 +211,8 @@ export function useBotGame(initial: GameRecord) {
     evaluation: showEvalBar ? (evaluation?.score ?? null) : null,
     showEvalBar,
     canUndo,
+    /** Still counts for rating (no hints or take-backs so far). */
+    rated: isRatedGame(record),
     onPlayerMove,
     undo,
     resign,

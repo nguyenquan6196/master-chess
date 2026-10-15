@@ -14,6 +14,7 @@ import { exportProfile } from '@/services/profile/saveTransfer';
 import { useSession } from '@/services/profile/session';
 import { ImportSaveButton } from './ImportSaveButton';
 import { NewProfileForm } from './NewProfileForm';
+import { RankCard } from './RankCard';
 
 export function ProfileScreen() {
   const t = useTranslations('profile');
@@ -68,6 +69,8 @@ export function ProfileScreen() {
           </Button>
         </Card>
       )}
+
+      <RankCard profile={profile} />
 
       <Card>
         <h2 className="mb-3 font-display text-lg font-semibold">📊 {t('stats')}</h2>

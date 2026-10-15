@@ -139,16 +139,16 @@
 - [x] Màn "Ai đang chơi?" làm mới: 2 cột — giới thiệu app + bàn cờ demo tự chạy (khai cuộc Ý) + 3 mục Học/Luyện tập/Đấu cờ; thẻ người chơi có avatar, rating puzzle; ô "+ Người chơi mới" nét đứt; chọn ngôn ngữ có cờ; nền ô cờ mờ. Mobile: thẻ người chơi lên trước
 
 ## Phase 4 — Bot persona & Game Review
-- [ ] Style bonus từ MultiPV (Tấn công / Phòng thủ / Thế trận / Hỗn loạn / Cân bằng)
+- [x] Style bonus từ MultiPV (Tấn công / Phòng thủ / Thế trận / Hỗn loạn / Cân bằng): `core/bot/styles.ts` — chỉ cộng điểm cho nước cách nước tốt nhất ≤ 80cp; bot yếu cộng vào softmax, bot mạnh chọn trong MultiPV 4 quanh nước của limiter (+ test)
 - [ ] Opening book riêng mỗi persona (`scripts/build-book.ts` từ PGN)
-- [ ] Ma trận chọn bot = Độ khó × Phong cách; chế độ Custom (slider Elo)
+- [x] Ma trận chọn bot = Độ khó × Phong cách; chế độ Custom (slider Elo 250–3000, nội suy tham số bot yếu / UCI_Elo / full strength)
 - [ ] Thoại bot theo sự kiện
 - [ ] `scripts/calibrate-bots.ts`: cho bot tự đấu với Stockfish UCI_Elo để hiệu chỉnh Elo
-- [ ] Adaptive difficulty (gợi ý bot tiếp theo dựa trên kết quả)
-- [ ] **Hệ thống Rank — phần logic** (spec §6.7): 8 rank Đồng → Thách Đấu, bậc con III/II/I, mỗi bot là "trùm canh giữ" 1 rank
-  - [ ] `core/rating/`: Glicko-2, ánh xạ rating → rank/bậc con/tiến độ, luật trận thăng hạng, "sàn" rank, ván có gợi ý/đi lại = không tính điểm (+ unit test)
-  - [ ] Dữ liệu: `rating`, `rankFloor`, `pendingPromotion` trong profile; `rated`, `ratingDelta` trong GameRecord → Dexie v2 + `SAVE_SCHEMA_VERSION` 2 + migrate
-  - [ ] UI tạm (chưa cần huy hiệu đẹp): rank + thanh tiến độ ở Hồ sơ, "+/− điểm" ở màn kết quả, "Ngang hạng X" trên thẻ bot, màn trận thăng hạng
+- [x] Adaptive difficulty: "⭐ Đối thủ gợi ý" = bot gần rating người chơi, +/−100 theo chuỗi thắng/thua (`core/bot/suggest.ts`)
+- [x] **Hệ thống Rank — phần logic** (spec §6.7): 8 rank Đồng → Thách Đấu, bậc con III/II/I, mỗi bot là "trùm canh giữ" 1 rank
+  - [x] `core/rating/`: Glicko-2, ánh xạ rating → rank/bậc con/tiến độ, luật trận thăng hạng, "sàn" rank, ván có gợi ý/đi lại = không tính điểm (+ unit test)
+  - [x] Dữ liệu: `gameRating`, `rankFloor` trong profile (trận thăng hạng suy ra từ rating, không cần lưu `pendingPromotion`); `style`, `customElo`, `rated`, `ratingDelta`, `ratingAfter`, `promotion` trong GameRecord → Dexie v4 + `SAVE_SCHEMA_VERSION` 4 + migrate (có test). Tính điểm 1 lần trong transaction (`services/rating/gameRating.ts`)
+  - [x] UI tạm (chưa cần huy hiệu đẹp): rank + thanh tiến độ ở Hồ sơ, icon rank trên header, "+/− điểm" ở màn kết quả & lịch sử, "Trùm hạng X" trên thẻ bot, banner trận thăng hạng, nhãn Tính điểm/Luyện tập + hỏi xác nhận trước khi dùng gợi ý/đi lại
   - [ ] Dùng Elo bot đã hiệu chỉnh (`calibrate-bots`) để tính điểm
 - [ ] Game Review: phân loại nước (Best/Good/Inaccuracy/Mistake/Blunder), accuracy, biểu đồ eval, "thử lại nước sai"
 
