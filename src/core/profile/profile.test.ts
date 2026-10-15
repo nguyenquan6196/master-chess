@@ -90,11 +90,18 @@ describe('core/profile/saveFile migration', () => {
     const v1Profile = Object.fromEntries(
       Object.entries(profile).filter(([k]) => !v2Only.includes(k)),
     );
+    const v1Settings = {
+      locale: 'vi',
+      theme: 'auto',
+      sfxEnabled: true,
+      sfxVolume: 0.7,
+      showEvalBar: false,
+    };
     const v1 = {
       app: 'master-chess',
       schemaVersion: 1,
       exportedAt: 1,
-      profile: v1Profile,
+      profile: { ...v1Profile, settings: v1Settings },
       games: [{ ...game('g1'), style: undefined }],
     };
     const parsed = parseSaveFile(JSON.stringify(v1));
@@ -109,6 +116,8 @@ describe('core/profile/saveFile migration', () => {
     expect(parsed.data.profile.gameRating.rating).toBe(400);
     expect(parsed.data.profile.rankFloor).toBe(0);
     expect(parsed.data.games[0].style).toBe('balanced');
+    expect(parsed.data.profile.settings.pieceSet).toBe('classic');
+    expect(parsed.data.profile.settings.musicMode).toBe('auto');
   });
 });
 

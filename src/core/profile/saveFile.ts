@@ -7,13 +7,14 @@ import {
   withProfileDefaultsV3,
   withProfileDefaultsV4,
   withGameDefaultsV4,
+  withSettingsDefaultsV5,
   type GameRecord,
   type Profile,
   type PuzzleAttempt,
 } from './schema';
 
 /** Bump when the save format changes, and add a step to `migrateSaveFile`. */
-export const SAVE_SCHEMA_VERSION = 4;
+export const SAVE_SCHEMA_VERSION = 5;
 export const SAVE_APP_ID = 'master-chess';
 
 export const SaveFileSchema = z.object({
@@ -64,6 +65,11 @@ function migrateSaveFile(data: Record<string, unknown>): Record<string, unknown>
       ? d.games.map((g: unknown) => (typeof g === 'object' && g ? withGameDefaultsV4(g) : g))
       : [];
     d = { ...d, schemaVersion: 4, profile: withProfileDefaultsV4(profile), games };
+  }
+  if (d.schemaVersion === 4) {
+    // v5 (Phase 5): appearance and sound settings.
+    const profile = typeof d.profile === 'object' && d.profile ? d.profile : {};
+    d = { ...d, schemaVersion: 5, profile: withSettingsDefaultsV5(profile) };
   }
   return d;
 }

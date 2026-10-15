@@ -11,6 +11,7 @@ import { cn } from '@/components/ui/cn';
 export function SettingsFab({ children }: { children: ReactNode }) {
   const t = useTranslations('settings');
   const [open, setOpen] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const root = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -38,10 +39,21 @@ export function SettingsFab({ children }: { children: ReactNode }) {
           aria-label={t('title')}
           className={cn(
             'fixed inset-x-4 bottom-20 z-40 max-h-[calc(100dvh-7rem)] overflow-y-auto rounded-2xl border border-border bg-surface p-5 text-fg shadow-card',
-            'sm:inset-x-auto sm:right-4 sm:w-[36rem] sm:p-6',
+            expanded
+              ? 'sm:inset-x-8 sm:top-20 sm:p-8'
+              : 'sm:inset-x-auto sm:right-4 sm:w-[36rem] sm:p-6',
           )}
         >
-          <h2 className="mb-5 font-display text-2xl font-bold">⚙️ {t('title')}</h2>
+          <div className="mb-5 flex items-center justify-between gap-2">
+            <h2 className="font-display text-2xl font-bold">⚙️ {t('title')}</h2>
+            <button
+              type="button"
+              onClick={() => setExpanded((v) => !v)}
+              className="hidden rounded-lg px-2 py-1 text-sm font-semibold text-muted hover:bg-surface-2 hover:text-fg sm:block"
+            >
+              {expanded ? `⤡ ${t('shrink')}` : `⤢ ${t('expand')}`}
+            </button>
+          </div>
           {children}
         </section>
       )}

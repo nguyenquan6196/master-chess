@@ -4,6 +4,21 @@ import { BOT_STYLES } from '../bot/styles';
 import { GAME_RATING } from '../rating/rank';
 import { GameReviewSchema } from '../review/review';
 import { TIME_CONTROL_IDS } from '../game/clock';
+import {
+  ACCENTS,
+  BACKDROP_LIMITS,
+  BACKDROPS,
+  BOARD_STYLES,
+  BUTTON_STYLES,
+  GRADIENTS,
+  HIGHLIGHTS,
+  MOVE_ANIMATIONS,
+  MUSIC_MODES,
+  MUSIC_TRACKS,
+  PIECE_SETS,
+  SOUND_PACKS,
+  THEME_IDS,
+} from './settingsOptions';
 
 /**
  * Persisted data shapes (IndexedDB records and save files). Every change here needs a
@@ -11,7 +26,7 @@ import { TIME_CONTROL_IDS } from '../game/clock';
  */
 
 export const LOCALE_VALUES = ['vi', 'en', 'ja'] as const;
-export const THEME_PREFERENCE_VALUES = ['auto', 'classic', 'midnight'] as const;
+export const THEME_PREFERENCE_VALUES = ['auto', ...THEME_IDS] as const;
 
 export const ProfileSettingsSchema = z.object({
   locale: z.enum(LOCALE_VALUES),
@@ -19,6 +34,27 @@ export const ProfileSettingsSchema = z.object({
   sfxEnabled: z.boolean(),
   sfxVolume: z.number().min(0).max(1),
   showEvalBar: z.boolean(),
+  // --- Added in schema v5 (Phase 5): appearance customization.
+  board: z.enum(BOARD_STYLES),
+  pieceSet: z.enum(PIECE_SETS),
+  accent: z.enum(ACCENTS),
+  highlight: z.enum(HIGHLIGHTS),
+  buttonStyle: z.enum(BUTTON_STYLES),
+  backdrop: z.enum(BACKDROPS),
+  backdropColor: z.string().regex(/^#[0-9a-f]{6}$/i),
+  backdropGradient: z.enum(GRADIENTS),
+  backdropDim: z.number().min(0).max(BACKDROP_LIMITS.dimMax),
+  backdropBlur: z.number().min(0).max(BACKDROP_LIMITS.blurMaxPx),
+  backdropMotion: z.boolean(),
+  moveAnimation: z.enum(MOVE_ANIMATIONS),
+  // --- Added in schema v5: sound.
+  muted: z.boolean(),
+  masterVolume: z.number().min(0).max(1),
+  musicVolume: z.number().min(0).max(1),
+  uiVolume: z.number().min(0).max(1),
+  musicMode: z.enum(MUSIC_MODES),
+  musicTrack: z.enum(MUSIC_TRACKS),
+  soundPack: z.enum(SOUND_PACKS),
 });
 export type ProfileSettings = z.infer<typeof ProfileSettingsSchema>;
 
@@ -28,7 +64,32 @@ export const DEFAULT_PROFILE_SETTINGS: ProfileSettings = {
   sfxEnabled: true,
   sfxVolume: 0.7,
   showEvalBar: false,
+  board: 'theme',
+  pieceSet: 'classic',
+  accent: 'theme',
+  highlight: 'theme',
+  buttonStyle: 'rounded',
+  backdrop: 'theme',
+  backdropColor: '#2f4f4f',
+  backdropGradient: 'aurora',
+  backdropDim: 0,
+  backdropBlur: 0,
+  backdropMotion: true,
+  moveAnimation: 'normal',
+  muted: false,
+  masterVolume: 0.8,
+  musicVolume: 0.5,
+  uiVolume: 0.5,
+  musicMode: 'auto',
+  musicTrack: 'menu',
+  soundPack: 'classic',
 };
+
+/** Settings added in schema v5: older profiles get the defaults for missing keys. */
+export function withSettingsDefaultsV5<T extends { settings?: unknown }>(p: T): T {
+  const settings = typeof p.settings === 'object' && p.settings ? p.settings : {};
+  return { ...p, settings: { ...DEFAULT_PROFILE_SETTINGS, ...settings } };
+}
 
 export const PROFILE_NAME_MAX = 24;
 export const PROFILE_AVATARS = [

@@ -45,6 +45,17 @@ body::before {
   opacity: var(--mc-backdrop-opacity);
 }
 
+/* Player's "fade / blur the background" sliders, over the backdrop and its particles. */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: color-mix(in srgb, var(--mc-bg) calc(var(--mc-backdrop-dim, 0) * 100%), transparent);
+  backdrop-filter: blur(var(--mc-backdrop-blur, 0px));
+}
+
 :root[lang='ja'] body {
   line-break: strict;
   word-break: auto-phrase;

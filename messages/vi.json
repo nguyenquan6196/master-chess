@@ -72,8 +72,14 @@
     "theme": "Chủ đề màu",
     "themes": {
       "auto": "Tự động",
-      "classic": "Classic",
-      "midnight": "Midnight"
+      "classic": "Cổ điển",
+      "wood": "Gỗ",
+      "marble": "Cẩm thạch",
+      "neon": "Neon",
+      "arcade": "Arcade",
+      "fantasy": "Huyền ảo",
+      "sakura": "Hoa anh đào",
+      "midnight": "Nửa đêm"
     },
     "sound": "Âm thanh",
     "sfx": "Hiệu ứng âm thanh",
@@ -84,7 +90,83 @@
     "open": "Mở cài đặt",
     "close": "Đóng cài đặt",
     "appearance": "Giao diện",
-    "autoHint": "Tự động theo chế độ sáng/tối của hệ thống"
+    "autoHint": "Tự động theo chế độ sáng/tối của hệ thống",
+    "expand": "Phóng to",
+    "shrink": "Thu nhỏ",
+    "preview": "Xem trước",
+    "board": "Bàn cờ",
+    "boards": {
+      "theme": "Theo chủ đề",
+      "green": "Xanh lá",
+      "brown": "Nâu gỗ",
+      "blue": "Xanh dương",
+      "gray": "Xám",
+      "purple": "Tím",
+      "pink": "Hồng",
+      "neon": "Neon",
+      "gameboy": "Game Boy"
+    },
+    "pieces": "Bộ quân",
+    "pieceSets": {
+      "classic": "Cổ điển",
+      "minimal": "Tối giản",
+      "outline": "Viền neon",
+      "glyph": "Ký tự"
+    },
+    "accent": "Màu nhấn",
+    "accents": {
+      "theme": "Theo chủ đề",
+      "green": "Xanh lá",
+      "blue": "Xanh dương",
+      "purple": "Tím",
+      "pink": "Hồng",
+      "orange": "Cam",
+      "red": "Đỏ",
+      "teal": "Xanh ngọc",
+      "gold": "Vàng"
+    },
+    "highlight": "Tô sáng nước đi",
+    "highlights": {
+      "theme": "Theo chủ đề",
+      "yellow": "Vàng",
+      "blue": "Xanh dương",
+      "green": "Xanh lá",
+      "red": "Đỏ"
+    },
+    "buttons": "Kiểu nút",
+    "buttonStyles": {
+      "rounded": "Bo góc",
+      "square": "Vuông",
+      "pill": "Viên thuốc"
+    },
+    "moveAnimation": "Hiệu ứng di chuyển quân",
+    "moveAnimations": {
+      "normal": "Bình thường",
+      "fast": "Nhanh",
+      "off": "Tắt"
+    },
+    "backdrop": "Hình nền",
+    "backdrops": {
+      "theme": "Theo chủ đề",
+      "none": "Trơn",
+      "color": "Màu",
+      "gradient": "Chuyển màu",
+      "image": "Ảnh của bạn"
+    },
+    "gradients": {
+      "sunset": "Hoàng hôn",
+      "ocean": "Đại dương",
+      "forest": "Rừng xanh",
+      "aurora": "Cực quang",
+      "dusk": "Chạng vạng"
+    },
+    "backdropColor": "Chọn màu",
+    "upload": "Tải ảnh lên",
+    "removeImage": "Xoá ảnh",
+    "imageHint": "Ảnh chỉ lưu trên máy này (không có trong file save).",
+    "dim": "Làm nhạt nền",
+    "blur": "Làm mờ nền",
+    "motion": "Nền chuyển động"
   },
   "profile": {
     "pickTitle": "Ai đang chơi?",

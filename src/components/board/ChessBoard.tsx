@@ -1,5 +1,7 @@
 'use client';
 
+import { MOVE_ANIMATION_MS, useBoardPrefs } from './BoardPrefs';
+import { PIECE_RENDERERS } from './pieceSets';
 import { useId, useMemo, useState, type CSSProperties } from 'react';
 import { Chessboard, defaultPieces, type ChessboardOptions } from 'react-chessboard';
 import {
@@ -97,6 +99,7 @@ export function ChessBoard({
     color === mover &&
     (movableColor === 'both' || movableColor === color);
 
+  const prefs = useBoardPrefs();
   const targets = useMemo(() => (selected ? legalTargets(fen, selected) : []), [fen, selected]);
 
   function tryMove(from: Square, to: Square): boolean {
@@ -158,7 +161,8 @@ export function ChessBoard({
       endSquare: a.to,
       color: themeColor('--mc-arrow-hint'),
     })),
-    animationDurationInMs: 180,
+    animationDurationInMs: MOVE_ANIMATION_MS[prefs.moveAnimation],
+    ...(PIECE_RENDERERS[prefs.pieceSet] ? { pieces: PIECE_RENDERERS[prefs.pieceSet] } : {}),
     allowDrawingArrows: true,
     canDragPiece: ({ piece }) => canMoveColor(piece.pieceType[0] as Color),
     onPieceDrag: ({ square }) => {

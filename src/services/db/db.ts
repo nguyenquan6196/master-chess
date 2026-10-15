@@ -4,10 +4,18 @@ import {
   withProfileDefaultsV3,
   withProfileDefaultsV4,
   withGameDefaultsV4,
+  withSettingsDefaultsV5,
   type GameRecord,
   type Profile,
   type PuzzleAttempt,
 } from '@/core/profile/schema';
+
+export interface MediaRecord {
+  id: string;
+  profileId: string;
+  blob: Blob;
+  updatedAt: number;
+}
 
 /**
  * IndexedDB schema. To change it: add `this.version(N + 1).stores(...).upgrade(...)` below
@@ -17,6 +25,8 @@ export class MasterChessDB extends Dexie {
   profiles!: Table<Profile, string>;
   games!: Table<GameRecord, string>;
   puzzleAttempts!: Table<PuzzleAttempt, string>;
+  /** Player-uploaded images (custom backdrop), not part of save files. */
+  media!: Table<MediaRecord, string>;
 
   constructor() {
     super('master-chess');
@@ -63,6 +73,17 @@ export class MasterChessDB extends Dexie {
             Object.assign(g, withGameDefaultsV4(g));
           });
       });
+    // v5 (Phase 5): appearance/sound settings; custom backdrop images.
+    this.version(5)
+      .stores({ media: 'id, profileId' })
+      .upgrade((tx) =>
+        tx
+          .table('profiles')
+          .toCollection()
+          .modify((p: Record<string, unknown>) => {
+            Object.assign(p, withSettingsDefaultsV5(p));
+          }),
+      );
   }
 }
 

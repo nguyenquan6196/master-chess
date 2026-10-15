@@ -72,8 +72,14 @@
     "theme": "カラーテーマ",
     "themes": {
       "auto": "自動",
-      "classic": "Classic",
-      "midnight": "Midnight"
+      "classic": "クラシック",
+      "wood": "木目",
+      "marble": "大理石",
+      "neon": "ネオン",
+      "arcade": "アーケード",
+      "fantasy": "ファンタジー",
+      "sakura": "桜",
+      "midnight": "ミッドナイト"
     },
     "sound": "サウンド",
     "sfx": "効果音",
@@ -84,7 +90,83 @@
     "open": "設定を開く",
     "close": "設定を閉じる",
     "appearance": "外観",
-    "autoHint": "システムのライト/ダークに合わせる"
+    "autoHint": "システムのライト/ダークに合わせる",
+    "expand": "拡大",
+    "shrink": "縮小",
+    "preview": "プレビュー",
+    "board": "盤",
+    "boards": {
+      "theme": "テーマに合わせる",
+      "green": "緑",
+      "brown": "木目",
+      "blue": "青",
+      "gray": "グレー",
+      "purple": "紫",
+      "pink": "ピンク",
+      "neon": "ネオン",
+      "gameboy": "ゲームボーイ"
+    },
+    "pieces": "駒",
+    "pieceSets": {
+      "classic": "クラシック",
+      "minimal": "ミニマル",
+      "outline": "ネオン線",
+      "glyph": "文字"
+    },
+    "accent": "アクセントカラー",
+    "accents": {
+      "theme": "テーマに合わせる",
+      "green": "緑",
+      "blue": "青",
+      "purple": "紫",
+      "pink": "ピンク",
+      "orange": "オレンジ",
+      "red": "赤",
+      "teal": "ティール",
+      "gold": "金"
+    },
+    "highlight": "手のハイライト",
+    "highlights": {
+      "theme": "テーマに合わせる",
+      "yellow": "黄",
+      "blue": "青",
+      "green": "緑",
+      "red": "赤"
+    },
+    "buttons": "ボタンの形",
+    "buttonStyles": {
+      "rounded": "角丸",
+      "square": "四角",
+      "pill": "ピル型"
+    },
+    "moveAnimation": "駒のアニメーション",
+    "moveAnimations": {
+      "normal": "普通",
+      "fast": "速い",
+      "off": "オフ"
+    },
+    "backdrop": "背景",
+    "backdrops": {
+      "theme": "テーマに合わせる",
+      "none": "無地",
+      "color": "単色",
+      "gradient": "グラデーション",
+      "image": "自分の画像"
+    },
+    "gradients": {
+      "sunset": "夕焼け",
+      "ocean": "海",
+      "forest": "森",
+      "aurora": "オーロラ",
+      "dusk": "夕暮れ"
+    },
+    "backdropColor": "色を選ぶ",
+    "upload": "画像をアップロード",
+    "removeImage": "画像を削除",
+    "imageHint": "画像はこの端末だけに保存されます（セーブファイルには含まれません）。",
+    "dim": "背景を薄く",
+    "blur": "背景をぼかす",
+    "motion": "動く背景"
   },
   "profile": {
     "pickTitle": "だれがプレイしますか？",

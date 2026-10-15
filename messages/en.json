@@ -73,6 +73,12 @@
     "themes": {
       "auto": "Auto",
       "classic": "Classic",
+      "wood": "Wood",
+      "marble": "Marble",
+      "neon": "Neon",
+      "arcade": "Arcade",
+      "fantasy": "Fantasy",
+      "sakura": "Sakura",
       "midnight": "Midnight"
     },
     "sound": "Sound",
@@ -84,7 +90,83 @@
     "open": "Open settings",
     "close": "Close settings",
     "appearance": "Appearance",
-    "autoHint": "Follow the system light/dark mode"
+    "autoHint": "Follow the system light/dark mode",
+    "expand": "Expand",
+    "shrink": "Shrink",
+    "preview": "Preview",
+    "board": "Board",
+    "boards": {
+      "theme": "Theme",
+      "green": "Green",
+      "brown": "Brown wood",
+      "blue": "Blue",
+      "gray": "Gray",
+      "purple": "Purple",
+      "pink": "Pink",
+      "neon": "Neon",
+      "gameboy": "Game Boy"
+    },
+    "pieces": "Pieces",
+    "pieceSets": {
+      "classic": "Classic",
+      "minimal": "Minimal",
+      "outline": "Neon outline",
+      "glyph": "Glyph"
+    },
+    "accent": "Accent colour",
+    "accents": {
+      "theme": "Theme",
+      "green": "Green",
+      "blue": "Blue",
+      "purple": "Purple",
+      "pink": "Pink",
+      "orange": "Orange",
+      "red": "Red",
+      "teal": "Teal",
+      "gold": "Gold"
+    },
+    "highlight": "Move highlight",
+    "highlights": {
+      "theme": "Theme",
+      "yellow": "Yellow",
+      "blue": "Blue",
+      "green": "Green",
+      "red": "Red"
+    },
+    "buttons": "Button style",
+    "buttonStyles": {
+      "rounded": "Rounded",
+      "square": "Square",
+      "pill": "Pill"
+    },
+    "moveAnimation": "Piece animation",
+    "moveAnimations": {
+      "normal": "Normal",
+      "fast": "Fast",
+      "off": "Off"
+    },
+    "backdrop": "Background",
+    "backdrops": {
+      "theme": "Theme",
+      "none": "Plain",
+      "color": "Colour",
+      "gradient": "Gradient",
+      "image": "Your image"
+    },
+    "gradients": {
+      "sunset": "Sunset",
+      "ocean": "Ocean",
+      "forest": "Forest",
+      "aurora": "Aurora",
+      "dusk": "Dusk"
+    },
+    "backdropColor": "Pick a colour",
+    "upload": "Upload image",
+    "removeImage": "Remove image",
+    "imageHint": "The image stays on this device only (not in save files).",
+    "dim": "Fade background",
+    "blur": "Blur background",
+    "motion": "Animated background"
   },
   "profile": {
     "pickTitle": "Who's playing?",

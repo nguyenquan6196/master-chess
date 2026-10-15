@@ -1,25 +1,10 @@
 import { THEME_PREFERENCE_VALUES } from '@/core/profile/schema';
 
-/**
- * Theme ids map to `[data-theme="<id>"]` blocks in `src/styles/themes.css`.
- * Phase 5 replaces this with manifest-driven themes (spec §7.2).
- */
-export const THEMES = ['classic', 'midnight'] as const;
-export type ThemeId = (typeof THEMES)[number];
+export { resolveTheme, THEME_INFO, THEMES, type ThemePreference } from './appearance';
 
+/** "auto" (follow the system light/dark preference) plus every theme id. */
 export const THEME_PREFERENCES = THEME_PREFERENCE_VALUES;
-export type ThemePreference = (typeof THEME_PREFERENCES)[number];
 
-export const DEFAULT_THEME_PREFERENCE: ThemePreference = 'auto';
-
-const LIGHT_THEME: ThemeId = 'classic';
-const DARK_THEME: ThemeId = 'midnight';
-
-export function resolveTheme(pref: ThemePreference, prefersDark: boolean): ThemeId {
-  if (pref === 'auto') return prefersDark ? DARK_THEME : LIGHT_THEME;
-  return pref;
-}
-
-export function isThemePreference(value: unknown): value is ThemePreference {
+export function isThemePreference(value: unknown): value is (typeof THEME_PREFERENCES)[number] {
   return typeof value === 'string' && (THEME_PREFERENCES as readonly string[]).includes(value);
 }

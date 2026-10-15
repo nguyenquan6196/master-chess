@@ -2,13 +2,18 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import type { ReactNode } from 'react';
+import { useMemo, type ReactNode } from 'react';
 import { useTranslations } from 'use-intl';
+import { BoardPrefsProvider } from '@/components/board/BoardPrefs';
+import { BackdropParticles } from '@/components/ui/BackdropParticles';
 import { cn } from '@/components/ui/cn';
 import { rankTitle } from '@/components/ui/RankBadge';
 import { RankEmblem } from '@/components/ui/RankEmblem';
 import { RANKS, rankStatus } from '@/core/rating/rank';
 import { useSession } from '@/services/profile/session';
+import { useSettings } from '@/services/settings/store';
+import { THEME_INFO } from '@/services/theme/appearance';
+import { useResolvedTheme } from '@/services/theme/useResolvedTheme';
 import { LanguageSelect } from './LanguageSelect';
 import { MobileMenu } from './MobileMenu';
 import { SettingsFab } from './SettingsFab';
@@ -23,6 +28,14 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
   const t = useTranslations('nav');
   const pathname = usePathname();
   const profile = useSession((s) => s.profile);
+  const pieceSet = useSettings((s) => s.pieceSet);
+  const moveAnimation = useSettings((s) => s.moveAnimation);
+  const resolvedTheme = useResolvedTheme();
+  const backdropMotion = useSettings((s) => s.backdropMotion);
+  const backdrop = useSettings((s) => s.backdrop);
+  const particles =
+    backdropMotion && backdrop === 'theme' ? THEME_INFO[resolvedTheme].particles : null;
+  const boardPrefs = useMemo(() => ({ pieceSet, moveAnimation }), [pieceSet, moveAnimation]);
   const tr = useTranslations('rank');
   const rank = profile ? rankStatus(profile.gameRating.rating, profile.rankFloor) : null;
 
@@ -30,6 +43,7 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
 
   return (
     <>
+      {particles && <BackdropParticles key={resolvedTheme} kind={particles} />}
       <header className="sticky top-0 z-20 border-b border-border bg-surface/90 backdrop-blur">
         <div className="mx-auto flex h-14 max-w-6xl items-center gap-4 px-4">
           <Link
@@ -87,8 +101,12 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 pt-6 pb-24">{children}</main>
-      <SettingsFab>{settings}</SettingsFab>
+      <main className="mx-auto w-full max-w-6xl flex-1 px-4 pt-6 pb-24">
+        <BoardPrefsProvider value={boardPrefs}>{children}</BoardPrefsProvider>
+      </main>
+      <SettingsFab>
+        <BoardPrefsProvider value={boardPrefs}>{settings}</BoardPrefsProvider>
+      </SettingsFab>
     </>
   );
 }

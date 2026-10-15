@@ -13,19 +13,18 @@ import { SETTINGS_STORAGE_KEY } from './keys';
 interface SettingsState extends ProfileSettings {
   /** False until a locale was chosen or detected, so first visits can follow the browser. */
   localeChosen: boolean;
+  /** Bumped when the custom backdrop image changes (not persisted). */
+  backdropVersion: number;
   setLocale: (locale: Locale) => void;
   setTheme: (theme: ThemePreference) => void;
   update: (patch: Partial<ProfileSettings>) => void;
 }
 
+const SETTING_KEYS = Object.keys(DEFAULT_PROFILE_SETTINGS) as (keyof ProfileSettings)[];
+
+/** Only the persisted settings fields (drops store actions and UI-only flags). */
 export function pickProfileSettings(s: ProfileSettings): ProfileSettings {
-  return {
-    locale: s.locale,
-    theme: s.theme,
-    sfxEnabled: s.sfxEnabled,
-    sfxVolume: s.sfxVolume,
-    showEvalBar: s.showEvalBar,
-  };
+  return Object.fromEntries(SETTING_KEYS.map((k) => [k, s[k]])) as ProfileSettings;
 }
 
 export const useSettings = create<SettingsState>()(
@@ -33,16 +32,17 @@ export const useSettings = create<SettingsState>()(
     (set) => ({
       ...DEFAULT_PROFILE_SETTINGS,
       localeChosen: false,
+      backdropVersion: 0,
       setLocale: (locale) => set({ locale, localeChosen: true }),
       setTheme: (theme) => set({ theme }),
       update: (patch) => set(patch),
     }),
     {
       name: SETTINGS_STORAGE_KEY,
-      version: 2,
+      version: 3,
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => ({ ...pickProfileSettings(s), localeChosen: s.localeChosen }),
-      // v1 only had locale/theme/localeChosen.
+      // Older versions lack later settings: fill them with defaults.
       migrate: (persisted) => ({ ...DEFAULT_PROFILE_SETTINGS, ...(persisted as object) }),
       // Server HTML always renders defaults; we rehydrate after mount to avoid hydration mismatches.
       skipHydration: true,

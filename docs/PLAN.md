@@ -154,13 +154,13 @@
 - [x] Sửa: trang mở bằng `<Link>` có `#hash` (Review, `/practice/themes#fork` từ bài học) đọc hash quá sớm → hook `useLocationHash`
 
 ## Phase 5 — Hoa hòe
-- [ ] Theme (spec §7.2):
-  - [ ] Tìm/tạo asset: ảnh nền chất lượng cao (desktop + mobile), texture bàn, 3–5 bộ quân có license phù hợp, skin nút (gỗ/cuộn giấy dạng 9-slice); ghi `CREDITS.md`
-  - [ ] 8 theme có sẵn (Classic, Gỗ, Cẩm thạch, Neon, Arcade, Fantasy, Sakura, Midnight)
-  - [ ] Nền theo theme: đã có lớp nền chung `body::before` đọc biến `--mc-backdrop-image/size/mask/opacity` (mặc định: caro mờ). Mỗi theme chỉ cần ghi đè các biến này (ảnh, gradient…)
-  - [ ] Tuỳ chỉnh từng phần: nền (màu đơn sắc / gradient / ảnh / ảnh tự tải lên), bàn cờ, bộ quân, highlight & mũi tên, màu nhấn, kiểu nút
-  - [ ] Thanh làm tối/làm mờ nền; nền động (cánh hoa, hạt) tôn trọng `prefers-reduced-motion`
-  - [ ] Bảng cài đặt nổi → Giao diện: lưới thẻ xem trước + live preview trên bàn cờ mẫu (có thể mở rộng bảng thành toàn màn hình)
+- [x] Theme (spec §7.2) — asset **tự tạo, không tải** (chốt 2026-10-15):
+  - [x] Asset tự vẽ: nền CSS (vân gỗ, cẩm thạch, lưới neon, pixel, trời sao + cực quang, cánh hoa), 3 bộ quân SVG tự vẽ (Tối giản, Viền neon, Ký tự) + bộ mặc định; kiểu nút bằng bo góc (không dùng skin ảnh 9-slice)
+  - [x] 8 theme có sẵn (Classic, Gỗ, Cẩm thạch, Neon, Arcade, Fantasy, Sakura, Midnight)
+  - [x] Nền theo theme: đã có lớp nền chung `body::before` đọc biến `--mc-backdrop-image/size/mask/opacity` (mặc định: caro mờ). Mỗi theme chỉ cần ghi đè các biến này (ảnh, gradient…)
+  - [x] Tuỳ chỉnh từng phần: nền (theo chủ đề / trơn / màu / 5 dải màu / ảnh tự tải lên — thu nhỏ ≤1920px, lưu IndexedDB bảng `media`, không vào file save), 8 kiểu bàn, 4 bộ quân, tô sáng nước đi, 8 màu nhấn, kiểu nút, tốc độ hiệu ứng quân. Áp trước khi vẽ trang (boot script) để không nháy
+  - [x] Thanh làm nhạt/làm mờ nền; nền động bằng canvas (cánh hoa, sao, hạt neon, pixel, bụi gỗ), dừng khi ẩn tab, tắt khi `prefers-reduced-motion`
+  - [x] Bảng cài đặt nổi → Giao diện: lưới thẻ xem trước + bàn cờ xem trước trực tiếp, nút phóng to bảng
 - [ ] Ngôn ngữ (chọn trên menu): vi/en/ja; dịch đủ UI, thoại bot, quiz; bài học dịch dần (fallback + thông báo)
 - [ ] Skill `add-theme` (manifest + asset + CREDITS) và skill `sync-i18n` (dịch key còn thiếu vi → en/ja theo GLOSSARY)
 - [ ] Animation, hiệu ứng chiếu/phong cấp

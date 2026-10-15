@@ -40,6 +40,7 @@
   --mc-backdrop-size: 64px 64px;
   --mc-backdrop-mask: radial-gradient(ellipse at 30% 20%, black, transparent 75%);
   --mc-backdrop-opacity: 0.6;
+  --mc-radius-btn: 0.5rem;
   /* Game Review move classes. */
   --mc-cls-best: #4f9a2f;
   --mc-cls-good: #8bb35a;
@@ -87,6 +88,243 @@
   --mc-cls-blunder: #ff5c5c;
   --mc-chart-white: #d9dbe8;
   --mc-chart-black: #262939;
+}
+
+[data-theme='wood'] {
+  color-scheme: light;
+  --mc-bg: #efe2cc;
+  --mc-surface: #fbf5ea;
+  --mc-surface-2: #eadbc2;
+  --mc-fg: #3a2a1a;
+  --mc-muted: #7a6650;
+  --mc-border: #d9c4a3;
+  --mc-accent: #9c5a2a;
+  --mc-accent-hover: #844a20;
+  --mc-accent-fg: #fff8ee;
+  --mc-board-light: #f0d9b5;
+  --mc-board-dark: #b58863;
+  --mc-board-notation-light: #b58863;
+  --mc-board-notation-dark: #f0d9b5;
+  --mc-arrow-hint: rgb(156 90 42 / 0.85);
+  --mc-mark-hint: rgb(156 90 42 / 0.9);
+  --mc-chart-black: #4a3826;
+  /* Wood grain planks. */
+  --mc-backdrop-image:
+    repeating-linear-gradient(
+      90deg,
+      rgb(120 72 34 / 0.1) 0 2px,
+      transparent 2px 9px,
+      rgb(120 72 34 / 0.06) 9px 10px,
+      transparent 10px 23px
+    ),
+    repeating-linear-gradient(0deg, rgb(90 50 20 / 0.12) 0 2px, transparent 2px 140px),
+    linear-gradient(180deg, #e7cfa8, #d9b98a);
+  --mc-backdrop-size: auto;
+  --mc-backdrop-mask: none;
+  --mc-backdrop-opacity: 0.85;
+}
+
+[data-theme='marble'] {
+  color-scheme: light;
+  --mc-bg: #f2f2f0;
+  --mc-surface: #ffffff;
+  --mc-surface-2: #ececea;
+  --mc-fg: #222428;
+  --mc-muted: #6a6e75;
+  --mc-border: #dadbd8;
+  --mc-accent: #3f5f7f;
+  --mc-accent-hover: #314d69;
+  --mc-accent-fg: #ffffff;
+  --mc-board-light: #f4f3ef;
+  --mc-board-dark: #a3a7ad;
+  --mc-board-notation-light: #8a8f96;
+  --mc-board-notation-dark: #f4f3ef;
+  --mc-hl-last: rgb(120 160 210 / 0.45);
+  --mc-hl-selected: rgb(120 160 210 / 0.6);
+  --mc-arrow-hint: rgb(63 95 127 / 0.85);
+  --mc-mark-hint: rgb(63 95 127 / 0.9);
+  /* Soft marble veins. */
+  --mc-backdrop-image:
+    radial-gradient(ellipse 60% 18% at 20% 30%, rgb(150 150 160 / 0.25), transparent 70%),
+    radial-gradient(ellipse 40% 10% at 70% 60%, rgb(120 120 130 / 0.22), transparent 70%),
+    radial-gradient(ellipse 80% 12% at 55% 85%, rgb(170 170 180 / 0.2), transparent 70%),
+    linear-gradient(115deg, transparent 40%, rgb(140 140 150 / 0.18) 42%, transparent 44%),
+    linear-gradient(160deg, #fbfbfa, #e7e7e4);
+  --mc-backdrop-size: cover;
+  --mc-backdrop-mask: none;
+  --mc-backdrop-opacity: 1;
+}
+
+[data-theme='neon'] {
+  color-scheme: dark;
+  --mc-bg: #0a0a18;
+  --mc-surface: #141428;
+  --mc-surface-2: #1e1e3a;
+  --mc-fg: #f0eaff;
+  --mc-muted: #a59cc8;
+  --mc-border: #33305c;
+  --mc-accent: #ff3fd8;
+  --mc-accent-hover: #e62cc0;
+  --mc-accent-fg: #14001a;
+  --mc-danger: #ff5c7a;
+  --mc-shadow: 0 0 0 1px rgb(255 63 216 / 0.15), 0 8px 28px rgb(0 0 0 / 0.5);
+  --mc-board-light: #2a2a52;
+  --mc-board-dark: #15152e;
+  --mc-board-notation-light: #ff3fd8;
+  --mc-board-notation-dark: #3ff3ff;
+  --mc-hl-last: rgb(63 243 255 / 0.35);
+  --mc-hl-selected: rgb(255 63 216 / 0.5);
+  --mc-hl-move: rgb(63 243 255 / 0.35);
+  --mc-hl-check: rgb(255 70 90 / 0.85);
+  --mc-arrow-hint: rgb(63 243 255 / 0.9);
+  --mc-side-white: #f0eaff;
+  --mc-side-black: #05050d;
+  --mc-mark-hint: rgb(63 243 255 / 0.95);
+  --mc-mark-selected: rgb(255 63 216 / 0.8);
+  --mc-mark-correct: rgb(80 255 160 / 0.5);
+  --mc-mark-wrong: rgb(255 70 90 / 0.6);
+  --mc-cls-best: #6fcf4a;
+  --mc-cls-good: #a3c97a;
+  --mc-cls-inaccuracy: #f5c542;
+  --mc-cls-mistake: #ff9a45;
+  --mc-cls-blunder: #ff5c5c;
+  --mc-chart-white: #e8dcff;
+  --mc-chart-black: #1e1e3a;
+  /* Synthwave grid. */
+  --mc-backdrop-image:
+    linear-gradient(rgb(255 63 216 / 0.35) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(63 243 255 / 0.3) 1px, transparent 1px),
+    radial-gradient(ellipse at 50% 110%, rgb(255 63 216 / 0.35), transparent 60%);
+  --mc-backdrop-size: 48px 48px, 48px 48px, 100% 100%;
+  --mc-backdrop-mask: linear-gradient(to top, black, transparent 85%);
+  --mc-backdrop-opacity: 0.7;
+}
+
+[data-theme='arcade'] {
+  color-scheme: dark;
+  --mc-bg: #0f2a12;
+  --mc-surface: #173a1b;
+  --mc-surface-2: #1f4a24;
+  --mc-fg: #e4f7c8;
+  --mc-muted: #9fc28a;
+  --mc-border: #2f6236;
+  --mc-accent: #9bbc0f;
+  --mc-accent-hover: #8bac0f;
+  --mc-accent-fg: #0f380f;
+  --mc-danger: #ff6b4a;
+  --mc-shadow: 4px 4px 0 rgb(0 0 0 / 0.45);
+  --mc-board-light: #9bbc0f;
+  --mc-board-dark: #306230;
+  --mc-board-notation-light: #306230;
+  --mc-board-notation-dark: #9bbc0f;
+  --mc-hl-last: rgb(255 240 120 / 0.5);
+  --mc-hl-selected: rgb(255 240 120 / 0.7);
+  --mc-hl-move: rgb(15 56 15 / 0.45);
+  --mc-hl-check: rgb(255 80 60 / 0.85);
+  --mc-arrow-hint: rgb(255 240 120 / 0.9);
+  --mc-side-white: #e4f7c8;
+  --mc-side-black: #0f380f;
+  --mc-mark-hint: rgb(255 240 120 / 0.95);
+  --mc-mark-selected: rgb(80 160 255 / 0.8);
+  --mc-mark-correct: rgb(155 188 15 / 0.7);
+  --mc-mark-wrong: rgb(255 80 60 / 0.6);
+  --mc-cls-best: #6fcf4a;
+  --mc-cls-good: #a3c97a;
+  --mc-cls-inaccuracy: #f5c542;
+  --mc-cls-mistake: #ff9a45;
+  --mc-cls-blunder: #ff5c5c;
+  --mc-chart-white: #9bbc0f;
+  --mc-chart-black: #0f380f;
+  --mc-radius-btn: 0;
+  /* Pixel dots. */
+  --mc-backdrop-image: radial-gradient(rgb(155 188 15 / 0.35) 1.5px, transparent 1.6px);
+  --mc-backdrop-size: 16px 16px;
+  --mc-backdrop-mask: none;
+  --mc-backdrop-opacity: 0.8;
+}
+
+[data-theme='fantasy'] {
+  color-scheme: dark;
+  --mc-bg: #160f2b;
+  --mc-surface: #221840;
+  --mc-surface-2: #2e2254;
+  --mc-fg: #f3ecff;
+  --mc-muted: #b7a8dc;
+  --mc-border: #42336f;
+  --mc-accent: #f2c14e;
+  --mc-accent-hover: #e0ad35;
+  --mc-accent-fg: #2a1a00;
+  --mc-danger: #ff6f7d;
+  --mc-shadow: 0 1px 2px rgb(0 0 0 / 0.35), 0 10px 30px rgb(10 0 30 / 0.5);
+  --mc-board-light: #e8d9b5;
+  --mc-board-dark: #6b4f8a;
+  --mc-board-notation-light: #6b4f8a;
+  --mc-board-notation-dark: #e8d9b5;
+  --mc-hl-last: rgb(242 193 78 / 0.45);
+  --mc-hl-selected: rgb(242 193 78 / 0.65);
+  --mc-hl-move: rgb(20 10 40 / 0.35);
+  --mc-hl-check: rgb(255 90 100 / 0.85);
+  --mc-arrow-hint: rgb(242 193 78 / 0.9);
+  --mc-side-white: #f3ecff;
+  --mc-side-black: #0e0820;
+  --mc-mark-hint: rgb(242 193 78 / 0.95);
+  --mc-mark-selected: rgb(120 200 255 / 0.8);
+  --mc-mark-correct: rgb(110 220 150 / 0.6);
+  --mc-mark-wrong: rgb(255 90 100 / 0.6);
+  --mc-cls-best: #6fcf4a;
+  --mc-cls-good: #a3c97a;
+  --mc-cls-inaccuracy: #f5c542;
+  --mc-cls-mistake: #ff9a45;
+  --mc-cls-blunder: #ff5c5c;
+  --mc-chart-white: #e8d9b5;
+  --mc-chart-black: #2e2254;
+  /* Night sky with aurora and stars. */
+  --mc-backdrop-image:
+    radial-gradient(1.5px 1.5px at 12% 18%, #fff, transparent),
+    radial-gradient(1px 1px at 33% 42%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 58% 12%, #ffe9a8, transparent),
+    radial-gradient(1px 1px at 76% 36%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 88% 70%, #cfe2ff, transparent),
+    radial-gradient(1px 1px at 22% 78%, #fff, transparent),
+    radial-gradient(ellipse 70% 35% at 30% 0%, rgb(120 90 255 / 0.35), transparent 70%),
+    radial-gradient(ellipse 60% 30% at 80% 10%, rgb(60 220 200 / 0.22), transparent 70%);
+  --mc-backdrop-size:
+    320px 320px, 320px 320px, 320px 320px, 320px 320px, 320px 320px, 320px 320px, 100% 100%,
+    100% 100%;
+  --mc-backdrop-mask: none;
+  --mc-backdrop-opacity: 1;
+}
+
+[data-theme='sakura'] {
+  color-scheme: light;
+  --mc-bg: #fdf2f4;
+  --mc-surface: #ffffff;
+  --mc-surface-2: #fbe4ea;
+  --mc-fg: #3b2530;
+  --mc-muted: #8b6873;
+  --mc-border: #f1cfd8;
+  --mc-accent: #d6517d;
+  --mc-accent-hover: #bf4069;
+  --mc-accent-fg: #ffffff;
+  --mc-board-light: #fff0f3;
+  --mc-board-dark: #e8a0b4;
+  --mc-board-notation-light: #c97a90;
+  --mc-board-notation-dark: #fff0f3;
+  --mc-hl-last: rgb(255 200 90 / 0.45);
+  --mc-hl-selected: rgb(255 200 90 / 0.6);
+  --mc-arrow-hint: rgb(214 81 125 / 0.85);
+  --mc-mark-hint: rgb(214 81 125 / 0.9);
+  --mc-chart-black: #5a3442;
+  /* Pastel petals. */
+  --mc-backdrop-image:
+    radial-gradient(ellipse 8px 5px at 20% 30%, rgb(244 160 185 / 0.6), transparent),
+    radial-gradient(ellipse 6px 4px at 70% 20%, rgb(244 170 195 / 0.5), transparent),
+    radial-gradient(ellipse 7px 5px at 45% 75%, rgb(240 150 180 / 0.55), transparent),
+    radial-gradient(ellipse 5px 3px at 85% 65%, rgb(250 180 200 / 0.5), transparent),
+    linear-gradient(180deg, #ffeef2, #fbe0e8);
+  --mc-backdrop-size: 180px 180px, 180px 180px, 180px 180px, 180px 180px, 100% 100%;
+  --mc-backdrop-mask: none;
+  --mc-backdrop-opacity: 1;
 }
 
 /* Fonts per language (spec §7.3). Font variables come from next/font in app/layout.tsx. */
