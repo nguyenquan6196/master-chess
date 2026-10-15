@@ -29,7 +29,7 @@ export function Modal({ open, title, children, actions, onClose }: ModalProps) {
       <div
         role="dialog"
         aria-modal="true"
-        className="w-full max-w-sm rounded-2xl border border-border bg-surface p-6 text-fg shadow-card"
+        className="relative w-full max-w-sm overflow-hidden rounded-2xl border border-border bg-surface p-6 text-fg shadow-card"
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="font-display text-2xl font-bold">{title}</h2>

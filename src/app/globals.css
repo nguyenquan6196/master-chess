@@ -307,3 +307,38 @@ body::after {
     opacity: 1;
   }
 }
+
+/* Board effects (components/board/ChessBoard): check pulse and promotion flash. */
+@keyframes mc-check-pulse {
+  0%,
+  100% {
+    box-shadow: inset 0 0 0 0 var(--mc-hl-check);
+  }
+  50% {
+    box-shadow: inset 0 0 0 6px var(--mc-hl-check);
+  }
+}
+@keyframes mc-promote-flash {
+  0% {
+    box-shadow: inset 0 0 0 0 transparent;
+    filter: brightness(1);
+  }
+  30% {
+    box-shadow: inset 0 0 24px 8px #ffe68a;
+    filter: brightness(1.5);
+  }
+  100% {
+    box-shadow: inset 0 0 0 0 transparent;
+    filter: brightness(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-square] {
+    animation: none !important;
+  }
+}
+
+/* Toasts (features/shell/Toaster). */
+.mc-toast {
+  animation: mc-fade-up 0.3s ease-out both;
+}

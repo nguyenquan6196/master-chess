@@ -604,5 +604,121 @@
     "exitRetry": "やめる",
     "notFound": "この対局が見つかりません。",
     "open": "振り返り"
+  },
+  "progress": {
+    "level": "レベル{level}",
+    "xp": "{into}/{needed} XP",
+    "totalXp": "合計 {xp} XP",
+    "xpGain": "+{amount} XP",
+    "levelUp": "レベル{level}！⭐",
+    "achievementUnlocked": "実績解除！",
+    "streak": "{days}日連続",
+    "streakBest": "最高：{days}日",
+    "noStreak": "今日プレイして連続記録を始めよう！",
+    "achievements": "実績",
+    "progress": "{done}/{total}",
+    "locked": "未解除"
+  },
+  "achievements": {
+    "firstLesson": {
+      "name": "最初のレッスン",
+      "desc": "レッスンを1つ完了する。"
+    },
+    "scholar": {
+      "name": "勉強家",
+      "desc": "レッスンを9つ完了する。"
+    },
+    "allLessons": {
+      "name": "卒業",
+      "desc": "すべてのレッスンを完了する。"
+    },
+    "perfectQuiz": {
+      "name": "満点",
+      "desc": "クイズで全問正解する。"
+    },
+    "puzzle10": {
+      "name": "パズル好き",
+      "desc": "パズルを10問解く。"
+    },
+    "puzzle100": {
+      "name": "パズルの達人",
+      "desc": "パズルを100問解く。"
+    },
+    "daily7": {
+      "name": "こつこつ",
+      "desc": "デイリーパズルを7問解く。"
+    },
+    "rush15": {
+      "name": "いなずま",
+      "desc": "パズルラッシュで15点を取る。"
+    },
+    "rush30": {
+      "name": "嵐",
+      "desc": "パズルラッシュで30点を取る。"
+    },
+    "firstGame": {
+      "name": "初対局",
+      "desc": "ボットと1局指し終える。"
+    },
+    "firstWin": {
+      "name": "初勝利",
+      "desc": "どれかのボットに勝つ。"
+    },
+    "beatFox": {
+      "name": "キツネに勝つ",
+      "desc": "キツネに勝つ。"
+    },
+    "beatLion": {
+      "name": "ライオン使い",
+      "desc": "ライオンに勝つ。"
+    },
+    "beatDragon": {
+      "name": "竜殺し",
+      "desc": "竜に勝つ。"
+    },
+    "beatMaster": {
+      "name": "マスター超え",
+      "desc": "マスターに勝つ。"
+    },
+    "customWin": {
+      "name": "カスタム王者",
+      "desc": "カスタムボットに勝つ。"
+    },
+    "rankSilver": {
+      "name": "シルバー到達",
+      "desc": "シルバーに昇格する。"
+    },
+    "rankGold": {
+      "name": "ゴールド到達",
+      "desc": "ゴールドに昇格する。"
+    },
+    "rankDiamond": {
+      "name": "ダイヤモンド到達",
+      "desc": "ダイヤモンドに昇格する。"
+    },
+    "reviewer": {
+      "name": "振り返り上手",
+      "desc": "対局を1回振り返る。"
+    },
+    "streak3": {
+      "name": "3日連続",
+      "desc": "3日続けてプレイする。"
+    },
+    "streak7": {
+      "name": "7日連続",
+      "desc": "7日続けてプレイする。"
+    },
+    "streak30": {
+      "name": "30日連続",
+      "desc": "30日続けてプレイする。"
+    },
+    "level5": {
+      "name": "レベル5",
+      "desc": "レベル5になる。"
+    },
+    "level10": {
+      "name": "レベル10",
+      "desc": "レベル10になる。"
+    }
   }
 }

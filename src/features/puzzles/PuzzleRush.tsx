@@ -20,6 +20,7 @@ import {
 import { isCleanSolve, type PuzzleSession } from '@/core/puzzle/session';
 import type { Puzzle } from '@/core/puzzle/types';
 import { useMusicScene } from '@/services/audio/musicDirector';
+import { recordProgress } from '@/services/progress/progress';
 import { playSfx } from '@/services/audio/sfx';
 import { useHistoryStep } from '@/services/navigation/historyStep';
 import { useSession } from '@/services/profile/session';
@@ -95,7 +96,10 @@ export function PuzzleRush() {
     finished.current = true;
     playSfx('draw');
     const profile = useSession.getState().profile;
-    if (profile) void saveRushScore(profile, run.duration, run.score).then(setRecord);
+    if (profile) {
+      void saveRushScore(profile, run.duration, run.score).then(setRecord);
+      void recordProgress(profile.id, { kind: 'rush', score: run.score });
+    }
   }, [run]);
 
   // Music gets tense in the last seconds of a run.

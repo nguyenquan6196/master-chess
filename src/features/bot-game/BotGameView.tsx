@@ -7,6 +7,7 @@ import { ChessBoard } from '@/components/board/ChessBoard';
 import { EvalBar } from '@/components/board/EvalBar';
 import { MoveList } from '@/components/board/MoveList';
 import { Button } from '@/components/ui/Button';
+import { Confetti } from '@/components/ui/Confetti';
 import { Card } from '@/components/ui/Card';
 import { Modal } from '@/components/ui/Modal';
 import { RankBadge } from '@/components/ui/RankBadge';
@@ -133,7 +134,7 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
             fen={snapshot.fen}
             orientation={orientation}
             movableColor={g.isPlayerTurn ? record.playerColor : 'none'}
-            lastMove={last ? { from: last.from, to: last.to } : null}
+            lastMove={last ? { from: last.from, to: last.to, promotion: last.promotion } : null}
             arrows={g.hint ? [g.hint] : []}
             onMove={g.onPlayerMove}
             promotionLabels={{
@@ -297,6 +298,7 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
           </>
         }
       >
+        <Confetti trigger={record.result === 'win' ? 1 : null} />
         <p className="flex items-center gap-2">
           <span className="text-2xl" aria-hidden>
             {level.emoji}

@@ -2,6 +2,7 @@ import catalogJson from '../../../content/learn/catalog.json';
 import { CatalogSchema } from '@/core/learn/catalog';
 import type { Profile } from '@/core/profile/schema';
 import { profileRepo } from '../db/repositories';
+import { recordProgress } from '../progress/progress';
 import { useSession } from '../profile/session';
 
 /** Lesson catalog, validated once (also covered by unit tests). */
@@ -23,4 +24,5 @@ export async function completeLesson(
   };
   await profileRepo.update(profile.id, { lessons });
   useSession.getState().setProfile({ ...profile, lessons });
+  await recordProgress(profile.id, { kind: 'lesson', score, firstTime: !prev });
 }

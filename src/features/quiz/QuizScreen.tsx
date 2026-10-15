@@ -19,6 +19,7 @@ import {
 } from '@/core/quiz/quiz';
 import { playSfx } from '@/services/audio/sfx';
 import { useSession } from '@/services/profile/session';
+import { recordProgress } from '@/services/progress/progress';
 import { saveQuizScore } from '@/services/puzzles/puzzles';
 import { loadQuizTexts, QUIZ_QUESTIONS } from '@/services/quiz/quizContent';
 import { useHistoryStep } from '@/services/navigation/historyStep';
@@ -162,7 +163,10 @@ export function QuizScreen() {
     const ratio = all.filter(Boolean).length / all.length;
     playSfx(ratio >= 0.7 ? 'win' : 'draw');
     const profile = useSession.getState().profile;
-    if (profile) setNewBest(await saveQuizScore(profile, scoreKey(round), ratio));
+    if (profile) {
+      setNewBest(await saveQuizScore(profile, scoreKey(round), ratio));
+      void recordProgress(profile.id, { kind: 'quiz', correct: all.filter(Boolean).length });
+    }
   }
 
   const bestLabel = (key: string) =>

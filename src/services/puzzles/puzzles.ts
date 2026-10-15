@@ -1,3 +1,4 @@
+import { recordProgress } from '../progress/progress';
 import { updateRating } from '@/core/rating/glicko2';
 import { dailyIndex, dayKey, pickPuzzle } from '@/core/puzzle/select';
 import { isCleanSolve, type PuzzleSession } from '@/core/puzzle/session';
@@ -99,6 +100,8 @@ export async function recordPuzzleAttempt(
     timeMs,
     at: Date.now(),
   });
+  // Rush runs are rewarded once at the end (by score), not per puzzle.
+  if (mode !== 'rush') void recordProgress(profile.id, { kind: 'puzzle', solved, mode });
   return ratingChange;
 }
 

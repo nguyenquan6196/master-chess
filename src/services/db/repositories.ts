@@ -38,6 +38,9 @@ export const profileRepo = {
       lessons: {},
       gameRating: { ...GAME_RATING.initial },
       rankFloor: 0,
+      xp: 0,
+      streak: { lastDay: null, current: 0, best: 0 },
+      achievements: {},
     };
     await getDb().profiles.add(profile);
     return profile;

@@ -23,6 +23,9 @@ const profile: Profile = {
   lessons: { pawn: { completedAt: 3, score: 1 } },
   gameRating: { rating: 650, rd: 120, vol: 0.06 },
   rankFloor: 1,
+  xp: 120,
+  streak: { lastDay: '2026-10-15', current: 2, best: 4 },
+  achievements: { firstWin: 5 },
 };
 
 const attempt: PuzzleAttempt = {
@@ -86,7 +89,17 @@ describe('core/profile/saveFile', () => {
 
 describe('core/profile/saveFile migration', () => {
   it('upgrades a v1 file (no puzzle or lesson data) to the current version', () => {
-    const v2Only = ['puzzleRating', 'rushBest', 'quizBest', 'lessons', 'gameRating', 'rankFloor'];
+    const v2Only = [
+      'puzzleRating',
+      'rushBest',
+      'quizBest',
+      'lessons',
+      'gameRating',
+      'rankFloor',
+      'xp',
+      'streak',
+      'achievements',
+    ];
     const v1Profile = Object.fromEntries(
       Object.entries(profile).filter(([k]) => !v2Only.includes(k)),
     );
@@ -118,6 +131,8 @@ describe('core/profile/saveFile migration', () => {
     expect(parsed.data.games[0].style).toBe('balanced');
     expect(parsed.data.profile.settings.pieceSet).toBe('classic');
     expect(parsed.data.profile.settings.musicMode).toBe('auto');
+    expect(parsed.data.profile.xp).toBe(0);
+    expect(parsed.data.profile.achievements).toEqual({});
   });
 });
 

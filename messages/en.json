@@ -604,5 +604,121 @@
     "exitRetry": "Exit",
     "notFound": "This game could not be found.",
     "open": "Review"
+  },
+  "progress": {
+    "level": "Level {level}",
+    "xp": "{into}/{needed} XP",
+    "totalXp": "{xp} XP in total",
+    "xpGain": "+{amount} XP",
+    "levelUp": "Level {level}! ⭐",
+    "achievementUnlocked": "Achievement unlocked!",
+    "streak": "{days}-day streak",
+    "streakBest": "Best: {days} days",
+    "noStreak": "Play today to start a streak!",
+    "achievements": "Achievements",
+    "progress": "{done}/{total}",
+    "locked": "Locked"
+  },
+  "achievements": {
+    "firstLesson": {
+      "name": "First lesson",
+      "desc": "Complete a lesson."
+    },
+    "scholar": {
+      "name": "Keen student",
+      "desc": "Complete 9 lessons."
+    },
+    "allLessons": {
+      "name": "Graduate",
+      "desc": "Complete every lesson."
+    },
+    "perfectQuiz": {
+      "name": "Perfect score",
+      "desc": "Get every question right in a quiz round."
+    },
+    "puzzle10": {
+      "name": "Puzzle solver",
+      "desc": "Solve 10 puzzles."
+    },
+    "puzzle100": {
+      "name": "Puzzle master",
+      "desc": "Solve 100 puzzles."
+    },
+    "daily7": {
+      "name": "Regular",
+      "desc": "Solve 7 daily puzzles."
+    },
+    "rush15": {
+      "name": "Lightning",
+      "desc": "Score 15 in Puzzle Rush."
+    },
+    "rush30": {
+      "name": "Storm",
+      "desc": "Score 30 in Puzzle Rush."
+    },
+    "firstGame": {
+      "name": "First game",
+      "desc": "Finish a game against a bot."
+    },
+    "firstWin": {
+      "name": "First win",
+      "desc": "Beat any bot."
+    },
+    "beatFox": {
+      "name": "Outfoxed",
+      "desc": "Beat the Fox."
+    },
+    "beatLion": {
+      "name": "Lion tamer",
+      "desc": "Beat the Lion."
+    },
+    "beatDragon": {
+      "name": "Dragon slayer",
+      "desc": "Beat the Dragon."
+    },
+    "beatMaster": {
+      "name": "Master beater",
+      "desc": "Beat the Master."
+    },
+    "customWin": {
+      "name": "Custom champion",
+      "desc": "Beat a Custom bot."
+    },
+    "rankSilver": {
+      "name": "Silver rank",
+      "desc": "Reach Silver."
+    },
+    "rankGold": {
+      "name": "Gold rank",
+      "desc": "Reach Gold."
+    },
+    "rankDiamond": {
+      "name": "Diamond rank",
+      "desc": "Reach Diamond."
+    },
+    "reviewer": {
+      "name": "Reviewer",
+      "desc": "Review one of your games."
+    },
+    "streak3": {
+      "name": "3-day streak",
+      "desc": "Play 3 days in a row."
+    },
+    "streak7": {
+      "name": "7-day streak",
+      "desc": "Play 7 days in a row."
+    },
+    "streak30": {
+      "name": "30-day streak",
+      "desc": "Play 30 days in a row."
+    },
+    "level5": {
+      "name": "Level 5",
+      "desc": "Reach level 5."
+    },
+    "level10": {
+      "name": "Level 10",
+      "desc": "Reach level 10."
+    }
   }
 }

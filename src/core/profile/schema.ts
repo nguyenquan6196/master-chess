@@ -136,6 +136,15 @@ export const ProfileSchema = z.object({
   gameRating: RatingSchema,
   /** Index into RANKS of the highest rank won through a promotion match. */
   rankFloor: z.number().int().min(0),
+  /** Added in schema v6 (Phase 5): progression. */
+  xp: z.number().int().min(0),
+  streak: z.object({
+    lastDay: z.string().nullable(),
+    current: z.number().int().min(0),
+    best: z.number().int().min(0),
+  }),
+  /** Achievement id → unlock time. */
+  achievements: z.record(z.string(), z.number()),
 });
 export type Profile = z.infer<typeof ProfileSchema>;
 
@@ -164,6 +173,18 @@ export function withProfileDefaultsV4<T extends object>(
   const defaults: Pick<Profile, 'gameRating' | 'rankFloor'> = {
     gameRating: { ...GAME_RATING.initial },
     rankFloor: 0,
+  };
+  return { ...defaults, ...p };
+}
+
+/** Fields added in schema v6. */
+export function withProfileDefaultsV6<T extends object>(
+  p: T,
+): Pick<Profile, 'xp' | 'streak' | 'achievements'> & T {
+  const defaults: Pick<Profile, 'xp' | 'streak' | 'achievements'> = {
+    xp: 0,
+    streak: { lastDay: null, current: 0, best: 0 },
+    achievements: {},
   };
   return { ...defaults, ...p };
 }

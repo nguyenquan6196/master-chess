@@ -25,7 +25,8 @@ export interface ChessBoardProps {
   orientation?: 'white' | 'black';
   /** Which side the user may move: a color, both sides (local game) or none (read-only). */
   movableColor?: Color | 'both' | 'none';
-  lastMove?: { from: string; to: string } | null;
+  /** `promotion`: the move promoted a pawn (plays the promotion flash). */
+  lastMove?: { from: string; to: string; promotion?: string } | null;
   /** Return false to reject the move (e.g. illegal); the board snaps back. */
   onMove?: (move: MoveInput) => boolean;
   promotionLabels: PromotionLabels;
@@ -121,12 +122,22 @@ export function ChessBoard({
 
   const squareStyles = useMemo(() => {
     const styles: Record<string, CSSProperties> = {};
+    const animate = prefs.moveAnimation !== 'off';
     if (lastMove) {
       styles[lastMove.from] = { backgroundColor: 'var(--mc-hl-last)' };
-      styles[lastMove.to] = { backgroundColor: 'var(--mc-hl-last)' };
+      styles[lastMove.to] = {
+        backgroundColor: 'var(--mc-hl-last)',
+        ...(lastMove.promotion && animate ? { animation: 'mc-promote-flash 0.9s ease-out' } : {}),
+      };
     }
     const checked = checkedKingSquare(fen);
-    if (checked) styles[checked] = { ...styles[checked], backgroundImage: CHECK_GLOW };
+    if (checked) {
+      styles[checked] = {
+        ...styles[checked],
+        backgroundImage: CHECK_GLOW,
+        ...(animate ? { animation: 'mc-check-pulse 0.8s ease-in-out 3' } : {}),
+      };
+    }
     if (selected) styles[selected] = { backgroundColor: 'var(--mc-hl-selected)' };
     for (const sq of targets) {
       const occupied = pieceColorAt(fen, sq) !== null;
@@ -144,7 +155,7 @@ export function ChessBoard({
       };
     }
     return styles;
-  }, [fen, lastMove, selected, targets, marks, onSquareSelect]);
+  }, [fen, lastMove, selected, targets, marks, onSquareSelect, prefs.moveAnimation]);
 
   const options: ChessboardOptions = {
     id: boardId,

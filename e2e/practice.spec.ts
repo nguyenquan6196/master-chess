@@ -123,3 +123,15 @@ test('browser back leaves a sub-screen one step at a time', async ({ page }) => 
   await page.goBack();
   await expect(page).toHaveURL(/\/practice$/);
 });
+
+test('progress: a quiz round counts a streak day and shows on the profile', async ({ page }) => {
+  await page.goto('/practice/quiz');
+  await page
+    .getByRole('button', { name: /Quân cờ/ })
+    .first()
+    .click();
+  await answerRound(page);
+  await page.goto('/profile');
+  await expect(page.getByText('1 ngày liên tiếp')).toBeVisible();
+  await expect(page.getByText(/Tổng \d+ XP/)).toBeVisible();
+});

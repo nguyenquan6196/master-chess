@@ -604,5 +604,121 @@
     "exitRetry": "Thoát",
     "notFound": "Không tìm thấy ván này.",
     "open": "Xem lại"
+  },
+  "progress": {
+    "level": "Cấp {level}",
+    "xp": "{into}/{needed} XP",
+    "totalXp": "Tổng {xp} XP",
+    "xpGain": "+{amount} XP",
+    "levelUp": "Lên cấp {level}! ⭐",
+    "achievementUnlocked": "Thành tích mới!",
+    "streak": "{days} ngày liên tiếp",
+    "streakBest": "Kỷ lục: {days} ngày",
+    "noStreak": "Chơi hôm nay để bắt đầu chuỗi ngày!",
+    "achievements": "Thành tích",
+    "progress": "{done}/{total}",
+    "locked": "Chưa mở khoá"
+  },
+  "achievements": {
+    "firstLesson": {
+      "name": "Bài học đầu tiên",
+      "desc": "Hoàn thành 1 bài học."
+    },
+    "scholar": {
+      "name": "Học trò chăm chỉ",
+      "desc": "Hoàn thành 9 bài học."
+    },
+    "allLessons": {
+      "name": "Tốt nghiệp",
+      "desc": "Hoàn thành mọi bài học."
+    },
+    "perfectQuiz": {
+      "name": "Điểm tuyệt đối",
+      "desc": "Trả lời đúng hết một vòng trắc nghiệm."
+    },
+    "puzzle10": {
+      "name": "Thợ giải đố",
+      "desc": "Giải đúng 10 câu đố."
+    },
+    "puzzle100": {
+      "name": "Bậc thầy câu đố",
+      "desc": "Giải đúng 100 câu đố."
+    },
+    "daily7": {
+      "name": "Đều đặn",
+      "desc": "Giải 7 câu đố hằng ngày."
+    },
+    "rush15": {
+      "name": "Tia chớp",
+      "desc": "Đạt 15 điểm trong Puzzle Rush."
+    },
+    "rush30": {
+      "name": "Bão tố",
+      "desc": "Đạt 30 điểm trong Puzzle Rush."
+    },
+    "firstGame": {
+      "name": "Ván cờ đầu tiên",
+      "desc": "Chơi hết một ván với bot."
+    },
+    "firstWin": {
+      "name": "Chiến thắng đầu tiên",
+      "desc": "Thắng một bot bất kỳ."
+    },
+    "beatFox": {
+      "name": "Hơn cả cáo",
+      "desc": "Thắng Cáo."
+    },
+    "beatLion": {
+      "name": "Thuần phục sư tử",
+      "desc": "Thắng Sư tử."
+    },
+    "beatDragon": {
+      "name": "Diệt rồng",
+      "desc": "Thắng Rồng."
+    },
+    "beatMaster": {
+      "name": "Vượt qua kiện tướng",
+      "desc": "Thắng Kiện tướng."
+    },
+    "customWin": {
+      "name": "Tự thiết kế đối thủ",
+      "desc": "Thắng bot Tuỳ chỉnh."
+    },
+    "rankSilver": {
+      "name": "Hạng Bạc",
+      "desc": "Lên hạng Bạc."
+    },
+    "rankGold": {
+      "name": "Hạng Vàng",
+      "desc": "Lên hạng Vàng."
+    },
+    "rankDiamond": {
+      "name": "Hạng Kim Cương",
+      "desc": "Lên hạng Kim Cương."
+    },
+    "reviewer": {
+      "name": "Nhìn lại để tiến bộ",
+      "desc": "Xem lại một ván cờ."
+    },
+    "streak3": {
+      "name": "Chuỗi 3 ngày",
+      "desc": "Chơi 3 ngày liên tiếp."
+    },
+    "streak7": {
+      "name": "Chuỗi 7 ngày",
+      "desc": "Chơi 7 ngày liên tiếp."
+    },
+    "streak30": {
+      "name": "Chuỗi 30 ngày",
+      "desc": "Chơi 30 ngày liên tiếp."
+    },
+    "level5": {
+      "name": "Cấp 5",
+      "desc": "Đạt cấp 5."
+    },
+    "level10": {
+      "name": "Cấp 10",
+      "desc": "Đạt cấp 10."
+    }
   }
 }

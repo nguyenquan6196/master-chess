@@ -4,6 +4,7 @@ import { REVIEW, reviewPositions, type GameReviewData } from '@/core/review/revi
 import { gameRepo } from '../db/repositories';
 import { evaluatePosition } from '../engine/bot';
 import { getEngine } from '../engine/StockfishEngine';
+import { recordProgress } from '../progress/progress';
 
 /**
  * Evaluates every position of a finished game on the analysis engine, saves the data
@@ -32,6 +33,7 @@ export async function analyzeGame(
   }
   const data: GameReviewData = { depth: REVIEW.depth, evals, best };
   await gameRepo.saveReview(game.id, data);
+  void recordProgress(game.profileId, { kind: 'review' });
   return data;
 }
 

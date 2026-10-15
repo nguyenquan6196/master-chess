@@ -14,6 +14,7 @@ import { exportProfile } from '@/services/profile/saveTransfer';
 import { useSession } from '@/services/profile/session';
 import { ImportSaveButton } from './ImportSaveButton';
 import { NewProfileForm } from './NewProfileForm';
+import { ProgressCard } from './ProgressCard';
 import { RankCard } from './RankCard';
 
 export function ProfileScreen() {
@@ -69,6 +70,8 @@ export function ProfileScreen() {
           </Button>
         </Card>
       )}
+
+      <ProgressCard profile={profile} />
 
       <RankCard profile={profile} />
 

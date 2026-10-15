@@ -5,6 +5,7 @@ import {
   withProfileDefaultsV4,
   withGameDefaultsV4,
   withSettingsDefaultsV5,
+  withProfileDefaultsV6,
   type GameRecord,
   type Profile,
   type PuzzleAttempt,
@@ -82,6 +83,17 @@ export class MasterChessDB extends Dexie {
           .toCollection()
           .modify((p: Record<string, unknown>) => {
             Object.assign(p, withSettingsDefaultsV5(p));
+          }),
+      );
+    // v6 (Phase 5): XP, streak and achievements on profiles.
+    this.version(6)
+      .stores({})
+      .upgrade((tx) =>
+        tx
+          .table('profiles')
+          .toCollection()
+          .modify((p: Record<string, unknown>) => {
+            Object.assign(p, withProfileDefaultsV6(p));
           }),
       );
   }

@@ -40,7 +40,7 @@ export function LocalGame() {
             fen={game.fen}
             orientation={orientation}
             movableColor="both"
-            lastMove={last ? { from: last.from, to: last.to } : null}
+            lastMove={last ? { from: last.from, to: last.to, promotion: last.promotion } : null}
             onMove={(move) => {
               const next = applyMove(game, move);
               if (!next) return false;

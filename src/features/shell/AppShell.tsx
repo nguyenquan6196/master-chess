@@ -18,6 +18,7 @@ import { useResolvedTheme } from '@/services/theme/useResolvedTheme';
 import { LanguageSelect } from './LanguageSelect';
 import { MobileMenu } from './MobileMenu';
 import { SettingsFab } from './SettingsFab';
+import { Toaster } from './Toaster';
 
 const NAV_ITEMS = [
   { href: '/learn', key: 'learn', icon: '📖' },
@@ -48,6 +49,7 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
   return (
     <>
       {particles && <BackdropParticles key={resolvedTheme} kind={particles} />}
+      <Toaster />
       <header className="sticky top-0 z-20 border-b border-border bg-surface/90 backdrop-blur">
         <div className="mx-auto flex h-14 max-w-6xl items-center gap-4 px-4">
           <Link
