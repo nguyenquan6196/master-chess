@@ -140,9 +140,9 @@
 
 ## Phase 4 — Bot persona & Game Review
 - [x] Style bonus từ MultiPV (Tấn công / Phòng thủ / Thế trận / Hỗn loạn / Cân bằng): `core/bot/styles.ts` — chỉ cộng điểm cho nước cách nước tốt nhất ≤ 80cp; bot yếu cộng vào softmax, bot mạnh chọn trong MultiPV 4 quanh nước của limiter (+ test)
-- [ ] Opening book riêng mỗi persona (`scripts/build-book.ts` từ PGN)
+- [x] Opening book riêng mỗi phong cách: `content/books/openings.json` (dòng SAN viết tay + trọng số, nạp lúc chạy → không cần script build), `core/bot/book.ts` tra theo thế cờ cho cả Trắng lẫn Đen, dùng tới nước thứ 24, bot ≥ 700 Elo (+ test kiểm hợp lệ)
 - [x] Ma trận chọn bot = Độ khó × Phong cách; chế độ Custom (slider Elo 250–3000, nội suy tham số bot yếu / UCI_Elo / full strength)
-- [ ] Thoại bot theo sự kiện
+- [x] Thoại bot theo sự kiện: `content/bots/dialogue.<locale>.json` (8 bot + default, 10 sự kiện: mở màn, ra mắt trùm, ăn quân, bị ăn, chiếu, bị chiếu, thắng, thua, hòa, bị hạ khi thăng hạng), bóng thoại cạnh bot (+ test đủ nội dung 3 ngôn ngữ)
 - [ ] `scripts/calibrate-bots.ts`: cho bot tự đấu với Stockfish UCI_Elo để hiệu chỉnh Elo
 - [x] Adaptive difficulty: "⭐ Đối thủ gợi ý" = bot gần rating người chơi, +/−100 theo chuỗi thắng/thua (`core/bot/suggest.ts`)
 - [x] **Hệ thống Rank — phần logic** (spec §6.7): 8 rank Đồng → Thách Đấu, bậc con III/II/I, mỗi bot là "trùm canh giữ" 1 rank

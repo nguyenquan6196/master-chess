@@ -14,6 +14,7 @@ import { RANKS, rankStatus } from '@/core/rating/rank';
 import { useSession } from '@/services/profile/session';
 import { useSettings } from '@/services/settings/store';
 import { PlayerBar } from './PlayerBar';
+import { useBotChat } from './useBotChat';
 import { useBotGame } from './useBotGame';
 
 interface BotGameViewProps {
@@ -47,6 +48,7 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
     record.status === 'ongoing' &&
     pendingPromotion !== null &&
     RANKS[pendingPromotion].boss === record.botId;
+  const chat = useBotChat(record, snapshot, g.botColor, isPromotionMatch);
   const ratingBefore =
     record.ratingAfter !== undefined && record.ratingDelta !== undefined
       ? record.ratingAfter - record.ratingDelta
@@ -79,6 +81,16 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
           active={turn === g.botColor}
           status={g.isBotTurn || g.engineError ? statusLine : null}
         />
+        <div className="relative h-0">
+          {chat && (
+            <p
+              role="status"
+              className="pointer-events-none absolute top-0 left-12 z-10 max-w-[80%] rounded-2xl rounded-tl-sm border border-border bg-surface px-3 py-1.5 text-sm shadow-card"
+            >
+              {chat}
+            </p>
+          )}
+        </div>
         <div className="flex gap-2">
           {g.showEvalBar && (
             <EvalBar score={g.evaluation} orientation={orientation} label={t('evalBar')} />

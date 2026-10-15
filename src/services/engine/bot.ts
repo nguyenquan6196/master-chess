@@ -1,9 +1,23 @@
+import openings from '@content/books/openings.json';
+import { BOOK, bookMove, buildBooks, type OpeningBook } from '@/core/bot/book';
 import { chooseSampledMove } from '@/core/bot/choose';
 import type { BotLevel } from '@/core/bot/levels';
 import { applyStyle, pickStyledMove, STYLE_TUNING, type BotStyle } from '@/core/bot/styles';
 import { legalUciMoves, turnOf } from '@/core/chess/game';
 import { scoreToCp, toWhitePov, type EngineScore } from '@/core/engine/uci';
 import { getEngine } from './StockfishEngine';
+
+let books: Record<BotStyle, OpeningBook> | null = null;
+
+/** Book move for this style while the game is young (built on first use). */
+function fromBook(fen: string, level: BotLevel, style: BotStyle): string | null {
+  if (level.elo < BOOK.minBotElo) return null;
+  const [, turn, , , , fullmove] = fen.split(' ');
+  const ply = (Number(fullmove) - 1) * 2 + (turn === 'b' ? 1 : 0);
+  if (!(ply < BOOK.maxPly)) return null;
+  books ??= buildBooks(openings);
+  return bookMove(books[style], fen);
+}
 
 /** Candidate lines requested from strong bots so a style can pick among them. */
 const STYLED_MULTI_PV = 4;
@@ -14,6 +28,9 @@ export async function computeBotMove(
   level: BotLevel,
   style: BotStyle = 'balanced',
 ): Promise<string | null> {
+  const book = fromBook(fen, level, style);
+  if (book) return book;
+
   const engine = getEngine('bot');
   const s = level.strategy;
 

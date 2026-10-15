@@ -1,0 +1,110 @@
+{
+  "default": {
+    "start": ["Chúc một ván cờ vui!", "Bắt đầu nào!"],
+    "botCapture": ["Cảm ơn nhé!", "Ăn được rồi."],
+    "playerCapture": ["Ối, mất quân rồi.", "Đòn hay đấy."],
+    "botCheck": ["Chiếu!"],
+    "playerCheck": ["Hừm, bị chiếu rồi."],
+    "botWin": ["Ván hay lắm, lần sau cố lên!"],
+    "botLose": ["Bạn chơi giỏi quá!"],
+    "draw": ["Hòa — công bằng!"],
+    "bossIntro": ["Muốn lên hạng thì phải qua được tôi!"],
+    "bossDefeated": ["Bạn xứng đáng lên hạng!"]
+  },
+  "chick": {
+    "start": ["Chiếp chiếp! Tớ mới học chơi thôi đó!", "Quân nào đi trước nhỉ? Hihi."],
+    "botCapture": ["Ơ, tớ ăn được rồi nè!", "Chiếp! Của tớ!"],
+    "playerCapture": ["Á, quân của tớ!", "Huhu, bạn ăn mất rồi…"],
+    "botCheck": ["Chiếp! Hình như là chiếu đó!"],
+    "playerCheck": ["Ối ối, Vua tớ chạy đâu bây giờ?"],
+    "botWin": ["Ơ… tớ thắng thật hả?! Chiếp chiếp!"],
+    "botLose": ["Bạn giỏi quá! Tớ phải về tập thêm thôi."],
+    "draw": ["Hòa! Tớ thích hòa lắm!"],
+    "bossIntro": ["Tớ canh cổng hạng Đồng nè! Đừng bắt nạt tớ nha!"],
+    "bossDefeated": ["Chiếp… bạn qua được rồi đó!"]
+  },
+  "turtle": {
+    "start": ["Từ từ thôi… cờ vua không cần vội.", "Chậm mà chắc, bạn nhỉ?"],
+    "botCapture": ["Từ từ… ăn một quân.", "Rùa bò chậm nhưng vẫn tới nơi."],
+    "playerCapture": ["Ôi… mình chậm chân rồi.", "Không sao, mình còn nhiều quân."],
+    "botCheck": ["Chiếu… từ từ thôi."],
+    "playerCheck": ["Để mình rụt cổ lại đã…"],
+    "botWin": ["Chậm mà chắc, thấy chưa?"],
+    "botLose": ["Bạn nhanh quá… chúc mừng nhé."],
+    "draw": ["Hòa… bình yên là được."],
+    "bossIntro": ["Muốn lên Bạc ư? Từ từ… đánh bại mình trước đã."],
+    "bossDefeated": ["Bạn đã vượt qua mình. Lên Bạc nhé!"]
+  },
+  "fox": {
+    "start": ["Hehe, xem bạn có sập bẫy không nào…", "Cáo này nhiều mưu lắm đấy."],
+    "botCapture": ["Đúng như kế hoạch, hehe.", "Một quân miễn phí, cảm ơn nha!"],
+    "playerCapture": ["Hừm, bạn cũng tinh ý phết.", "Được rồi, lần này tính bạn thắng."],
+    "botCheck": ["Chiếu! Chạy đi đâu?"],
+    "playerCheck": ["Ối, bị phát hiện rồi…"],
+    "botWin": ["Cáo già vẫn là cáo già!"],
+    "botLose": ["Hừ… bạn khôn hơn mình tưởng."],
+    "draw": ["Hòa? Cũng được, hôm nay tha cho bạn."],
+    "bossIntro": ["Cổng hạng Vàng do ta canh. Coi chừng bẫy!"],
+    "bossDefeated": ["Hừm… được rồi, bạn xứng đáng với hạng Vàng."]
+  },
+  "wolf": {
+    "start": ["Bầy sói đã sẵn sàng.", "Ta sẽ săn từng quân của ngươi."],
+    "botCapture": ["Một con mồi nữa.", "Sói không bỏ lỡ cơ hội."],
+    "playerCapture": ["Vết cắn đầu tiên… đáng nể.", "Ngươi biết săn đấy."],
+    "botCheck": ["Chiếu. Bị dồn vào góc rồi."],
+    "playerCheck": ["Hừ, ngươi dám tấn công Sói?"],
+    "botWin": ["Cuộc săn kết thúc."],
+    "botLose": ["Ngươi là thợ săn giỏi hơn ta hôm nay."],
+    "draw": ["Hòa. Cả hai đều còn sống."],
+    "bossIntro": ["Muốn vào Bạch Kim? Phải vượt qua bầy sói."],
+    "bossDefeated": ["Bầy sói công nhận ngươi."]
+  },
+  "lion": {
+    "start": ["Chào mừng tới lãnh địa của sư tử.", "Hãy cho ta thấy bản lĩnh của ngươi."],
+    "botCapture": ["Vua của muông thú lấy phần mình.", "Gừ… quân của ngươi là của ta."],
+    "playerCapture": ["Ngươi dám chạm vào bờm sư tử?", "Một đòn đáng nể."],
+    "botCheck": ["Chiếu! Cúi đầu đi."],
+    "playerCheck": ["Hừm, ngươi gan đấy."],
+    "botWin": ["Sư tử vẫn là vua."],
+    "botLose": ["Hôm nay ngươi là vua. Chúc mừng."],
+    "draw": ["Hòa — hai kẻ mạnh ngang nhau."],
+    "bossIntro": ["Kim Cương chỉ dành cho kẻ đánh bại được sư tử."],
+    "bossDefeated": ["Ngươi xứng đáng với Kim Cương."]
+  },
+  "eagle": {
+    "start": ["Từ trên cao, ta thấy hết bàn cờ.", "Mắt đại bàng không bỏ sót điều gì."],
+    "botCapture": ["Lao xuống — bắt được!", "Ta đã thấy nước đó từ xa."],
+    "playerCapture": ["Ngươi nhìn xa hơn ta tưởng.", "Một đòn chính xác."],
+    "botCheck": ["Chiếu! Không còn chỗ trốn."],
+    "playerCheck": ["Ngươi đã phát hiện ta."],
+    "botWin": ["Bầu trời là của đại bàng."],
+    "botLose": ["Ngươi bay cao hơn ta hôm nay."],
+    "draw": ["Hòa. Gió lặng rồi."],
+    "bossIntro": ["Muốn vào Tinh Anh, hãy bay qua đôi cánh của ta."],
+    "bossDefeated": ["Đôi cánh của ngươi đủ mạnh. Chào mừng tới Tinh Anh."]
+  },
+  "dragon": {
+    "start": ["Ngươi dám thách đấu Rồng ư?", "Lửa của ta sẽ thiêu rụi bàn cờ."],
+    "botCapture": ["Tro tàn!", "Thêm một quân vào kho báu của ta."],
+    "playerCapture": ["Ngươi dám làm Rồng bị thương?", "Hừ… chỉ là vết xước."],
+    "botCheck": ["Chiếu! Lửa đã bao vây Vua ngươi."],
+    "playerCheck": ["Ngươi chọc giận Rồng rồi đấy."],
+    "botWin": ["Không ai thoát khỏi lửa Rồng."],
+    "botLose": ["Không thể nào… ngươi đã hạ Rồng!"],
+    "draw": ["Hòa. Ngươi sống sót qua cơn lửa."],
+    "bossIntro": ["Cao Thủ chỉ dành cho kẻ dám bước qua lửa."],
+    "bossDefeated": ["Ngươi đã chinh phục Rồng. Cao Thủ!"]
+  },
+  "master": {
+    "start": ["Chào bạn. Hãy chơi một ván thật hay.", "Mỗi nước đi đều có ý nghĩa."],
+    "botCapture": ["Một nước cần thiết.", "Vật chất là vật chất."],
+    "playerCapture": ["Nước đi tốt.", "Thú vị. Rất thú vị."],
+    "botCheck": ["Chiếu."],
+    "playerCheck": ["Một nước chiếu đáng chú ý."],
+    "botWin": ["Cảm ơn ván đấu. Hãy xem lại các nước đi nhé."],
+    "botLose": ["Xuất sắc. Bạn đã chơi như một kiện tướng."],
+    "draw": ["Hòa — một kết quả công bằng."],
+    "bossIntro": ["Đỉnh cao Thách Đấu đang chờ. Hãy cho tôi thấy bạn sẵn sàng."],
+    "bossDefeated": ["Chúc mừng, nhà Thách Đấu."]
+  }
+}

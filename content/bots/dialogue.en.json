@@ -1,0 +1,110 @@
+{
+  "default": {
+    "start": ["Have a fun game!", "Let's begin!"],
+    "botCapture": ["Thank you!", "Got one."],
+    "playerCapture": ["Oops, lost a piece.", "Nice shot."],
+    "botCheck": ["Check!"],
+    "playerCheck": ["Hmm, I'm in check."],
+    "botWin": ["Good game — keep it up!"],
+    "botLose": ["You played great!"],
+    "draw": ["A draw — fair enough!"],
+    "bossIntro": ["To rank up, you have to get past me!"],
+    "bossDefeated": ["You deserve to rank up!"]
+  },
+  "chick": {
+    "start": ["Peep peep! I just learned how to play!", "Who moves first again? Hehe."],
+    "botCapture": ["Ooh, I took one!", "Peep! Mine!"],
+    "playerCapture": ["Ah, my piece!", "Waah, you took it…"],
+    "botCheck": ["Peep! I think that's check!"],
+    "playerCheck": ["Eek, where does my king go now?"],
+    "botWin": ["Wait… I won?! Peep peep!"],
+    "botLose": ["You're so good! I need more practice."],
+    "draw": ["A draw! I love draws!"],
+    "bossIntro": ["I guard the Bronze gate! Please be gentle!"],
+    "bossDefeated": ["Peep… you made it through!"]
+  },
+  "turtle": {
+    "start": ["Easy now… chess isn't a race.", "Slow and steady, right?"],
+    "botCapture": ["Slowly… I take one.", "A turtle gets there in the end."],
+    "playerCapture": ["Oh… I was too slow.", "It's fine, I still have plenty."],
+    "botCheck": ["Check… nice and slow."],
+    "playerCheck": ["Let me pull my head in…"],
+    "botWin": ["Slow and steady, see?"],
+    "botLose": ["You were too quick for me… well done."],
+    "draw": ["A draw… peace is good."],
+    "bossIntro": ["Silver, you say? Slowly now… beat me first."],
+    "bossDefeated": ["You got past me. Welcome to Silver!"]
+  },
+  "fox": {
+    "start": ["Hehe, let's see if you fall for my trap…", "This fox has lots of tricks."],
+    "botCapture": ["All according to plan, hehe.", "A free piece, thank you!"],
+    "playerCapture": ["Hmm, you're sharper than you look.", "Fine, you win that one."],
+    "botCheck": ["Check! Where will you run?"],
+    "playerCheck": ["Oops, you spotted me…"],
+    "botWin": ["The old fox does it again!"],
+    "botLose": ["Hmph… you outfoxed me."],
+    "draw": ["A draw? Fine, I'll let you off today."],
+    "bossIntro": ["I guard the Gold gate. Watch out for traps!"],
+    "bossDefeated": ["Hmm… all right, you have earned Gold."]
+  },
+  "wolf": {
+    "start": ["The pack is ready.", "I will hunt your pieces one by one."],
+    "botCapture": ["Another prey.", "A wolf never misses a chance."],
+    "playerCapture": ["First bite… impressive.", "You know how to hunt."],
+    "botCheck": ["Check. You are cornered."],
+    "playerCheck": ["You dare attack the wolf?"],
+    "botWin": ["The hunt is over."],
+    "botLose": ["You were the better hunter today."],
+    "draw": ["A draw. We both survive."],
+    "bossIntro": ["Platinum? You must get past the pack."],
+    "bossDefeated": ["The pack accepts you."]
+  },
+  "lion": {
+    "start": ["Welcome to the lion’s den.", "Show me what you are made of."],
+    "botCapture": ["The king of beasts takes his share.", "Grr… your piece is mine."],
+    "playerCapture": ["You dare touch the lion’s mane?", "An impressive strike."],
+    "botCheck": ["Check! Bow your head."],
+    "playerCheck": ["Hmm, you are brave."],
+    "botWin": ["The lion is still king."],
+    "botLose": ["Today you are king. Congratulations."],
+    "draw": ["A draw — two equals."],
+    "bossIntro": ["Diamond is only for those who defeat the lion."],
+    "bossDefeated": ["You are worthy of Diamond."]
+  },
+  "eagle": {
+    "start": ["From up high, I see the whole board.", "Nothing escapes an eagle’s eye."],
+    "botCapture": ["Dive — got it!", "I saw that from far away."],
+    "playerCapture": ["You see further than I thought.", "A precise strike."],
+    "botCheck": ["Check! Nowhere to hide."],
+    "playerCheck": ["You spotted me."],
+    "botWin": ["The sky belongs to the eagle."],
+    "botLose": ["You flew higher than me today."],
+    "draw": ["A draw. The wind is calm."],
+    "bossIntro": ["To reach Elite, you must fly past my wings."],
+    "bossDefeated": ["Your wings are strong. Welcome to Elite."]
+  },
+  "dragon": {
+    "start": ["You dare challenge the dragon?", "My fire will scorch this board."],
+    "botCapture": ["Ashes!", "One more piece for my hoard."],
+    "playerCapture": ["You dare wound a dragon?", "Hmph… only a scratch."],
+    "botCheck": ["Check! Fire surrounds your king."],
+    "playerCheck": ["Now you have angered the dragon."],
+    "botWin": ["No one escapes dragon fire."],
+    "botLose": ["Impossible… you slew the dragon!"],
+    "draw": ["A draw. You survived the flames."],
+    "bossIntro": ["Grandmaster is for those who walk through fire."],
+    "bossDefeated": ["You have conquered the dragon. Grandmaster!"]
+  },
+  "master": {
+    "start": ["Hello. Let's play a beautiful game.", "Every move has a purpose."],
+    "botCapture": ["A necessary move.", "Material is material."],
+    "playerCapture": ["Good move.", "Interesting. Very interesting."],
+    "botCheck": ["Check."],
+    "playerCheck": ["A notable check."],
+    "botWin": ["Thank you for the game. Review the moves."],
+    "botLose": ["Excellent. You played like a master."],
+    "draw": ["A draw — a fair result."],
+    "bossIntro": ["The Challenger summit awaits. Show me you are ready."],
+    "bossDefeated": ["Congratulations, Challenger."]
+  }
+}

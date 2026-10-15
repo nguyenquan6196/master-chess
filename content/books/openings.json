@@ -1,0 +1,64 @@
+{
+  "balanced": [
+    { "line": "e4 e5 Nf3 Nc6 Bb5 a6 Ba4 Nf6 O-O Be7", "weight": 3 },
+    { "line": "e4 e5 Nf3 Nc6 Bc4 Bc5 c3 Nf6 d3 d6", "weight": 2 },
+    { "line": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6", "weight": 3 },
+    { "line": "e4 e6 d4 d5 Nc3 Nf6 Bg5 Be7", "weight": 1 },
+    { "line": "e4 c6 d4 d5 Nc3 dxe4 Nxe4 Bf5", "weight": 1 },
+    { "line": "d4 d5 c4 e6 Nc3 Nf6 Bg5 Be7 e3 O-O", "weight": 3 },
+    { "line": "d4 Nf6 c4 e6 Nc3 Bb4 e3 O-O", "weight": 2 },
+    { "line": "d4 Nf6 c4 g6 Nc3 d5 cxd5 Nxd5", "weight": 1 },
+    { "line": "c4 e5 Nc3 Nf6 Nf3 Nc6 g3 d5", "weight": 1 },
+    { "line": "Nf3 d5 d4 Nf6 c4 c6 Nc3 dxc4", "weight": 1 }
+  ],
+  "aggressive": [
+    { "line": "e4 e5 f4 exf4 Nf3 g5 h4 g4 Ne5", "weight": 3 },
+    { "line": "e4 e5 f4 d5 exd5 exf4 Nf3 Nf6", "weight": 1 },
+    { "line": "e4 e5 Nf3 Nc6 Bc4 Bc5 b4 Bxb4 c3 Ba5 d4 exd4 O-O", "weight": 2 },
+    { "line": "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Na5 Bb5+ c6", "weight": 2 },
+    { "line": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 Be3 Bg7 f3 O-O Qd2 Nc6", "weight": 3 },
+    { "line": "e4 c5 Nc3 Nc6 f4 g6 Nf3 Bg7", "weight": 1 },
+    { "line": "e4 e6 d4 d5 Nc3 Bb4 e5 c5 a3 Bxc3+ bxc3 Ne7 Qg4", "weight": 1 },
+    { "line": "d4 d5 e4 dxe4 Nc3 Nf6 f3 exf3 Nxf3", "weight": 2 },
+    { "line": "d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 Nf3 O-O Be2 e5", "weight": 3 },
+    { "line": "d4 Nf6 c4 e5 dxe5 Ng4 Bf4 Nc6 Nf3 Bb4+", "weight": 2 },
+    { "line": "c4 e5 Nc3 Nf6 g3 c6 Nf3 e4", "weight": 1 },
+    { "line": "Nf3 d5 g3 Bg4 Bg2 Nd7", "weight": 1 }
+  ],
+  "defensive": [
+    { "line": "d4 d5 Bf4 Nf6 e3 e6 Nf3 c5 c3 Nc6 Nbd2 Bd6", "weight": 3 },
+    { "line": "d4 Nf6 Bf4 g6 e3 Bg7 Nf3 O-O Be2 d6 h3", "weight": 2 },
+    { "line": "e4 c6 d4 d5 Nc3 dxe4 Nxe4 Bf5 Ng3 Bg6 h4 h6", "weight": 3 },
+    { "line": "e4 c6 d4 d5 e5 Bf5 Nf3 e6 Be2 c5 O-O Nc6", "weight": 2 },
+    { "line": "e4 e6 d4 d5 Nc3 Nf6 e5 Nfd7 f4 c5", "weight": 1 },
+    { "line": "e4 e5 Nf3 Nc6 Bb5 Nf6 O-O Nxe4 d4 Nd6 Bxc6 dxc6 dxe5 Nf5", "weight": 2 },
+    { "line": "d4 d5 c4 c6 Nf3 Nf6 Nc3 dxc4 a4 Bf5", "weight": 3 },
+    { "line": "d4 Nf6 c4 e6 Nf3 b6 g3 Bb7 Bg2 Be7", "weight": 1 },
+    { "line": "c4 c6 e4 d5 exd5 cxd5 d4 Nf6", "weight": 1 },
+    { "line": "Nf3 d5 g3 c6 Bg2 Bg4", "weight": 1 }
+  ],
+  "positional": [
+    { "line": "d4 d5 c4 e6 Nc3 Nf6 Bg5 Be7 e3 O-O Nf3 h6 Bh4 b6", "weight": 3 },
+    { "line": "d4 Nf6 c4 e6 Nf3 d5 Nc3 Be7 Bf4 O-O e3 c5", "weight": 2 },
+    { "line": "d4 Nf6 c4 e6 Nc3 Bb4 Qc2 O-O a3 Bxc3+ Qxc3", "weight": 2 },
+    { "line": "c4 e5 Nc3 Nf6 g3 d5 cxd5 Nxd5 Bg2 Nb6 Nf3 Nc6", "weight": 3 },
+    { "line": "c4 Nf6 Nc3 e6 Nf3 d5 d4 Be7", "weight": 2 },
+    { "line": "e4 e5 Nf3 Nc6 Bb5 a6 Ba4 Nf6 O-O Be7 Re1 b5 Bb3 d6 c3 O-O", "weight": 3 },
+    { "line": "e4 c5 Nf3 e6 d4 cxd4 Nxd4 Nc6 Nc3 Qc7", "weight": 1 },
+    { "line": "e4 e6 d4 d5 Nd2 Nf6 e5 Nfd7 Bd3 c5 c3 Nc6", "weight": 1 },
+    { "line": "Nf3 d5 d4 Nf6 c4 e6 Nc3 Be7 Bg5 O-O", "weight": 2 }
+  ],
+  "chaotic": [
+    { "line": "b4 e5 Bb2 Bxb4 Bxe5 Nf6 c4 O-O", "weight": 3 },
+    { "line": "g4 d5 Bg2 Bxg4 c4 c6 cxd5 cxd5 Qb3", "weight": 2 },
+    { "line": "Nc3 d5 e4 dxe4 d3 exd3 Bxd3", "weight": 2 },
+    { "line": "f4 d5 Nf3 g6 e3 Bg7", "weight": 1 },
+    { "line": "e4 Nc6 d4 d5 e5 Bf5 Nf3 e6", "weight": 3 },
+    { "line": "e4 b6 d4 Bb7 Bd3 e6 Nf3 c5", "weight": 2 },
+    { "line": "e4 d5 exd5 Qxd5 Nc3 Qa5 d4 c6", "weight": 1 },
+    { "line": "d4 b5 e4 Bb7 Bxb5 Bxe4 Nf3 e6", "weight": 2 },
+    { "line": "d4 Nc6 d5 Ne5 e4 e6", "weight": 1 },
+    { "line": "c4 b5 cxb5 Bb7 Nf3 e6", "weight": 1 },
+    { "line": "Nf3 g5 Nxg5 e5 d3 Be7", "weight": 1 }
+  ]
+}
