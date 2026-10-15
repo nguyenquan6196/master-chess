@@ -135,6 +135,7 @@
 - [x] Cài đặt thành **nút nổi ⚙️ góc phải dưới**, bấm để mở/đóng bảng (giao diện + âm thanh); bỏ trang `/settings` và mục "Cài đặt" trên menu. Phase 5: các mục theme/nhạc/sound pack mới sẽ thêm vào bảng này
 - [x] Mobile: logo chỉ còn icon khi màn hình < 440px để vừa chỗ
 - [x] Nút **← quay lại** trên mọi màn con (luyện tập, đấu cờ); nút Back của trình duyệt lùi **từng bước** (vòng quiz → menu quiz → Luyện tập) nhờ `services/navigation/historyStep.ts`; E2E kiểm tra
+- [x] Nền caro mờ của màn welcome thành **nền chung cho mọi màn** (biến theme `--mc-backdrop-*` trong `themes.css`, Midnight mờ hơn)
 - [x] Màn "Ai đang chơi?" làm mới: 2 cột — giới thiệu app + bàn cờ demo tự chạy (khai cuộc Ý) + 3 mục Học/Luyện tập/Đấu cờ; thẻ người chơi có avatar, rating puzzle; ô "+ Người chơi mới" nét đứt; chọn ngôn ngữ có cờ; nền ô cờ mờ. Mobile: thẻ người chơi lên trước
 
 ## Phase 4 — Bot persona & Game Review
@@ -155,6 +156,7 @@
 - [ ] Theme (spec §7.2):
   - [ ] Tìm/tạo asset: ảnh nền chất lượng cao (desktop + mobile), texture bàn, 3–5 bộ quân có license phù hợp, skin nút (gỗ/cuộn giấy dạng 9-slice); ghi `CREDITS.md`
   - [ ] 8 theme có sẵn (Classic, Gỗ, Cẩm thạch, Neon, Arcade, Fantasy, Sakura, Midnight)
+  - [ ] Nền theo theme: đã có lớp nền chung `body::before` đọc biến `--mc-backdrop-image/size/mask/opacity` (mặc định: caro mờ). Mỗi theme chỉ cần ghi đè các biến này (ảnh, gradient…)
   - [ ] Tuỳ chỉnh từng phần: nền (màu đơn sắc / gradient / ảnh / ảnh tự tải lên), bàn cờ, bộ quân, highlight & mũi tên, màu nhấn, kiểu nút
   - [ ] Thanh làm tối/làm mờ nền; nền động (cánh hoa, hạt) tôn trọng `prefers-reduced-motion`
   - [ ] Bảng cài đặt nổi → Giao diện: lưới thẻ xem trước + live preview trên bàn cờ mẫu (có thể mở rộng bảng thành toàn màn hình)

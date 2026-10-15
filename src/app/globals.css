@@ -28,6 +28,21 @@ body {
   color: var(--mc-fg);
   font-family: var(--mc-font-body);
   line-height: 1.6;
+  isolation: isolate;
+}
+
+/* Theme backdrop (checkerboard by default), fixed behind all content. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: var(--mc-backdrop-image);
+  background-size: var(--mc-backdrop-size);
+  background-position: center;
+  mask-image: var(--mc-backdrop-mask);
+  opacity: var(--mc-backdrop-opacity);
 }
 
 :root[lang='ja'] body {

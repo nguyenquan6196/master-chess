@@ -34,6 +34,12 @@
   --mc-mark-selected: rgb(50 110 200 / 0.75);
   --mc-mark-correct: rgb(93 170 70 / 0.65);
   --mc-mark-wrong: rgb(220 70 60 / 0.6);
+  /* App backdrop behind every screen (body::before). A theme can swap in an image:
+     --mc-backdrop-image: url(...); --mc-backdrop-size: cover; --mc-backdrop-mask: none. */
+  --mc-backdrop-image: repeating-conic-gradient(var(--mc-surface-2) 0 25%, transparent 0 50%);
+  --mc-backdrop-size: 64px 64px;
+  --mc-backdrop-mask: radial-gradient(ellipse at 30% 20%, black, transparent 75%);
+  --mc-backdrop-opacity: 0.6;
 }
 
 [data-theme='midnight'] {
@@ -65,6 +71,7 @@
   --mc-mark-selected: rgb(255 210 90 / 0.8);
   --mc-mark-correct: rgb(90 200 120 / 0.6);
   --mc-mark-wrong: rgb(255 90 90 / 0.6);
+  --mc-backdrop-opacity: 0.5;
 }
 
 /* Fonts per language (spec §7.3). Font variables come from next/font in app/layout.tsx. */

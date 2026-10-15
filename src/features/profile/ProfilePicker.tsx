@@ -13,13 +13,6 @@ import { ImportSaveButton } from './ImportSaveButton';
 import { NewProfileForm } from './NewProfileForm';
 import { WelcomeHero } from './WelcomeHero';
 
-/** Faint checkerboard behind the welcome screen (theme colors only). */
-const CHECKER_BG = {
-  backgroundImage: 'repeating-conic-gradient(var(--mc-surface-2) 0 25%, transparent 0 50%)',
-  backgroundSize: '64px 64px',
-  maskImage: 'radial-gradient(ellipse at 30% 20%, black, transparent 70%)',
-} as const;
-
 export function ProfilePicker() {
   const t = useTranslations('profile');
   const format = useFormatter();
@@ -34,12 +27,6 @@ export function ProfilePicker() {
 
   return (
     <div className="relative flex flex-1 flex-col">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-60"
-        style={CHECKER_BG}
-      />
-
       <div className="relative mx-auto flex w-full max-w-6xl flex-1 flex-col gap-8 px-4 py-6 sm:py-10">
         <div className="flex gap-1 self-end rounded-xl border border-border bg-surface p-1">
           {LOCALES.map((l) => (
