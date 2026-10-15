@@ -12,7 +12,7 @@
 | 2 | Puzzle & Quiz — ✅ code xong, chờ chơi thử | 2 tuần | Puzzle rated, theo chủ đề, quiz |
 | 3 | Learn — ✅ code xong, chờ đọc thử | 2–3 tuần | 18 bài học MDX tương tác × 3 ngôn ngữ |
 | 4 | Bot persona & Game Review — ✅ code xong, chờ chơi thử | 2 tuần | Phong cách bot, phân tích ván sau trận |
-| 5 | Hoa hòe: theme, âm thanh, ngôn ngữ, gamification | 3–4 tuần | 8 theme + tuỳ chỉnh, nhạc nền, vi/en/ja, XP, huy hiệu, PWA |
+| 5 | Hoa hòe: theme, âm thanh, ngôn ngữ, gamification — ✅ code xong, chờ chơi thử | 3–4 tuần | 8 theme + tuỳ chỉnh, nhạc nền, vi/en/ja, XP, huy hiệu, PWA |
 | 6 | 3D board | 2 tuần | Chế độ 3D tuỳ chọn |
 | 7 | (Tuỳ chọn) Cloud | — | Tài khoản, đồng bộ, AI Coach, PvP |
 
