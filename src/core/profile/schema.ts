@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { BOT_IDS } from '../bot/levels';
 import { BOT_STYLES } from '../bot/styles';
 import { GAME_RATING } from '../rating/rank';
+import { GameReviewSchema } from '../review/review';
 import { TIME_CONTROL_IDS } from '../game/clock';
 
 /**
@@ -177,6 +178,8 @@ export const GameRecordSchema = z.object({
   ratingAfter: z.number().optional(),
   /** This game was a promotion match into rank `to` (index into RANKS). */
   promotion: z.object({ to: z.number().int(), passed: z.boolean() }).optional(),
+  /** Engine analysis for Game Review (optional, computed on demand). */
+  review: GameReviewSchema.optional(),
   createdAt: z.number(),
   updatedAt: z.number(),
 });

@@ -1,6 +1,7 @@
 'use client';
 
 import { useLiveQuery } from 'dexie-react-hooks';
+import Link from 'next/link';
 import { useState } from 'react';
 import { useFormatter, useTranslations } from 'use-intl';
 import { Button } from '@/components/ui/Button';
@@ -26,6 +27,7 @@ export function HistoryScreen() {
   const tb = useTranslations('bots');
   const ts = useTranslations('botStyles');
   const tk = useTranslations('ranking');
+  const tv = useTranslations('review');
   const format = useFormatter();
   const profileId = useSession((s) => s.profile?.id);
   const games = useLiveQuery(
@@ -104,6 +106,12 @@ export function HistoryScreen() {
                     {tg(`result.${g.result}`)}
                   </span>
                 )}
+                <Link
+                  href={`/review#${g.id}`}
+                  className="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold bg-surface-2 text-fg hover:bg-border"
+                >
+                  🔍 {tv('open')}
+                </Link>
                 {g.pgn && (
                   <Button variant="ghost" onClick={() => void copy(g.id, g.pgn ?? '')}>
                     {copied === g.id ? t('copied') : t('copyPgn')}

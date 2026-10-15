@@ -454,5 +454,41 @@
     "promoted": "🎉 Lên hạng {rank}!",
     "promotionFailed": "Chưa qua trận thăng hạng. Thử lại nhé!",
     "next": "Đối thủ gợi ý"
+  },
+  "review": {
+    "title": "Xem lại ván",
+    "vs": "vs {bot}",
+    "back": "Lịch sử",
+    "analyze": "Phân tích ván",
+    "analyzing": "Đang phân tích… {done}/{total}",
+    "analyzeDesc": "Stockfish sẽ xem từng nước và chỉ ra nước tốt, nước sai.",
+    "accuracy": "Độ chính xác",
+    "you": "Bạn",
+    "cls": {
+      "best": "Tốt nhất",
+      "good": "Tốt",
+      "inaccuracy": "Thiếu chính xác",
+      "mistake": "Sai lầm",
+      "blunder": "Sai lầm nghiêm trọng"
+    },
+    "bestWas": "Nước tốt nhất: {move}",
+    "showBest": "Hiện nước tốt nhất",
+    "start": "Về đầu",
+    "prev": "Lùi",
+    "next": "Tiến",
+    "end": "Về cuối",
+    "keyHint": "Dùng phím ← → để chuyển nước.",
+    "chart": "Biểu đồ đánh giá ván cờ",
+    "mistakes": "Thử lại nước sai",
+    "noMistakes": "Không có sai lầm lớn nào. Tuyệt vời! 🎉",
+    "retry": "Thử lại",
+    "retryPrompt": "Bạn đã đi {move}. Hãy tìm nước tốt hơn!",
+    "retryChecking": "Đang kiểm tra…",
+    "retryCorrect": "Chính xác! {move} là nước tốt. ✅",
+    "retryWrong": "{move} vẫn chưa tốt. Thử lại nhé!",
+    "showAnswer": "Xem đáp án",
+    "exitRetry": "Thoát",
+    "notFound": "Không tìm thấy ván này.",
+    "open": "Xem lại"
   }
 }

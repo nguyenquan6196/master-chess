@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 import { useTranslations } from 'use-intl';
 import { ChessBoard } from '@/components/board/ChessBoard';
@@ -31,6 +32,7 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
   const ts = useTranslations('botStyles');
   const tk = useTranslations('ranking');
   const tr = useTranslations('rank');
+  const tv = useTranslations('review');
   const profile = useSession((s) => s.profile);
   const toggleEval = useSettings((s) => s.update);
   const g = useBotGame(initial);
@@ -169,6 +171,12 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
               🔁 {t('rematch')}
             </Button>
             <Button onClick={onChangeBot}>{t('changeBot')}</Button>
+            <Link
+              href={`/review#${record.id}`}
+              className="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold bg-surface-2 text-fg hover:bg-border"
+            >
+              🔍 {tv('open')}
+            </Link>
           </div>
         )}
 
@@ -245,6 +253,12 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
             <Button variant="ghost" onClick={() => setResultDismissed(true)}>
               {t('viewBoard')}
             </Button>
+            <Link
+              href={`/review#${record.id}`}
+              className="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold bg-surface-2 text-fg hover:bg-border"
+            >
+              🔍 {tv('open')}
+            </Link>
             <Button onClick={onChangeBot}>{t('changeBot')}</Button>
             <Button variant="primary" onClick={() => onRematch(record)}>
               {t('rematch')}

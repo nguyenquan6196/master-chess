@@ -454,5 +454,41 @@
     "promoted": "🎉 Promoted to {rank}!",
     "promotionFailed": "Promotion match not passed yet. Try again!",
     "next": "Suggested opponent"
+  },
+  "review": {
+    "title": "Game review",
+    "vs": "vs {bot}",
+    "back": "History",
+    "analyze": "Analyze game",
+    "analyzing": "Analyzing… {done}/{total}",
+    "analyzeDesc": "Stockfish will check every move and point out the good ones and the mistakes.",
+    "accuracy": "Accuracy",
+    "you": "You",
+    "cls": {
+      "best": "Best",
+      "good": "Good",
+      "inaccuracy": "Inaccuracy",
+      "mistake": "Mistake",
+      "blunder": "Blunder"
+    },
+    "bestWas": "Best move: {move}",
+    "showBest": "Show best move",
+    "start": "Start",
+    "prev": "Back",
+    "next": "Forward",
+    "end": "End",
+    "keyHint": "Use the ← → keys to step through moves.",
+    "chart": "Evaluation chart of the game",
+    "mistakes": "Retry your mistakes",
+    "noMistakes": "No big mistakes. Great job! 🎉",
+    "retry": "Retry",
+    "retryPrompt": "You played {move}. Find a better move!",
+    "retryChecking": "Checking…",
+    "retryCorrect": "Correct! {move} is a good move. ✅",
+    "retryWrong": "{move} is still not good. Try again!",
+    "showAnswer": "Show answer",
+    "exitRetry": "Exit",
+    "notFound": "This game could not be found.",
+    "open": "Review"
   }
 }

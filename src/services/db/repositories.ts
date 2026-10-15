@@ -1,3 +1,4 @@
+import type { GameReviewData } from '@/core/review/review';
 import { GAME_RATING } from '@/core/rating/rank';
 import type { SaveFile } from '@/core/profile/saveFile';
 import {
@@ -94,6 +95,11 @@ export const gameRepo = {
 
   async save(game: GameRecord): Promise<void> {
     await getDb().games.put({ ...game, updatedAt: Date.now() });
+  },
+
+  /** Stores Game Review data without touching updatedAt (keeps history order). */
+  async saveReview(id: string, review: GameReviewData): Promise<void> {
+    await getDb().games.update(id, { review });
   },
 
   /** The profile's unfinished game, if any (at most one is kept). */

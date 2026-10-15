@@ -40,6 +40,14 @@
   --mc-backdrop-size: 64px 64px;
   --mc-backdrop-mask: radial-gradient(ellipse at 30% 20%, black, transparent 75%);
   --mc-backdrop-opacity: 0.6;
+  /* Game Review move classes. */
+  --mc-cls-best: #4f9a2f;
+  --mc-cls-good: #8bb35a;
+  --mc-cls-inaccuracy: #e0a800;
+  --mc-cls-mistake: #e67e22;
+  --mc-cls-blunder: #d23c2f;
+  --mc-chart-white: #f5f5f0;
+  --mc-chart-black: #3b3d36;
 }
 
 [data-theme='midnight'] {
@@ -72,6 +80,13 @@
   --mc-mark-correct: rgb(90 200 120 / 0.6);
   --mc-mark-wrong: rgb(255 90 90 / 0.6);
   --mc-backdrop-opacity: 0.5;
+  --mc-cls-best: #6fcf4a;
+  --mc-cls-good: #a3c97a;
+  --mc-cls-inaccuracy: #f5c542;
+  --mc-cls-mistake: #ff9a45;
+  --mc-cls-blunder: #ff5c5c;
+  --mc-chart-white: #d9dbe8;
+  --mc-chart-black: #262939;
 }
 
 /* Fonts per language (spec §7.3). Font variables come from next/font in app/layout.tsx. */

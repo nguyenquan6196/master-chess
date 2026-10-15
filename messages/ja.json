@@ -454,5 +454,41 @@
     "promoted": "🎉 {rank}に昇格！",
     "promotionFailed": "昇格戦はまだ突破できていません。もう一度挑戦しよう！",
     "next": "おすすめの相手"
+  },
+  "review": {
+    "title": "対局の振り返り",
+    "vs": "vs {bot}",
+    "back": "履歴",
+    "analyze": "対局を解析",
+    "analyzing": "解析中… {done}/{total}",
+    "analyzeDesc": "Stockfish が1手ずつ調べて、好手と悪手を教えてくれます。",
+    "accuracy": "正確さ",
+    "you": "あなた",
+    "cls": {
+      "best": "最善手",
+      "good": "好手",
+      "inaccuracy": "不正確",
+      "mistake": "悪手",
+      "blunder": "大悪手"
+    },
+    "bestWas": "最善手：{move}",
+    "showBest": "最善手を表示",
+    "start": "最初へ",
+    "prev": "戻る",
+    "next": "進む",
+    "end": "最後へ",
+    "keyHint": "← → キーで手を移動できます。",
+    "chart": "対局の評価グラフ",
+    "mistakes": "悪手をやり直す",
+    "noMistakes": "大きなミスはありません。すばらしい！🎉",
+    "retry": "やり直す",
+    "retryPrompt": "{move} と指しました。もっといい手を探そう！",
+    "retryChecking": "確認中…",
+    "retryCorrect": "正解！{move} はいい手です。✅",
+    "retryWrong": "{move} もまだよくありません。もう一度！",
+    "showAnswer": "答えを見る",
+    "exitRetry": "やめる",
+    "notFound": "この対局が見つかりません。",
+    "open": "振り返り"
   }
 }

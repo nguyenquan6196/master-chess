@@ -150,7 +150,8 @@
   - [x] Dữ liệu: `gameRating`, `rankFloor` trong profile (trận thăng hạng suy ra từ rating, không cần lưu `pendingPromotion`); `style`, `customElo`, `rated`, `ratingDelta`, `ratingAfter`, `promotion` trong GameRecord → Dexie v4 + `SAVE_SCHEMA_VERSION` 4 + migrate (có test). Tính điểm 1 lần trong transaction (`services/rating/gameRating.ts`)
   - [x] UI tạm (chưa cần huy hiệu đẹp): rank + thanh tiến độ ở Hồ sơ, icon rank trên header, "+/− điểm" ở màn kết quả & lịch sử, "Trùm hạng X" trên thẻ bot, banner trận thăng hạng, nhãn Tính điểm/Luyện tập + hỏi xác nhận trước khi dùng gợi ý/đi lại
   - [ ] Dùng Elo bot đã hiệu chỉnh (`calibrate-bots`) để tính điểm
-- [ ] Game Review: phân loại nước (Best/Good/Inaccuracy/Mistake/Blunder), accuracy, biểu đồ eval, "thử lại nước sai"
+- [x] Game Review (`/review#<gameId>`, mở từ Lịch sử hoặc hộp kết quả): Stockfish depth 12 trên engine phân tích, lưu kết quả vào ván (`review`, không đổi thứ tự lịch sử); phân loại Best/Good/Inaccuracy/Mistake/Blunder theo % thắng bị mất (công thức Lichess), accuracy 2 bên, biểu đồ eval bấm để nhảy nước, phím ← →, hiện nước tốt nhất, **thử lại nước sai** (chấm bằng engine). `core/review/review.ts` + test; E2E
+- [x] Sửa: trang mở bằng `<Link>` có `#hash` (Review, `/practice/themes#fork` từ bài học) đọc hash quá sớm → hook `useLocationHash`
 
 ## Phase 5 — Hoa hòe
 - [ ] Theme (spec §7.2):

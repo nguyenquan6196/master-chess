@@ -13,6 +13,7 @@ import {
 } from '@/core/puzzle/types';
 import { puzzleRepo } from '@/services/db/repositories';
 import { useHistoryStep } from '@/services/navigation/historyStep';
+import { useLocationHash } from '@/services/navigation/locationHash';
 import { useSession } from '@/services/profile/session';
 import { nextThemePuzzle, recordPuzzleAttempt } from '@/services/puzzles/puzzles';
 import { PuzzleRunner } from './PuzzleRunner';
@@ -24,10 +25,12 @@ export function ThemeTraining() {
   const tt = useTranslations('puzzleThemes');
   const tn = useTranslations('nav');
   // A lesson can link straight to a theme: /practice/themes#fork
-  const [theme, setTheme] = useState<TrainingTheme | null>(() => {
-    const hash = typeof window === 'undefined' ? '' : window.location.hash.slice(1);
-    return isTrainingTheme(hash) ? hash : null;
-  });
+  const hash = useLocationHash();
+  const hashTheme = isTrainingTheme(hash) ? hash : null;
+  /** undefined = nothing picked on this screen yet: follow the URL hash. */
+  const [picked, setPicked] = useState<TrainingTheme | null | undefined>(undefined);
+  const theme = picked === undefined ? hashTheme : picked;
+  const setTheme = setPicked;
   const [puzzle, setPuzzle] = useState<Puzzle | null>(null);
   const [state, setState] = useState<'loading' | 'ready' | 'error' | 'empty'>('loading');
   const seen = useRef<Set<string> | null>(null);
@@ -55,11 +58,11 @@ export function ThemeTraining() {
     [fetchPuzzle, show],
   );
 
-  // Theme chosen from the URL hash on first render.
-  const initialTheme = useRef(theme);
+  // Theme chosen from the URL hash.
+  const followsHash = picked === undefined;
   useEffect(() => {
-    if (initialTheme.current) fetchPuzzle(initialTheme.current).then(show, () => setState('error'));
-  }, [fetchPuzzle, show]);
+    if (followsHash && hashTheme) fetchPuzzle(hashTheme).then(show, () => setState('error'));
+  }, [followsHash, hashTheme, fetchPuzzle, show]);
 
   const record = useCallback(async (session: PuzzleSession, ms: number) => {
     const profile = useSession.getState().profile;
