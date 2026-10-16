@@ -15,6 +15,8 @@ export interface PieceMaterial {
   emissiveIntensity?: number;
   opacity?: number;
   flatShading?: boolean;
+  /** Draw only the edges (the neon set: glowing tubes). */
+  wireframe?: boolean;
 }
 
 type Pair = { white: PieceMaterial; black: PieceMaterial };
@@ -38,10 +40,13 @@ export const PIECE_MATERIALS: Record<ConcretePieceSet, Pair> = {
     white: m('#f2f8fd', 0.12, 0, { opacity: 0.9 }),
     black: m('#2a78c4', 0.12, 0, { opacity: 0.88 }),
   },
-  marble: { white: m('#f5f5f2', 0.28), black: m('#1d1e22', 0.22) },
+  marble: {
+    white: m('#f5f5f2', 0.28, 0, { flatShading: true }),
+    black: m('#1d1e22', 0.22, 0, { flatShading: true }),
+  },
   outline: {
-    white: m('#1f6f7a', 0.35, 0, { emissive: '#3ff3ff', emissiveIntensity: 0.45 }),
-    black: m('#7a1f6c', 0.35, 0, { emissive: '#ff3fd8', emissiveIntensity: 0.45 }),
+    white: m('#3ff3ff', 0.35, 0, { emissive: '#3ff3ff', emissiveIntensity: 0.9, wireframe: true }),
+    black: m('#ff3fd8', 0.35, 0, { emissive: '#ff3fd8', emissiveIntensity: 0.9, wireframe: true }),
   },
   pixel: {
     white: m('#e0f8d0', 1, 0, { flatShading: true }),
@@ -49,5 +54,8 @@ export const PIECE_MATERIALS: Record<ConcretePieceSet, Pair> = {
   },
   fantasy: { white: m('#f2d27f', 0.35, 0.3), black: m('#6b45b8', 0.35, 0.15) },
   sakura: { white: m('#fbeff1', 0.22), black: m('#2a1012', 0.18) },
-  midnight: { white: m('#d5dce8', 0.28, 0.45), black: m('#1b1e26', 0.3, 0.4) },
+  midnight: {
+    white: m('#d5dce8', 0.28, 0.45, { flatShading: true }),
+    black: m('#1b1e26', 0.3, 0.4, { flatShading: true }),
+  },
 };

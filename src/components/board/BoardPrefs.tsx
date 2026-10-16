@@ -13,7 +13,11 @@ export interface BoardPrefs {
   view: BoardView;
   /** Switches the view (the quick 2D/3D toggle on game boards); absent = no toggle. */
   onViewChange?: (view: BoardView) => void;
-  labels3d: Board3DLabels & { to3d: string };
+  labels3d: Board3DLabels & {
+    to3d: string;
+    /** Shown when 3D switched itself off because it ran too slowly. */
+    slow: string;
+  };
 }
 
 export const MOVE_ANIMATION_MS: Record<MoveAnimation, number> = { normal: 180, fast: 90, off: 0 };
@@ -22,7 +26,7 @@ const BoardPrefsContext = createContext<BoardPrefs>({
   pieceSet: 'classic',
   moveAnimation: 'normal',
   view: '2d',
-  labels3d: { camera: { angle: '', top: '', low: '' }, to2d: '2D', to3d: '3D' },
+  labels3d: { camera: { angle: '', top: '', low: '' }, to2d: '2D', to3d: '3D', slow: '' },
 });
 
 export const BoardPrefsProvider = BoardPrefsContext.Provider;

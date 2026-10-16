@@ -13,9 +13,13 @@ const FOOT: Pt[] = [
   [5, 13],
 ];
 
-const BODY: Record<PieceKind, string> = {
-  p: lathe([...FOOT, [3, 1], [6, -2], [0, -2]]),
-  r: lathe([
+/**
+ * Right-half turning profiles (SVG units, y down, ground at y = 18) — drawn flat here
+ * and turned into 3D lathes by the 3D board.
+ */
+export const MIDNIGHT_PROFILES: Record<Exclude<PieceKind, 'n'>, Pt[]> = {
+  p: [...FOOT, [3, 1], [6, -2], [0, -2]],
+  r: [
     [0, 18],
     [11, 18],
     [11, 15],
@@ -25,25 +29,10 @@ const BODY: Record<PieceKind, string> = {
     [9, -23],
     [4, -19],
     [0, -23],
-  ]),
-  n: poly([
-    [-10, 18],
-    [10, 18],
-    [10, 15],
-    [8, 13],
-    [10, -12],
-    [2, -18],
-    [-2, -27],
-    [-5, -16],
-    [-12, -7],
-    [-11, -2],
-    [-5, -3],
-    [-7, 13],
-    [-10, 15],
-  ]),
-  b: lathe([...FOOT, [3, -2], [6, -6], [3, -24], [0, -27]]),
-  q: lathe([...FOOT, [3, -2], [8, -8], [9, -23], [5, -16], [3, -25], [0, -18]]),
-  k: lathe([
+  ],
+  b: [...FOOT, [3, -2], [6, -6], [3, -24], [0, -27]],
+  q: [...FOOT, [3, -2], [8, -8], [9, -23], [5, -16], [3, -25], [0, -18]],
+  k: [
     ...FOOT,
     [3, -2],
     [7, -8],
@@ -55,7 +44,31 @@ const BODY: Record<PieceKind, string> = {
     [2, -24],
     [2, -28],
     [0, -28],
-  ]),
+  ],
+};
+
+/** The knight's outline (a flat, angular horse on its plinth). */
+export const MIDNIGHT_KNIGHT: Pt[] = [
+  [-10, 18],
+  [10, 18],
+  [10, 15],
+  [8, 13],
+  [10, -12],
+  [2, -18],
+  [-2, -27],
+  [-5, -16],
+  [-12, -7],
+  [-11, -2],
+  [-5, -3],
+  [-7, 13],
+  [-10, 15],
+];
+
+const BODY: Record<PieceKind, string> = {
+  ...(Object.fromEntries(
+    Object.entries(MIDNIGHT_PROFILES).map(([k, profile]) => [k, lathe(profile)]),
+  ) as Record<Exclude<PieceKind, 'n'>, string>),
+  n: poly(MIDNIGHT_KNIGHT),
 };
 
 const HEX = poly(

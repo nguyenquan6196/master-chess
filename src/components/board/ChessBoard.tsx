@@ -24,6 +24,7 @@ import {
   type PromotionPiece,
   type Square,
 } from '@/core/chess/game';
+import { isLowEndDevice } from '@/core/board3d/perf';
 import { PromotionPicker, type PromotionLabels } from './PromotionPicker';
 
 export type { PromotionLabels };
@@ -54,11 +55,22 @@ const Board3D = lazy(() => import('../board3d/Board3D'));
 
 let webglCache: boolean | null = null;
 /** WebGL support, probed once on the client (no 3D on the server or without WebGL). */
+/** WebGL and not a low-end device: the conditions to offer the 3D board at all. */
 function webglAvailable(): boolean {
   if (webglCache === null) {
     try {
       const canvas = document.createElement('canvas');
-      webglCache = !!(canvas.getContext('webgl2') ?? canvas.getContext('webgl'));
+      const nav = navigator as Navigator & {
+        deviceMemory?: number;
+        connection?: { saveData?: boolean };
+      };
+      webglCache =
+        !!(canvas.getContext('webgl2') ?? canvas.getContext('webgl')) &&
+        !isLowEndDevice({
+          cores: nav.hardwareConcurrency,
+          memoryGb: nav.deviceMemory,
+          saveData: nav.connection?.saveData,
+        });
     } catch {
       webglCache = false;
     }
@@ -138,7 +150,9 @@ export function ChessBoard({
 
   const prefs = useBoardPrefs();
   const webgl = useSyncExternalStore(noSubscribe, webglAvailable, () => false);
-  const show3d = allow3d && prefs.view === '3d' && webgl;
+  // Set when the 3D board ran too slowly: back to 2D, with a short notice.
+  const [slow, setSlow] = useState(false);
+  const show3d = allow3d && prefs.view === '3d' && webgl && !slow;
   const targets = useMemo(() => (selected ? legalTargets(fen, selected) : []), [fen, selected]);
 
   function tryMove(from: Square, to: Square): boolean {
@@ -259,6 +273,17 @@ export function ChessBoard({
             moveMs={MOVE_ANIMATION_MS[prefs.moveAnimation]}
             interactive={movableColor !== 'none' || !!onSquareSelect}
             onSquareClick={clickSquare}
+            canDrag={(sq) => !pendingPromotion && canMoveColor(pieceColorAt(fen, sq as Square))}
+            onSelect={(sq) => setSelected(sq as Square)}
+            onDrop={(from, to) => {
+              if (legalTargets(fen, from as Square).includes(to as Square)) {
+                tryMove(from as Square, to as Square);
+              }
+            }}
+            onSlow={() => {
+              setSlow(true);
+              prefs.onViewChange?.('2d');
+            }}
             labels={prefs.labels3d}
             onTo2d={prefs.onViewChange ? () => prefs.onViewChange?.('2d') : undefined}
           />
@@ -266,7 +291,16 @@ export function ChessBoard({
       ) : (
         <>
           {board2d}
-          {canToggle && (
+          {slow && (
+            <button
+              type="button"
+              onClick={() => setSlow(false)}
+              className="absolute inset-x-2 top-2 z-10 rounded-xl border border-border bg-surface/95 px-3 py-2 text-left text-xs font-semibold shadow-card"
+            >
+              {prefs.labels3d.slow}
+            </button>
+          )}
+          {canToggle && !slow && (
             <button
               type="button"
               onClick={() => prefs.onViewChange?.('3d')}

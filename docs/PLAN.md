@@ -228,7 +228,11 @@ Quyết định: [ADR 0008](adr/0008-procedural-3d-board.md) — three + react-t
 - [x] Ánh xạ ô ↔ toạ độ 3D, quân từ FEN, nước được animate (nhập thành kéo cả xe, bỏ qua khi đi lại/ván mới), quỹ đạo nhảy vòng cung cho mã (`core/board3d`, có test); raycast bấm để đi (chọn quân → chấm/vòng nước đi → bấm ô), phong cấp dùng lại bảng chọn 2D
 - [x] Camera xoay (OrbitControls, không pan, giới hạn góc/khoảng cách), 3 góc đặt sẵn (nghiêng / từ trên / thấp) chuyển mượt, xoay theo chiều bàn; ánh sáng bán cầu + đèn hướng có bóng đổ; màu bàn và highlight đọc từ theme, chất liệu quân theo bộ quân
 - [x] Bật/tắt 2D/3D: cài đặt "Kiểu bàn cờ" (Dexie v9 + save v9, mặc định 2D) + nút nhanh "3D"/"2D" trên bàn; chỉ bàn chơi chính (đấu bot, 2 người, puzzle, xem lại ván); bài học/quiz/xem trước giữ 2D; chunk 3D chỉ tải khi bật; không có WebGL → 2D
-- [ ] Để sau: kéo-thả trong 3D; quân 3D có hình dáng riêng từng theme (hiện mọi bộ cùng dáng Staunton, khác chất liệu); tự tắt 3D theo FPS/thiết bị yếu (spec §13.4)
+- [x] Kéo-thả trong 3D: nhấn giữ quân → quân nhấc lên đi theo con trỏ, ô sắp thả có vòng đánh dấu, camera ngừng xoay khi kéo; thả vào ô hợp lệ là đi (không trượt lại lần nữa); bấm-để-đi vẫn dùng được
+- [x] Quân 3D theo từng theme: Staunton tiện (cổ điển/gỗ), Staunton đúc thon (nhựa), tiện 8 cạnh vát + chóp bát diện (đá), tiện 6 cạnh Art Deco (kim loại), khung dây phát sáng (neon), voxel từ sprite 12×12 (arcade), tượng đùn từ hình nhân vật 2D (huyền ảo, Nhật Bản) — hình lấy chung dữ liệu với bộ 2D
+- [x] Tự tắt 3D trên máy yếu: ≤ 2 nhân CPU / ≤ 2 GB RAM / bật tiết kiệm dữ liệu → luôn 2D (Cài đặt ghi rõ lý do); đang chạy mà FPS trung bình < 24 → tự chuyển 2D kèm thông báo (`core/board3d/perf`, có test)
+- [x] Camera tự tính khoảng cách để cả 4 góc khung bàn và đỉnh quân hàng xa luôn nằm trong khung (hết lẹm góc)
+- [x] Bố cục bàn chơi desktop 3 cột: nút chức năng xếp dọc bên trái, bàn cờ giữa (to nhất theo chiều cao/rộng), nước đi & thông tin bên phải; mobile giữ dải nút đáy
 
 ## Deploy — khi tính năng hòm hòm (dự kiến sau Phase 3 hoặc Phase 5)
 - [ ] Vercel → Add New Project → Import repo `nguyenquan6196/master-chess` (Next.js tự nhận, không cần cấu hình)

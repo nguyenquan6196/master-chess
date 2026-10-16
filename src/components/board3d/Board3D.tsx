@@ -2,7 +2,7 @@
 
 import { Canvas, useFrame, useThree, type ThreeEvent } from '@react-three/fiber';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type RefObject } from 'react';
-import { Color, Vector3, type Group } from 'three';
+import { Color, PerspectiveCamera, Plane, Vector3, type Group } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import {
   ALL_SQUARES,
@@ -12,9 +12,11 @@ import {
   piecesFromFen,
   slidePosition,
   squareToWorld,
+  worldToSquare,
   type BoardPiece,
   type Slide,
 } from '@/core/board3d/board3d';
+import { frameRateVerdict } from '@/core/board3d/perf';
 import type { ConcretePieceSet } from '@/core/profile/settingsOptions';
 import { cn } from '../ui/cn';
 import { pieceParts, TARGET_DOT } from './geometry';
@@ -46,6 +48,14 @@ export interface Board3DProps {
   /** Whether squares react to clicks (a side can move, or squares can be selected). */
   interactive: boolean;
   onSquareClick: (square: string) => void;
+  /** Drag and drop: which squares hold a piece the player may pick up. */
+  canDrag: (square: string) => boolean;
+  /** A piece was picked up (show its moves). */
+  onSelect: (square: string) => void;
+  /** A dragged piece was dropped on another square. */
+  onDrop: (from: string, to: string) => void;
+  /** The scene runs too slowly on this device (ChessBoard falls back to 2D). */
+  onSlow?: () => void;
   labels: Board3DLabels;
   onTo2d?: () => void;
 }
@@ -62,6 +72,16 @@ const CLICK_SLOP_PX = 5;
 const MOVE_SLOWDOWN = 2;
 const BOARD_TOP = 0;
 const OVERLAY_Y = BOARD_TOP + 0.004;
+/** How high a dragged piece floats above the board. */
+const DRAG_LIFT = 0.35;
+/** The board's surface, for turning the pointer ray into a board position. */
+const GROUND = new Plane(new Vector3(0, 1, 0), 0);
+
+interface Drag {
+  from: string;
+  x: number;
+  z: number;
+}
 
 function presetPosition(preset: CameraPreset, flip: boolean): Vector3 {
   const [x, y, z] = PRESET_POSITION[preset];
@@ -74,32 +94,100 @@ interface Anim {
 }
 
 /** Orbit controls plus a smooth glide to the chosen preset. */
-function CameraRig({ preset, flip }: { preset: CameraPreset; flip: boolean }) {
-  const { camera, gl } = useThree();
-  const controls = useRef<OrbitControls | null>(null);
+/** Points that must stay in frame: the board frame's corners and the far pieces' tops. */
+const FIT_POINTS = [-1, 1].flatMap((sx) =>
+  [-1, 1].flatMap((sz) => [
+    new Vector3(4.4 * sx, 0, 4.4 * sz),
+    new Vector3(4.4 * sx, -0.22, 4.4 * sz),
+    new Vector3(3.8 * sx, 0.95, 3.8 * sz),
+  ]),
+);
+/** How close to the canvas edge (normalised device coords) the board may come. */
+const FIT_MARGIN = 0.94;
+
+/** Camera position along the preset's direction, just far enough to show the whole board. */
+function fittedPosition(fov: number, aspect: number, preset: CameraPreset, flip: boolean): Vector3 {
+  const dir = presetPosition(preset, flip).normalize();
+  const probe = new PerspectiveCamera(fov, aspect, 0.1, 200);
+  const fits = (d: number) => {
+    probe.position.copy(dir).multiplyScalar(d);
+    probe.lookAt(0, 0, 0);
+    probe.updateMatrixWorld();
+    probe.updateProjectionMatrix();
+    return FIT_POINTS.every((p) => {
+      const v = p.clone().project(probe);
+      return Math.abs(v.x) <= FIT_MARGIN && Math.abs(v.y) <= FIT_MARGIN && v.z < 1;
+    });
+  };
+  let near = 4;
+  let far = 60;
+  for (let i = 0; i < 24; i++) {
+    const mid = (near + far) / 2;
+    if (fits(mid)) far = mid;
+    else near = mid;
+  }
+  return dir.multiplyScalar(far);
+}
+
+/** Orbit controls plus a smooth glide to the chosen preset (fitted to the canvas). */
+function CameraRig({
+  preset,
+  flip,
+  controlsRef,
+}: {
+  preset: CameraPreset;
+  flip: boolean;
+  /** Shared so dragging a piece can pause orbiting. */
+  controlsRef: RefObject<OrbitControls | null>;
+}) {
+  const { camera, gl, size } = useThree();
   const goal = useRef<Vector3 | null>(null);
+  const placed = useRef(false);
 
   useEffect(() => {
     const c = new OrbitControls(camera, gl.domElement);
     c.enablePan = false;
     c.enableDamping = true;
-    c.minDistance = 7;
-    c.maxDistance = 20;
+    c.minDistance = 6;
+    c.maxDistance = 30;
     c.maxPolarAngle = 1.35;
-    controls.current = c;
+    controlsRef.current = c;
     return () => c.dispose();
-  }, [camera, gl]);
+  }, [camera, gl, controlsRef]);
 
   useEffect(() => {
-    goal.current = presetPosition(preset, flip);
-  }, [preset, flip]);
+    const fov = camera instanceof PerspectiveCamera ? camera.fov : 38;
+    const target = fittedPosition(fov, size.width / Math.max(1, size.height), preset, flip);
+    if (!placed.current) {
+      // First frame: start in place instead of gliding in.
+      camera.position.copy(target);
+      placed.current = true;
+    } else {
+      goal.current = target;
+    }
+  }, [camera, preset, flip, size.width, size.height]);
 
   useFrame(() => {
     if (goal.current) {
       camera.position.lerp(goal.current, 0.14);
       if (camera.position.distanceTo(goal.current) < 0.01) goal.current = null;
     }
-    controls.current?.update();
+    controlsRef.current?.update();
+  });
+  return null;
+}
+
+/** Measures the frame rate once and reports when the device is too slow for 3D. */
+function FpsWatch({ onSlow }: { onSlow: () => void }) {
+  const frames = useRef<number[]>([]);
+  const done = useRef(false);
+  useFrame((_, delta) => {
+    if (done.current) return;
+    frames.current.push(delta);
+    const verdict = frameRateVerdict(frames.current);
+    if (verdict === 'pending') return;
+    done.current = true;
+    if (verdict === 'slow') onSlow();
   });
   return null;
 }
@@ -107,11 +195,13 @@ function CameraRig({ preset, flip }: { preset: CameraPreset; flip: boolean }) {
 function Piece({
   piece,
   anim,
+  drag,
   moveMs,
   set,
 }: {
   piece: BoardPiece;
   anim: RefObject<Anim | null>;
+  drag: RefObject<Drag | null>;
   moveMs: number;
   set: ConcretePieceSet;
 }) {
@@ -124,6 +214,11 @@ function Piece({
   useFrame(({ clock }) => {
     const g = ref.current;
     if (!g) return;
+    const d = drag.current;
+    if (d && d.from === piece.square) {
+      g.position.set(d.x, DRAG_LIFT, d.z);
+      return;
+    }
     const a = anim.current;
     const slide = a?.slides.find((s) => s.to === piece.square);
     if (!a || !slide || moveMs <= 0) {
@@ -138,7 +233,7 @@ function Piece({
 
   return (
     <group ref={ref} position={[base.x, 0, base.z]} rotation={[0, turn, 0]}>
-      {pieceParts(piece.type).map((part, i) => (
+      {pieceParts(set, piece.type).map((part, i) => (
         <mesh
           key={i}
           geometry={part.geometry}
@@ -156,6 +251,7 @@ function Piece({
             transparent={mat.opacity !== undefined}
             opacity={mat.opacity ?? 1}
             flatShading={mat.flatShading ?? false}
+            wireframe={mat.wireframe ?? false}
           />
         </mesh>
       ))}
@@ -245,6 +341,10 @@ export default function Board3D({
   moveMs,
   interactive,
   onSquareClick,
+  canDrag,
+  onSelect,
+  onDrop,
+  onSlow,
   labels,
   onTo2d,
 }: Board3DProps) {
@@ -257,16 +357,28 @@ export default function Board3D({
   const flip = orientation === 'black';
   const [preset, setPreset] = useState<CameraPreset>('angle');
   const [hover, setHover] = useState<string | null>(null);
+  const controls = useRef<OrbitControls | null>(null);
+  const drag = useRef<Drag | null>(null);
+  const [dragging, setDragging] = useState(false);
+  const [dropSquare, setDropSquare] = useState<string | null>(null);
   const pieces = useMemo(() => piecesFromFen(fen), [fen]);
   const occupied = useMemo(() => new Set(pieces.map((p) => p.square)), [pieces]);
 
   // Work out which pieces slide whenever the position changes (before the next frame).
   const prevPieces = useRef(pieces);
   const anim = useRef<Anim | null>(null);
+  // A move the player just dragged is already where it belongs: don't slide it again.
+  const dropped = useRef<Slide | null>(null);
   useLayoutEffect(() => {
     const prev = prevPieces.current;
+    const justDropped = dropped.current;
+    dropped.current = null;
     anim.current = {
-      slides: moveSlides(lastMove, pieces).filter((s) => isForwardSlide(prev, pieces, s)),
+      slides: moveSlides(lastMove, pieces).filter(
+        (s) =>
+          isForwardSlide(prev, pieces, s) &&
+          !(justDropped && justDropped.from === s.from && justDropped.to === s.to),
+      ),
       start: null,
     };
     prevPieces.current = pieces;
@@ -274,14 +386,61 @@ export default function Board3D({
 
   const click = (square: string) => (e: ThreeEvent<MouseEvent>) => {
     e.stopPropagation();
-    if (!interactive || e.delta > CLICK_SLOP_PX) return;
+    // Own pieces are picked up on press (drag), not toggled by the click that follows.
+    if (!interactive || e.delta > CLICK_SLOP_PX || canDrag(square)) return;
     onSquareClick(square);
+  };
+
+  const setOrbit = (on: boolean) => {
+    if (controls.current) controls.current.enabled = on;
+  };
+  const point = new Vector3();
+  const pickUp = (square: string) => (e: ThreeEvent<PointerEvent>) => {
+    if (!interactive || !canDrag(square)) return;
+    e.stopPropagation();
+    (e.target as unknown as Element).setPointerCapture(e.pointerId);
+    const { x, z } = squareToWorld(square);
+    drag.current = { from: square, x, z };
+    setDragging(true);
+    setOrbit(false);
+    onSelect(square);
+  };
+  const moveDrag = (e: ThreeEvent<PointerEvent>) => {
+    const d = drag.current;
+    if (!d || !e.ray.intersectPlane(GROUND, point)) return;
+    d.x = point.x;
+    d.z = point.z;
+    const sq = worldToSquare(point.x, point.z);
+    if (sq !== dropSquare) setDropSquare(sq);
+  };
+  const putDown = (e: ThreeEvent<PointerEvent>) => {
+    const d = drag.current;
+    if (!d) return;
+    (e.target as unknown as Element).releasePointerCapture(e.pointerId);
+    drag.current = null;
+    setDragging(false);
+    setDropSquare(null);
+    setOrbit(true);
+    const to = worldToSquare(d.x, d.z);
+    if (to && to !== d.from) {
+      dropped.current = { from: d.from, to };
+      onDrop(d.from, to);
+    }
   };
   const nextPreset = CAMERA_PRESETS[(CAMERA_PRESETS.indexOf(preset) + 1) % CAMERA_PRESETS.length];
 
   return (
     <div
-      className={cn('relative w-full', interactive && hover ? 'cursor-pointer' : 'cursor-grab')}
+      className={cn(
+        'relative w-full',
+        dragging
+          ? 'cursor-grabbing'
+          : hover && interactive && canDrag(hover)
+            ? 'cursor-grab'
+            : hover && interactive
+              ? 'cursor-pointer'
+              : 'cursor-move',
+      )}
       style={{ aspectRatio: '1' }}
     >
       <Canvas
@@ -292,7 +451,8 @@ export default function Board3D({
         camera={{ fov: 38, position: presetPosition('angle', flip).toArray() }}
         onPointerMissed={() => setHover(null)}
       >
-        <CameraRig preset={preset} flip={flip} />
+        <CameraRig preset={preset} flip={flip} controlsRef={controls} />
+        {onSlow && <FpsWatch onSlow={onSlow} />}
         <hemisphereLight args={['#ffffff', frameColor, 0.7]} />
         <directionalLight
           position={[4, 10, flip ? -5 : 5]}
@@ -373,18 +533,37 @@ export default function Board3D({
             </mesh>
           );
         })}
+        {dropSquare && dragging && (
+          <SquareRing square={dropSquare} tint={colors.selected} inner={0.4} outer={0.5} />
+        )}
         {(arrows ?? []).map((a) => (
           <Arrow key={`${a.from}${a.to}`} from={a.from} to={a.to} tint={colors.arrow} />
         ))}
 
-        {/* Pieces (clicking a piece clicks its square). */}
+        {/* Pieces: press-and-drag your own pieces; clicking a piece clicks its square. */}
         {pieces.map((p) => (
           <group
             key={`${p.square}${p.color}${p.type}`}
             onClick={click(p.square)}
-            onPointerOver={() => setHover(p.square)}
+            onPointerDown={pickUp(p.square)}
+            onPointerMove={moveDrag}
+            onPointerUp={putDown}
+            onPointerOver={() => {
+              setHover(p.square);
+              // Over a piece you can pick up, a press means "drag the piece", not "turn the board".
+              if (interactive && canDrag(p.square)) setOrbit(false);
+            }}
+            onPointerOut={() => {
+              if (!drag.current) setOrbit(true);
+            }}
           >
-            <Piece piece={p} anim={anim} moveMs={moveMs * MOVE_SLOWDOWN} set={pieceSet} />
+            <Piece
+              piece={p}
+              anim={anim}
+              drag={drag}
+              moveMs={moveMs * MOVE_SLOWDOWN}
+              set={pieceSet}
+            />
           </group>
         ))}
       </Canvas>

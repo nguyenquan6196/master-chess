@@ -220,7 +220,9 @@
       "low": "Góc thấp"
     },
     "to2d": "Chuyển về bàn 2D",
-    "to3d": "Chuyển sang bàn 3D"
+    "to3d": "Chuyển sang bàn 3D",
+    "slow3d": "Máy chạy bàn 3D hơi chậm nên đã chuyển về 2D. Bấm để ẩn thông báo.",
+    "lowEnd3d": "Máy này khá yếu (ít nhân CPU / RAM hoặc đang bật tiết kiệm dữ liệu) nên bàn cờ luôn là 2D."
   },
   "profile": {
     "pickTitle": "Ai đang chơi?",

@@ -88,3 +88,32 @@ export function rings(ys: readonly number[], color: string, width = 0.9): ReactN
 export function shade(opacity: number, color = '#000'): ReactNode {
   return <rect x="0" y="-30" width="20" height="50" fill={color} opacity={opacity} />;
 }
+
+/** One element of a silhouette, as data (drawn flat here, extruded by the 3D board). */
+export type ShapeEl =
+  | { d: string }
+  | { circle: readonly [cx: number, cy: number, r: number] }
+  | { ellipse: readonly [cx: number, cy: number, rx: number, ry: number] };
+
+/** SVG elements for a silhouette. */
+export function drawEls(els: readonly ShapeEl[]): ReactNode {
+  return (
+    <>
+      {els.map((e, i) =>
+        'd' in e ? (
+          <path key={i} d={e.d} />
+        ) : 'circle' in e ? (
+          <circle key={i} cx={e.circle[0]} cy={e.circle[1]} r={e.circle[2]} />
+        ) : (
+          <ellipse
+            key={i}
+            cx={e.ellipse[0]}
+            cy={e.ellipse[1]}
+            rx={e.ellipse[2]}
+            ry={e.ellipse[3]}
+          />
+        ),
+      )}
+    </>
+  );
+}

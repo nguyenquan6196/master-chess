@@ -13,9 +13,13 @@ const PLINTH: Pt[] = [
   [11, 12],
 ];
 
-const BODY: Record<PieceKind, string> = {
-  p: lathe([...PLINTH, [7, 12], [5, 0], [8, -2], [8, -4], [0, -4]]),
-  r: lathe([
+/**
+ * Right-half turning profiles (SVG units, y down, ground at y = 18) — drawn flat here
+ * and turned into 3D lathes by the 3D board.
+ */
+export const MARBLE_PROFILES: Record<Exclude<PieceKind, 'n'>, Pt[]> = {
+  p: [...PLINTH, [7, 12], [5, 0], [8, -2], [8, -4], [0, -4]],
+  r: [
     ...PLINTH,
     [9, 12],
     [9, -8],
@@ -26,27 +30,9 @@ const BODY: Record<PieceKind, string> = {
     [2.5, -15],
     [2.5, -19],
     [0, -19],
-  ]),
-  n: poly([
-    [-14, 18],
-    [14, 18],
-    [14, 14],
-    [11, 12],
-    [9, 12],
-    [11, 0],
-    [10, -14],
-    [3, -20],
-    [-1, -25],
-    [-4, -17],
-    [-12, -9],
-    [-13, -2],
-    [-6, 0],
-    [-9, 12],
-    [-11, 12],
-    [-14, 14],
-  ]),
-  b: lathe([...PLINTH, [7, 12], [5, -2], [9, -4], [9, -6], [5, -7], [8, -12], [6, -19], [0, -24]]),
-  q: lathe([
+  ],
+  b: [...PLINTH, [7, 12], [5, -2], [9, -4], [9, -6], [5, -7], [8, -12], [6, -19], [0, -24]],
+  q: [
     ...PLINTH,
     [7, 12],
     [5, -4],
@@ -58,8 +44,35 @@ const BODY: Record<PieceKind, string> = {
     [5, -21],
     [2, -15],
     [0, -21],
-  ]),
-  k: lathe([...PLINTH, [7, 12], [5, -4], [9, -6], [9, -8], [6, -9], [9, -18], [0, -18]]),
+  ],
+  k: [...PLINTH, [7, 12], [5, -4], [9, -6], [9, -8], [6, -9], [9, -18], [0, -18]],
+};
+
+/** The knight's outline (a flat, angular horse on its plinth). */
+export const MARBLE_KNIGHT: Pt[] = [
+  [-14, 18],
+  [14, 18],
+  [14, 14],
+  [11, 12],
+  [9, 12],
+  [11, 0],
+  [10, -14],
+  [3, -20],
+  [-1, -25],
+  [-4, -17],
+  [-12, -9],
+  [-13, -2],
+  [-6, 0],
+  [-9, 12],
+  [-11, 12],
+  [-14, 14],
+];
+
+const BODY: Record<PieceKind, string> = {
+  ...(Object.fromEntries(
+    Object.entries(MARBLE_PROFILES).map(([k, profile]) => [k, lathe(profile)]),
+  ) as Record<Exclude<PieceKind, 'n'>, string>),
+  n: poly(MARBLE_KNIGHT),
 };
 
 const OCTAGON = poly(

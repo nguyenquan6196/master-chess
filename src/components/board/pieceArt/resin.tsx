@@ -14,9 +14,13 @@ const FOOT: Pt[] = [
   [5.5, 12],
 ];
 
-const BODY: Record<Exclude<PieceKind, 'n'>, string> = {
-  p: lathe([...FOOT, [3.5, 6], [3, 0], [6, -2], [6, -3.5], [3, -4.5], [0, -4.5]]),
-  r: lathe([
+/**
+ * Right-half turning profiles (SVG units, y down, ground at y = 18) — drawn flat here
+ * and turned into 3D lathes by the 3D board.
+ */
+export const RESIN_PROFILES: Record<Exclude<PieceKind, 'n'>, Pt[]> = {
+  p: [...FOOT, [3.5, 6], [3, 0], [6, -2], [6, -3.5], [3, -4.5], [0, -4.5]],
+  r: [
     [0, 18],
     [12, 18],
     [12, 16],
@@ -31,8 +35,8 @@ const BODY: Record<Exclude<PieceKind, 'n'>, string> = {
     [2, -15],
     [2, -18],
     [0, -18],
-  ]),
-  b: lathe([
+  ],
+  b: [
     ...FOOT,
     [3.5, 6],
     [3, -2],
@@ -44,8 +48,8 @@ const BODY: Record<Exclude<PieceKind, 'n'>, string> = {
     [4.5, -19],
     [2, -22],
     [0, -23],
-  ]),
-  q: lathe([
+  ],
+  q: [
     ...FOOT,
     [3.5, 6],
     [3, -4],
@@ -58,8 +62,8 @@ const BODY: Record<Exclude<PieceKind, 'n'>, string> = {
     [4.5, -19.5],
     [2.5, -22],
     [0, -20.5],
-  ]),
-  k: lathe([
+  ],
+  k: [
     ...FOOT,
     [3.5, 6],
     [3, -4],
@@ -70,11 +74,16 @@ const BODY: Record<Exclude<PieceKind, 'n'>, string> = {
     [7, -18],
     [3, -19.5],
     [0, -19.5],
-  ]),
+  ],
 };
 
-const KNIGHT_FOOT = lathe([...FOOT, [6, 12.5], [0, 12.5]]);
-const HORSE =
+const BODY = Object.fromEntries(
+  Object.entries(RESIN_PROFILES).map(([k, profile]) => [k, lathe(profile)]),
+) as Record<Exclude<PieceKind, 'n'>, string>;
+
+export const RESIN_KNIGHT_FOOT: Pt[] = [...FOOT, [6, 12.5], [0, 12.5]];
+const KNIGHT_FOOT = lathe(RESIN_KNIGHT_FOOT);
+export const RESIN_HORSE =
   'M-6,12.5 C-7,6 -3,2 -2,-2 C-6,-1 -10,-1 -11,-4 C-11,-8 -5,-12 -3,-16 C-2,-20 1,-23 3,-23 L4,-27 L6,-22 C10,-19 11,-11 10,-3 C9.5,3 8,8 7,12.5 Z';
 
 const PEARL = { top: '#ffffff', bottom: '#cfdde8', rim: '#7d97ad', swirl: '#9cc0dc' };
@@ -87,7 +96,7 @@ export const resinArt: Art = (kind, white) => {
     kind === 'n' ? (
       <>
         <path d={KNIGHT_FOOT} />
-        <path d={HORSE} />
+        <path d={RESIN_HORSE} />
       </>
     ) : (
       <>

@@ -10,4 +10,4 @@
 - Hình học thuần (ô ↔ toạ độ, quân từ FEN, nước nào được animate, quỹ đạo) nằm ở `core/board3d` và có test.
 - `Board3D` là chunk riêng (`React.lazy`), chỉ tải khi bật 3D; chỉ các bàn chơi chính (`allow3d`) mới dùng, bài học/quiz/xem trước giữ 2D để tránh nhiều WebGL context. Không có WebGL → 2D.
 
-**Hệ quả.** Không có file model, không cần CREDITS; quân 3D cùng một dáng Staunton cho mọi bộ (chỉ khác chất liệu) — bộ quân 3D theo hình dáng từng theme để sau. Kéo-thả trong 3D chưa có (bấm để đi).
+**Hệ quả.** Không có file model, không cần CREDITS. Hình 3D đọc chung dữ liệu hình của bộ quân 2D (profile tiện, đường SVG, sprite pixel), nên mỗi theme giữ dáng riêng ở cả 2D lẫn 3D; sửa hình 2D là 3D đổi theo. Máy yếu (theo `core/board3d/perf`) luôn dùng 2D.

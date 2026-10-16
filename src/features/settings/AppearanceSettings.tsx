@@ -1,8 +1,9 @@
 'use client';
 
-import { useRef, type ReactNode } from 'react';
+import { useRef, useSyncExternalStore, type ReactNode } from 'react';
 import { useTranslations } from 'use-intl';
 import { ChessBoard } from '@/components/board/ChessBoard';
+import { isLowEndDevice } from '@/core/board3d/perf';
 import { PieceSetPreview } from '@/components/board/PieceSetPreview';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/components/ui/cn';
@@ -121,11 +122,26 @@ function Slider({
   );
 }
 
+const noSubscribe = () => () => {};
+/** Same device check the board uses before offering 3D. */
+function lowEndDevice(): boolean {
+  const nav = navigator as Navigator & {
+    deviceMemory?: number;
+    connection?: { saveData?: boolean };
+  };
+  return isLowEndDevice({
+    cores: nav.hardwareConcurrency,
+    memoryGb: nav.deviceMemory,
+    saveData: nav.connection?.saveData,
+  });
+}
+
 export function AppearanceSettings() {
   const t = useTranslations('settings');
   const tg = useTranslations('game');
   const s = useSettings();
   const resolved = useResolvedTheme();
+  const lowEnd = useSyncExternalStore(noSubscribe, lowEndDevice, () => false);
   const profileId = useSession((x) => x.profile?.id);
   const fileInput = useRef<HTMLInputElement>(null);
 
@@ -306,7 +322,7 @@ export function AppearanceSettings() {
           options={BOARD_VIEWS.map((v) => ({ value: v, label: t(`boardViews.${v}`) }))}
         />
       </SettingRow>
-      <p className="-mt-2 text-xs text-muted">{t('boardViewHint')}</p>
+      <p className="-mt-2 text-xs text-muted">{lowEnd ? t('lowEnd3d') : t('boardViewHint')}</p>
 
       <SettingRow label={t('moveAnimation')}>
         <Segmented

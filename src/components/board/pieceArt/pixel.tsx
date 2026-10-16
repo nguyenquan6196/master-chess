@@ -7,7 +7,7 @@ import type { Art } from './shared';
  * pixels touching the fill) and a right-edge shade are derived, then drawn as crisp
  * squares in a Game Boy-like palette.
  */
-const SPRITES: Record<PieceKind, string[]> = {
+export const SPRITES: Record<PieceKind, string[]> = {
   p: [
     '............',
     '............',

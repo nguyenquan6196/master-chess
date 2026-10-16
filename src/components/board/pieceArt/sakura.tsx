@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import type { PieceKind } from '../pieceShapes';
-import { solid, type Art } from './shared';
+import { drawEls, solid, type Art, type ShapeEl } from './shared';
 
 /**
  * Sakura: Japanese figures on low lacquer stands — a kokeshi doll pawn, a pagoda rook,
@@ -14,61 +14,52 @@ const STAND = 'M-11,18 L11,18 L10,15 L-10,15 Z';
 const roof = (y: number, w: number) =>
   `M${-w},${y} Q${-w + 3},${y - 1} ${-w + 4},${y - 3.5} L${w - 4},${y - 3.5} Q${w - 3},${y - 1} ${w},${y} L${w - 3},${y + 1} L${-(w - 3)},${y + 1} Z`;
 
-const SHAPES: Record<PieceKind, ReactNode> = {
-  p: (
-    <>
-      <path d={STAND} />
-      <path d="M-6,15 C-7,8 -6,0 -4,-3 L4,-3 C6,0 7,8 6,15 Z" />
-      <circle cx="0" cy="-9.5" r="6.2" />
-    </>
-  ),
-  r: (
-    <>
-      <path d={STAND} />
-      <path d="M-6,15 L-6,-14 L6,-14 L6,15 Z" />
-      <path d={roof(3, 11)} />
-      <path d={roof(-6.5, 10)} />
-      <path d={roof(-15.5, 8.5)} />
-      <path d="M-0.8,-27 L0.8,-27 L0.8,-18.5 L-0.8,-18.5 Z" />
-      <circle cx="0" cy="-27.2" r="1.6" />
-    </>
-  ),
-  n: (
-    <>
-      <path d={STAND} />
-      <path d="M1,-19 L3.5,-26 L5.5,-18.5 Z" />
-      <path d="M-8,15 C-9,6 -6,1 -6,-3 C-10,-3 -12,-6 -11,-9 C-8,-14 -3,-19 2,-20 C8,-20 12,-13 11,-4 C10,4 9,10 9,15 Z" />
-    </>
-  ),
-  b: (
-    <>
-      <path d={STAND} />
-      <path d="M-3,15 L-3,2 L3,2 L3,15 Z" />
-      <path d="M-8,2.5 L8,2.5 L6,-1 L-6,-1 Z" />
-      <path d="M-5.5,-1 L-5.5,-11 L5.5,-11 L5.5,-1 Z" />
-      <path d="M-11,-10.5 Q-6,-12 -3,-17 L3,-17 Q6,-12 11,-10.5 Z" />
-      <circle cx="0" cy="-19.5" r="2.6" />
-      <path d="M-0.8,-24.5 L0.8,-24.5 L0.8,-21.5 L-0.8,-21.5 Z" />
-    </>
-  ),
-  q: (
-    <>
-      <path d={STAND} />
-      <path d="M-9,15 C-8,6 -6,0 -4,-4 L4,-4 C6,0 8,6 9,15 Z" />
-      <circle cx="0" cy="-9" r="4.2" />
-      <circle cx="0" cy="-15" r="3.3" />
-      <circle cx="-4.3" cy="-13" r="2" />
-      <circle cx="4.3" cy="-13" r="2" />
-    </>
-  ),
-  k: (
-    <>
-      <path d={STAND} />
-      <path d="M-6,15 L-6,-1 L-12.5,-4 L-11.5,-6.5 L-4,-5 L4,-5 L11.5,-6.5 L12.5,-4 L6,-1 L6,15 Z" />
-      <circle cx="0" cy="-9.5" r="3.8" />
-      <path d="M-3.5,-12 C-4,-20 0,-27 3.5,-28.5 C3,-22 4,-16 3.5,-12 Z" />
-    </>
-  ),
+/** Silhouettes as data (also extruded into the 3D pieces). */
+export const SAKURA_SHAPES: Record<PieceKind, ShapeEl[]> = {
+  p: [
+    { d: STAND },
+    { d: 'M-6,15 C-7,8 -6,0 -4,-3 L4,-3 C6,0 7,8 6,15 Z' },
+    { circle: [0, -9.5, 6.2] },
+  ],
+  r: [
+    { d: STAND },
+    { d: 'M-6,15 L-6,-14 L6,-14 L6,15 Z' },
+    { d: roof(3, 11) },
+    { d: roof(-6.5, 10) },
+    { d: roof(-15.5, 8.5) },
+    { d: 'M-0.8,-27 L0.8,-27 L0.8,-18.5 L-0.8,-18.5 Z' },
+    { circle: [0, -27.2, 1.6] },
+  ],
+  n: [
+    { d: STAND },
+    { d: 'M1,-19 L3.5,-26 L5.5,-18.5 Z' },
+    {
+      d: 'M-8,15 C-9,6 -6,1 -6,-3 C-10,-3 -12,-6 -11,-9 C-8,-14 -3,-19 2,-20 C8,-20 12,-13 11,-4 C10,4 9,10 9,15 Z',
+    },
+  ],
+  b: [
+    { d: STAND },
+    { d: 'M-3,15 L-3,2 L3,2 L3,15 Z' },
+    { d: 'M-8,2.5 L8,2.5 L6,-1 L-6,-1 Z' },
+    { d: 'M-5.5,-1 L-5.5,-11 L5.5,-11 L5.5,-1 Z' },
+    { d: 'M-11,-10.5 Q-6,-12 -3,-17 L3,-17 Q6,-12 11,-10.5 Z' },
+    { circle: [0, -19.5, 2.6] },
+    { d: 'M-0.8,-24.5 L0.8,-24.5 L0.8,-21.5 L-0.8,-21.5 Z' },
+  ],
+  q: [
+    { d: STAND },
+    { d: 'M-9,15 C-8,6 -6,0 -4,-4 L4,-4 C6,0 8,6 9,15 Z' },
+    { circle: [0, -9, 4.2] },
+    { circle: [0, -15, 3.3] },
+    { circle: [-4.3, -13, 2] },
+    { circle: [4.3, -13, 2] },
+  ],
+  k: [
+    { d: STAND },
+    { d: 'M-6,15 L-6,-1 L-12.5,-4 L-11.5,-6.5 L-4,-5 L4,-5 L11.5,-6.5 L12.5,-4 L6,-1 L6,15 Z' },
+    { circle: [0, -9.5, 3.8] },
+    { d: 'M-3.5,-12 C-4,-20 0,-27 3.5,-28.5 C3,-22 4,-16 3.5,-12 Z' },
+  ],
 };
 
 const PORCELAIN = {
@@ -192,7 +183,7 @@ export const sakuraArt: Art = (kind, white) => {
   );
   return solid(
     id,
-    SHAPES[kind],
+    drawEls(SAKURA_SHAPES[kind]),
     { top: c.top, bottom: c.bottom, rim: c.rim, rimWidth: 1.1 },
     inside,
     details[kind],

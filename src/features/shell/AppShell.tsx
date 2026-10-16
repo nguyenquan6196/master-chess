@@ -60,6 +60,7 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
         },
         to2d: tSet('to2d'),
         to3d: tSet('to3d'),
+        slow: tSet('slow3d'),
       },
     }),
     [boardPieces, moveAnimation, boardView, tSet],
