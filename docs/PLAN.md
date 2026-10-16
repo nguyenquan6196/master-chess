@@ -219,6 +219,7 @@ Mỗi theme có một bộ quân riêng, khác cả **hình dáng** lẫn **ch�
 - [x] Huyền ảo (`fantasy`): lính cầm khiên, tháp lâu đài cắm cờ, rồng, pháp sư mũ nhọn cầm gậy, nữ hoàng có cánh, vua phù thuỷ cầm quyền trượng; ngà vàng / tím thạch anh
 - [x] Hoa anh đào (`sakura`): kokeshi, chùa nhiều mái cong, ngựa tua đỏ, đèn lồng đá, thiếu nữ kimono cài trâm, lãnh chúa vai kamishimo đội eboshi; sứ hoa hồng / sơn mài đen
 - [x] Nửa đêm (`midnight`): kim loại Art Deco — cao, cạnh thẳng vát sắc, đầu tốt lục giác, xe khía chữ V, tượng hình lưỡi, vua có thập tự liền khối; bạc / đen bóng, ánh xanh lạnh
+- [x] Huy hiệu rank: quân giữa vẽ bằng SVG (dáng Staunton của bộ Gỗ, phẳng một màu theo bảng màu hạng, viền sáng) thay cho ký tự Unicode — giống nhau trên mọi máy
 - [x] Bỏ 2 bộ "Tối giản" và "Ký tự" cho khớp 1 theme – 1 bộ (Dexie v8 + save v8 chuyển người đang dùng sang "Theo chủ đề"); lưới chọn 5 thẻ/hàng, thẻ cao bằng nhau
 
 ## Phase 6 — 3D

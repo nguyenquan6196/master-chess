@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import type { PieceKind } from '../pieceShapes';
 import { lathe, rings, solid, type Art, type Pt } from './shared';
 
@@ -106,29 +107,36 @@ const GROOVES: Record<PieceKind, number[]> = {
 const OAK = { top: '#f6dfae', bottom: '#c48d52', rim: '#6e4520', grain: '#a8733e' };
 const WALNUT = { top: '#86553a', bottom: '#3a2010', rim: '#1a0d05', grain: '#24130a' };
 
+/**
+ * The turned Staunton silhouette of `kind` (no material): the wood set's shape, also
+ * drawn flat inside rank emblems.
+ */
+export function stauntonShape(kind: PieceKind): ReactNode {
+  return kind === 'n' ? (
+    <>
+      <path d={KNIGHT_FOOT} />
+      <path d={HORSE} />
+    </>
+  ) : (
+    <>
+      <path d={BODY[kind]} />
+      {kind === 'p' && <circle cx="0" cy="-12.5" r="6.8" />}
+      {kind === 'b' && <circle cx="0" cy="-25" r="2.4" />}
+      {kind === 'q' && <circle cx="0" cy="-23" r="2.5" />}
+      {kind === 'k' && (
+        <>
+          <rect x="-1.8" y="-28" width="3.6" height="9.5" rx="0.8" />
+          <rect x="-4.5" y="-25.5" width="9" height="3.4" rx="0.8" />
+        </>
+      )}
+    </>
+  );
+}
+
 export const woodArt: Art = (kind, white) => {
   const c = white ? OAK : WALNUT;
   const id = `mc-wood-${white ? 'w' : 'b'}-${kind}`;
-  const shape =
-    kind === 'n' ? (
-      <>
-        <path d={KNIGHT_FOOT} />
-        <path d={HORSE} />
-      </>
-    ) : (
-      <>
-        <path d={BODY[kind]} />
-        {kind === 'p' && <circle cx="0" cy="-12.5" r="6.8" />}
-        {kind === 'b' && <circle cx="0" cy="-25" r="2.4" />}
-        {kind === 'q' && <circle cx="0" cy="-23" r="2.5" />}
-        {kind === 'k' && (
-          <>
-            <rect x="-1.8" y="-28" width="3.6" height="9.5" rx="0.8" />
-            <rect x="-4.5" y="-25.5" width="9" height="3.4" rx="0.8" />
-          </>
-        )}
-      </>
-    );
+  const shape = stauntonShape(kind);
   const inside = (
     <>
       {/* Grain: long wavy lines along the turning axis. */}

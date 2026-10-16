@@ -1,6 +1,7 @@
 import { useId, type ReactNode } from 'react';
 import type { RankId } from '@/core/rating/rank';
-import { GLYPH_FONT, PIECE_GLYPHS, type PieceKind } from '../board/pieceShapes';
+import { stauntonShape } from '../board/pieceArt/wood';
+import type { PieceKind } from '../board/pieceShapes';
 import { cn } from './cn';
 
 /**
@@ -273,6 +274,7 @@ export function RankEmblem({
         <filter id={id('glow')} x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur stdDeviation={ORBIT[lv]?.blur ?? 2} />
         </filter>
+        <clipPath id={id('pieceClip')}>{stauntonShape(RANK_PIECE[rank])}</clipPath>
         <clipPath id={id('clip')}>
           <path d={SHIELD} transform="scale(0.86)" />
         </clipPath>
@@ -440,21 +442,27 @@ export function RankEmblem({
         </g>
       }
 
-      {/* Centre piece: the chess character (same as the "glyph" piece set). */}
-      <text
-        x="0"
-        y="20"
-        textAnchor="middle"
-        fontSize="50"
-        fontFamily={GLYPH_FONT}
-        fill={p.piece}
-        stroke={p.pieceEdge}
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-        paintOrder="stroke"
-      >
-        {PIECE_GLYPHS[RANK_PIECE[rank]]}
-      </text>
+      {/* Centre piece: a flat Staunton silhouette in the rank's colours (SVG, so it
+          looks the same on every device), with a light edge and a soft highlight. */}
+      <g transform="translate(0,3) scale(1.02)" strokeLinejoin="round" strokeLinecap="round">
+        <g fill="none" stroke={p.pieceEdge} strokeWidth="3.2">
+          {stauntonShape(RANK_PIECE[rank])}
+        </g>
+        <g fill={p.piece}>{stauntonShape(RANK_PIECE[rank])}</g>
+        <rect
+          x="-6"
+          y="-30"
+          width="3"
+          height="48"
+          fill="#fff"
+          opacity="0.18"
+          clipPath={url('pieceClip')}
+        />
+        {RANK_PIECE[rank] === 'n' && <circle cx="-2" cy="-14" r="1.5" fill={p.pieceEdge} />}
+        {RANK_PIECE[rank] === 'b' && (
+          <line x1="1.5" y1="-18" x2="5" y2="-12.5" stroke={p.pieceEdge} strokeWidth="1.8" />
+        )}
+      </g>
 
       {/* Gems and crowns. */}
       {lv === 3 && (
