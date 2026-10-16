@@ -201,6 +201,18 @@ export function migratePieceSetV7<T extends object>(p: T): T {
   return { ...p, settings: { ...settings, pieceSet: 'theme' } };
 }
 
+/** Piece sets removed in schema v8 (one set per theme remains). */
+const REMOVED_PIECE_SETS_V8: readonly unknown[] = ['minimal', 'glyph'];
+
+/** Schema v8: the "minimal" and "glyph" sets are gone; players on them follow the theme. */
+export function migratePieceSetV8<T extends object>(p: T): T {
+  const settings = (p as { settings?: unknown }).settings;
+  if (typeof settings !== 'object' || settings === null) return p;
+  const s = settings as { pieceSet?: unknown };
+  if (!REMOVED_PIECE_SETS_V8.includes(s.pieceSet)) return p;
+  return { ...p, settings: { ...settings, pieceSet: 'theme' } };
+}
+
 /** Game fields added in schema v4 (older games were all against balanced ladder bots). */
 export function withGameDefaultsV4<T extends object>(g: T): Pick<GameRecord, 'style'> & T {
   const defaults: Pick<GameRecord, 'style'> = { style: 'balanced' };

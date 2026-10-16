@@ -122,9 +122,7 @@
       "pixel": "8-bit pixel",
       "fantasy": "Fantasy",
       "sakura": "Japanese",
-      "midnight": "Metal",
-      "minimal": "Minimal",
-      "glyph": "Glyph"
+      "midnight": "Metal"
     },
     "accent": "Accent colour",
     "accents": {

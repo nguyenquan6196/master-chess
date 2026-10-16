@@ -4,6 +4,7 @@ import { buildSaveFile, parseSaveFile, SAVE_SCHEMA_VERSION } from './saveFile';
 import {
   DEFAULT_PROFILE_SETTINGS,
   migratePieceSetV7,
+  migratePieceSetV8,
   DEFAULT_PUZZLE_RATING,
   type GameRecord,
   type Profile,
@@ -142,9 +143,19 @@ describe('core/profile piece sets (v7)', () => {
   it('moves the old default "classic" to "theme" and keeps explicit choices', () => {
     const old = { ...profile, settings: { ...profile.settings, pieceSet: 'classic' as const } };
     expect(migratePieceSetV7(old).settings.pieceSet).toBe('theme');
-    const chosen = { ...profile, settings: { ...profile.settings, pieceSet: 'glyph' as const } };
-    expect(migratePieceSetV7(chosen).settings.pieceSet).toBe('glyph');
+    const chosen = { ...profile, settings: { ...profile.settings, pieceSet: 'wood' as const } };
+    expect(migratePieceSetV7(chosen).settings.pieceSet).toBe('wood');
     expect(migratePieceSetV7({ id: 'x' })).toEqual({ id: 'x' });
+  });
+
+  it('moves removed sets (minimal, glyph) to "theme" in v8', () => {
+    const glyph = { ...profile, settings: { ...profile.settings, pieceSet: 'glyph' } };
+    expect(migratePieceSetV8(glyph).settings.pieceSet).toBe('theme');
+    const wood = { ...profile, settings: { ...profile.settings, pieceSet: 'wood' as const } };
+    expect(migratePieceSetV8(wood).settings.pieceSet).toBe('wood');
+    const v7 = { ...buildSaveFile(profile, [], [], 1), schemaVersion: 7, profile: glyph };
+    const parsed = parseSaveFile(JSON.stringify(v7));
+    expect(parsed.ok && parsed.data.profile.settings.pieceSet).toBe('theme');
   });
 
   it('upgrades a v6 save file', () => {
@@ -160,7 +171,7 @@ describe('core/profile piece sets (v7)', () => {
   it('resolves "theme" to the own set of the theme, and every theme has one', () => {
     expect(resolvePieceSet('theme', 'wood')).toBe('wood');
     expect(resolvePieceSet('theme', 'arcade')).toBe('pixel');
-    expect(resolvePieceSet('glyph', 'wood')).toBe('glyph');
+    expect(resolvePieceSet('sakura', 'wood')).toBe('sakura');
     for (const theme of THEME_IDS) {
       expect(PIECE_SETS).toContain(THEME_PIECE_SET[theme]);
     }

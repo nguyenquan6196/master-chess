@@ -122,9 +122,7 @@
       "pixel": "8ビット",
       "fantasy": "ファンタジー",
       "sakura": "和風",
-      "midnight": "メタル",
-      "minimal": "ミニマル",
-      "glyph": "文字"
+      "midnight": "メタル"
     },
     "accent": "アクセントカラー",
     "accents": {

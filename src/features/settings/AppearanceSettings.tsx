@@ -230,7 +230,7 @@ export function AppearanceSettings() {
       <div className="flex flex-col gap-2">
         <span className="text-sm font-medium">{t('pieces')}</span>
         {/* Each set has its own shapes; "theme" follows the colour theme. */}
-        <ul role="group" aria-label={t('pieces')} className="grid grid-cols-3 gap-2 sm:grid-cols-4">
+        <ul role="group" aria-label={t('pieces')} className="grid grid-cols-3 gap-2 sm:grid-cols-5">
           {PIECE_SETS.map((p) => {
             const selected = s.pieceSet === p;
             const drawn = resolvePieceSet(p, resolved);
@@ -241,15 +241,12 @@ export function AppearanceSettings() {
                   aria-pressed={selected}
                   onClick={() => s.update({ pieceSet: p })}
                   className={cn(
-                    'mc-lift flex h-full w-full flex-col items-center gap-1 rounded-xl border bg-surface-2/60 p-2 text-center text-xs leading-tight font-semibold',
+                    'mc-lift flex h-full w-full flex-col items-center justify-center gap-2 rounded-xl border bg-surface-2/60 px-2 py-3 text-center text-xs leading-tight font-semibold',
                     selected ? 'border-accent ring-2 ring-accent' : 'border-border',
                   )}
                 >
                   <PieceSetPreview set={drawn} />
                   {t(`pieceSets.${p}`)}
-                  {p === 'theme' && (
-                    <span className="font-normal text-muted">{t(`pieceSets.${drawn}`)}</span>
-                  )}
                 </button>
               </li>
             );

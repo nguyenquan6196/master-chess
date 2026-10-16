@@ -214,12 +214,12 @@ Mỗi theme có một bộ quân riêng, khác cả **hình dáng** lẫn **ch�
 - [x] Gỗ (`wood`): quân tiện — chân rộng có rãnh, thân tiện, đầu tròn, mã chạm; vân gỗ, sồi sáng / óc chó sẫm
 - [x] Nhựa thông (`resin`): Staunton đúc thon cao, trong mờ, vân xoáy, vệt bóng; quân xanh có viền sáng
 - [x] Cẩm thạch (`marble`): đá chạm — đế vuông vát, cạnh thẳng, đầu tốt bát giác, chóp kim cương, mặt vát đổ bóng, vân đá trắng / đen
-- [x] Neon (`outline`): ống neon hình học — tốt tròn + tam giác, xe tháp thẳng, mã gấp khúc, tượng kim cương, hậu vương miện 5 cánh, vua hình thang + thập tự; cyan / magenta phát sáng (chưa có nhịp phát sáng)
+- [x] Neon (`outline`): ống neon hình học — tốt tròn + tam giác, xe tháp thẳng, mã gấp khúc, tượng kim cương, hậu vương miện 5 cánh, vua hình thang + thập tự; cyan / magenta, quầng sáng nhấp nháy theo nhịp lệch pha từng quân; mã là đầu ngựa cong (mõm, tai, bờm), tượng là mũ mitre tròn có quả cầu + khe chéo
 - [x] Arcade (`pixel`): sprite 12×12, viền + bóng tự sinh, bảng màu Game Boy
 - [x] Huyền ảo (`fantasy`): lính cầm khiên, tháp lâu đài cắm cờ, rồng, pháp sư mũ nhọn cầm gậy, nữ hoàng có cánh, vua phù thuỷ cầm quyền trượng; ngà vàng / tím thạch anh
 - [x] Hoa anh đào (`sakura`): kokeshi, chùa nhiều mái cong, ngựa tua đỏ, đèn lồng đá, thiếu nữ kimono cài trâm, lãnh chúa vai kamishimo đội eboshi; sứ hoa hồng / sơn mài đen
 - [x] Nửa đêm (`midnight`): kim loại Art Deco — cao, cạnh thẳng vát sắc, đầu tốt lục giác, xe khía chữ V, tượng hình lưỡi, vua có thập tự liền khối; bạc / đen bóng, ánh xanh lạnh
-- [x] Giữ "Tối giản" và "Ký tự" làm bộ phụ
+- [x] Bỏ 2 bộ "Tối giản" và "Ký tự" cho khớp 1 theme – 1 bộ (Dexie v8 + save v8 chuyển người đang dùng sang "Theo chủ đề"); lưới chọn 5 thẻ/hàng, thẻ cao bằng nhau
 
 ## Phase 6 — 3D
 - [ ] Spike: react-three-fiber + model GLTF quân cờ (CC0 hoặc tự dựng)

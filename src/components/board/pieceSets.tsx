@@ -9,7 +9,7 @@ import { resinArt } from './pieceArt/resin';
 import { sakuraArt } from './pieceArt/sakura';
 import type { Art } from './pieceArt/shared';
 import { woodArt } from './pieceArt/wood';
-import { GLYPH_FONT, PIECE_BASE, PIECE_GLYPHS, PIECE_SHAPES, type PieceKind } from './pieceShapes';
+import type { PieceKind } from './pieceShapes';
 
 /**
  * Self-drawn piece sets (spec §7.2, Phase 5.6 — no external assets): each theme's set
@@ -20,9 +20,6 @@ import { GLYPH_FONT, PIECE_BASE, PIECE_GLYPHS, PIECE_SHAPES, type PieceKind } fr
 type Render = (props?: { svgStyle?: CSSProperties }) => JSX.Element;
 type PieceRenderObject = Record<string, Render>;
 
-/** Fixed artwork colours that read well on every board (light and dark). */
-const FILL = { white: '#f7f5ee', black: '#3b3d45', blackEdge: '#0d0e12' };
-
 const KINDS: PieceKind[] = ['p', 'n', 'b', 'r', 'q', 'k'];
 
 function svg(children: JSX.Element, style?: CSSProperties) {
@@ -31,44 +28,6 @@ function svg(children: JSX.Element, style?: CSSProperties) {
       {children}
     </svg>
   );
-}
-
-function minimal(kind: PieceKind, white: boolean): Render {
-  const Piece: Render = (props) =>
-    svg(
-      <g
-        fill={white ? FILL.white : FILL.black}
-        stroke={white ? FILL.black : FILL.blackEdge}
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      >
-        {PIECE_SHAPES[kind]}
-        {PIECE_BASE}
-      </g>,
-      props?.svgStyle,
-    );
-  return Piece;
-}
-
-function glyph(kind: PieceKind, white: boolean): Render {
-  const Piece: Render = (props) =>
-    svg(
-      <text
-        x="0"
-        y="12"
-        textAnchor="middle"
-        fontSize="40"
-        fontFamily={GLYPH_FONT}
-        fill={white ? FILL.white : FILL.black}
-        stroke={white ? FILL.black : FILL.blackEdge}
-        strokeWidth="1.2"
-        paintOrder="stroke"
-      >
-        {PIECE_GLYPHS[kind]}
-      </text>,
-      props?.svgStyle,
-    );
-  return Piece;
 }
 
 /** Wraps a set's artwork (from `pieceArt/`) as a react-chessboard renderer. */
@@ -105,6 +64,4 @@ export const PIECE_RENDERERS: Record<ConcretePieceSet, PieceRenderObject | undef
   fantasy: build(fromArt(fantasyArt, GROUNDED)),
   sakura: build(fromArt(sakuraArt, GROUNDED)),
   midnight: build(fromArt(midnightArt, GROUNDED)),
-  minimal: build(minimal),
-  glyph: build(glyph),
 };

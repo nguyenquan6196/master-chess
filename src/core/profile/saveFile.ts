@@ -10,13 +10,14 @@ import {
   withSettingsDefaultsV5,
   withProfileDefaultsV6,
   migratePieceSetV7,
+  migratePieceSetV8,
   type GameRecord,
   type Profile,
   type PuzzleAttempt,
 } from './schema';
 
 /** Bump when the save format changes, and add a step to `migrateSaveFile`. */
-export const SAVE_SCHEMA_VERSION = 7;
+export const SAVE_SCHEMA_VERSION = 8;
 export const SAVE_APP_ID = 'master-chess';
 
 export const SaveFileSchema = z.object({
@@ -82,6 +83,11 @@ function migrateSaveFile(data: Record<string, unknown>): Record<string, unknown>
     // v7 (Phase 5.6): piece sets follow the theme by default.
     const profile = typeof d.profile === 'object' && d.profile ? d.profile : {};
     d = { ...d, schemaVersion: 7, profile: migratePieceSetV7(profile) };
+  }
+  if (d.schemaVersion === 7) {
+    // v8: the "minimal" and "glyph" piece sets were removed.
+    const profile = typeof d.profile === 'object' && d.profile ? d.profile : {};
+    d = { ...d, schemaVersion: 8, profile: migratePieceSetV8(profile) };
   }
   return d;
 }

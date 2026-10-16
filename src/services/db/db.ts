@@ -7,6 +7,7 @@ import {
   withSettingsDefaultsV5,
   withProfileDefaultsV6,
   migratePieceSetV7,
+  migratePieceSetV8,
   type GameRecord,
   type Profile,
   type PuzzleAttempt,
@@ -106,6 +107,17 @@ export class MasterChessDB extends Dexie {
           .toCollection()
           .modify((p: Record<string, unknown>) => {
             Object.assign(p, migratePieceSetV7(p));
+          }),
+      );
+    // v8: the "minimal" and "glyph" piece sets were removed → follow the theme.
+    this.version(8)
+      .stores({})
+      .upgrade((tx) =>
+        tx
+          .table('profiles')
+          .toCollection()
+          .modify((p: Record<string, unknown>) => {
+            Object.assign(p, migratePieceSetV8(p));
           }),
       );
   }

@@ -42,8 +42,6 @@ export const PIECE_SETS = [
   'fantasy',
   'sakura',
   'midnight',
-  'minimal',
-  'glyph',
 ] as const;
 export const ACCENTS = [
   'theme',

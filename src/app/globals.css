@@ -470,6 +470,26 @@ body::after {
 .mc-pop {
   animation: mc-pop var(--mc-dur-slow) var(--mc-ease) both;
 }
+/* Neon piece set (components/board/pieceArt/neon): tube halo breathing with a flicker. */
+.mc-neon-glow {
+  animation: mc-neon-pulse 2.6s ease-in-out infinite;
+}
+@keyframes mc-neon-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  45% {
+    opacity: 0.95;
+  }
+  48% {
+    opacity: 0.45;
+  }
+  51% {
+    opacity: 0.95;
+  }
+}
+
 /* Bot-select portrait (features/bot-game/BotSetup): turning light ring, glow, pedestal. */
 .mc-portrait-ring {
   background: conic-gradient(
@@ -525,7 +545,8 @@ body::after {
   .mc-scene,
   .mc-float,
   .mc-pop,
-  .mc-portrait-ring--live {
+  .mc-portrait-ring--live,
+  .mc-neon-glow {
     animation: none;
   }
   .mc-press:active {
