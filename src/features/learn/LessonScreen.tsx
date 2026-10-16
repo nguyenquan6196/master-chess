@@ -101,8 +101,8 @@ export function LessonScreen({ lessonId, content }: LessonScreenProps) {
     <article className="mx-auto flex max-w-3xl flex-col gap-6">
       <header className="flex flex-col gap-2">
         <PageHeader
-          title={`${lesson.emoji} ${lesson.title[locale]}`}
-          eyebrow={`${chapter.emoji} ${chapter.title[locale]}`}
+          title={lesson.title[locale]}
+          eyebrow={chapter.title[locale]}
           back={{ href: '/learn', label: t('backToLessons') }}
         />
         <p className="flex flex-wrap gap-3 text-sm text-muted">

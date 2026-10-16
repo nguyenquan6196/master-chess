@@ -4,7 +4,7 @@ import { createPlayer, move } from './helpers';
 test('learn: lessons unlock in order and can be completed', async ({ page }) => {
   await createPlayer(page);
   await page.goto('/learn');
-  await expect(page.getByRole('heading', { name: '📖 Học cờ vua' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Học cờ vua' })).toBeVisible();
   await expect(page.getByText('0/18 bài')).toBeVisible();
   // Only the first lesson is open.
   await expect(page.getByRole('link', { name: /Bàn cờ/ }).first()).toBeVisible();

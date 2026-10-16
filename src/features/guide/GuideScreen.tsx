@@ -122,7 +122,7 @@ export function GuideScreen() {
   return (
     <div className="flex flex-col gap-8">
       <header className="flex flex-col gap-2">
-        <PageHeader title={`📘 ${t('title')}`} />
+        <PageHeader title={t('title')} />
         <h2 className="font-display text-4xl font-bold">{t('heroTitle')}</h2>
         <p className="max-w-2xl text-lg text-muted">{t('heroSubtitle')}</p>
       </header>

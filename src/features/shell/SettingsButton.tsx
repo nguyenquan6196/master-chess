@@ -48,13 +48,18 @@ export function SettingsButton({ children }: { children: ReactNode }) {
           role="dialog"
           aria-label={t('title')}
           className={cn(
-            'mc-scene fixed inset-x-3 top-16 z-40 max-h-[calc(100dvh-5rem)] overflow-y-auto rounded-2xl border border-border bg-surface p-5 text-fg shadow-card',
+            'mc-scene fixed inset-x-3 top-16 z-40 flex max-h-[calc(100dvh-5rem)] flex-col overflow-hidden rounded-2xl border border-border bg-surface text-fg shadow-card',
             expanded
-              ? 'sm:inset-x-8 sm:bottom-6 sm:max-h-none sm:p-8'
-              : 'sm:inset-x-auto sm:right-4 sm:w-[36rem] sm:p-6',
+              ? 'sm:inset-x-8 sm:bottom-6 sm:max-h-none'
+              : 'sm:inset-x-auto sm:right-4 sm:w-[36rem]',
           )}
         >
-          <div className="mb-5 flex items-center justify-between gap-2">
+          <div
+            className={cn(
+              'flex items-center justify-between gap-2 border-b border-border px-5 py-4',
+              expanded ? 'sm:px-8' : 'sm:px-6',
+            )}
+          >
             <h2 className="font-display text-2xl font-bold">⚙️ {t('title')}</h2>
             <button
               type="button"
@@ -64,7 +69,15 @@ export function SettingsButton({ children }: { children: ReactNode }) {
               {expanded ? `⤡ ${t('shrink')}` : `⤢ ${t('expand')}`}
             </button>
           </div>
-          {children}
+          {/* Only the body scrolls, inset from the rounded corners. */}
+          <div
+            className={cn(
+              'min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5 [scrollbar-gutter:stable] [scrollbar-width:thin]',
+              expanded ? 'sm:px-8' : 'sm:px-6',
+            )}
+          >
+            {children}
+          </div>
         </section>
       )}
     </div>

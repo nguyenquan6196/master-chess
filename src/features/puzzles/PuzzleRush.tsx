@@ -126,7 +126,7 @@ export function PuzzleRush() {
     return (
       <div className="flex flex-col gap-4">
         <PageHeader
-          title={<>⚡ {t('title')}</>}
+          title={t('title')}
           eyebrow={tn('practice')}
           back={{ href: '/practice', label: tn('practice') }}
         />
@@ -187,10 +187,7 @@ export function PuzzleRush() {
 
   return (
     <div className="flex flex-col gap-4">
-      <PageHeader
-        title={<>⚡ {t('title')}</>}
-        back={{ onClick: () => setRun(null), label: t('quit') }}
-      />
+      <PageHeader title={t('title')} back={{ onClick: () => setRun(null), label: t('quit') }} />
       {loadState !== 'ready' || !puzzle ? (
         <>
           {header}

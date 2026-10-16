@@ -238,7 +238,7 @@ export const ACHIEVEMENTS: readonly AchievementDef[] = [
     group: 'games',
     done: (s) => BOT_IDS.every((b) => s.botsBeaten.includes(b)),
   },
-  { id: 'customWin', icon: '🎛️', group: 'games', done: (s) => s.customWin },
+  { id: 'customWin', icon: '🌟', group: 'games', done: (s) => s.customWin },
   {
     id: 'styleAggressive',
     icon: STYLE_ICONS.aggressive,

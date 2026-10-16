@@ -181,7 +181,7 @@ export function QuizScreen() {
       <div className="flex flex-col gap-8">
         <section className="flex flex-col gap-4">
           <PageHeader
-            title={<>📝 {t('title')}</>}
+            title={t('title')}
             eyebrow={tn('practice')}
             back={{ href: '/practice', label: tn('practice') }}
           />
@@ -236,7 +236,7 @@ export function QuizScreen() {
     return (
       <div className="flex flex-col gap-4">
         <PageHeader
-          title={<>📝 {t('title')}</>}
+          title={t('title')}
           back={{ onClick: () => setRound(null), label: t('topics') }}
         />
         <Card className="relative mx-auto mt-6 flex max-w-md flex-col items-center gap-3 text-center">
@@ -265,7 +265,7 @@ export function QuizScreen() {
     <div className="flex flex-col gap-4">
       <PageHeader
         title={tt(round.topic)}
-        eyebrow={`📝 ${t('title')} · ${t('question', { current: index + 1, total })}`}
+        eyebrow={`${t('title')} · ${t('question', { current: index + 1, total })}`}
         back={{ onClick: () => setRound(null), label: t('topics') }}
         aside={
           round.mode === 'gen' && (

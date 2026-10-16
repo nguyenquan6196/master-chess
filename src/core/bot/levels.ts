@@ -135,7 +135,7 @@ const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
  */
 export function customLevel(rawElo: number): BotLevel {
   const elo = Math.min(Math.max(Math.round(rawElo), CUSTOM_ELO.min), CUSTOM_ELO.max);
-  const base = { id: 'custom' as const, emoji: '🎛️', elo, thinkTimeMs: [600, 1400] as const };
+  const base = { id: 'custom' as const, emoji: '🌟', elo, thinkTimeMs: [600, 1400] as const };
   const tier: BotLevel['tier'] = elo < 700 ? 1 : elo < 1300 ? 2 : elo < 2000 ? 3 : 4;
   if (elo >= FULL_STRENGTH_ELO)
     return { ...base, tier, strategy: { kind: 'full', movetimeMs: 1500 } };
