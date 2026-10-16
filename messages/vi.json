@@ -317,7 +317,10 @@
     "viewBoard": "Xem bàn cờ",
     "difficulty": "Độ khó",
     "style": "Phong cách",
-    "customElo": "Elo: {elo}"
+    "customElo": "Elo: {elo}",
+    "strength": "Sức mạnh",
+    "prevBot": "Bot trước",
+    "nextBot": "Bot sau"
   },
   "history": {
     "title": "Lịch sử ván",

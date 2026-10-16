@@ -317,7 +317,10 @@
     "viewBoard": "盤面を見る",
     "difficulty": "強さ",
     "style": "スタイル",
-    "customElo": "Elo：{elo}"
+    "customElo": "Elo：{elo}",
+    "strength": "強さ",
+    "prevBot": "前のボット",
+    "nextBot": "次のボット"
   },
   "history": {
     "title": "対局履歴",

@@ -22,7 +22,7 @@ export function MenuTile({
     <Link
       href={href}
       className={cn(
-        'mc-press relative flex h-full items-center gap-4 rounded-3xl border p-4 text-left shadow-card transition-transform hover:-translate-y-1 sm:p-5',
+        'mc-lift relative flex h-full items-center gap-4 rounded-3xl border p-4 text-left shadow-card sm:p-5',
         primary
           ? 'border-accent bg-accent text-accent-fg'
           : 'border-border bg-surface hover:border-accent',

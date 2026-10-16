@@ -194,6 +194,7 @@ Mục tiêu: app cảm giác như một game, không như website có thanh menu
 - [x] Các màn chọn (hub Luyện tập, Đấu cờ, Học, chọn bot) dạng ô lớn kiểu menu game; trang nhiều chữ (Hồ sơ, Lịch sử, Hướng dẫn) là bảng nổi trên sảnh
 - [x] Chuyển cảnh mờ/trượt, nút có độ nảy; tôn trọng `prefers-reduced-motion`
 - [x] Kiểm tra desktop + mobile: đo tự động không cuộn ở 1440×900 / 1366×768 (sảnh, đấu bot, 2 người, puzzle), không tràn ngang mobile; 40 E2E pass. Khung dùng chung: `components/ui/GameLayout` (bàn giữa, thẻ trên/dưới, cột phải; dải nút cố định đáy trên mobile), `MenuTile`, `HudIconButton`
+- [x] Vòng góp ý sau Phase 5.5: HUD dính đầu trang (nền mờ dần), bỏ trùng nút back (HUD chỉ còn ⌂, trang tự có "← màn cha"); **chọn bot kiểu chọn nhân vật** (sân khấu bot + sức mạnh + rank canh giữ + câu thoại, ◀ ▶ / phím ← →, dải roster, cột tùy chọn); Hồ sơ dạng grid 2 cột full-width trên desktop; hàng 8 rank chỉ làm sáng rank hiện tại; hệ chuyển động thống nhất (`--mc-ease`/`--mc-dur*`, `.mc-press`, `.mc-lift` hover nhấc thẻ, `.mc-pop`); con trỏ `pointer` đồng nhất cho mọi phần tử bấm được
 
 ## Phase 6 — 3D
 - [ ] Spike: react-three-fiber + model GLTF quân cờ (CC0 hoặc tự dựng)

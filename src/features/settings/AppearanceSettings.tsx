@@ -153,7 +153,7 @@ export function AppearanceSettings() {
                 title={pref === 'auto' ? t('autoHint') : undefined}
                 onClick={() => s.setTheme(pref)}
                 className={cn(
-                  'flex w-full flex-col items-center gap-1 rounded-xl border p-2 text-xs font-semibold transition-transform hover:-translate-y-0.5',
+                  'flex w-full flex-col items-center gap-1 rounded-xl border p-2 text-xs font-semibold mc-lift',
                   selected ? 'border-accent ring-2 ring-accent' : 'border-border',
                 )}
               >

@@ -317,7 +317,10 @@
     "viewBoard": "View board",
     "difficulty": "Difficulty",
     "style": "Style",
-    "customElo": "Elo: {elo}"
+    "customElo": "Elo: {elo}",
+    "strength": "Strength",
+    "prevBot": "Previous bot",
+    "nextBot": "Next bot"
   },
   "history": {
     "title": "Game history",

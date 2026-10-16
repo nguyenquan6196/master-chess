@@ -73,7 +73,7 @@ export function LanguageSelect() {
         onClick={() => (open ? setOpen(false) : openList())}
         onKeyDown={onKeyDown}
         className={cn(
-          'mc-press flex h-10 items-center gap-2 rounded-full border bg-surface px-3 text-sm font-semibold shadow-card transition-colors',
+          'mc-press flex h-10 items-center gap-2 rounded-full border bg-surface px-3 text-sm font-semibold shadow-card',
           'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent',
           open ? 'border-accent bg-surface-2' : 'border-border hover:bg-surface-2',
         )}

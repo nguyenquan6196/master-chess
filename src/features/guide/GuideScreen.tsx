@@ -139,7 +139,7 @@ export function GuideScreen() {
           <Section id="features" title={t('features.title')}>
             <div className="grid gap-3 sm:grid-cols-2">
               {FEATURES.map(({ key, href }) => (
-                <Link key={key} href={href} className="transition-transform hover:-translate-y-0.5">
+                <Link key={key} href={href} className="mc-lift">
                   <InfoCard
                     title={t(`features.${key}.title`)}
                     body={tDyn(`features.${key}.body`, {

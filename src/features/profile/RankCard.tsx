@@ -51,12 +51,15 @@ export function RankCard({ profile }: { profile: Profile }) {
             key={r.id}
             title={tr(r.id)}
             className={cn(
-              'grid place-items-center rounded-lg p-0.5',
-              i === status.rankIndex && 'bg-surface ring-2 ring-accent',
-              i > status.rankIndex && 'opacity-35 grayscale',
+              'grid place-items-center transition-opacity',
+              i !== status.rankIndex && 'opacity-35 grayscale',
             )}
           >
-            <RankEmblem rank={r.id} size={36} animated={i === status.rankIndex} />
+            <RankEmblem
+              rank={r.id}
+              size={i === status.rankIndex ? 44 : 36}
+              animated={i === status.rankIndex}
+            />
           </li>
         ))}
       </ol>

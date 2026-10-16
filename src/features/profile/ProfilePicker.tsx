@@ -68,7 +68,7 @@ export function ProfilePicker() {
                     <button
                       type="button"
                       onClick={() => void selectProfile(p)}
-                      className="group flex w-full items-center gap-4 rounded-2xl border border-border bg-bg p-3 text-left transition-all hover:-translate-y-0.5 hover:border-accent hover:shadow-card focus-visible:outline-2 focus-visible:outline-accent"
+                      className="group flex w-full items-center gap-4 rounded-2xl border border-border bg-bg p-3 text-left mc-lift hover:border-accent hover:shadow-card focus-visible:outline-2 focus-visible:outline-accent"
                     >
                       <span
                         aria-hidden

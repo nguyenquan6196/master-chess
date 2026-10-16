@@ -72,8 +72,8 @@ export function LearnHub() {
                 const body = (
                   <Card
                     className={cn(
-                      'flex h-full items-start gap-3 p-4 transition-transform',
-                      unlocked && 'group-hover:-translate-y-0.5',
+                      'flex h-full items-start gap-3 p-4',
+                      unlocked && 'mc-lift',
                       completed && 'border-accent',
                       !unlocked && 'opacity-55',
                     )}

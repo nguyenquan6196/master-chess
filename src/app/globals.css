@@ -23,6 +23,26 @@ html {
   background: var(--mc-bg);
 }
 
+/* Tailwind 4 resets the pointer on buttons: every clickable thing gets the hand cursor. */
+@layer base {
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']),
+  [role='option'],
+  summary,
+  select,
+  label:has(> input:not([type='text'])),
+  input[type='checkbox'],
+  input[type='radio'],
+  input[type='range'],
+  input[type='color'],
+  input[type='file'] {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+}
+
 body {
   background: var(--mc-bg);
   color: var(--mc-fg);
@@ -347,15 +367,49 @@ body::after {
   animation: mc-fade-up 0.3s ease-out both;
 }
 
-/* Game-style scenes (Phase 5.5): scenes fade/slide in, buttons press down. */
+/* Game-style motion (Phase 5.5): one set of durations and one easing everywhere. */
+:root {
+  --mc-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --mc-dur-fast: 120ms;
+  --mc-dur: 200ms;
+  --mc-dur-slow: 320ms;
+  --mc-shadow-lift: 0 2px 4px rgb(0 0 0 / 0.06), 0 12px 28px rgb(0 0 0 / 0.12);
+}
 .mc-scene {
-  animation: mc-scene-in 0.28s ease-out both;
+  animation: mc-scene-in var(--mc-dur-slow) var(--mc-ease) both;
 }
+/* Anything pressable: smooth colour/shadow changes and a small press-down. */
 .mc-press {
-  transition: transform 0.12s ease;
+  transition:
+    translate var(--mc-dur) var(--mc-ease),
+    scale var(--mc-dur-fast) var(--mc-ease),
+    box-shadow var(--mc-dur) var(--mc-ease),
+    background-color var(--mc-dur) var(--mc-ease),
+    border-color var(--mc-dur) var(--mc-ease),
+    color var(--mc-dur) var(--mc-ease),
+    opacity var(--mc-dur) var(--mc-ease);
 }
-.mc-press:active {
-  transform: scale(0.95);
+.mc-press:active:not(:disabled) {
+  scale: 0.97;
+}
+/* Cards and tiles: lift on hover (same distance and shadow for all). */
+.mc-lift {
+  transition:
+    translate var(--mc-dur) var(--mc-ease),
+    scale var(--mc-dur-fast) var(--mc-ease),
+    box-shadow var(--mc-dur) var(--mc-ease),
+    background-color var(--mc-dur) var(--mc-ease),
+    border-color var(--mc-dur) var(--mc-ease);
+}
+@media (hover: hover) {
+  .mc-lift:hover:not(:disabled),
+  .group:hover > .mc-lift {
+    translate: 0 -3px;
+    box-shadow: var(--mc-shadow-lift);
+  }
+}
+.mc-lift:active:not(:disabled) {
+  scale: 0.98;
 }
 @keyframes mc-float {
   0%,
@@ -369,6 +423,19 @@ body::after {
 .mc-float {
   animation: mc-float 4s ease-in-out infinite;
 }
+@keyframes mc-pop {
+  from {
+    opacity: 0;
+    scale: 0.92;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+.mc-pop {
+  animation: mc-pop var(--mc-dur-slow) var(--mc-ease) both;
+}
 @keyframes mc-scene-in {
   from {
     opacity: 0;
@@ -381,7 +448,8 @@ body::after {
 }
 @media (prefers-reduced-motion: reduce) {
   .mc-scene,
-  .mc-float {
+  .mc-float,
+  .mc-pop {
     animation: none;
   }
   .mc-press:active {

@@ -70,7 +70,7 @@ function TopicCard({
     <button
       type="button"
       onClick={onClick}
-      className="flex h-full w-full items-start gap-3 rounded-2xl border border-border bg-surface p-4 text-left transition-transform hover:-translate-y-0.5 hover:border-accent"
+      className="flex h-full w-full items-start gap-3 rounded-2xl border border-border bg-surface p-4 text-left mc-lift hover:border-accent"
     >
       <span aria-hidden className="text-2xl">
         {icon}

@@ -14,7 +14,7 @@ export function HudIconButton({
       aria-label={label}
       title={label}
       className={cn(
-        'mc-press grid size-10 place-items-center rounded-full border text-lg shadow-card transition-colors',
+        'mc-press grid size-10 place-items-center rounded-full border text-lg shadow-card',
         'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent',
         active
           ? 'border-accent bg-accent text-accent-fg'

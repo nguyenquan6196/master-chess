@@ -122,7 +122,7 @@ export function QuestionView({
                       onAnswer(checkChoice(q, c));
                     }}
                     className={cn(
-                      'mc-press w-full rounded-xl border px-4 py-3 text-left font-medium shadow-card transition-colors',
+                      'mc-press w-full rounded-xl border px-4 py-3 text-left font-medium shadow-card',
                       !locked && 'border-border bg-surface hover:border-accent',
                       isAnswer && 'border-accent bg-accent text-accent-fg',
                       isWrongPick && 'border-danger bg-danger text-surface',

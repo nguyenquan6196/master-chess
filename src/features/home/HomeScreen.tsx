@@ -75,7 +75,7 @@ export function HomeScreen() {
             <Link
               href={m.href}
               className={cn(
-                'mc-press group flex h-full items-center gap-4 rounded-3xl border p-4 text-left shadow-card transition-transform hover:-translate-y-1 sm:flex-col sm:justify-center sm:p-6 sm:text-center',
+                'mc-lift group flex h-full items-center gap-4 rounded-3xl border p-4 text-left shadow-card sm:flex-col sm:justify-center sm:p-6 sm:text-center',
                 m.primary
                   ? 'border-accent bg-accent text-accent-fg'
                   : 'border-border bg-surface hover:border-accent',

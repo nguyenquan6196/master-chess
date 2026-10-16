@@ -89,7 +89,7 @@ export function ThemeTraining() {
                   setTheme(th);
                   loadNext(th);
                 }}
-                className="w-full rounded-xl border border-border bg-surface px-3 py-3 text-left text-sm font-semibold transition-transform hover:-translate-y-0.5 hover:border-accent"
+                className="w-full rounded-xl border border-border bg-surface px-3 py-3 text-left text-sm font-semibold mc-lift hover:border-accent"
               >
                 {tt(th)}
               </button>
