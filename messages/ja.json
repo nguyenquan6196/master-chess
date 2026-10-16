@@ -320,7 +320,8 @@
     "customElo": "Elo：{elo}",
     "strength": "強さ",
     "prevBot": "前のボット",
-    "nextBot": "次のボット"
+    "nextBot": "次のボット",
+    "versus": "VS"
   },
   "history": {
     "title": "対局履歴",

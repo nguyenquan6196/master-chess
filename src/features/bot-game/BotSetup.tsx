@@ -20,6 +20,7 @@ import { TIME_CONTROLS, type TimeControlId } from '@/core/game/clock';
 import type { GameRecord } from '@/core/profile/schema';
 import { bossRankIndex, RANKS, type RankStatus } from '@/core/rating/rank';
 import { loadDialogue } from '@/services/bots/dialogue';
+import { useSession } from '@/services/profile/session';
 import { useSettings } from '@/services/settings/store';
 
 export type ColorChoice = 'w' | 'b' | 'random';
@@ -102,6 +103,7 @@ export function BotSetup({
   const tk = useTranslations('ranking');
   const [choice, setChoice] = useState(initial);
   const locale = useSettings((x) => x.locale);
+  const player = useSession((x) => x.profile);
   const [dialogue, setDialogue] = useState<Dialogue | null>(null);
   const roster = useRef<HTMLUListElement>(null);
 
@@ -146,7 +148,7 @@ export function BotSetup({
   });
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-1 flex-col gap-4">
       {ongoing && ongoingLevel && (
         <Card className="flex flex-wrap items-center gap-4 border-accent">
           <span className="text-4xl" aria-hidden>
@@ -192,10 +194,10 @@ export function BotSetup({
         </Card>
       )}
 
-      <section className="grid gap-4 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
+      <section className="grid flex-1 gap-4 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
         <div className="flex min-w-0 flex-col gap-3">
           <div
-            className="relative flex flex-col items-center justify-start gap-2 overflow-hidden rounded-3xl border border-border bg-surface px-14 py-6 text-center shadow-card"
+            className="relative flex flex-1 flex-col items-center justify-center gap-2 overflow-hidden rounded-3xl border border-border bg-surface px-14 py-6 text-center shadow-card"
             style={{
               backgroundImage:
                 'radial-gradient(circle at 50% 32%, color-mix(in srgb, var(--mc-accent) 22%, transparent), transparent 62%)',
@@ -207,7 +209,9 @@ export function BotSetup({
               onClick={() => step(-1)}
               className={cn(STAGE_ARROW, 'left-3')}
             >
-              ◀
+              <span aria-hidden className="text-base">
+                ⬅️
+              </span>
             </button>
             <button
               type="button"
@@ -215,7 +219,9 @@ export function BotSetup({
               onClick={() => step(1)}
               className={cn(STAGE_ARROW, 'right-3')}
             >
-              ▶
+              <span aria-hidden className="text-base">
+                ➡️
+              </span>
             </button>
 
             {/* Every bot's card is stacked in one grid cell and only the selected one is
@@ -250,14 +256,27 @@ export function BotSetup({
                         </span>
                       )}
                     </span>
-                    <span
-                      aria-hidden
-                      className={cn(
-                        'grid size-32 place-items-center rounded-full border-4 border-accent bg-surface-2 text-7xl shadow-card sm:size-36 sm:text-8xl',
-                        shown && 'mc-float',
-                      )}
-                    >
-                      {lv.emoji}
+                    {/* Portrait: a turning ring of light with a glow, a soft inner disc
+                        and a shadow "pedestal" under the floating bot. */}
+                    <span aria-hidden className="flex flex-col items-center">
+                      <span className="relative grid size-36 place-items-center sm:size-40 lg:size-44">
+                        <span
+                          className={cn(
+                            'mc-portrait-ring absolute inset-0 rounded-full',
+                            shown && 'mc-portrait-ring--live',
+                          )}
+                        />
+                        <span className="mc-portrait-disc absolute inset-[7px] rounded-full" />
+                        <span
+                          className={cn(
+                            'relative text-7xl sm:text-8xl lg:text-[7rem]',
+                            shown && 'mc-float',
+                          )}
+                        >
+                          {lv.emoji}
+                        </span>
+                      </span>
+                      <span className="mc-portrait-pedestal -mt-1 h-3 w-28 rounded-[50%]" />
                     </span>
                     <h2 className="font-display text-3xl font-bold">{tb(`${id}.name`)}</h2>
                     <div className="flex flex-wrap items-center justify-center gap-2 text-sm font-semibold">
@@ -380,13 +399,46 @@ export function BotSetup({
               }))}
             />
           </div>
-          <Button
-            variant="primary"
-            className="mt-auto w-full py-3 text-lg"
-            onClick={() => onStart(choice)}
-          >
-            ♟️ {t('start')}
-          </Button>
+          <div className="mt-auto flex flex-col gap-3">
+            {/* Match-up preview: you vs the selected bot, with the chosen options. */}
+            <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 rounded-2xl bg-surface-2 p-4 text-center">
+              <div className="flex min-w-0 flex-col items-center gap-0.5">
+                <span aria-hidden className="text-4xl">
+                  {player?.avatar ?? '♟️'}
+                </span>
+                <span className="w-full truncate text-sm font-semibold">{player?.name}</span>
+                <span className="text-xs text-muted">
+                  {choice.color === 'w'
+                    ? `♔ ${tg('white')}`
+                    : choice.color === 'b'
+                      ? `♚ ${tg('black')}`
+                      : `🎲 ${t('random')}`}
+                </span>
+              </div>
+              <span className="font-display text-2xl font-black text-accent italic">
+                {t('versus')}
+              </span>
+              <div key={choice.botId} className="mc-pop flex min-w-0 flex-col items-center gap-0.5">
+                <span aria-hidden className="text-4xl">
+                  {resolveBotLevel(choice.botId, choice.customElo).emoji}
+                </span>
+                <span className="w-full truncate text-sm font-semibold">
+                  {tb(`${choice.botId}.name`)}
+                </span>
+                <span className="text-xs text-muted">
+                  {STYLE_ICONS[choice.style]} {ts(`${choice.style}.name`)} ·{' '}
+                  {choice.timeControl === 'none' ? '∞' : choice.timeControl}
+                </span>
+              </div>
+            </div>
+            <Button
+              variant="primary"
+              className="w-full py-3 text-lg"
+              onClick={() => onStart(choice)}
+            >
+              ♟️ {t('start')}
+            </Button>
+          </div>
         </div>
       </section>
     </div>

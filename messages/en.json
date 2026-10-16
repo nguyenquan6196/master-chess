@@ -320,7 +320,8 @@
     "customElo": "Elo: {elo}",
     "strength": "Strength",
     "prevBot": "Previous bot",
-    "nextBot": "Next bot"
+    "nextBot": "Next bot",
+    "versus": "VS"
   },
   "history": {
     "title": "Game history",

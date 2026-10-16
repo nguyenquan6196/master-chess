@@ -113,6 +113,29 @@ const PHOENIX =
   'M28,-24 C56,-58 74,-48 74,-22 C68,-30 62,-28 58,-22 C68,-18 72,-8 70,4 C62,-4 54,-4 48,0 C56,4 58,14 54,22 C46,12 38,10 32,12 Z';
 const CROWN = 'M-18,-46 L-20,-62 L-9,-54 L0,-70 L9,-54 L20,-62 L18,-46 Z';
 
+/**
+ * Light running around the rim of the top three ranks: the higher the rank, the more
+ * bands, the faster and the brighter (with a glow). Replaces the old spinning rays.
+ */
+const ORBIT: Record<
+  number,
+  { glow: string; dash: string; width: number; seconds: number; blur: number }
+> = {
+  5: { glow: '#c48cff', dash: '30 270', width: 2.6, seconds: 4.5, blur: 2.2 },
+  6: { glow: '#ffa53a', dash: '38 112', width: 3.2, seconds: 3.2, blur: 3 },
+  7: { glow: '#ffd84a', dash: '42 58', width: 3.8, seconds: 2.4, blur: 3.8 },
+};
+/** Twinkling four-point stars around the badge (grandmaster: 2, challenger: 6). */
+const SPARKLES: [number, number, number][] = [
+  [-50, -40, 1],
+  [52, -26, 0.8],
+  [-46, 36, 0.7],
+  [48, 42, 0.9],
+  [-26, -74, 0.6],
+  [30, -70, 0.7],
+];
+const STAR4 = 'M0,-6 L1.4,-1.4 L6,0 L1.4,1.4 L0,6 L-1.4,1.4 L-6,0 L-1.4,-1.4 Z';
+
 const level = (rank: RankId) =>
   ['bronze', 'silver', 'gold', 'platinum', 'diamond', 'elite', 'grandmaster', 'challenger'].indexOf(
     rank,
@@ -193,34 +216,22 @@ export function RankEmblem({
           <stop offset="0" stopColor="#ffe68a" stopOpacity="0.8" />
           <stop offset="1" stopColor="#ffe68a" stopOpacity="0" />
         </radialGradient>
+        <filter id={id('glow')} x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation={ORBIT[lv]?.blur ?? 2} />
+        </filter>
         <clipPath id={id('clip')}>
           <path d={SHIELD} transform="scale(0.86)" />
         </clipPath>
       </defs>
 
-      {/* Challenger: breathing halo and rotating rays. */}
-      {lv >= 7 && <circle className="mc-emblem-halo" r="78" fill={url('halo')} />}
-      {lv >= 5 && (
-        <g
-          className="mc-emblem-rays"
-          stroke={lv >= 7 ? '#f0c94a' : p.accent}
-          strokeWidth="2.2"
-          strokeLinecap="round"
-          opacity="0.75"
-        >
-          {Array.from({ length: lv >= 7 ? 12 : 8 }, (_, i) => {
-            const a = (i / (lv >= 7 ? 12 : 8)) * Math.PI * 2;
-            return (
-              <line
-                key={i}
-                x1={Math.sin(a) * 58}
-                y1={-Math.cos(a) * 58 - 4}
-                x2={Math.sin(a) * 76}
-                y2={-Math.cos(a) * 76 - 4}
-              />
-            );
-          })}
-        </g>
+      {/* Breathing halo: warm for grandmaster, bright gold for challenger. */}
+      {lv >= 6 && (
+        <circle
+          className="mc-emblem-halo"
+          r={lv >= 7 ? 82 : 66}
+          fill={url('halo')}
+          opacity={lv >= 7 ? 1 : 0.55}
+        />
       )}
 
       {/* Laurel (Challenger). */}
@@ -335,10 +346,54 @@ export function RankEmblem({
         opacity="0.18"
       />
 
+      {/* Breathing aura hugging the shield (grandmaster warm, challenger gold). */}
+      {animated && lv >= 6 && (
+        <path
+          className="mc-emblem-aura"
+          d={SHIELD}
+          fill="none"
+          stroke={ORBIT[lv].glow}
+          strokeWidth={lv >= 7 ? 7 : 5}
+          transform="scale(1.03)"
+          filter={url('glow')}
+        />
+      )}
+
+      {/* Light bands running round the rim (elite and up; only when animated):
+          a coloured glow under a white-hot core. */}
+      {animated &&
+        ORBIT[lv] &&
+        [
+          { stroke: ORBIT[lv].glow, width: ORBIT[lv].width * 3, filter: url('glow') },
+          { stroke: ORBIT[lv].glow, width: ORBIT[lv].width * 1.6, filter: undefined },
+          { stroke: '#fffdf2', width: ORBIT[lv].width * 0.7, filter: undefined },
+        ].map((band, i) => (
+          <path
+            key={i}
+            className="mc-emblem-orbit"
+            d={SHIELD}
+            fill="none"
+            pathLength={300}
+            stroke={band.stroke}
+            strokeWidth={band.width}
+            strokeLinecap="round"
+            strokeDasharray={ORBIT[lv].dash}
+            transform="scale(0.96)"
+            filter={band.filter}
+            style={{ animationDuration: `${ORBIT[lv].seconds}s` }}
+          />
+        ))}
+
       {/* Light sweep: soft and slow for bronze/silver, brighter from gold up. */}
       {
         <g clipPath={url('clip')}>
-          <g className={cn('mc-emblem-shine', lv < 2 && 'mc-emblem-shine--soft')}>
+          <g
+            className={cn(
+              'mc-emblem-shine',
+              lv < 2 && 'mc-emblem-shine--soft',
+              lv >= 7 && 'mc-emblem-shine--fast',
+            )}
+          >
             <rect
               x="-90"
               y="-60"
@@ -409,6 +464,20 @@ export function RankEmblem({
           )}
         </>
       )}
+
+      {/* Twinkling stars around the top two ranks. */}
+      {animated &&
+        lv >= 6 &&
+        SPARKLES.slice(0, lv >= 7 ? 6 : 2).map(([x, y, k], i) => (
+          <path
+            key={i}
+            className="mc-emblem-twinkle"
+            d={STAR4}
+            transform={`translate(${x} ${y}) scale(${k * (lv >= 7 ? 1.2 : 1)})`}
+            fill={lv >= 7 ? '#fff4b8' : '#ffd08a'}
+            style={{ animationDelay: `${i * 0.37}s` }}
+          />
+        ))}
     </svg>
   );
 }

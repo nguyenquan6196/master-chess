@@ -320,7 +320,8 @@
     "customElo": "Elo: {elo}",
     "strength": "Sức mạnh",
     "prevBot": "Bot trước",
-    "nextBot": "Bot sau"
+    "nextBot": "Bot sau",
+    "versus": "VS"
   },
   "history": {
     "title": "Lịch sử ván",

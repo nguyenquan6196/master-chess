@@ -154,7 +154,7 @@ export function BotGameScreen() {
 
   const ongoing = view.ongoing;
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-1 flex-col gap-4">
       <PageHeader
         title={t('title')}
         eyebrow={tn('play')}
