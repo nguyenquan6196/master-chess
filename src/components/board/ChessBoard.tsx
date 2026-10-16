@@ -52,8 +52,15 @@ const MARK_STYLES: Record<SquareMark, CSSProperties> = {
 };
 
 const BOARD_STYLE: CSSProperties = { borderRadius: 8, overflow: 'hidden' };
-const LIGHT_SQUARE: CSSProperties = { backgroundColor: 'var(--mc-board-light)' };
-const DARK_SQUARE: CSSProperties = { backgroundColor: 'var(--mc-board-dark)' };
+/** Square colour plus an optional theme texture (`--mc-board-*-texture`, e.g. agate rings). */
+const LIGHT_SQUARE: CSSProperties = {
+  backgroundColor: 'var(--mc-board-light)',
+  backgroundImage: 'var(--mc-board-light-texture, none)',
+};
+const DARK_SQUARE: CSSProperties = {
+  backgroundColor: 'var(--mc-board-dark)',
+  backgroundImage: 'var(--mc-board-dark-texture, none)',
+};
 const LIGHT_NOTATION: CSSProperties = { color: 'var(--mc-board-notation-light)', fontWeight: 600 };
 const DARK_NOTATION: CSSProperties = { color: 'var(--mc-board-notation-dark)', fontWeight: 600 };
 

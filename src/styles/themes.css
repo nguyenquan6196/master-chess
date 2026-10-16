@@ -124,45 +124,74 @@
   --mc-backdrop-opacity: 0.85;
 }
 
-/* Pine wood with drops of teal-green resin. */
+/* Blue & white agate resin: ocean-blue and pearl squares with agate rings on marble. */
 [data-theme='rosin'] {
   color-scheme: light;
-  --mc-bg: #eadcc2;
-  --mc-surface: #fbf6ec;
-  --mc-surface-2: #e8dabd;
-  --mc-fg: #2d2418;
-  --mc-muted: #6d5c46;
-  --mc-border: #d4bf9a;
-  --mc-accent: #1c7468;
-  --mc-accent-hover: #155c53;
-  --mc-accent-fg: #f3fffb;
-  --mc-board-light: #ecd3a4;
-  --mc-board-dark: #8a5d36;
-  --mc-board-notation-light: #8a5d36;
-  --mc-board-notation-dark: #ecd3a4;
-  --mc-hl-last: rgb(64 170 150 / 0.45);
-  --mc-hl-selected: rgb(40 150 128 / 0.55);
-  --mc-arrow-hint: rgb(28 116 104 / 0.85);
-  --mc-mark-hint: rgb(28 116 104 / 0.9);
-  --mc-chart-black: #4a3622;
-  /* Pine planks (fine grain + knots) with translucent resin drops. */
-  --mc-backdrop-image:
-    radial-gradient(circle at 18% 28%, rgb(40 150 128 / 0.13) 0 12px, transparent 13px),
-    radial-gradient(circle at 72% 64%, rgb(28 116 104 / 0.1) 0 8px, transparent 9px),
-    radial-gradient(circle at 46% 86%, rgb(64 170 150 / 0.1) 0 5px, transparent 6px),
-    radial-gradient(ellipse 22px 9px at 84% 22%, rgb(110 66 30 / 0.22), transparent 70%),
-    repeating-linear-gradient(
-      90deg,
-      rgb(122 78 38 / 0.09) 0 1px,
-      transparent 1px 7px,
-      rgb(122 78 38 / 0.05) 7px 8px,
-      transparent 8px 19px
+  --mc-bg: #eef3f7;
+  --mc-surface: #ffffff;
+  --mc-surface-2: #e2ebf2;
+  --mc-fg: #13283a;
+  --mc-muted: #55697b;
+  --mc-border: #cddae5;
+  --mc-accent: #1f6fae;
+  --mc-accent-hover: #185a8f;
+  --mc-accent-fg: #ffffff;
+  --mc-board-light: #eaf1f6;
+  --mc-board-dark: #2e7dbb;
+  --mc-board-notation-light: #2e7dbb;
+  --mc-board-notation-dark: #eaf1f6;
+  /* Agate banding: soft rings and a glossy sheen on every square. */
+  --mc-board-light-texture:
+    radial-gradient(
+      ellipse 130% 75% at 90% 115%,
+      rgb(120 168 205 / 0.2) 0 28%,
+      transparent 29% 40%,
+      rgb(120 168 205 / 0.14) 41% 45%,
+      transparent 46% 58%,
+      rgb(120 168 205 / 0.08) 59% 61%,
+      transparent 62%
     ),
-    repeating-linear-gradient(0deg, rgb(92 56 24 / 0.11) 0 2px, transparent 2px 120px),
-    linear-gradient(180deg, #ecd6ae, #dcbf90);
-  --mc-backdrop-size: 520px 460px, 380px 610px, 470px 350px, 300px 340px, auto, auto, auto;
-  --mc-backdrop-mask: none;
-  --mc-backdrop-opacity: 0.85;
+    linear-gradient(135deg, rgb(255 255 255 / 0.75), transparent 55%);
+  --mc-board-dark-texture:
+    radial-gradient(
+      ellipse 120% 85% at -5% -10%,
+      rgb(255 255 255 / 0.22) 0 16%,
+      transparent 17% 29%,
+      rgb(190 225 250 / 0.2) 30% 34%,
+      transparent 35% 50%,
+      rgb(10 50 95 / 0.22) 51% 58%,
+      transparent 59% 72%,
+      rgb(190 225 250 / 0.12) 73% 75%,
+      transparent 76%
+    ),
+    linear-gradient(135deg, rgb(255 255 255 / 0.14), transparent 50%, rgb(8 40 80 / 0.2));
+  --mc-hl-last: rgb(140 220 255 / 0.55);
+  --mc-hl-selected: rgb(255 214 102 / 0.6);
+  --mc-arrow-hint: rgb(31 111 174 / 0.85);
+  --mc-mark-hint: rgb(31 111 174 / 0.9);
+  --mc-chart-black: #173a57;
+  /* White marble with blue agate rings drifting through it. */
+  --mc-backdrop-image:
+    repeating-radial-gradient(
+      circle at 12% 18%,
+      transparent 0 26px,
+      rgb(46 125 187 / 0.07) 26px 29px,
+      transparent 29px 44px,
+      rgb(46 125 187 / 0.04) 44px 46px
+    ),
+    repeating-radial-gradient(
+      circle at 88% 82%,
+      transparent 0 30px,
+      rgb(46 125 187 / 0.07) 30px 33px,
+      transparent 33px 50px,
+      rgb(46 125 187 / 0.04) 50px 52px
+    ),
+    radial-gradient(ellipse 55% 40% at 12% 18%, rgb(46 125 187 / 0.12), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 88% 82%, rgb(46 125 187 / 0.12), transparent 70%),
+    linear-gradient(160deg, #f6f9fb, #e3ecf3);
+  --mc-backdrop-size: auto;
+  --mc-backdrop-mask: radial-gradient(ellipse at center, black 40%, transparent 95%);
+  --mc-backdrop-opacity: 0.9;
 }
 
 [data-theme='marble'] {
