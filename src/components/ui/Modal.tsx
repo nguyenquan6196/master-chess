@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, type ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 
 interface ModalProps {
   open: boolean;
@@ -20,8 +21,9 @@ export function Modal({ open, title, children, actions, onClose }: ModalProps) {
     return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose]);
 
-  if (!open) return null;
-  return (
+  if (!open || typeof document === 'undefined') return null;
+  // Portalled to <body>: the backdrop always covers the whole viewport.
+  return createPortal(
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
       onClick={onClose}
@@ -36,6 +38,7 @@ export function Modal({ open, title, children, actions, onClose }: ModalProps) {
         {children && <div className="mt-2 text-muted">{children}</div>}
         {actions && <div className="mt-5 flex flex-wrap justify-end gap-2">{actions}</div>}
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

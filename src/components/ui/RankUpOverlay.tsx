@@ -1,6 +1,7 @@
 'use client';
 
 import type { CSSProperties, ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 import type { RankId } from '@/core/rating/rank';
 import { Button } from './Button';
 import { Confetti } from './Confetti';
@@ -28,7 +29,7 @@ export function RankUpOverlay({
   closeLabel: string;
   onClose: () => void;
 }) {
-  return (
+  return createPortal(
     <div
       role="dialog"
       aria-modal="true"
@@ -65,7 +66,8 @@ export function RankUpOverlay({
           {closeLabel}
         </Button>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 
@@ -87,7 +89,7 @@ export function BossIntroOverlay({
   startLabel: string;
   onStart: () => void;
 }) {
-  return (
+  return createPortal(
     <div
       role="dialog"
       aria-modal="true"
@@ -108,6 +110,7 @@ export function BossIntroOverlay({
           {startLabel}
         </Button>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

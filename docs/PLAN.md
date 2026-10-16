@@ -200,6 +200,7 @@ Mục tiêu: app cảm giác như một game, không như website có thanh menu
 - [x] Vòng góp ý 4: tiêu đề HUD chỉ còn chữ (bỏ emoji, thẳng hàng với dòng màn cha); chọn bot — mọi thẻ bot xếp chồng trong một ô lưới nên khung luôn cao bằng thẻ cao nhất (không nhảy khi sang Tuỳ chỉnh có thanh Elo), dải roster tự cuộn để thẻ đang chọn luôn hiện đủ, icon bot Tuỳ chỉnh đổi thành 🌟; popup Cài đặt: khung bo tròn overflow-hidden, tiêu đề cố định, chỉ phần nội dung cuộn bên trong
 - [x] Vòng góp ý 5: màn chọn bot cao hết màn hình (khung bot giãn theo cột), chân dung bot có vòng sáng xoay + quầng + bóng đế thay viền xanh cứng, mũi tên ⬅️ ➡️ màu, thẻ đối đầu "Bạn VS bot" trên nút Bắt đầu; huy hiệu Tinh Anh / Cao Thủ / Thách Đấu: bỏ vòng tia xoay, thay bằng dải sáng chạy quanh viền (1 / 2 / 3 dải, nhanh và sáng dần), Cao Thủ + Thách Đấu có viền phát sáng nhịp thở, hào quang và sao lấp lánh, Thách Đấu có vệt ánh kim quét nhanh hơn
 - [x] Vòng góp ý 6: huy hiệu Thách Đấu vẽ lại toàn vàng kim (viền nhiều dải ánh, mặt khiên vàng toả sáng), hai đôi cánh rồng vàng (xương cánh + màng võng, đầu nhọn; đôi trên lớn, đôi dưới nhỏ), bỏ vòng lá xanh
+- [x] Sửa lớp phủ popup chỉ phủ khung trang: `.mc-scene` dùng fill `backwards` (transform giữ lại sau animation biến `main` thành containing block của phần tử fixed); `Modal` và lớp phủ lên hạng / trùm render qua portal vào `body`
 
 ## Phase 6 — 3D
 - [ ] Spike: react-three-fiber + model GLTF quân cờ (CC0 hoặc tự dựng)

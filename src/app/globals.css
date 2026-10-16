@@ -408,7 +408,9 @@ body::after {
   --mc-shadow-lift: 0 2px 4px rgb(0 0 0 / 0.06), 0 12px 28px rgb(0 0 0 / 0.12);
 }
 .mc-scene {
-  animation: mc-scene-in var(--mc-dur-slow) var(--mc-ease) both;
+  /* "backwards", not "both": a transform kept after the animation would make the scene
+     the containing block of fixed children (modals, the mobile action dock). */
+  animation: mc-scene-in var(--mc-dur-slow) var(--mc-ease) backwards;
 }
 /* Anything pressable: smooth colour/shadow changes and a small press-down. */
 .mc-press {
