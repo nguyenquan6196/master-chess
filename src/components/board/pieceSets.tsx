@@ -1,6 +1,6 @@
 import type { CSSProperties, JSX } from 'react';
 import type { PieceSet } from '@/core/profile/settingsOptions';
-import { PIECE_BASE, PIECE_SHAPES, type PieceKind } from './pieceShapes';
+import { GLYPH_FONT, PIECE_BASE, PIECE_GLYPHS, PIECE_SHAPES, type PieceKind } from './pieceShapes';
 
 /**
  * Self-drawn piece sets (spec §7.2, no external assets). "classic" keeps
@@ -14,7 +14,6 @@ type PieceRenderObject = Record<string, Render>;
 const FILL = { white: '#f7f5ee', black: '#3b3d45', blackEdge: '#0d0e12' };
 
 const KINDS: PieceKind[] = ['p', 'n', 'b', 'r', 'q', 'k'];
-const GLYPHS: Record<PieceKind, string> = { k: '♚', q: '♛', r: '♜', b: '♝', n: '♞', p: '♟' };
 
 function svg(children: JSX.Element, style?: CSSProperties) {
   return (
@@ -68,13 +67,13 @@ function glyph(kind: PieceKind, white: boolean): Render {
         y="12"
         textAnchor="middle"
         fontSize="40"
-        fontFamily="'Segoe UI Symbol', 'Noto Sans Symbols 2', 'DejaVu Sans', serif"
+        fontFamily={GLYPH_FONT}
         fill={white ? FILL.white : FILL.black}
         stroke={white ? FILL.black : FILL.blackEdge}
         strokeWidth="1.2"
         paintOrder="stroke"
       >
-        {GLYPHS[kind]}
+        {PIECE_GLYPHS[kind]}
       </text>,
       props?.svgStyle,
     );

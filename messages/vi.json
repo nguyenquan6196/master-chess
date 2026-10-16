@@ -636,53 +636,273 @@
       "name": "Bài học đầu tiên",
       "desc": "Hoàn thành 1 bài học."
     },
+    "lessons3": {
+      "name": "Ham học",
+      "desc": "Hoàn thành 3 bài học."
+    },
+    "lessons5": {
+      "name": "Chăm chỉ",
+      "desc": "Hoàn thành 5 bài học."
+    },
     "scholar": {
       "name": "Học trò chăm chỉ",
       "desc": "Hoàn thành 9 bài học."
+    },
+    "lessons12": {
+      "name": "Mọt sách",
+      "desc": "Hoàn thành 12 bài học."
     },
     "allLessons": {
       "name": "Tốt nghiệp",
       "desc": "Hoàn thành mọi bài học."
     },
+    "quizFirst": {
+      "name": "Lượt quiz đầu tiên",
+      "desc": "Hoàn thành 1 lượt trắc nghiệm."
+    },
+    "quizTopics5": {
+      "name": "Đa năng",
+      "desc": "Hoàn thành quiz ở 5 bộ câu hỏi khác nhau."
+    },
     "perfectQuiz": {
       "name": "Điểm tuyệt đối",
       "desc": "Trả lời đúng hết một vòng trắc nghiệm."
+    },
+    "perfectQuiz3": {
+      "name": "Ba lần tuyệt đối",
+      "desc": "Đạt điểm tuyệt đối ở 3 bộ quiz."
+    },
+    "perfectQuiz6": {
+      "name": "Thông thái",
+      "desc": "Đạt điểm tuyệt đối ở 6 bộ quiz."
+    },
+    "genQuiz": {
+      "name": "Luyện thêm",
+      "desc": "Hoàn thành 1 lượt câu hỏi tự sinh."
+    },
+    "genQuizAll": {
+      "name": "Phòng thí nghiệm",
+      "desc": "Hoàn thành câu hỏi tự sinh ở cả 5 chủ đề."
+    },
+    "reviewer": {
+      "name": "Nhìn lại để tiến bộ",
+      "desc": "Xem lại một ván cờ."
+    },
+    "reviewer10": {
+      "name": "Nhà phân tích",
+      "desc": "Xem lại 10 ván đấu."
+    },
+    "reviewer25": {
+      "name": "Soi kỹ",
+      "desc": "Xem lại 25 ván đấu."
+    },
+    "reviewer50": {
+      "name": "Sử gia",
+      "desc": "Xem lại 50 ván đấu."
+    },
+    "puzzle1": {
+      "name": "Câu đố đầu tiên",
+      "desc": "Giải câu đố đầu tiên."
     },
     "puzzle10": {
       "name": "Thợ giải đố",
       "desc": "Giải đúng 10 câu đố."
     },
+    "puzzle50": {
+      "name": "Tay giải đố",
+      "desc": "Giải 50 câu đố."
+    },
     "puzzle100": {
       "name": "Bậc thầy câu đố",
       "desc": "Giải đúng 100 câu đố."
+    },
+    "puzzle250": {
+      "name": "Cú đêm chiến thuật",
+      "desc": "Giải 250 câu đố."
+    },
+    "puzzle500": {
+      "name": "Phù thủy chiến thuật",
+      "desc": "Giải 500 câu đố."
+    },
+    "puzzle1000": {
+      "name": "Nghìn câu đố",
+      "desc": "Giải 1000 câu đố."
+    },
+    "daily1": {
+      "name": "Chào ngày mới",
+      "desc": "Giải câu đố hằng ngày đầu tiên."
     },
     "daily7": {
       "name": "Đều đặn",
       "desc": "Giải 7 câu đố hằng ngày."
     },
+    "daily30": {
+      "name": "Một tháng bền bỉ",
+      "desc": "Giải 30 câu đố hằng ngày."
+    },
+    "daily100": {
+      "name": "Trăm ngày",
+      "desc": "Giải 100 câu đố hằng ngày."
+    },
+    "rush10": {
+      "name": "Khởi động",
+      "desc": "Đạt 10 điểm trong Puzzle Rush."
+    },
     "rush15": {
       "name": "Tia chớp",
       "desc": "Đạt 15 điểm trong Puzzle Rush."
+    },
+    "rush20": {
+      "name": "Lốc xoáy",
+      "desc": "Đạt 20 điểm trong Puzzle Rush."
     },
     "rush30": {
       "name": "Bão tố",
       "desc": "Đạt 30 điểm trong Puzzle Rush."
     },
+    "rush40": {
+      "name": "Sao chổi",
+      "desc": "Đạt 40 điểm trong Puzzle Rush."
+    },
+    "puzzleRating1200": {
+      "name": "Tiến bộ",
+      "desc": "Đạt 1200 điểm puzzle."
+    },
+    "puzzleRating1500": {
+      "name": "Mắt chiến thuật",
+      "desc": "Đạt 1500 điểm puzzle."
+    },
+    "puzzleRating1800": {
+      "name": "Leo cao",
+      "desc": "Đạt 1800 điểm puzzle."
+    },
+    "puzzleRating2000": {
+      "name": "Bậc thầy câu đố",
+      "desc": "Đạt 2000 điểm puzzle."
+    },
+    "puzzleRating2200": {
+      "name": "Ngoài quỹ đạo",
+      "desc": "Đạt 2200 điểm puzzle."
+    },
+    "theme10": {
+      "name": "Luyện theo chủ đề",
+      "desc": "Giải 10 câu đố theo chủ đề."
+    },
+    "theme50": {
+      "name": "Chuyên đề",
+      "desc": "Giải 50 câu đố theo chủ đề."
+    },
     "firstGame": {
       "name": "Ván cờ đầu tiên",
       "desc": "Chơi hết một ván với bot."
+    },
+    "games10": {
+      "name": "Kỳ thủ quen mặt",
+      "desc": "Chơi xong 10 ván với bot."
+    },
+    "games25": {
+      "name": "Ghiền cờ",
+      "desc": "Chơi xong 25 ván với bot."
+    },
+    "games50": {
+      "name": "Đấu trường",
+      "desc": "Chơi xong 50 ván với bot."
+    },
+    "games100": {
+      "name": "Trăm trận",
+      "desc": "Chơi xong 100 ván với bot."
+    },
+    "games250": {
+      "name": "Lão làng",
+      "desc": "Chơi xong 250 ván với bot."
     },
     "firstWin": {
       "name": "Chiến thắng đầu tiên",
       "desc": "Thắng một bot bất kỳ."
     },
+    "wins10": {
+      "name": "Chuỗi chiến thắng",
+      "desc": "Thắng 10 ván."
+    },
+    "wins25": {
+      "name": "Thắng như chẻ tre",
+      "desc": "Thắng 25 ván."
+    },
+    "wins50": {
+      "name": "Chiến binh lão luyện",
+      "desc": "Thắng 50 ván."
+    },
+    "wins100": {
+      "name": "Trăm trận trăm thắng",
+      "desc": "Thắng 100 ván."
+    },
+    "firstDraw": {
+      "name": "Bắt tay hòa",
+      "desc": "Hòa 1 ván."
+    },
+    "draws10": {
+      "name": "Cân tài cân sức",
+      "desc": "Hòa 10 ván."
+    },
+    "blackWin": {
+      "name": "Thắng bằng quân Đen",
+      "desc": "Thắng 1 ván khi cầm quân Đen."
+    },
+    "blackWins10": {
+      "name": "Bóng đêm",
+      "desc": "Thắng 10 ván khi cầm quân Đen."
+    },
+    "cleanWin": {
+      "name": "Tự lực",
+      "desc": "Thắng mà không dùng gợi ý hay đi lại."
+    },
+    "cleanWins10": {
+      "name": "Bản lĩnh",
+      "desc": "Thắng 10 ván không dùng gợi ý hay đi lại."
+    },
+    "miniature": {
+      "name": "Đòn chớp nhoáng",
+      "desc": "Thắng trong vòng 25 nước."
+    },
+    "miniatures5": {
+      "name": "Tốc chiến",
+      "desc": "Thắng 5 ván trong vòng 25 nước."
+    },
+    "firstMate": {
+      "name": "Chiếu hết!",
+      "desc": "Thắng 1 ván bằng chiếu hết."
+    },
+    "mate10": {
+      "name": "Sát thủ chiếu hết",
+      "desc": "Thắng 10 ván bằng chiếu hết."
+    },
+    "mate50": {
+      "name": "Đao phủ",
+      "desc": "Thắng 50 ván bằng chiếu hết."
+    },
+    "beatChick": {
+      "name": "Hạ Gà con",
+      "desc": "Thắng Gà con."
+    },
+    "beatTurtle": {
+      "name": "Hạ Rùa",
+      "desc": "Thắng Rùa."
+    },
     "beatFox": {
       "name": "Hơn cả cáo",
       "desc": "Thắng Cáo."
     },
+    "beatWolf": {
+      "name": "Thuần phục Sói",
+      "desc": "Thắng Sói."
+    },
     "beatLion": {
       "name": "Thuần phục sư tử",
       "desc": "Thắng Sư tử."
+    },
+    "beatEagle": {
+      "name": "Hạ cánh Đại bàng",
+      "desc": "Thắng Đại bàng."
     },
     "beatDragon": {
       "name": "Diệt rồng",
@@ -692,9 +912,37 @@
       "name": "Vượt qua kiện tướng",
       "desc": "Thắng Kiện tướng."
     },
+    "bossSlayer": {
+      "name": "Diệt trùm",
+      "desc": "Thắng tất cả bot trên bậc thang."
+    },
     "customWin": {
       "name": "Tự thiết kế đối thủ",
       "desc": "Thắng bot Tuỳ chỉnh."
+    },
+    "styleAggressive": {
+      "name": "Khắc chế: Tấn công",
+      "desc": "Thắng bot phong cách Tấn công."
+    },
+    "styleDefensive": {
+      "name": "Khắc chế: Phòng thủ",
+      "desc": "Thắng bot phong cách Phòng thủ."
+    },
+    "stylePositional": {
+      "name": "Khắc chế: Thế trận",
+      "desc": "Thắng bot phong cách Thế trận."
+    },
+    "styleChaotic": {
+      "name": "Khắc chế: Hỗn loạn",
+      "desc": "Thắng bot phong cách Hỗn loạn."
+    },
+    "promotionWin": {
+      "name": "Vượt ải",
+      "desc": "Thắng 1 trận thăng hạng."
+    },
+    "promotions3": {
+      "name": "Leo thang",
+      "desc": "Thắng 3 trận thăng hạng."
     },
     "rankSilver": {
       "name": "Hạng Bạc",
@@ -704,105 +952,13 @@
       "name": "Hạng Vàng",
       "desc": "Lên hạng Vàng."
     },
-    "rankDiamond": {
-      "name": "Hạng Kim Cương",
-      "desc": "Lên hạng Kim Cương."
-    },
-    "reviewer": {
-      "name": "Nhìn lại để tiến bộ",
-      "desc": "Xem lại một ván cờ."
-    },
-    "streak3": {
-      "name": "Chuỗi 3 ngày",
-      "desc": "Chơi 3 ngày liên tiếp."
-    },
-    "streak7": {
-      "name": "Chuỗi 7 ngày",
-      "desc": "Chơi 7 ngày liên tiếp."
-    },
-    "streak30": {
-      "name": "Chuỗi 30 ngày",
-      "desc": "Chơi 30 ngày liên tiếp."
-    },
-    "level5": {
-      "name": "Cấp 5",
-      "desc": "Đạt cấp 5."
-    },
-    "level10": {
-      "name": "Cấp 10",
-      "desc": "Đạt cấp 10."
-    },
-    "reviewer10": {
-      "name": "Nhà phân tích",
-      "desc": "Xem lại 10 ván đấu."
-    },
-    "puzzle500": {
-      "name": "Phù thủy chiến thuật",
-      "desc": "Giải 500 câu đố."
-    },
-    "daily30": {
-      "name": "Một tháng bền bỉ",
-      "desc": "Giải 30 câu đố hằng ngày."
-    },
-    "puzzleRating1500": {
-      "name": "Mắt chiến thuật",
-      "desc": "Đạt 1500 điểm puzzle."
-    },
-    "puzzleRating2000": {
-      "name": "Bậc thầy câu đố",
-      "desc": "Đạt 2000 điểm puzzle."
-    },
-    "games10": {
-      "name": "Kỳ thủ quen mặt",
-      "desc": "Chơi xong 10 ván với bot."
-    },
-    "games50": {
-      "name": "Đấu trường",
-      "desc": "Chơi xong 50 ván với bot."
-    },
-    "wins10": {
-      "name": "Chuỗi chiến thắng",
-      "desc": "Thắng 10 ván."
-    },
-    "wins50": {
-      "name": "Chiến binh lão luyện",
-      "desc": "Thắng 50 ván."
-    },
-    "firstDraw": {
-      "name": "Bắt tay hòa",
-      "desc": "Hòa 1 ván."
-    },
-    "blackWin": {
-      "name": "Thắng bằng quân Đen",
-      "desc": "Thắng 1 ván khi cầm quân Đen."
-    },
-    "cleanWin": {
-      "name": "Tự lực",
-      "desc": "Thắng mà không dùng gợi ý hay đi lại."
-    },
-    "miniature": {
-      "name": "Đòn chớp nhoáng",
-      "desc": "Thắng trong vòng 25 nước."
-    },
-    "mate10": {
-      "name": "Sát thủ chiếu hết",
-      "desc": "Thắng 10 ván bằng chiếu hết."
-    },
-    "beatWolf": {
-      "name": "Thuần phục Sói",
-      "desc": "Thắng Sói."
-    },
-    "beatEagle": {
-      "name": "Hạ cánh Đại bàng",
-      "desc": "Thắng Đại bàng."
-    },
-    "promotionWin": {
-      "name": "Vượt ải",
-      "desc": "Thắng 1 trận thăng hạng."
-    },
     "rankPlatinum": {
       "name": "Hạng Bạch Kim",
       "desc": "Lên hạng Bạch Kim."
+    },
+    "rankDiamond": {
+      "name": "Hạng Kim Cương",
+      "desc": "Lên hạng Kim Cương."
     },
     "rankElite": {
       "name": "Hạng Tinh Anh",
@@ -816,9 +972,65 @@
       "name": "Hạng Thách Đấu",
       "desc": "Lên hạng Thách Đấu."
     },
+    "gameRating1000": {
+      "name": "Vững vàng",
+      "desc": "Đạt 1000 điểm đấu bot."
+    },
+    "gameRating1500": {
+      "name": "Tay cờ mạnh",
+      "desc": "Đạt 1500 điểm đấu bot."
+    },
+    "gameRating2000": {
+      "name": "Đỉnh cao",
+      "desc": "Đạt 2000 điểm đấu bot."
+    },
+    "streak3": {
+      "name": "Chuỗi 3 ngày",
+      "desc": "Chơi 3 ngày liên tiếp."
+    },
+    "streak7": {
+      "name": "Chuỗi 7 ngày",
+      "desc": "Chơi 7 ngày liên tiếp."
+    },
+    "streak14": {
+      "name": "Hai tuần",
+      "desc": "Giữ chuỗi 14 ngày liên tiếp."
+    },
+    "streak30": {
+      "name": "Chuỗi 30 ngày",
+      "desc": "Chơi 30 ngày liên tiếp."
+    },
+    "streak100": {
+      "name": "Bền bỉ",
+      "desc": "Giữ chuỗi 100 ngày liên tiếp."
+    },
+    "level5": {
+      "name": "Cấp 5",
+      "desc": "Đạt cấp 5."
+    },
+    "level10": {
+      "name": "Cấp 10",
+      "desc": "Đạt cấp 10."
+    },
+    "level15": {
+      "name": "Cấp 15",
+      "desc": "Đạt cấp 15."
+    },
     "level20": {
       "name": "Cấp 20",
       "desc": "Đạt cấp 20."
+    },
+    "level30": {
+      "name": "Cấp 30",
+      "desc": "Đạt cấp 30."
+    },
+    "level50": {
+      "name": "Cấp 50",
+      "desc": "Đạt cấp 50."
+    },
+    "allRounder": {
+      "name": "Toàn diện",
+      "desc": "Học, làm quiz, giải đố và đấu bot ít nhất 1 lần."
     }
   },
   "guide": {

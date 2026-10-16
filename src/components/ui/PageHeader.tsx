@@ -61,7 +61,9 @@ export function PageHeader({
       {back &&
         (back.href ? (
           <Link href={back.href} aria-label={back.label} title={back.label} className={ROUND}>
-            <span aria-hidden>←</span>
+            <span aria-hidden className="text-base">
+              ⬅️
+            </span>
           </Link>
         ) : (
           <button
@@ -71,7 +73,9 @@ export function PageHeader({
             title={back.label}
             className={ROUND}
           >
-            <span aria-hidden>←</span>
+            <span aria-hidden className="text-base">
+              ⬅️
+            </span>
           </button>
         ))}
       <div className="min-w-0 leading-tight">

@@ -5,13 +5,20 @@ import { useTranslations } from 'use-intl';
 import { Card } from '@/components/ui/Card';
 import { cn } from '@/components/ui/cn';
 import type { Profile } from '@/core/profile/schema';
-import { ACHIEVEMENT_GROUPS, ACHIEVEMENTS, levelFor, liveStreak } from '@/core/progress/progress';
+import {
+  ACHIEVEMENT_GROUPS,
+  ACHIEVEMENTS,
+  levelFor,
+  liveStreak,
+  type AchievementGroup,
+} from '@/core/progress/progress';
 
 /** Level and XP, daily streak and the achievement grid on the profile page. */
 export function ProgressCard({ profile }: { profile: Profile }) {
   const t = useTranslations('progress');
   const ta = useTranslations('achievements');
   const [now] = useState(() => Date.now());
+  const [group, setGroup] = useState<AchievementGroup>('learn');
   const lv = levelFor(profile.xp);
   const streak = liveStreak(profile.streak, now);
   const unlocked = ACHIEVEMENTS.filter((a) => a.id in profile.achievements).length;
@@ -57,59 +64,77 @@ export function ProgressCard({ profile }: { profile: Profile }) {
             {t('progress', { done: unlocked, total: ACHIEVEMENTS.length })}
           </span>
         </h2>
-        <div className="flex flex-col gap-4">
+        <div className="mb-3 h-1.5 overflow-hidden rounded-full bg-surface-2">
+          <div
+            className="h-full bg-accent transition-[width] duration-[var(--mc-dur-slow)]"
+            style={{ width: `${(unlocked / ACHIEVEMENTS.length) * 100}%` }}
+          />
+        </div>
+        <div role="tablist" aria-label={t('achievements')} className="mb-3 flex flex-wrap gap-1.5">
           {ACHIEVEMENT_GROUPS.map((g) => {
             const list = ACHIEVEMENTS.filter((a) => a.group === g);
             const got = list.filter((a) => a.id in profile.achievements).length;
             return (
-              <section key={g}>
-                <h3 className="mb-2 flex items-center justify-between text-xs font-bold tracking-wide text-muted uppercase">
-                  {t(`groups.${g}`)}
-                  <span className="tabular-nums">
-                    {got}/{list.length}
-                  </span>
-                </h3>
-                <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-                  {list.map((a) => {
-                    const has = a.id in profile.achievements;
-                    return (
-                      <li
-                        key={a.id}
-                        title={has ? undefined : t('locked')}
-                        className={cn(
-                          'flex items-center gap-2 rounded-xl border p-2 transition-colors',
-                          has
-                            ? 'border-accent bg-surface shadow-card'
-                            : 'border-dashed border-border bg-surface-2/60',
-                        )}
-                      >
-                        <span
-                          aria-hidden
-                          className={cn(
-                            'grid size-10 shrink-0 place-items-center rounded-full text-xl',
-                            has
-                              ? 'bg-accent/15 ring-2 ring-accent'
-                              : 'bg-surface opacity-50 grayscale',
-                          )}
-                        >
-                          {a.icon}
-                        </span>
-                        <span className={cn('min-w-0', !has && 'opacity-70')}>
-                          <span className="block truncate text-sm font-semibold">
-                            {tDyn(`${a.id}.name`)}
-                          </span>
-                          <span className="block text-xs leading-snug text-muted">
-                            {tDyn(`${a.id}.desc`)}
-                          </span>
-                        </span>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </section>
+              <button
+                key={g}
+                type="button"
+                role="tab"
+                aria-selected={group === g}
+                onClick={() => setGroup(g)}
+                className={cn(
+                  'mc-press flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-semibold',
+                  group === g
+                    ? 'border-accent bg-[color-mix(in_srgb,var(--mc-accent)_14%,var(--mc-surface))] text-fg'
+                    : 'border-border bg-surface text-muted hover:text-fg',
+                )}
+              >
+                {t(`groups.${g}`)}
+                <span className="text-xs font-normal tabular-nums">
+                  {got}/{list.length}
+                </span>
+              </button>
             );
           })}
         </div>
+        <ul
+          key={group}
+          role="tabpanel"
+          className="mc-pop grid max-h-[30rem] grid-cols-1 gap-2 overflow-y-auto p-0.5 pr-1 min-[420px]:grid-cols-2 xl:grid-cols-3"
+        >
+          {ACHIEVEMENTS.filter((a) => a.group === group).map((a) => {
+            const has = a.id in profile.achievements;
+            return (
+              <li
+                key={a.id}
+                title={has ? undefined : t('locked')}
+                className={cn(
+                  'flex items-center gap-2 rounded-xl border p-2 transition-colors',
+                  has
+                    ? 'border-accent bg-surface shadow-card'
+                    : 'border-dashed border-border bg-surface-2/60',
+                )}
+              >
+                <span
+                  aria-hidden
+                  className={cn(
+                    'grid size-10 shrink-0 place-items-center rounded-full text-xl',
+                    has ? 'bg-accent/15 ring-2 ring-accent' : 'bg-surface opacity-50 grayscale',
+                  )}
+                >
+                  {a.icon}
+                </span>
+                <span className={cn('min-w-0', !has && 'opacity-70')}>
+                  <span className="block truncate text-sm font-semibold">
+                    {tDyn(`${a.id}.name`)}
+                  </span>
+                  <span className="block text-xs leading-snug text-muted">
+                    {tDyn(`${a.id}.desc`)}
+                  </span>
+                </span>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </Card>
   );

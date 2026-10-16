@@ -85,7 +85,9 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
                 title={t('home')}
                 className="mc-press grid size-10 shrink-0 place-items-center rounded-full border border-border bg-surface text-lg shadow-card hover:bg-surface-2"
               >
-                <span aria-hidden>⌂</span>
+                <span aria-hidden className="text-base">
+                  🏠
+                </span>
               </Link>
               <HudSlot className="order-last flex w-full min-w-0 items-center gap-2 sm:order-none sm:w-auto sm:flex-1" />
             </>

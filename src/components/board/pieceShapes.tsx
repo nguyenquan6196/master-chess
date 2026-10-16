@@ -49,3 +49,17 @@ export const PIECE_SHAPES: Record<PieceKind, ReactNode> = {
   ),
 };
 export const PIECE_BASE = <path d="M-12,18 L12,18 L10,13 L-10,13 Z" />;
+
+/**
+ * Unicode chess characters (the "glyph" piece set, rank emblems). U+FE0E asks for the
+ * text form so ♟ never turns into a colour emoji.
+ */
+export const PIECE_GLYPHS: Record<PieceKind, string> = {
+  k: '♚\uFE0E',
+  q: '♛\uFE0E',
+  r: '♜\uFE0E',
+  b: '♝\uFE0E',
+  n: '♞\uFE0E',
+  p: '♟\uFE0E',
+};
+export const GLYPH_FONT = "'Segoe UI Symbol', 'Noto Sans Symbols 2', 'DejaVu Sans', serif";

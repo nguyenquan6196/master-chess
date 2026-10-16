@@ -636,53 +636,273 @@
       "name": "First lesson",
       "desc": "Complete a lesson."
     },
+    "lessons3": {
+      "name": "Eager learner",
+      "desc": "Complete 3 lessons."
+    },
+    "lessons5": {
+      "name": "Diligent",
+      "desc": "Complete 5 lessons."
+    },
     "scholar": {
       "name": "Keen student",
       "desc": "Complete 9 lessons."
+    },
+    "lessons12": {
+      "name": "Bookworm",
+      "desc": "Complete 12 lessons."
     },
     "allLessons": {
       "name": "Graduate",
       "desc": "Complete every lesson."
     },
+    "quizFirst": {
+      "name": "First quiz",
+      "desc": "Finish a quiz round."
+    },
+    "quizTopics5": {
+      "name": "Well-read",
+      "desc": "Finish quizzes in 5 different sets."
+    },
     "perfectQuiz": {
       "name": "Perfect score",
       "desc": "Get every question right in a quiz round."
+    },
+    "perfectQuiz3": {
+      "name": "Triple perfect",
+      "desc": "Get a perfect score in 3 quiz sets."
+    },
+    "perfectQuiz6": {
+      "name": "Sage",
+      "desc": "Get a perfect score in 6 quiz sets."
+    },
+    "genQuiz": {
+      "name": "Extra practice",
+      "desc": "Finish a round of generated questions."
+    },
+    "genQuizAll": {
+      "name": "Lab rat",
+      "desc": "Finish generated questions in all 5 topics."
+    },
+    "reviewer": {
+      "name": "Reviewer",
+      "desc": "Review one of your games."
+    },
+    "reviewer10": {
+      "name": "Analyst",
+      "desc": "Review 10 games."
+    },
+    "reviewer25": {
+      "name": "Sharp eye",
+      "desc": "Review 25 games."
+    },
+    "reviewer50": {
+      "name": "Historian",
+      "desc": "Review 50 games."
+    },
+    "puzzle1": {
+      "name": "First puzzle",
+      "desc": "Solve your first puzzle."
     },
     "puzzle10": {
       "name": "Puzzle solver",
       "desc": "Solve 10 puzzles."
     },
+    "puzzle50": {
+      "name": "Puzzler",
+      "desc": "Solve 50 puzzles."
+    },
     "puzzle100": {
       "name": "Puzzle master",
       "desc": "Solve 100 puzzles."
+    },
+    "puzzle250": {
+      "name": "Night owl",
+      "desc": "Solve 250 puzzles."
+    },
+    "puzzle500": {
+      "name": "Tactics wizard",
+      "desc": "Solve 500 puzzles."
+    },
+    "puzzle1000": {
+      "name": "Thousand puzzles",
+      "desc": "Solve 1000 puzzles."
+    },
+    "daily1": {
+      "name": "Good morning",
+      "desc": "Solve your first daily puzzle."
     },
     "daily7": {
       "name": "Regular",
       "desc": "Solve 7 daily puzzles."
     },
+    "daily30": {
+      "name": "Monthly regular",
+      "desc": "Solve 30 daily puzzles."
+    },
+    "daily100": {
+      "name": "Hundred days",
+      "desc": "Solve 100 daily puzzles."
+    },
+    "rush10": {
+      "name": "Warm-up",
+      "desc": "Score 10 in Puzzle Rush."
+    },
     "rush15": {
       "name": "Lightning",
       "desc": "Score 15 in Puzzle Rush."
+    },
+    "rush20": {
+      "name": "Whirlwind",
+      "desc": "Score 20 in Puzzle Rush."
     },
     "rush30": {
       "name": "Storm",
       "desc": "Score 30 in Puzzle Rush."
     },
+    "rush40": {
+      "name": "Comet",
+      "desc": "Score 40 in Puzzle Rush."
+    },
+    "puzzleRating1200": {
+      "name": "Improving",
+      "desc": "Reach a puzzle rating of 1200."
+    },
+    "puzzleRating1500": {
+      "name": "Tactical eye",
+      "desc": "Reach a puzzle rating of 1500."
+    },
+    "puzzleRating1800": {
+      "name": "Climber",
+      "desc": "Reach a puzzle rating of 1800."
+    },
+    "puzzleRating2000": {
+      "name": "Puzzle master",
+      "desc": "Reach a puzzle rating of 2000."
+    },
+    "puzzleRating2200": {
+      "name": "In orbit",
+      "desc": "Reach a puzzle rating of 2200."
+    },
+    "theme10": {
+      "name": "Theme trainee",
+      "desc": "Solve 10 theme puzzles."
+    },
+    "theme50": {
+      "name": "Theme specialist",
+      "desc": "Solve 50 theme puzzles."
+    },
     "firstGame": {
       "name": "First game",
       "desc": "Finish a game against a bot."
+    },
+    "games10": {
+      "name": "Regular player",
+      "desc": "Finish 10 games against bots."
+    },
+    "games25": {
+      "name": "Hooked",
+      "desc": "Finish 25 games against bots."
+    },
+    "games50": {
+      "name": "Arena veteran",
+      "desc": "Finish 50 games against bots."
+    },
+    "games100": {
+      "name": "Hundred battles",
+      "desc": "Finish 100 games against bots."
+    },
+    "games250": {
+      "name": "Old hand",
+      "desc": "Finish 250 games against bots."
     },
     "firstWin": {
       "name": "First win",
       "desc": "Beat any bot."
     },
+    "wins10": {
+      "name": "Winner",
+      "desc": "Win 10 games."
+    },
+    "wins25": {
+      "name": "On a roll",
+      "desc": "Win 25 games."
+    },
+    "wins50": {
+      "name": "Seasoned warrior",
+      "desc": "Win 50 games."
+    },
+    "wins100": {
+      "name": "Centurion",
+      "desc": "Win 100 games."
+    },
+    "firstDraw": {
+      "name": "Handshake",
+      "desc": "Draw a game."
+    },
+    "draws10": {
+      "name": "Even match",
+      "desc": "Draw 10 games."
+    },
+    "blackWin": {
+      "name": "Dark side",
+      "desc": "Win a game with Black."
+    },
+    "blackWins10": {
+      "name": "Night rider",
+      "desc": "Win 10 games with Black."
+    },
+    "cleanWin": {
+      "name": "On my own",
+      "desc": "Win without hints or take-backs."
+    },
+    "cleanWins10": {
+      "name": "Self-reliant",
+      "desc": "Win 10 games without hints or take-backs."
+    },
+    "miniature": {
+      "name": "Miniature",
+      "desc": "Win within 25 moves."
+    },
+    "miniatures5": {
+      "name": "Blitzkrieg",
+      "desc": "Win 5 games within 25 moves."
+    },
+    "firstMate": {
+      "name": "Checkmate!",
+      "desc": "Win a game by checkmate."
+    },
+    "mate10": {
+      "name": "Mate hunter",
+      "desc": "Win 10 games by checkmate."
+    },
+    "mate50": {
+      "name": "Executioner",
+      "desc": "Win 50 games by checkmate."
+    },
+    "beatChick": {
+      "name": "Chick down",
+      "desc": "Beat Chick."
+    },
+    "beatTurtle": {
+      "name": "Turtle down",
+      "desc": "Beat Turtle."
+    },
     "beatFox": {
       "name": "Outfoxed",
       "desc": "Beat the Fox."
     },
+    "beatWolf": {
+      "name": "Wolf tamer",
+      "desc": "Beat Wolf."
+    },
     "beatLion": {
       "name": "Lion tamer",
       "desc": "Beat the Lion."
+    },
+    "beatEagle": {
+      "name": "Eagle grounded",
+      "desc": "Beat Eagle."
     },
     "beatDragon": {
       "name": "Dragon slayer",
@@ -692,9 +912,37 @@
       "name": "Master beater",
       "desc": "Beat the Master."
     },
+    "bossSlayer": {
+      "name": "Boss slayer",
+      "desc": "Beat every bot on the ladder."
+    },
     "customWin": {
       "name": "Custom champion",
       "desc": "Beat a Custom bot."
+    },
+    "styleAggressive": {
+      "name": "Aggressive tamed",
+      "desc": "Beat a bot playing the Aggressive style."
+    },
+    "styleDefensive": {
+      "name": "Defensive tamed",
+      "desc": "Beat a bot playing the Defensive style."
+    },
+    "stylePositional": {
+      "name": "Positional tamed",
+      "desc": "Beat a bot playing the Positional style."
+    },
+    "styleChaotic": {
+      "name": "Chaotic tamed",
+      "desc": "Beat a bot playing the Chaotic style."
+    },
+    "promotionWin": {
+      "name": "Gatebreaker",
+      "desc": "Win a promotion match."
+    },
+    "promotions3": {
+      "name": "Ladder climber",
+      "desc": "Win 3 promotion matches."
     },
     "rankSilver": {
       "name": "Silver rank",
@@ -704,105 +952,13 @@
       "name": "Gold rank",
       "desc": "Reach Gold."
     },
-    "rankDiamond": {
-      "name": "Diamond rank",
-      "desc": "Reach Diamond."
-    },
-    "reviewer": {
-      "name": "Reviewer",
-      "desc": "Review one of your games."
-    },
-    "streak3": {
-      "name": "3-day streak",
-      "desc": "Play 3 days in a row."
-    },
-    "streak7": {
-      "name": "7-day streak",
-      "desc": "Play 7 days in a row."
-    },
-    "streak30": {
-      "name": "30-day streak",
-      "desc": "Play 30 days in a row."
-    },
-    "level5": {
-      "name": "Level 5",
-      "desc": "Reach level 5."
-    },
-    "level10": {
-      "name": "Level 10",
-      "desc": "Reach level 10."
-    },
-    "reviewer10": {
-      "name": "Analyst",
-      "desc": "Review 10 games."
-    },
-    "puzzle500": {
-      "name": "Tactics wizard",
-      "desc": "Solve 500 puzzles."
-    },
-    "daily30": {
-      "name": "Monthly regular",
-      "desc": "Solve 30 daily puzzles."
-    },
-    "puzzleRating1500": {
-      "name": "Tactical eye",
-      "desc": "Reach a puzzle rating of 1500."
-    },
-    "puzzleRating2000": {
-      "name": "Puzzle master",
-      "desc": "Reach a puzzle rating of 2000."
-    },
-    "games10": {
-      "name": "Regular player",
-      "desc": "Finish 10 games against bots."
-    },
-    "games50": {
-      "name": "Arena veteran",
-      "desc": "Finish 50 games against bots."
-    },
-    "wins10": {
-      "name": "Winner",
-      "desc": "Win 10 games."
-    },
-    "wins50": {
-      "name": "Seasoned warrior",
-      "desc": "Win 50 games."
-    },
-    "firstDraw": {
-      "name": "Handshake",
-      "desc": "Draw a game."
-    },
-    "blackWin": {
-      "name": "Dark side",
-      "desc": "Win a game with Black."
-    },
-    "cleanWin": {
-      "name": "On my own",
-      "desc": "Win without hints or take-backs."
-    },
-    "miniature": {
-      "name": "Miniature",
-      "desc": "Win within 25 moves."
-    },
-    "mate10": {
-      "name": "Mate hunter",
-      "desc": "Win 10 games by checkmate."
-    },
-    "beatWolf": {
-      "name": "Wolf tamer",
-      "desc": "Beat Wolf."
-    },
-    "beatEagle": {
-      "name": "Eagle grounded",
-      "desc": "Beat Eagle."
-    },
-    "promotionWin": {
-      "name": "Gatebreaker",
-      "desc": "Win a promotion match."
-    },
     "rankPlatinum": {
       "name": "Platinum",
       "desc": "Reach Platinum rank."
+    },
+    "rankDiamond": {
+      "name": "Diamond rank",
+      "desc": "Reach Diamond."
     },
     "rankElite": {
       "name": "Elite",
@@ -816,9 +972,65 @@
       "name": "Challenger",
       "desc": "Reach Challenger rank."
     },
+    "gameRating1000": {
+      "name": "Steady",
+      "desc": "Reach a game rating of 1000."
+    },
+    "gameRating1500": {
+      "name": "Strong player",
+      "desc": "Reach a game rating of 1500."
+    },
+    "gameRating2000": {
+      "name": "Summit",
+      "desc": "Reach a game rating of 2000."
+    },
+    "streak3": {
+      "name": "3-day streak",
+      "desc": "Play 3 days in a row."
+    },
+    "streak7": {
+      "name": "7-day streak",
+      "desc": "Play 7 days in a row."
+    },
+    "streak14": {
+      "name": "Fortnight",
+      "desc": "Keep a 14-day streak."
+    },
+    "streak30": {
+      "name": "30-day streak",
+      "desc": "Play 30 days in a row."
+    },
+    "streak100": {
+      "name": "Unstoppable",
+      "desc": "Keep a 100-day streak."
+    },
+    "level5": {
+      "name": "Level 5",
+      "desc": "Reach level 5."
+    },
+    "level10": {
+      "name": "Level 10",
+      "desc": "Reach level 10."
+    },
+    "level15": {
+      "name": "Level 15",
+      "desc": "Reach level 15."
+    },
     "level20": {
       "name": "Level 20",
       "desc": "Reach level 20."
+    },
+    "level30": {
+      "name": "Level 30",
+      "desc": "Reach level 30."
+    },
+    "level50": {
+      "name": "Level 50",
+      "desc": "Reach level 50."
+    },
+    "allRounder": {
+      "name": "All-rounder",
+      "desc": "Take a lesson, a quiz, a puzzle and a game."
     }
   },
   "guide": {

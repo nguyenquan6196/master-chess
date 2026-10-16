@@ -1,6 +1,6 @@
 import { useId, type ReactNode } from 'react';
 import type { RankId } from '@/core/rating/rank';
-import { PIECE_BASE, PIECE_SHAPES, type PieceKind } from '../board/pieceShapes';
+import { GLYPH_FONT, PIECE_GLYPHS, type PieceKind } from '../board/pieceShapes';
 import { cn } from './cn';
 
 /**
@@ -351,17 +351,21 @@ export function RankEmblem({
         </g>
       }
 
-      {/* Centre piece. */}
-      <g
+      {/* Centre piece: the chess character (same as the "glyph" piece set). */}
+      <text
+        x="0"
+        y="20"
+        textAnchor="middle"
+        fontSize="50"
+        fontFamily={GLYPH_FONT}
         fill={p.piece}
         stroke={p.pieceEdge}
-        strokeWidth="1.1"
+        strokeWidth="1.6"
         strokeLinejoin="round"
-        transform="translate(0,4) scale(1.15)"
+        paintOrder="stroke"
       >
-        {PIECE_SHAPES[RANK_PIECE[rank]]}
-        {PIECE_BASE}
-      </g>
+        {PIECE_GLYPHS[RANK_PIECE[rank]]}
+      </text>
 
       {/* Gems and crowns. */}
       {lv === 3 && (

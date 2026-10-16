@@ -45,20 +45,24 @@ export function RankCard({ profile }: { profile: Profile }) {
           </div>
         </div>
       </div>
-      <ol className="flex flex-wrap items-center justify-between gap-1 rounded-xl bg-surface-2 p-2">
+      <ol className="grid grid-cols-8 items-center gap-1 rounded-xl bg-surface-2 p-2">
         {RANKS.map((r, i) => (
           <li
             key={r.id}
             title={tr(r.id)}
             className={cn(
-              'grid place-items-center transition-opacity',
+              'grid h-14 place-items-center transition-opacity',
               i !== status.rankIndex && 'opacity-35 grayscale',
             )}
           >
             <RankEmblem
               rank={r.id}
-              size={i === status.rankIndex ? 52 : 42}
+              size={i === status.rankIndex ? 50 : 40}
               animated={i === status.rankIndex}
+              className={cn(
+                'h-auto w-full',
+                i === status.rankIndex ? 'max-w-[50px]' : 'max-w-[40px]',
+              )}
             />
           </li>
         ))}

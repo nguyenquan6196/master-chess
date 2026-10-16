@@ -77,7 +77,7 @@ export function HomeScreen() {
               className={cn(
                 'mc-lift group flex h-full items-center gap-4 rounded-3xl border p-4 text-left shadow-card sm:flex-col sm:justify-center sm:p-6 sm:text-center',
                 m.primary
-                  ? 'border-accent bg-accent text-accent-fg'
+                  ? 'border-accent bg-[color-mix(in_srgb,var(--mc-accent)_14%,var(--mc-surface))] ring-1 ring-accent'
                   : 'border-border bg-surface hover:border-accent',
               )}
             >
@@ -86,9 +86,7 @@ export function HomeScreen() {
               </span>
               <span>
                 <span className="block font-display text-2xl font-bold">{t(m.title)}</span>
-                <span className={cn('block text-sm', m.primary ? 'opacity-90' : 'text-muted')}>
-                  {t(m.desc)}
-                </span>
+                <span className="block text-sm text-muted">{t(m.desc)}</span>
               </span>
             </Link>
           </li>

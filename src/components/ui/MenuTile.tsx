@@ -24,7 +24,7 @@ export function MenuTile({
       className={cn(
         'mc-lift relative flex h-full items-center gap-4 rounded-3xl border p-4 text-left shadow-card sm:p-5',
         primary
-          ? 'border-accent bg-accent text-accent-fg'
+          ? 'border-accent bg-[color-mix(in_srgb,var(--mc-accent)_14%,var(--mc-surface))] ring-1 ring-accent'
           : 'border-border bg-surface hover:border-accent',
       )}
     >
@@ -36,9 +36,7 @@ export function MenuTile({
       </span>
       <span className="min-w-0">
         <span className="block font-display text-xl font-bold">{title}</span>
-        {desc && (
-          <span className={cn('block text-sm', primary ? 'opacity-90' : 'text-muted')}>{desc}</span>
-        )}
+        {desc && <span className="block text-sm text-muted">{desc}</span>}
       </span>
       {badge && <span className="absolute top-3 right-3">{badge}</span>}
     </Link>

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import vi from '../../../messages/vi.json';
+import { BOT_IDS } from '../bot/levels';
 import {
   ACHIEVEMENT_GROUPS,
   ACHIEVEMENTS,
@@ -22,10 +23,15 @@ const stats = (p: Partial<ProgressStats> = {}): ProgressStats => ({
   lessonsDone: 0,
   lessonsTotal: 18,
   perfectQuiz: false,
+  perfectQuizCount: 0,
+  quizPlayed: 0,
+  genQuizPlayed: 0,
   puzzlesSolved: 0,
   dailySolved: 0,
   rushBest: 0,
   puzzleRating: 1000,
+  themeSolved: 0,
+  gameRating: 600,
   gamesPlayed: 0,
   wins: 0,
   draws: 0,
@@ -34,6 +40,7 @@ const stats = (p: Partial<ProgressStats> = {}): ProgressStats => ({
   miniatureWins: 0,
   checkmateWins: 0,
   promotionsPassed: 0,
+  stylesBeaten: [],
   botsBeaten: [],
   customWin: false,
   rankFloor: 0,
@@ -99,6 +106,11 @@ describe('core/progress', () => {
       expect.arrayContaining(['wins10', 'blackWin', 'cleanWin', 'miniature', 'promotionWin']),
     );
     expect(got).not.toContain('wins50');
+    expect(ACHIEVEMENTS).toHaveLength(100);
+    const all = [...BOT_IDS];
+    expect(newAchievements(stats({ botsBeaten: all.slice(1) }), {})).not.toContain('bossSlayer');
+    expect(newAchievements(stats({ botsBeaten: all }), {})).toContain('bossSlayer');
+    expect(newAchievements(stats({ stylesBeaten: ['chaotic'] }), {})).toContain('styleChaotic');
     expect(ACHIEVEMENTS.every((a) => ACHIEVEMENT_GROUPS.includes(a.group))).toBe(true);
   });
 
