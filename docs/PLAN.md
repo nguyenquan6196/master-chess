@@ -14,6 +14,7 @@
 | 4 | Bot persona & Game Review — ✅ code xong, chờ chơi thử | 2 tuần | Phong cách bot, phân tích ván sau trận |
 | 5 | Hoa hòe: theme, âm thanh, ngôn ngữ, gamification — ✅ code xong, chờ chơi thử | 3–4 tuần | 8 theme + tuỳ chỉnh, nhạc nền, vi/en/ja, XP, huy hiệu, PWA |
 | 5.5 | Giao diện kiểu game — ✅ code xong | 1 tuần | Sảnh chính thay thanh menu, màn chơi toàn màn hình, HUD icon |
+| 5.6 | Bộ quân theo chủ đề — đề xuất | 1–2 tuần | Mỗi theme một bộ quân riêng (hình dáng + chất liệu) |
 | 6 | 3D board | 2 tuần | Chế độ 3D tuỳ chọn |
 | 7 | (Tuỳ chọn) Cloud | — | Tài khoản, đồng bộ, AI Coach, PvP |
 
@@ -204,6 +205,20 @@ Mục tiêu: app cảm giác như một game, không như website có thanh menu
 - [x] Popup Cài đặt: bỏ icon cạnh tiêu đề; neo ngay dưới nút ⚙️ (cách 8px như dropdown ngôn ngữ, mép phải thẳng mép nút); phóng to giữ mép phải, chỉ giãn rộng sang trái có animation, nội dung chia 2 cột (container query) thay vì kéo dãn; thẻ theme cỡ cố định; nút "Theo chủ đề" cao bằng ô màu tròn
 - [x] Popup Cài đặt (tiếp): mép phải đo trực tiếp trên popup nên thẳng mép nút ⚙️ kể cả khi có thanh cuộn; phóng to giãn tới mép trái khung trang (thẳng nút ⌂), 2 cột 50:50; dòng cài đặt tự xếp nhãn-trên/điều-khiển-dưới khi cột hẹp (container query)
 - [x] Theme thứ 10 **Nhựa thông** (`rosin`, kiểu bàn nhựa mã não xanh–trắng): ô xanh đại dương + ô trắng ngọc trai có vân mã não (biến tuỳ chọn `--mc-board-*-texture`, preset bàn cờ tự bỏ vân), nền cẩm thạch trắng có vòng vân xanh; lưới theme 5 cột và khung xem trước giãn full width trở lại; nút xem trước ghi rõ "Nút chính" / "Nút phụ"
+- [x] Bộ quân **Nhựa** (`resin`) đi kèm theme Nhựa thông: thân trong mờ trắng ngọc trai / xanh đại dương, vân mã não bên trong, vệt bóng, viền đậm; quân xanh có viền sáng bao ngoài để đọc rõ trên ô xanh
+
+### Phase 5.6 — Bộ quân theo chủ đề (đề xuất, chưa làm)
+Mỗi theme có một bộ quân riêng, khác cả **hình dáng** lẫn **chất liệu**, và thêm lựa chọn "Bộ quân: Theo chủ đề" (mặc định) để đổi theme là đổi quân. Vẫn tự vẽ SVG, không tải asset. Hình dáng chung theo kiểu Staunton (tốt tròn, mã đầu ngựa, tượng mũ xẻ, xe tháp, hậu vương miện nhọn, vua thập tự) để người mới vẫn nhận ra quân.
+- [ ] Hạ tầng: `pieceSet: 'theme'` + bảng theme → bộ quân; preview trong Cài đặt; bộ quân hiện có giữ nguyên
+- [ ] Cổ điển: Staunton chuẩn nét mảnh, trắng ngà / đen than (hiện là bộ của react-chessboard)
+- [ ] Gỗ: quân gỗ tiện, chân tròn có rãnh tiện, vân gỗ dọc thân; gỗ sồi sáng / óc chó sẫm
+- [x] Nhựa thông: quân nhựa trong (đã làm: bộ `resin`)
+- [ ] Cẩm thạch: tượng đá chạm, khối nặng, chân đế vuông vát, vân đá xám–trắng / đen tuyền
+- [ ] Neon: chỉ có nét viền phát sáng, dáng tối giản hình học (gần với "Viền neon" hiện có, thêm phát sáng theo nhịp)
+- [ ] Arcade: pixel-art 8-bit (lưới 12×12), 2 màu theo bảng Game Boy
+- [ ] Huyền ảo: quân fantasy — vua pháp sư đội vương miện, hậu nữ hoàng có cánh, tượng pháp sư cầm gậy, mã là rồng/kỳ lân, xe là tháp lâu đài, tốt là hiệp sĩ cầm khiên; vàng kim / tím thạch anh
+- [ ] Hoa anh đào: phong cách Nhật — sứ trắng hoạ tiết hoa hồng phấn / sơn mài đỏ đen, đường cong mềm, đầu quân như mái chùa / đèn lồng
+- [ ] Nửa đêm: kim loại đúc bạc ánh trăng / đen bóng, cạnh vát sắc, ánh phản chiếu xanh lạnh
 
 ## Phase 6 — 3D
 - [ ] Spike: react-three-fiber + model GLTF quân cờ (CC0 hoặc tự dựng)

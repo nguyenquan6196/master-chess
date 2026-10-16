@@ -116,7 +116,8 @@
       "classic": "Classic",
       "minimal": "Minimal",
       "outline": "Neon outline",
-      "glyph": "Glyph"
+      "glyph": "Glyph",
+      "resin": "Resin"
     },
     "accent": "Accent colour",
     "accents": {

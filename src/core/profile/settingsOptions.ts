@@ -26,7 +26,7 @@ export const BOARD_STYLES = [
   'neon',
   'gameboy',
 ] as const;
-export const PIECE_SETS = ['classic', 'minimal', 'outline', 'glyph'] as const;
+export const PIECE_SETS = ['classic', 'minimal', 'outline', 'glyph', 'resin'] as const;
 export const ACCENTS = [
   'theme',
   'green',
