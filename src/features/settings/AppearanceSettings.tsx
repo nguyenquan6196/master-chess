@@ -9,6 +9,7 @@ import { cn } from '@/components/ui/cn';
 import {
   ACCENTS,
   BACKDROP_LIMITS,
+  BOARD_VIEWS,
   BACKDROPS,
   BOARD_STYLES,
   BUTTON_STYLES,
@@ -296,6 +297,16 @@ export function AppearanceSettings() {
           options={BUTTON_STYLES.map((b) => ({ value: b, label: t(`buttonStyles.${b}`) }))}
         />
       </SettingRow>
+
+      <SettingRow label={t('boardView')}>
+        <Segmented
+          label={t('boardView')}
+          value={s.boardView}
+          onChange={(boardView) => s.update({ boardView })}
+          options={BOARD_VIEWS.map((v) => ({ value: v, label: t(`boardViews.${v}`) }))}
+        />
+      </SettingRow>
+      <p className="-mt-2 text-xs text-muted">{t('boardViewHint')}</p>
 
       <SettingRow label={t('moveAnimation')}>
         <Segmented

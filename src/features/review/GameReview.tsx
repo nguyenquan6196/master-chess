@@ -190,6 +190,7 @@ export function GameReview() {
       <GameLayout
         board={
           <ChessBoard
+            allow3d
             fen={boardFen}
             orientation={orientation}
             movableColor={retry && retry.state !== 'answer' ? game.playerColor : 'none'}

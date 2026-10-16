@@ -59,6 +59,8 @@ export const BUTTON_STYLES = ['rounded', 'square', 'pill'] as const;
 export const BACKDROPS = ['theme', 'none', 'color', 'gradient', 'image'] as const;
 export const GRADIENTS = ['sunset', 'ocean', 'forest', 'aurora', 'dusk'] as const;
 export const MOVE_ANIMATIONS = ['normal', 'fast', 'off'] as const;
+/** Board rendering (Phase 6): flat 2D or the optional 3D board. */
+export const BOARD_VIEWS = ['2d', '3d'] as const;
 
 export const MUSIC_MODES = ['auto', 'fixed', 'off'] as const;
 /** Generated music moods (spec §7.1): screens and bot tiers. */
@@ -102,6 +104,7 @@ export type ButtonStyle = (typeof BUTTON_STYLES)[number];
 export type Backdrop = (typeof BACKDROPS)[number];
 export type Gradient = (typeof GRADIENTS)[number];
 export type MoveAnimation = (typeof MOVE_ANIMATIONS)[number];
+export type BoardView = (typeof BOARD_VIEWS)[number];
 export type MusicMode = (typeof MUSIC_MODES)[number];
 export type MusicTrack = (typeof MUSIC_TRACKS)[number];
 export type SoundPack = (typeof SOUND_PACKS)[number];

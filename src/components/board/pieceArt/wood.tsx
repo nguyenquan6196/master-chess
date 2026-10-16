@@ -6,7 +6,7 @@ import { lathe, rings, solid, type Art, type Pt } from './shared';
  * Wood: lathe-turned pieces — wide grooved foot, turned stem and collar, round heads,
  * a carved horse — in light oak and dark walnut with grain lines.
  */
-const FOOT: Pt[] = [
+export const STAUNTON_FOOT: Pt[] = [
   [0, 18],
   [13, 18],
   [13, 15.5],
@@ -15,9 +15,13 @@ const FOOT: Pt[] = [
   [8.5, 11.5],
 ];
 
-const BODY: Record<Exclude<PieceKind, 'n'>, string> = {
-  p: lathe([
-    ...FOOT,
+/**
+ * Right-half turning profiles (SVG units, y down, ground at y = 18) of the Staunton
+ * pieces — drawn flat here and in rank emblems, turned into 3D lathes by the 3D board.
+ */
+export const STAUNTON_PROFILES: Record<Exclude<PieceKind, 'n'>, Pt[]> = {
+  p: [
+    ...STAUNTON_FOOT,
     [6, 9],
     [4.5, 4],
     [4.5, 0],
@@ -26,8 +30,8 @@ const BODY: Record<Exclude<PieceKind, 'n'>, string> = {
     [4, -4],
     [3.5, -6],
     [0, -6],
-  ]),
-  r: lathe([
+  ],
+  r: [
     [0, 18],
     [14, 18],
     [14, 15.5],
@@ -43,9 +47,9 @@ const BODY: Record<Exclude<PieceKind, 'n'>, string> = {
     [3, -14.5],
     [3, -18],
     [0, -18],
-  ]),
-  b: lathe([
-    ...FOOT,
+  ],
+  b: [
+    ...STAUNTON_FOOT,
     [6, 9],
     [4.5, 3],
     [4, -2],
@@ -57,9 +61,9 @@ const BODY: Record<Exclude<PieceKind, 'n'>, string> = {
     [6, -18],
     [3.5, -21.5],
     [0, -23],
-  ]),
-  q: lathe([
-    ...FOOT,
+  ],
+  q: [
+    ...STAUNTON_FOOT,
     [6.5, 9],
     [5, 3],
     [4.5, -4],
@@ -73,9 +77,9 @@ const BODY: Record<Exclude<PieceKind, 'n'>, string> = {
     [4, -21],
     [2, -18.5],
     [0, -20],
-  ]),
-  k: lathe([
-    ...FOOT,
+  ],
+  k: [
+    ...STAUNTON_FOOT,
     [6.5, 9],
     [5, 3],
     [4.5, -4],
@@ -87,11 +91,17 @@ const BODY: Record<Exclude<PieceKind, 'n'>, string> = {
     [8, -18],
     [4, -19],
     [0, -19],
-  ]),
+  ],
 };
 
-const KNIGHT_FOOT = lathe([...FOOT, [0, 11.5]]);
-const HORSE =
+const BODY = Object.fromEntries(
+  Object.entries(STAUNTON_PROFILES).map(([k, profile]) => [k, lathe(profile)]),
+) as Record<Exclude<PieceKind, 'n'>, string>;
+
+/** The knight stands on a low turned foot; its head is the `STAUNTON_HORSE` outline. */
+export const STAUNTON_KNIGHT_FOOT: Pt[] = [...STAUNTON_FOOT, [0, 11.5]];
+const KNIGHT_FOOT = lathe(STAUNTON_KNIGHT_FOOT);
+export const STAUNTON_HORSE =
   'M-8,11.5 C-9,5 -5,1 -4,-2 C-8,-1 -12,0 -13,-3 C-13,-7 -7,-11 -5,-15 C-4,-19 -1,-22 2,-22 L3,-26 L6,-21 C11,-18 13,-10 12,-2 C11.5,4 10,8 9,11.5 Z';
 
 /** Groove heights per piece (where the turning tool cut a ring). */
@@ -115,7 +125,7 @@ export function stauntonShape(kind: PieceKind): ReactNode {
   return kind === 'n' ? (
     <>
       <path d={KNIGHT_FOOT} />
-      <path d={HORSE} />
+      <path d={STAUNTON_HORSE} />
     </>
   ) : (
     <>

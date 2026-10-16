@@ -42,6 +42,7 @@ export function LocalGame() {
         top={<GameStatusBanner status={game.status} />}
         board={
           <ChessBoard
+            allow3d
             fen={game.fen}
             orientation={orientation}
             movableColor="both"

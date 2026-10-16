@@ -17,7 +17,7 @@ import {
 } from './schema';
 
 /** Bump when the save format changes, and add a step to `migrateSaveFile`. */
-export const SAVE_SCHEMA_VERSION = 8;
+export const SAVE_SCHEMA_VERSION = 9;
 export const SAVE_APP_ID = 'master-chess';
 
 export const SaveFileSchema = z.object({
@@ -88,6 +88,11 @@ function migrateSaveFile(data: Record<string, unknown>): Record<string, unknown>
     // v8: the "minimal" and "glyph" piece sets were removed.
     const profile = typeof d.profile === 'object' && d.profile ? d.profile : {};
     d = { ...d, schemaVersion: 8, profile: migratePieceSetV8(profile) };
+  }
+  if (d.schemaVersion === 8) {
+    // v9 (Phase 6): board view setting (2D by default).
+    const profile = typeof d.profile === 'object' && d.profile ? d.profile : {};
+    d = { ...d, schemaVersion: 9, profile: withSettingsDefaultsV5(profile) };
   }
   return d;
 }

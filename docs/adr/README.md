@@ -12,3 +12,4 @@ Không sửa ADR cũ khi đổi ý; tạo ADR mới và đánh dấu ADR cũ là
 | [0005](0005-use-intl-client-i18n.md) | i18n bằng `use-intl` phía client, không routing theo ngôn ngữ | Chấp nhận |
 | [0006](0006-board-and-rules-libraries.md) | chess.js + react-chessboard | Chấp nhận |
 | [0007](0007-features-first.md) | Ưu tiên tính năng; performance budget chỉ cảnh báo | Chấp nhận |
+| [0008](0008-procedural-3d-board.md) | Bàn 3D: three + react-three-fiber, quân dựng bằng code, tải lười | Chấp nhận |

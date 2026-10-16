@@ -207,7 +207,20 @@
       "fantasy": "Huyền ảo"
     },
     "previewPrimary": "Nút chính",
-    "previewSecondary": "Nút phụ"
+    "previewSecondary": "Nút phụ",
+    "boardView": "Kiểu bàn cờ",
+    "boardViews": {
+      "2d": "2D",
+      "3d": "3D"
+    },
+    "boardViewHint": "Bàn 3D dùng ở các ván đấu, puzzle và xem lại ván (bấm để đi quân, kéo để xoay). Bài học vẫn là 2D. 3D tốn pin hơn.",
+    "camera": {
+      "angle": "Góc nghiêng",
+      "top": "Nhìn từ trên",
+      "low": "Góc thấp"
+    },
+    "to2d": "Chuyển về bàn 2D",
+    "to3d": "Chuyển sang bàn 3D"
   },
   "profile": {
     "pickTitle": "Ai đang chơi?",

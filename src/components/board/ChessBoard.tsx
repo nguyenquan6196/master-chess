@@ -2,7 +2,15 @@
 
 import { MOVE_ANIMATION_MS, useBoardPrefs } from './BoardPrefs';
 import { PIECE_RENDERERS } from './pieceSets';
-import { useId, useMemo, useState, type CSSProperties } from 'react';
+import {
+  lazy,
+  Suspense,
+  useId,
+  useMemo,
+  useState,
+  useSyncExternalStore,
+  type CSSProperties,
+} from 'react';
 import { Chessboard, defaultPieces, type ChessboardOptions } from 'react-chessboard';
 import {
   checkedKingSquare,
@@ -36,8 +44,28 @@ export interface ChessBoardProps {
   marks?: Record<string, SquareMark>;
   /** Called on every square click when the board is not movable (e.g. "select the squares"). */
   onSquareSelect?: (square: string) => void;
+  /** Game boards may switch to the 3D board (Phase 6); lessons and previews stay 2D. */
+  allow3d?: boolean;
   className?: string;
 }
+
+/** The 3D board is a separate chunk, loaded only when a player turns 3D on. */
+const Board3D = lazy(() => import('../board3d/Board3D'));
+
+let webglCache: boolean | null = null;
+/** WebGL support, probed once on the client (no 3D on the server or without WebGL). */
+function webglAvailable(): boolean {
+  if (webglCache === null) {
+    try {
+      const canvas = document.createElement('canvas');
+      webglCache = !!(canvas.getContext('webgl2') ?? canvas.getContext('webgl'));
+    } catch {
+      webglCache = false;
+    }
+  }
+  return webglCache;
+}
+const noSubscribe = () => () => {};
 
 export type SquareMark = 'hint' | 'selected' | 'correct' | 'wrong' | 'missed';
 
@@ -84,6 +112,7 @@ export function ChessBoard({
   arrows,
   marks,
   onSquareSelect,
+  allow3d = false,
   className,
 }: ChessBoardProps) {
   // Unique per board: lessons show several boards on one page.
@@ -108,6 +137,8 @@ export function ChessBoard({
     (movableColor === 'both' || movableColor === color);
 
   const prefs = useBoardPrefs();
+  const webgl = useSyncExternalStore(noSubscribe, webglAvailable, () => false);
+  const show3d = allow3d && prefs.view === '3d' && webgl;
   const targets = useMemo(() => (selected ? legalTargets(fen, selected) : []), [fen, selected]);
 
   function tryMove(from: Square, to: Square): boolean {
@@ -190,25 +221,63 @@ export function ChessBoard({
       if (!targetSquare || targetSquare === sourceSquare) return false;
       return tryMove(sourceSquare as Square, targetSquare as Square);
     },
-    onSquareClick: ({ square }) => {
-      if (movableColor === 'none') {
-        onSquareSelect?.(square);
-        return;
-      }
-      if (pendingPromotion) return;
-      const sq = square as Square;
-      if (selected && targets.includes(sq)) {
-        tryMove(selected, sq);
-        return;
-      }
-      if (sq !== selected && canMoveColor(pieceColorAt(fen, sq))) setSelected(sq);
-      else setSelected(null);
-    },
+    onSquareClick: ({ square }) => clickSquare(square),
   };
+
+  function clickSquare(square: string) {
+    if (movableColor === 'none') {
+      onSquareSelect?.(square);
+      return;
+    }
+    if (pendingPromotion) return;
+    const sq = square as Square;
+    if (selected && targets.includes(sq)) {
+      tryMove(selected, sq);
+      return;
+    }
+    if (sq !== selected && canMoveColor(pieceColorAt(fen, sq))) setSelected(sq);
+    else setSelected(null);
+  }
+
+  const board2d = <Chessboard options={options} />;
+  const canToggle = allow3d && webgl && prefs.onViewChange;
 
   return (
     <div className={className} style={{ position: 'relative', touchAction: 'none' }}>
-      <Chessboard options={options} />
+      {show3d ? (
+        <Suspense fallback={board2d}>
+          <Board3D
+            fen={fen}
+            orientation={orientation}
+            lastMove={lastMove}
+            selected={selected}
+            targets={targets}
+            checked={checkedKingSquare(fen)}
+            marks={marks}
+            arrows={arrows}
+            pieceSet={prefs.pieceSet}
+            moveMs={MOVE_ANIMATION_MS[prefs.moveAnimation]}
+            interactive={movableColor !== 'none' || !!onSquareSelect}
+            onSquareClick={clickSquare}
+            labels={prefs.labels3d}
+            onTo2d={prefs.onViewChange ? () => prefs.onViewChange?.('2d') : undefined}
+          />
+        </Suspense>
+      ) : (
+        <>
+          {board2d}
+          {canToggle && (
+            <button
+              type="button"
+              onClick={() => prefs.onViewChange?.('3d')}
+              title={prefs.labels3d.to3d}
+              className="mc-press absolute top-1.5 right-1.5 z-10 h-7 rounded-full border border-border bg-surface/85 px-2.5 text-xs font-bold shadow-card backdrop-blur hover:bg-surface"
+            >
+              3D
+            </button>
+          )}
+        </>
+      )}
       {pendingPromotion && (
         <PromotionPicker
           pieces={PROMOTION_PIECES}

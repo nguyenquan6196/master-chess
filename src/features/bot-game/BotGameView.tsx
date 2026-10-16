@@ -164,6 +164,7 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
               <EvalBar score={g.evaluation} orientation={orientation} label={t('evalBar')} />
             )}
             <ChessBoard
+              allow3d
               className="min-w-0 flex-1"
               fen={snapshot.fen}
               orientation={orientation}

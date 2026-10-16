@@ -13,6 +13,7 @@ import {
   GRADIENTS,
   HIGHLIGHTS,
   MOVE_ANIMATIONS,
+  BOARD_VIEWS,
   MUSIC_MODES,
   MUSIC_TRACKS,
   PIECE_SETS,
@@ -55,6 +56,8 @@ export const ProfileSettingsSchema = z.object({
   musicMode: z.enum(MUSIC_MODES),
   musicTrack: z.enum(MUSIC_TRACKS),
   soundPack: z.enum(SOUND_PACKS),
+  // --- Added in schema v9 (Phase 6): 2D / 3D board.
+  boardView: z.enum(BOARD_VIEWS),
 });
 export type ProfileSettings = z.infer<typeof ProfileSettingsSchema>;
 
@@ -83,6 +86,7 @@ export const DEFAULT_PROFILE_SETTINGS: ProfileSettings = {
   musicMode: 'auto',
   musicTrack: 'menu',
   soundPack: 'classic',
+  boardView: '2d',
 };
 
 /** Settings added in schema v5: older profiles get the defaults for missing keys. */

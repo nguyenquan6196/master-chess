@@ -81,6 +81,7 @@ export function PuzzleBoard({
       board={
         <div className="relative">
           <ChessBoard
+            allow3d
             fen={solver.fen}
             orientation={solver.orientation}
             movableColor={solver.canMove ? (solver.orientation === 'white' ? 'w' : 'b') : 'none'}

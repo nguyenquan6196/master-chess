@@ -134,6 +134,7 @@ describe('core/profile/saveFile migration', () => {
     expect(parsed.data.games[0].style).toBe('balanced');
     expect(parsed.data.profile.settings.pieceSet).toBe('theme');
     expect(parsed.data.profile.settings.musicMode).toBe('auto');
+    expect(parsed.data.profile.settings.boardView).toBe('2d');
     expect(parsed.data.profile.xp).toBe(0);
     expect(parsed.data.profile.achievements).toEqual({});
   });

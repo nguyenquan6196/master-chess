@@ -1,6 +1,10 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
-import { DEFAULT_PROFILE_SETTINGS, type ProfileSettings } from '@/core/profile/schema';
+import {
+  DEFAULT_PROFILE_SETTINGS,
+  migratePieceSetV8,
+  type ProfileSettings,
+} from '@/core/profile/schema';
 import type { Locale } from '../i18n/config';
 import type { ThemePreference } from '../theme/themes';
 import { SETTINGS_STORAGE_KEY } from './keys';
@@ -39,11 +43,14 @@ export const useSettings = create<SettingsState>()(
     }),
     {
       name: SETTINGS_STORAGE_KEY,
-      version: 3,
+      version: 4,
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => ({ ...pickProfileSettings(s), localeChosen: s.localeChosen }),
       // Older versions lack later settings: fill them with defaults.
-      migrate: (persisted) => ({ ...DEFAULT_PROFILE_SETTINGS, ...(persisted as object) }),
+      // v4: removed piece sets (minimal, glyph) follow the theme again.
+      migrate: (persisted) =>
+        migratePieceSetV8({ settings: { ...DEFAULT_PROFILE_SETTINGS, ...(persisted as object) } })
+          .settings,
       // Server HTML always renders defaults; we rehydrate after mount to avoid hydration mismatches.
       skipHydration: true,
     },

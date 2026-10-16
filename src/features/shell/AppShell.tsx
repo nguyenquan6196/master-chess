@@ -10,7 +10,7 @@ import { cn } from '@/components/ui/cn';
 import { HudSlot, HudSlotProvider } from '@/components/ui/PageHeader';
 import { rankTitle } from '@/components/ui/RankBadge';
 import { RankEmblem } from '@/components/ui/RankEmblem';
-import { resolvePieceSet } from '@/core/profile/settingsOptions';
+import { resolvePieceSet, type BoardView } from '@/core/profile/settingsOptions';
 import { levelFor, liveStreak } from '@/core/progress/progress';
 import { RANKS, rankStatus } from '@/core/rating/rank';
 import { useMusicDirector } from '@/services/audio/musicDirector';
@@ -44,9 +44,25 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
   const particles =
     backdropMotion && backdrop === 'theme' ? THEME_INFO[resolvedTheme].particles : null;
   const boardPieces = resolvePieceSet(pieceSet, resolvedTheme);
+  const boardView = useSettings((s) => s.boardView);
+  const tSet = useTranslations('settings');
   const boardPrefs = useMemo(
-    () => ({ pieceSet: boardPieces, moveAnimation }),
-    [boardPieces, moveAnimation],
+    () => ({
+      pieceSet: boardPieces,
+      moveAnimation,
+      view: boardView,
+      onViewChange: (view: BoardView) => useSettings.getState().update({ boardView: view }),
+      labels3d: {
+        camera: {
+          angle: tSet('camera.angle'),
+          top: tSet('camera.top'),
+          low: tSet('camera.low'),
+        },
+        to2d: tSet('to2d'),
+        to3d: tSet('to3d'),
+      },
+    }),
+    [boardPieces, moveAnimation, boardView, tSet],
   );
   const [now] = useState(() => Date.now());
 

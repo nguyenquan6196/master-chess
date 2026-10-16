@@ -15,7 +15,7 @@
 | 5 | Hoa hòe: theme, âm thanh, ngôn ngữ, gamification — ✅ code xong, chờ chơi thử | 3–4 tuần | 8 theme + tuỳ chỉnh, nhạc nền, vi/en/ja, XP, huy hiệu, PWA |
 | 5.5 | Giao diện kiểu game — ✅ code xong | 1 tuần | Sảnh chính thay thanh menu, màn chơi toàn màn hình, HUD icon |
 | 5.6 | Bộ quân theo chủ đề — ✅ code xong | 1–2 tuần | Mỗi theme một bộ quân riêng (hình dáng + chất liệu) |
-| 6 | 3D board | 2 tuần | Chế độ 3D tuỳ chọn |
+| 6 | 3D board — ✅ code xong | 2 tuần | Chế độ 3D tuỳ chọn |
 | 7 | (Tuỳ chọn) Cloud | — | Tài khoản, đồng bộ, AI Coach, PvP |
 
 **MVP có thể dùng được = hết Phase 3 (~7–8 tuần).**
@@ -222,11 +222,13 @@ Mỗi theme có một bộ quân riêng, khác cả **hình dáng** lẫn **ch�
 - [x] Huy hiệu rank: quân giữa vẽ bằng SVG (dáng Staunton của bộ Gỗ, phẳng một màu theo bảng màu hạng, viền sáng) thay cho ký tự Unicode — giống nhau trên mọi máy
 - [x] Bỏ 2 bộ "Tối giản" và "Ký tự" cho khớp 1 theme – 1 bộ (Dexie v8 + save v8 chuyển người đang dùng sang "Theo chủ đề"); lưới chọn 5 thẻ/hàng, thẻ cao bằng nhau
 
-## Phase 6 — 3D
-- [ ] Spike: react-three-fiber + model GLTF quân cờ (CC0 hoặc tự dựng)
-- [ ] Ánh xạ ô ↔ toạ độ 3D, raycast click-to-move, animation di chuyển
-- [ ] Camera orbit, preset góc nhìn, ánh sáng/bóng đổ
-- [ ] Toggle 2D/3D, lazy-load bundle, fallback khi máy yếu
+## Phase 6 — 3D — ✅ code xong (2026-10-17)
+Quyết định: [ADR 0008](adr/0008-procedural-3d-board.md) — three + react-three-fiber, quân dựng bằng code (không tải model), tải lười.
+- [x] Spike: react-three-fiber; quân tự dựng — tiện tròn (`LatheGeometry`) từ profile Staunton của bộ Gỗ, đầu ngựa đùn từ đường SVG, xe có răng thành, vua có thập tự (`components/board3d/geometry.ts`)
+- [x] Ánh xạ ô ↔ toạ độ 3D, quân từ FEN, nước được animate (nhập thành kéo cả xe, bỏ qua khi đi lại/ván mới), quỹ đạo nhảy vòng cung cho mã (`core/board3d`, có test); raycast bấm để đi (chọn quân → chấm/vòng nước đi → bấm ô), phong cấp dùng lại bảng chọn 2D
+- [x] Camera xoay (OrbitControls, không pan, giới hạn góc/khoảng cách), 3 góc đặt sẵn (nghiêng / từ trên / thấp) chuyển mượt, xoay theo chiều bàn; ánh sáng bán cầu + đèn hướng có bóng đổ; màu bàn và highlight đọc từ theme, chất liệu quân theo bộ quân
+- [x] Bật/tắt 2D/3D: cài đặt "Kiểu bàn cờ" (Dexie v9 + save v9, mặc định 2D) + nút nhanh "3D"/"2D" trên bàn; chỉ bàn chơi chính (đấu bot, 2 người, puzzle, xem lại ván); bài học/quiz/xem trước giữ 2D; chunk 3D chỉ tải khi bật; không có WebGL → 2D
+- [ ] Để sau: kéo-thả trong 3D; quân 3D có hình dáng riêng từng theme (hiện mọi bộ cùng dáng Staunton, khác chất liệu); tự tắt 3D theo FPS/thiết bị yếu (spec §13.4)
 
 ## Deploy — khi tính năng hòm hòm (dự kiến sau Phase 3 hoặc Phase 5)
 - [ ] Vercel → Add New Project → Import repo `nguyenquan6196/master-chess` (Next.js tự nhận, không cần cấu hình)

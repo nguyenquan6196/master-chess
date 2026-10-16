@@ -120,6 +120,17 @@ export class MasterChessDB extends Dexie {
             Object.assign(p, migratePieceSetV8(p));
           }),
       );
+    // v9 (Phase 6): board view setting; missing settings get their defaults.
+    this.version(9)
+      .stores({})
+      .upgrade((tx) =>
+        tx
+          .table('profiles')
+          .toCollection()
+          .modify((p: Record<string, unknown>) => {
+            Object.assign(p, withSettingsDefaultsV5(p));
+          }),
+      );
   }
 }
 

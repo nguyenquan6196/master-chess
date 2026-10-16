@@ -207,7 +207,20 @@
       "fantasy": "Fantasy"
     },
     "previewPrimary": "Main button",
-    "previewSecondary": "Other button"
+    "previewSecondary": "Other button",
+    "boardView": "Board style",
+    "boardViews": {
+      "2d": "2D",
+      "3d": "3D"
+    },
+    "boardViewHint": "The 3D board is used for games, puzzles and reviews (click to move, drag to turn). Lessons stay 2D. 3D uses more battery.",
+    "camera": {
+      "angle": "Angled view",
+      "top": "Top view",
+      "low": "Low view"
+    },
+    "to2d": "Switch to the 2D board",
+    "to3d": "Switch to the 3D board"
   },
   "profile": {
     "pickTitle": "Who's playing?",

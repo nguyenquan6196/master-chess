@@ -207,7 +207,20 @@
       "fantasy": "ファンタジー"
     },
     "previewPrimary": "メインボタン",
-    "previewSecondary": "サブボタン"
+    "previewSecondary": "サブボタン",
+    "boardView": "盤の表示",
+    "boardViews": {
+      "2d": "2D",
+      "3d": "3D"
+    },
+    "boardViewHint": "3D盤は対局・パズル・振り返りで使われます（クリックで指す、ドラッグで回転）。レッスンは2Dのままです。3Dは電池を多く使います。",
+    "camera": {
+      "angle": "斜めから",
+      "top": "真上から",
+      "low": "低い角度"
+    },
+    "to2d": "2D盤に切り替え",
+    "to3d": "3D盤に切り替え"
   },
   "profile": {
     "pickTitle": "だれがプレイしますか？",
