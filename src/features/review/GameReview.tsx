@@ -5,7 +5,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslations } from 'use-intl';
 import { ChessBoard } from '@/components/board/ChessBoard';
 import { EvalChart } from '@/components/board/EvalChart';
-import { BackButton } from '@/components/ui/BackButton';
+import { PageHeader } from '@/components/ui/PageHeader';
 import { Button } from '@/components/ui/Button';
 import { ActionButton, GameLayout } from '@/components/ui/GameLayout';
 import { Card } from '@/components/ui/Card';
@@ -112,7 +112,7 @@ export function GameReview() {
   if (!game) {
     return (
       <div className="flex flex-col gap-4">
-        <BackButton href="/history" label={t('back')} />
+        <PageHeader title={t('title')} back={{ href: '/history', label: t('back') }} />
         <p className="text-muted">{t('notFound')}</p>
       </div>
     );
@@ -181,15 +181,11 @@ export function GameReview() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-        <BackButton href="/history" label={t('back')} />
-        <h1 className="font-display text-2xl font-bold">
-          {t('title')}{' '}
-          <span className="text-lg font-semibold text-muted">
-            {t('vs', { bot: tb(`${game.botId}.name`) })}
-          </span>
-        </h1>
-      </div>
+      <PageHeader
+        title={t('title')}
+        eyebrow={`${level.emoji} ${t('vs', { bot: tb(`${game.botId}.name`) })}`}
+        back={{ href: '/history', label: t('back') }}
+      />
 
       <GameLayout
         board={

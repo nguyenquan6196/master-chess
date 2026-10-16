@@ -17,6 +17,7 @@ import { useSession } from '@/services/profile/session';
 import { loadQuizTexts, QUIZ_QUESTIONS } from '@/services/quiz/quizContent';
 import { useSettings } from '@/services/settings/store';
 import { usePromotionLabels } from './mdx/LessonBoard';
+import { PageHeader } from '@/components/ui/PageHeader';
 
 const EMPTY: LessonProgress = {};
 /** Fallback order when a lesson has no translation for the current language. */
@@ -99,15 +100,11 @@ export function LessonScreen({ lessonId, content }: LessonScreenProps) {
   return (
     <article className="mx-auto flex max-w-3xl flex-col gap-6">
       <header className="flex flex-col gap-2">
-        <Link href="/learn" className="text-sm font-semibold text-muted hover:text-fg">
-          ← {chapter.emoji} {chapter.title[locale]}
-        </Link>
-        <h1 className="font-display text-3xl font-bold sm:text-4xl">
-          <span aria-hidden className="mr-2">
-            {lesson.emoji}
-          </span>
-          {lesson.title[locale]}
-        </h1>
+        <PageHeader
+          title={`${lesson.emoji} ${lesson.title[locale]}`}
+          eyebrow={`${chapter.emoji} ${chapter.title[locale]}`}
+          back={{ href: '/learn', label: t('backToLessons') }}
+        />
         <p className="flex flex-wrap gap-3 text-sm text-muted">
           <span>⏱ {t('minutes', { minutes: lesson.minutes })}</span>
           {wasCompleted && <span className="font-semibold text-accent">✓ {t('completed')}</span>}

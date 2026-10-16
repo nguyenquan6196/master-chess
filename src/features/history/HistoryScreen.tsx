@@ -14,6 +14,7 @@ import { STYLE_ICONS } from '@/core/bot/styles';
 import type { GameResult } from '@/core/profile/schema';
 import { gameRepo } from '@/services/db/repositories';
 import { useSession } from '@/services/profile/session';
+import { PageHeader } from '@/components/ui/PageHeader';
 
 const RESULT_STYLE: Record<GameResult, string> = {
   win: 'bg-accent text-accent-fg',
@@ -52,7 +53,7 @@ export function HistoryScreen() {
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-4">
-      <h1 className="font-display text-3xl font-bold">{t('title')}</h1>
+      <PageHeader title={t('title')} />
       {games && finished.length === 0 && <p className="text-muted">{t('empty')}</p>}
       <ul className="flex flex-col gap-3">
         {finished.map((g) => {
@@ -100,7 +101,7 @@ export function HistoryScreen() {
                   >
                     <RankEmblem
                       rank={RANKS[g.promotion.to].id}
-                      size={22}
+                      size={26}
                       animated={false}
                       className={g.promotion.passed ? undefined : 'opacity-40 grayscale'}
                     />

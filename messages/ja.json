@@ -622,7 +622,14 @@
     "noStreak": "今日プレイして連続記録を始めよう！",
     "achievements": "実績",
     "progress": "{done}/{total}",
-    "locked": "未解除"
+    "locked": "未解除",
+    "groups": {
+      "learn": "学習",
+      "puzzles": "パズル",
+      "games": "対局",
+      "ranks": "ランク",
+      "habits": "習慣"
+    }
   },
   "achievements": {
     "firstLesson": {
@@ -724,6 +731,94 @@
     "level10": {
       "name": "レベル10",
       "desc": "レベル10になる。"
+    },
+    "reviewer10": {
+      "name": "アナリスト",
+      "desc": "10局を振り返る。"
+    },
+    "puzzle500": {
+      "name": "戦術の魔術師",
+      "desc": "パズルを500問解く。"
+    },
+    "daily30": {
+      "name": "毎日の常連",
+      "desc": "デイリーパズルを30問解く。"
+    },
+    "puzzleRating1500": {
+      "name": "戦術の目",
+      "desc": "パズルレーティング1500に到達。"
+    },
+    "puzzleRating2000": {
+      "name": "パズルマスター",
+      "desc": "パズルレーティング2000に到達。"
+    },
+    "games10": {
+      "name": "常連プレイヤー",
+      "desc": "ボットと10局指し終える。"
+    },
+    "games50": {
+      "name": "アリーナの古参",
+      "desc": "ボットと50局指し終える。"
+    },
+    "wins10": {
+      "name": "勝者",
+      "desc": "10勝する。"
+    },
+    "wins50": {
+      "name": "歴戦の戦士",
+      "desc": "50勝する。"
+    },
+    "firstDraw": {
+      "name": "握手",
+      "desc": "1局引き分ける。"
+    },
+    "blackWin": {
+      "name": "黒番の勝利",
+      "desc": "黒番で1勝する。"
+    },
+    "cleanWin": {
+      "name": "自力で",
+      "desc": "ヒントも待ったも使わずに勝つ。"
+    },
+    "miniature": {
+      "name": "ミニチュア",
+      "desc": "25手以内に勝つ。"
+    },
+    "mate10": {
+      "name": "詰みハンター",
+      "desc": "チェックメイトで10勝する。"
+    },
+    "beatWolf": {
+      "name": "オオカミ使い",
+      "desc": "オオカミに勝つ。"
+    },
+    "beatEagle": {
+      "name": "ワシを撃墜",
+      "desc": "ワシに勝つ。"
+    },
+    "promotionWin": {
+      "name": "関門突破",
+      "desc": "昇格戦に勝つ。"
+    },
+    "rankPlatinum": {
+      "name": "プラチナ",
+      "desc": "プラチナランクに到達。"
+    },
+    "rankElite": {
+      "name": "エリート",
+      "desc": "エリートランクに到達。"
+    },
+    "rankGrandmaster": {
+      "name": "グランドマスター",
+      "desc": "グランドマスターランクに到達。"
+    },
+    "rankChallenger": {
+      "name": "チャレンジャー",
+      "desc": "チャレンジャーランクに到達。"
+    },
+    "level20": {
+      "name": "レベル20",
+      "desc": "レベル20に到達。"
     }
   },
   "guide": {

@@ -622,7 +622,14 @@
     "noStreak": "Chơi hôm nay để bắt đầu chuỗi ngày!",
     "achievements": "Thành tích",
     "progress": "{done}/{total}",
-    "locked": "Chưa mở khoá"
+    "locked": "Chưa mở khoá",
+    "groups": {
+      "learn": "Học",
+      "puzzles": "Câu đố",
+      "games": "Đấu bot",
+      "ranks": "Hạng",
+      "habits": "Chăm chỉ"
+    }
   },
   "achievements": {
     "firstLesson": {
@@ -724,6 +731,94 @@
     "level10": {
       "name": "Cấp 10",
       "desc": "Đạt cấp 10."
+    },
+    "reviewer10": {
+      "name": "Nhà phân tích",
+      "desc": "Xem lại 10 ván đấu."
+    },
+    "puzzle500": {
+      "name": "Phù thủy chiến thuật",
+      "desc": "Giải 500 câu đố."
+    },
+    "daily30": {
+      "name": "Một tháng bền bỉ",
+      "desc": "Giải 30 câu đố hằng ngày."
+    },
+    "puzzleRating1500": {
+      "name": "Mắt chiến thuật",
+      "desc": "Đạt 1500 điểm puzzle."
+    },
+    "puzzleRating2000": {
+      "name": "Bậc thầy câu đố",
+      "desc": "Đạt 2000 điểm puzzle."
+    },
+    "games10": {
+      "name": "Kỳ thủ quen mặt",
+      "desc": "Chơi xong 10 ván với bot."
+    },
+    "games50": {
+      "name": "Đấu trường",
+      "desc": "Chơi xong 50 ván với bot."
+    },
+    "wins10": {
+      "name": "Chuỗi chiến thắng",
+      "desc": "Thắng 10 ván."
+    },
+    "wins50": {
+      "name": "Chiến binh lão luyện",
+      "desc": "Thắng 50 ván."
+    },
+    "firstDraw": {
+      "name": "Bắt tay hòa",
+      "desc": "Hòa 1 ván."
+    },
+    "blackWin": {
+      "name": "Thắng bằng quân Đen",
+      "desc": "Thắng 1 ván khi cầm quân Đen."
+    },
+    "cleanWin": {
+      "name": "Tự lực",
+      "desc": "Thắng mà không dùng gợi ý hay đi lại."
+    },
+    "miniature": {
+      "name": "Đòn chớp nhoáng",
+      "desc": "Thắng trong vòng 25 nước."
+    },
+    "mate10": {
+      "name": "Sát thủ chiếu hết",
+      "desc": "Thắng 10 ván bằng chiếu hết."
+    },
+    "beatWolf": {
+      "name": "Thuần phục Sói",
+      "desc": "Thắng Sói."
+    },
+    "beatEagle": {
+      "name": "Hạ cánh Đại bàng",
+      "desc": "Thắng Đại bàng."
+    },
+    "promotionWin": {
+      "name": "Vượt ải",
+      "desc": "Thắng 1 trận thăng hạng."
+    },
+    "rankPlatinum": {
+      "name": "Hạng Bạch Kim",
+      "desc": "Lên hạng Bạch Kim."
+    },
+    "rankElite": {
+      "name": "Hạng Tinh Anh",
+      "desc": "Lên hạng Tinh Anh."
+    },
+    "rankGrandmaster": {
+      "name": "Hạng Cao Thủ",
+      "desc": "Lên hạng Cao Thủ."
+    },
+    "rankChallenger": {
+      "name": "Hạng Thách Đấu",
+      "desc": "Lên hạng Thách Đấu."
+    },
+    "level20": {
+      "name": "Cấp 20",
+      "desc": "Đạt cấp 20."
     }
   },
   "guide": {

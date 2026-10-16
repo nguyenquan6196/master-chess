@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'use-intl';
-import { BackButton } from '@/components/ui/BackButton';
+import { PageHeader } from '@/components/ui/PageHeader';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { cn } from '@/components/ui/cn';
@@ -125,10 +125,11 @@ export function PuzzleRush() {
   if (!run) {
     return (
       <div className="flex flex-col gap-4">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-          <BackButton href="/practice" label={tn('practice')} />
-          <h1 className="font-display text-2xl font-bold">⚡ {t('title')}</h1>
-        </div>
+        <PageHeader
+          title={<>⚡ {t('title')}</>}
+          eyebrow={tn('practice')}
+          back={{ href: '/practice', label: tn('practice') }}
+        />
         <p className="text-muted">{t('intro')}</p>
         <div className="flex flex-wrap gap-3">
           {(Object.keys(RUSH.durations) as RushDuration[]).map((d) => (
@@ -186,10 +187,10 @@ export function PuzzleRush() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-        <BackButton onClick={() => setRun(null)} label={t('quit')} />
-        <h1 className="font-display text-2xl font-bold">⚡ {t('title')}</h1>
-      </div>
+      <PageHeader
+        title={<>⚡ {t('title')}</>}
+        back={{ onClick: () => setRun(null), label: t('quit') }}
+      />
       {loadState !== 'ready' || !puzzle ? (
         <>
           {header}

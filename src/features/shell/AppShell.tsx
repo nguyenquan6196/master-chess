@@ -7,6 +7,7 @@ import { useTranslations } from 'use-intl';
 import { BoardPrefsProvider } from '@/components/board/BoardPrefs';
 import { BackdropParticles } from '@/components/ui/BackdropParticles';
 import { cn } from '@/components/ui/cn';
+import { HudSlot, HudSlotProvider } from '@/components/ui/PageHeader';
 import { rankTitle } from '@/components/ui/RankBadge';
 import { RankEmblem } from '@/components/ui/RankEmblem';
 import { levelFor, liveStreak } from '@/core/progress/progress';
@@ -23,7 +24,7 @@ import { Toaster } from './Toaster';
 
 /**
  * Game-style shell (Phase 5.5): no website navigation bar. A light HUD floats over the
- * scene — the player card on the lobby, a home button elsewhere (pages show their own title) —
+ * scene — the player card on the lobby, a home button elsewhere followed by the page's `PageHeader` —
  * with sound, language and settings icons on the right.
  */
 export function AppShell({ children, settings }: { children: ReactNode; settings: ReactNode }) {
@@ -50,11 +51,11 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
   const rankLabel = rank ? rankTitle(rank, tr(RANKS[rank.rankIndex].id)) : '';
 
   return (
-    <>
+    <HudSlotProvider>
       {particles && <BackdropParticles key={resolvedTheme} kind={particles} />}
       <Toaster />
       <header className="sticky top-0 z-30 bg-linear-to-b from-bg via-bg/85 to-transparent pb-2">
-        <div className="mx-auto flex w-full max-w-6xl items-center gap-2 px-3 pt-3 sm:px-4">
+        <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center gap-2 px-3 pt-3 sm:flex-nowrap sm:px-4">
           {isLobby && profile ? (
             <Link
               href="/profile"
@@ -74,7 +75,7 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
                   <span aria-hidden>·</span>🔥 {liveStreak(profile.streak, now)}
                 </span>
               </span>
-              {rankId && <RankEmblem rank={rankId} size={34} animated={false} title={rankLabel} />}
+              {rankId && <RankEmblem rank={rankId} size={40} animated={false} title={rankLabel} />}
             </Link>
           ) : !isLobby ? (
             <>
@@ -86,6 +87,7 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
               >
                 <span aria-hidden>⌂</span>
               </Link>
+              <HudSlot className="order-last flex w-full min-w-0 items-center gap-2 sm:order-none sm:w-auto sm:flex-1" />
             </>
           ) : null}
 
@@ -116,7 +118,7 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
                 <span aria-hidden className="text-lg">
                   {profile.avatar}
                 </span>
-                {rankId && <RankEmblem rank={rankId} size={28} animated={false} />}
+                {rankId && <RankEmblem rank={rankId} size={34} animated={false} />}
               </Link>
             )}
           </div>
@@ -132,6 +134,6 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
       >
         <BoardPrefsProvider value={boardPrefs}>{children}</BoardPrefsProvider>
       </main>
-    </>
+    </HudSlotProvider>
   );
 }

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'use-intl';
 import { QuestionView } from '@/components/board/QuestionView';
-import { BackButton } from '@/components/ui/BackButton';
+import { PageHeader } from '@/components/ui/PageHeader';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { cn } from '@/components/ui/cn';
@@ -180,10 +180,11 @@ export function QuizScreen() {
     return (
       <div className="flex flex-col gap-8">
         <section className="flex flex-col gap-4">
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-            <BackButton href="/practice" label={tn('practice')} />
-            <h1 className="font-display text-2xl font-bold">📝 {t('title')}</h1>
-          </div>
+          <PageHeader
+            title={<>📝 {t('title')}</>}
+            eyebrow={tn('practice')}
+            back={{ href: '/practice', label: tn('practice') }}
+          />
           <h2 className="text-sm font-semibold text-muted">{t('chooseTopic')}</h2>
           <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {(['all', ...QUIZ_TOPICS] as TopicKey[]).map((k) => (
@@ -234,13 +235,16 @@ export function QuizScreen() {
     const correct = results.filter(Boolean).length;
     return (
       <div className="flex flex-col gap-4">
-        <BackButton onClick={() => setRound(null)} label={t('topics')} />
+        <PageHeader
+          title={<>📝 {t('title')}</>}
+          back={{ onClick: () => setRound(null), label: t('topics') }}
+        />
         <Card className="relative mx-auto mt-6 flex max-w-md flex-col items-center gap-3 text-center">
           <Confetti trigger={correct / total >= 0.7 ? correct + 1 : null} />
           <p className="text-5xl" aria-hidden>
             {correct / total >= 0.7 ? '🏆' : '📚'}
           </p>
-          <h1 className="font-display text-2xl font-bold">{t('result', { correct, total })}</h1>
+          <h2 className="font-display text-2xl font-bold">{t('result', { correct, total })}</h2>
           {newBest && <p className="font-semibold text-accent">🏆</p>}
           <div className="flex flex-wrap justify-center gap-2">
             <Button variant="primary" onClick={() => start(round.mode, round.topic)}>
@@ -259,20 +263,18 @@ export function QuizScreen() {
 
   return (
     <div className="flex flex-col gap-4">
-      <BackButton onClick={() => setRound(null)} label={t('topics')} />
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <h1 className="flex items-center gap-2 font-display text-2xl font-bold">
-          {tt(round.topic)}
-          {round.mode === 'gen' && (
-            <span className="rounded-full bg-surface-2 px-2 py-0.5 font-sans text-xs font-semibold text-muted">
+      <PageHeader
+        title={tt(round.topic)}
+        eyebrow={`📝 ${t('title')} · ${t('question', { current: index + 1, total })}`}
+        back={{ onClick: () => setRound(null), label: t('topics') }}
+        aside={
+          round.mode === 'gen' && (
+            <span className="shrink-0 rounded-full bg-surface-2 px-2 py-0.5 font-sans text-xs font-semibold text-muted">
               {tgen('badge')}
             </span>
-          )}
-        </h1>
-        <span className="text-sm font-semibold text-muted">
-          {t('question', { current: index + 1, total })}
-        </span>
-      </div>
+          )
+        }
+      />
       <div className="h-2 overflow-hidden rounded-full bg-surface-2">
         <div
           className="h-full bg-accent transition-all"

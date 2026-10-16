@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useFormatter, useTranslations } from 'use-intl';
-import { BackButton } from '@/components/ui/BackButton';
+import { PageHeader } from '@/components/ui/PageHeader';
 import { Card } from '@/components/ui/Card';
 import type { PuzzleSession } from '@/core/puzzle/session';
 import type { Puzzle } from '@/core/puzzle/types';
@@ -46,10 +46,11 @@ export function DailyPuzzle() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-        <BackButton href="/practice" label={tn('practice')} />
-        <h1 className="font-display text-2xl font-bold">{tp('daily')}</h1>
-      </div>
+      <PageHeader
+        title={tp('daily')}
+        eyebrow={tn('practice')}
+        back={{ href: '/practice', label: tn('practice') }}
+      />
       <p className="text-muted">
         {t('dailyTitle', { date: format.dateTime(today, { dateStyle: 'long' }) })}
       </p>

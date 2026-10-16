@@ -21,6 +21,8 @@
 
 html {
   background: var(--mc-bg);
+  /* Reserve the scrollbar lane so long and short scenes keep the same width. */
+  scrollbar-gutter: stable;
 }
 
 /* Tailwind 4 resets the pointer on buttons: every clickable thing gets the hand cursor. */
@@ -436,10 +438,12 @@ body::after {
 .mc-pop {
   animation: mc-pop var(--mc-dur-slow) var(--mc-ease) both;
 }
+/* Scale (not a downward slide) so the entering scene never overflows the viewport:
+   a translateY made a scrollbar flash on short pages. */
 @keyframes mc-scene-in {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: scale(0.985);
   }
   to {
     opacity: 1;

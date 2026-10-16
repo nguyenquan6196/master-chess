@@ -15,6 +15,7 @@ import {
 import { CATALOG } from '@/services/learn/learn';
 import { useSession } from '@/services/profile/session';
 import { useSettings } from '@/services/settings/store';
+import { PageHeader } from '@/components/ui/PageHeader';
 
 const EMPTY: LessonProgress = {};
 
@@ -29,7 +30,7 @@ export function LearnHub() {
   return (
     <div className="flex flex-col gap-6">
       <section className="flex flex-col gap-3">
-        <h1 className="font-display text-3xl font-bold">📖 {t('title')}</h1>
+        <PageHeader title={<>📖 {t('title')}</>} />
         <p className="max-w-2xl text-muted">{t('subtitle')}</p>
         <div className="flex flex-wrap items-center gap-4">
           <div className="h-3 w-64 max-w-full overflow-hidden rounded-full bg-surface-2">

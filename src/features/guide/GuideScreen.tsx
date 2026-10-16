@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import type { ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { useTranslations } from 'use-intl';
 import { Card } from '@/components/ui/Card';
+import { cn } from '@/components/ui/cn';
 import { RankEmblem } from '@/components/ui/RankEmblem';
 import { allLessons } from '@/core/learn/catalog';
 import { BOT_LEVELS, getBotLevel } from '@/core/bot/levels';
@@ -12,6 +13,7 @@ import { ACHIEVEMENTS, XP } from '@/core/progress/progress';
 import { GAME_RATING, RANK_WIDTH, RANKS } from '@/core/rating/rank';
 import { CATALOG } from '@/services/learn/learn';
 import { QUIZ_QUESTIONS } from '@/services/quiz/quizContent';
+import { PageHeader } from '@/components/ui/PageHeader';
 
 const SECTIONS = [
   'why',
@@ -36,6 +38,39 @@ const FAQ = ['data', 'lose', 'mobile', 'unrated', 'bots'] as const;
 const PATH_STEPS = 5;
 const TIP_COUNT = 6;
 const RULE_COUNT = 5;
+/** A section counts as "being read" once its top passes this far below the viewport top. */
+const SPY_OFFSET_PX = 140;
+
+/** Scroll-spy: id of the section currently being read. */
+function useActiveSection(ids: readonly string[]): string {
+  const [active, setActive] = useState(ids[0]);
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const atBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+      let current = ids[0];
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= SPY_OFFSET_PX) current = id;
+      }
+      setActive(atBottom ? ids[ids.length - 1] : current);
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, [ids]);
+  return active;
+}
 
 const LINK_PRIMARY =
   'inline-flex items-center justify-center gap-2 rounded-[var(--mc-radius-btn)] bg-accent px-5 py-2.5 text-sm font-semibold text-accent-fg hover:bg-accent-hover';
@@ -65,6 +100,7 @@ export function GuideScreen() {
   const t = useTranslations('guide');
   const tr = useTranslations('rank');
   const tb = useTranslations('bots');
+  const active = useActiveSection(SECTIONS);
   const tn = useTranslations('nav');
   /** Numbered/list keys are data-driven; all exist in every locale (check-i18n). */
   const tDyn = t as unknown as (key: string, values?: Record<string, string | number>) => string;
@@ -86,8 +122,8 @@ export function GuideScreen() {
   return (
     <div className="flex flex-col gap-8">
       <header className="flex flex-col gap-2">
-        <p className="text-sm font-bold tracking-wide text-accent uppercase">📘 {t('title')}</p>
-        <h1 className="font-display text-4xl font-bold">{t('heroTitle')}</h1>
+        <PageHeader title={`📘 ${t('title')}`} />
+        <h2 className="font-display text-4xl font-bold">{t('heroTitle')}</h2>
         <p className="max-w-2xl text-lg text-muted">{t('heroSubtitle')}</p>
       </header>
 
@@ -101,7 +137,13 @@ export function GuideScreen() {
               <li key={s}>
                 <a
                   href={`#${s}`}
-                  className="block rounded-full border border-border bg-surface px-3 py-1 text-sm font-semibold text-muted hover:text-fg lg:rounded-lg lg:border-0 lg:bg-transparent lg:px-2"
+                  aria-current={active === s ? 'location' : undefined}
+                  className={cn(
+                    'block rounded-full border px-3 py-1 text-sm font-semibold transition-[color,background-color,border-color,box-shadow,translate] duration-[var(--mc-dur)] ease-[var(--mc-ease)] lg:rounded-lg lg:border-0 lg:px-3',
+                    active === s
+                      ? 'border-accent bg-accent text-accent-fg lg:translate-x-1 lg:bg-surface lg:text-fg lg:shadow-[inset_3px_0_0_var(--mc-accent)]'
+                      : 'border-border bg-surface text-muted hover:text-fg lg:bg-transparent',
+                  )}
                 >
                   {t(`nav.${s}`)}
                 </a>
@@ -210,7 +252,7 @@ export function GuideScreen() {
                       <tr key={r.id} className="border-t border-border">
                         <td className="p-2">
                           <span className="flex items-center gap-3">
-                            <RankEmblem rank={r.id} size={i >= 5 ? 72 : 60} title={tr(r.id)} />
+                            <RankEmblem rank={r.id} size={64} title={tr(r.id)} />
                             <span className="font-display text-base font-bold">{tr(r.id)}</span>
                           </span>
                         </td>

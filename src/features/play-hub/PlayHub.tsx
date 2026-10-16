@@ -2,13 +2,14 @@
 
 import { useTranslations } from 'use-intl';
 import { MenuTile } from '@/components/ui/MenuTile';
+import { PageHeader } from '@/components/ui/PageHeader';
 
 export function PlayHub() {
   const t = useTranslations();
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-4">
-      <h1 className="font-display text-3xl font-bold">{t('play.title')}</h1>
+      <PageHeader title={t('play.title')} />
       <ul className="grid gap-3 sm:grid-cols-2">
         <li>
           <MenuTile

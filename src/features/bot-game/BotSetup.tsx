@@ -137,8 +137,6 @@ export function BotSetup({
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="font-display text-2xl font-bold">{t('title')}</h1>
-
       {ongoing && ongoingLevel && (
         <Card className="flex flex-wrap items-center gap-4 border-accent">
           <span className="text-4xl" aria-hidden>
@@ -219,7 +217,7 @@ export function BotSetup({
                 )}
                 {guards && (
                   <span className="inline-flex items-center gap-1 rounded-full bg-surface-2 py-0.5 pr-2 pl-1 text-[11px] font-semibold text-muted">
-                    <RankEmblem rank={guards.id} size={18} animated={false} />
+                    <RankEmblem rank={guards.id} size={22} animated={false} />
                     {tk('bossOf', { rank: tr(guards.id) })}
                   </span>
                 )}

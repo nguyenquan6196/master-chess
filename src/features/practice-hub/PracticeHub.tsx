@@ -3,6 +3,7 @@
 import { useTranslations } from 'use-intl';
 import { MenuTile } from '@/components/ui/MenuTile';
 import { useSession } from '@/services/profile/session';
+import { PageHeader } from '@/components/ui/PageHeader';
 
 const MODES = [
   { href: '/practice/rated', title: 'rated', desc: 'ratedDesc', icon: '🧩' },
@@ -18,8 +19,8 @@ export function PracticeHub() {
 
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-col gap-4">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <h1 className="font-display text-3xl font-bold">{t('title')}</h1>
+      <PageHeader title={t('title')} />
+      <div className="flex flex-wrap items-end justify-end gap-3 empty:hidden">
         {rating !== undefined && (
           <p className="text-sm text-muted">
             {t('yourRating')}:{' '}

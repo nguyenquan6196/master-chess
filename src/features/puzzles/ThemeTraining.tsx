@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'use-intl';
-import { BackButton } from '@/components/ui/BackButton';
+import { PageHeader } from '@/components/ui/PageHeader';
 import { Button } from '@/components/ui/Button';
 import type { PuzzleSession } from '@/core/puzzle/session';
 import {
@@ -75,10 +75,11 @@ export function ThemeTraining() {
   if (!theme) {
     return (
       <div className="flex flex-col gap-4">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-          <BackButton href="/practice" label={tn('practice')} />
-          <h1 className="font-display text-2xl font-bold">{tp('themes')}</h1>
-        </div>
+        <PageHeader
+          title={tp('themes')}
+          eyebrow={tn('practice')}
+          back={{ href: '/practice', label: tn('practice') }}
+        />
         <h2 className="text-sm font-semibold text-muted">{t('chooseTheme')}</h2>
         <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
           {TRAINING_THEMES.map((th) => (
@@ -102,10 +103,11 @@ export function ThemeTraining() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-        <BackButton onClick={() => setTheme(null)} label={t('chooseTheme')} />
-        <h1 className="font-display text-2xl font-bold">{tt(theme)}</h1>
-      </div>
+      <PageHeader
+        title={tt(theme)}
+        eyebrow={tp('themes')}
+        back={{ onClick: () => setTheme(null), label: t('chooseTheme') }}
+      />
       {state !== 'ready' || !puzzle ? (
         <PuzzleStatus state={state} onRetry={() => loadNext(theme)} />
       ) : (

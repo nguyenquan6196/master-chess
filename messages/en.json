@@ -622,7 +622,14 @@
     "noStreak": "Play today to start a streak!",
     "achievements": "Achievements",
     "progress": "{done}/{total}",
-    "locked": "Locked"
+    "locked": "Locked",
+    "groups": {
+      "learn": "Learn",
+      "puzzles": "Puzzles",
+      "games": "Games",
+      "ranks": "Ranks",
+      "habits": "Habits"
+    }
   },
   "achievements": {
     "firstLesson": {
@@ -724,6 +731,94 @@
     "level10": {
       "name": "Level 10",
       "desc": "Reach level 10."
+    },
+    "reviewer10": {
+      "name": "Analyst",
+      "desc": "Review 10 games."
+    },
+    "puzzle500": {
+      "name": "Tactics wizard",
+      "desc": "Solve 500 puzzles."
+    },
+    "daily30": {
+      "name": "Monthly regular",
+      "desc": "Solve 30 daily puzzles."
+    },
+    "puzzleRating1500": {
+      "name": "Tactical eye",
+      "desc": "Reach a puzzle rating of 1500."
+    },
+    "puzzleRating2000": {
+      "name": "Puzzle master",
+      "desc": "Reach a puzzle rating of 2000."
+    },
+    "games10": {
+      "name": "Regular player",
+      "desc": "Finish 10 games against bots."
+    },
+    "games50": {
+      "name": "Arena veteran",
+      "desc": "Finish 50 games against bots."
+    },
+    "wins10": {
+      "name": "Winner",
+      "desc": "Win 10 games."
+    },
+    "wins50": {
+      "name": "Seasoned warrior",
+      "desc": "Win 50 games."
+    },
+    "firstDraw": {
+      "name": "Handshake",
+      "desc": "Draw a game."
+    },
+    "blackWin": {
+      "name": "Dark side",
+      "desc": "Win a game with Black."
+    },
+    "cleanWin": {
+      "name": "On my own",
+      "desc": "Win without hints or take-backs."
+    },
+    "miniature": {
+      "name": "Miniature",
+      "desc": "Win within 25 moves."
+    },
+    "mate10": {
+      "name": "Mate hunter",
+      "desc": "Win 10 games by checkmate."
+    },
+    "beatWolf": {
+      "name": "Wolf tamer",
+      "desc": "Beat Wolf."
+    },
+    "beatEagle": {
+      "name": "Eagle grounded",
+      "desc": "Beat Eagle."
+    },
+    "promotionWin": {
+      "name": "Gatebreaker",
+      "desc": "Win a promotion match."
+    },
+    "rankPlatinum": {
+      "name": "Platinum",
+      "desc": "Reach Platinum rank."
+    },
+    "rankElite": {
+      "name": "Elite",
+      "desc": "Reach Elite rank."
+    },
+    "rankGrandmaster": {
+      "name": "Grandmaster",
+      "desc": "Reach Grandmaster rank."
+    },
+    "rankChallenger": {
+      "name": "Challenger",
+      "desc": "Reach Challenger rank."
+    },
+    "level20": {
+      "name": "Level 20",
+      "desc": "Reach level 20."
     }
   },
   "guide": {

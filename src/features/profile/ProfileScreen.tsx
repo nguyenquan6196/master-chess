@@ -16,6 +16,7 @@ import { ImportSaveButton } from './ImportSaveButton';
 import { NewProfileForm } from './NewProfileForm';
 import { ProgressCard } from './ProgressCard';
 import { RankCard } from './RankCard';
+import { PageHeader } from '@/components/ui/PageHeader';
 
 export function ProfileScreen() {
   const t = useTranslations('profile');
@@ -47,7 +48,7 @@ export function ProfileScreen() {
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="font-display text-3xl font-bold">{t('title')}</h1>
+      <PageHeader title={t('title')} />
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:items-start">
         <div className="flex min-w-0 flex-col gap-4">
           {editing ? (

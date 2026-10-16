@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import vi from '../../../messages/vi.json';
 import {
+  ACHIEVEMENT_GROUPS,
   ACHIEVEMENTS,
   dayKey,
   levelFor,
@@ -24,7 +25,15 @@ const stats = (p: Partial<ProgressStats> = {}): ProgressStats => ({
   puzzlesSolved: 0,
   dailySolved: 0,
   rushBest: 0,
+  puzzleRating: 1000,
   gamesPlayed: 0,
+  wins: 0,
+  draws: 0,
+  winsAsBlack: 0,
+  cleanWins: 0,
+  miniatureWins: 0,
+  checkmateWins: 0,
+  promotionsPassed: 0,
   botsBeaten: [],
   customWin: false,
   rankFloor: 0,
@@ -68,7 +77,10 @@ describe('core/progress', () => {
   });
 
   it('unlocks achievements once', () => {
-    const got = newAchievements(stats({ lessonsDone: 1, botsBeaten: ['fox'], gamesPlayed: 3 }), {});
+    const got = newAchievements(
+      stats({ lessonsDone: 1, botsBeaten: ['fox'], wins: 1, gamesPlayed: 3 }),
+      {},
+    );
     expect(got).toEqual(
       expect.arrayContaining(['firstLesson', 'firstWin', 'beatFox', 'firstGame']),
     );
@@ -78,8 +90,23 @@ describe('core/progress', () => {
     expect(new Set(ACHIEVEMENTS.map((a) => a.id)).size).toBe(ACHIEVEMENTS.length);
   });
 
+  it('unlocks game-feat achievements from their counters', () => {
+    const got = newAchievements(
+      stats({ wins: 10, winsAsBlack: 1, cleanWins: 1, miniatureWins: 1, promotionsPassed: 1 }),
+      {},
+    );
+    expect(got).toEqual(
+      expect.arrayContaining(['wins10', 'blackWin', 'cleanWin', 'miniature', 'promotionWin']),
+    );
+    expect(got).not.toContain('wins50');
+    expect(ACHIEVEMENTS.every((a) => ACHIEVEMENT_GROUPS.includes(a.group))).toBe(true);
+  });
+
   it('has a name and description for every achievement', () => {
     const names = vi.achievements as Record<string, { name: string; desc: string }>;
-    for (const a of ACHIEVEMENTS) expect(names[a.id]?.name, a.id).toBeTruthy();
+    for (const a of ACHIEVEMENTS) {
+      expect(names[a.id]?.name, a.id).toBeTruthy();
+      expect(names[a.id]?.desc, a.id).toBeTruthy();
+    }
   });
 });

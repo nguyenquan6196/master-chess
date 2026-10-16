@@ -26,7 +26,7 @@ export function RankBadge({
         className,
       )}
     >
-      <RankEmblem rank={RANKS[status.rankIndex].id} size={18} animated={false} />
+      <RankEmblem rank={RANKS[status.rankIndex].id} size={22} animated={false} />
       {rankTitle(status, rankName)}
     </span>
   );

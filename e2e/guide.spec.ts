@@ -5,7 +5,7 @@ test('guide: explains the site and shows every rank with its boss', async ({ pag
   await createPlayer(page);
   await page.goto('/guide');
   await expect(
-    page.getByRole('heading', { name: 'Chào mừng đến Master Chess', level: 1 }),
+    page.getByRole('heading', { name: 'Chào mừng đến Master Chess', level: 2 }),
   ).toBeVisible();
   const ranks = page.locator('#ranks tbody tr');
   await expect(ranks).toHaveCount(8);

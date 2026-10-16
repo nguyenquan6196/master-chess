@@ -57,7 +57,7 @@ export function RankCard({ profile }: { profile: Profile }) {
           >
             <RankEmblem
               rank={r.id}
-              size={i === status.rankIndex ? 44 : 36}
+              size={i === status.rankIndex ? 52 : 42}
               animated={i === status.rankIndex}
             />
           </li>

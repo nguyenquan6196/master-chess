@@ -132,14 +132,13 @@ function Wings({ children, flap = false }: { children: () => ReactNode; flap?: b
 }
 
 /**
- * Square frame fitted to each rank's ornaments, centred on the shield, so emblems of
- * every rank line up (same size, same vertical centre) next to text or each other.
+ * One square frame for every rank, centred on the shield, so the shield itself has the
+ * same size and position at every rank; higher ranks' ornaments (wings, crown, rays) fill
+ * the margin around it and may spill slightly past the edge (the svg is overflow-visible).
  */
-function frame(lv: number): string {
-  const half = lv <= 1 ? 54 : lv <= 3 ? 70 : lv === 4 || lv === 6 ? 80 : 90;
-  const cy = lv <= 1 ? 1 : -6;
-  return `${-half} ${cy - half} ${half * 2} ${half * 2}`;
-}
+const FRAME_HALF = 74;
+const FRAME_CY = -4;
+const FRAME = `${-FRAME_HALF} ${FRAME_CY - FRAME_HALF} ${FRAME_HALF * 2} ${FRAME_HALF * 2}`;
 
 export function RankEmblem({
   rank,
@@ -162,7 +161,7 @@ export function RankEmblem({
 
   return (
     <svg
-      viewBox={frame(lv)}
+      viewBox={FRAME}
       width={size}
       height={size}
       role={title ? 'img' : undefined}

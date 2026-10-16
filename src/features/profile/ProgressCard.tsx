@@ -5,7 +5,7 @@ import { useTranslations } from 'use-intl';
 import { Card } from '@/components/ui/Card';
 import { cn } from '@/components/ui/cn';
 import type { Profile } from '@/core/profile/schema';
-import { ACHIEVEMENTS, levelFor, liveStreak } from '@/core/progress/progress';
+import { ACHIEVEMENT_GROUPS, ACHIEVEMENTS, levelFor, liveStreak } from '@/core/progress/progress';
 
 /** Level and XP, daily streak and the achievement grid on the profile page. */
 export function ProgressCard({ profile }: { profile: Profile }) {
@@ -57,31 +57,59 @@ export function ProgressCard({ profile }: { profile: Profile }) {
             {t('progress', { done: unlocked, total: ACHIEVEMENTS.length })}
           </span>
         </h2>
-        <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-          {ACHIEVEMENTS.map((a) => {
-            const got = a.id in profile.achievements;
+        <div className="flex flex-col gap-4">
+          {ACHIEVEMENT_GROUPS.map((g) => {
+            const list = ACHIEVEMENTS.filter((a) => a.group === g);
+            const got = list.filter((a) => a.id in profile.achievements).length;
             return (
-              <li
-                key={a.id}
-                title={got ? undefined : t('locked')}
-                className={cn(
-                  'flex items-center gap-2 rounded-xl border p-2',
-                  got ? 'border-accent bg-surface' : 'border-border bg-surface-2 opacity-55',
-                )}
-              >
-                <span className={cn('text-2xl', !got && 'grayscale')} aria-hidden>
-                  {a.icon}
-                </span>
-                <span className="min-w-0">
-                  <span className="block truncate text-sm font-semibold">
-                    {tDyn(`${a.id}.name`)}
+              <section key={g}>
+                <h3 className="mb-2 flex items-center justify-between text-xs font-bold tracking-wide text-muted uppercase">
+                  {t(`groups.${g}`)}
+                  <span className="tabular-nums">
+                    {got}/{list.length}
                   </span>
-                  <span className="block text-xs text-muted">{tDyn(`${a.id}.desc`)}</span>
-                </span>
-              </li>
+                </h3>
+                <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+                  {list.map((a) => {
+                    const has = a.id in profile.achievements;
+                    return (
+                      <li
+                        key={a.id}
+                        title={has ? undefined : t('locked')}
+                        className={cn(
+                          'flex items-center gap-2 rounded-xl border p-2 transition-colors',
+                          has
+                            ? 'border-accent bg-surface shadow-card'
+                            : 'border-dashed border-border bg-surface-2/60',
+                        )}
+                      >
+                        <span
+                          aria-hidden
+                          className={cn(
+                            'grid size-10 shrink-0 place-items-center rounded-full text-xl',
+                            has
+                              ? 'bg-accent/15 ring-2 ring-accent'
+                              : 'bg-surface opacity-50 grayscale',
+                          )}
+                        >
+                          {a.icon}
+                        </span>
+                        <span className={cn('min-w-0', !has && 'opacity-70')}>
+                          <span className="block truncate text-sm font-semibold">
+                            {tDyn(`${a.id}.name`)}
+                          </span>
+                          <span className="block text-xs leading-snug text-muted">
+                            {tDyn(`${a.id}.desc`)}
+                          </span>
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
             );
           })}
-        </ul>
+        </div>
       </div>
     </Card>
   );

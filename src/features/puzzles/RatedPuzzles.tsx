@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'use-intl';
-import { BackButton } from '@/components/ui/BackButton';
+import { PageHeader } from '@/components/ui/PageHeader';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { cn } from '@/components/ui/cn';
@@ -80,10 +80,11 @@ export function RatedPuzzles() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-        <BackButton href="/practice" label={tn('practice')} />
-        <h1 className="font-display text-2xl font-bold">{tp('rated')}</h1>
-      </div>
+      <PageHeader
+        title={tp('rated')}
+        eyebrow={tn('practice')}
+        back={{ href: '/practice', label: tn('practice') }}
+      />
       {state !== 'ready' || !puzzle ? (
         <PuzzleStatus state={state} onRetry={loadNext} />
       ) : (

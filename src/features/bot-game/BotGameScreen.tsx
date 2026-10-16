@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'use-intl';
-import { BackButton } from '@/components/ui/BackButton';
+import { PageHeader } from '@/components/ui/PageHeader';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
 import { CUSTOM_ELO, type BotId } from '@/core/bot/levels';
@@ -155,7 +155,11 @@ export function BotGameScreen() {
   const ongoing = view.ongoing;
   return (
     <div className="flex flex-col gap-4">
-      <BackButton href="/play" label={tn('play')} />
+      <PageHeader
+        title={t('title')}
+        eyebrow={tn('play')}
+        back={{ href: '/play', label: tn('play') }}
+      />
       <BotSetup
         initial={lastChoice}
         ongoing={ongoing}
