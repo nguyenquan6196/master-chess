@@ -4,7 +4,7 @@
     "tagline": "Học, luyện tập và đấu cờ vua"
   },
   "nav": {
-    "home": "Trang chủ",
+    "home": "Sảnh chính",
     "learn": "Học",
     "practice": "Luyện tập",
     "play": "Đấu cờ",
@@ -14,7 +14,8 @@
     "history": "Lịch sử",
     "mute": "Tắt tiếng",
     "unmute": "Bật tiếng",
-    "guide": "Hướng dẫn"
+    "guide": "Hướng dẫn",
+    "review": "Xem lại ván"
   },
   "common": {
     "comingSoon": "Sắp ra mắt",

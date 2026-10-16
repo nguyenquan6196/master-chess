@@ -346,3 +346,45 @@ body::after {
 .mc-toast {
   animation: mc-fade-up 0.3s ease-out both;
 }
+
+/* Game-style scenes (Phase 5.5): scenes fade/slide in, buttons press down. */
+.mc-scene {
+  animation: mc-scene-in 0.28s ease-out both;
+}
+.mc-press {
+  transition: transform 0.12s ease;
+}
+.mc-press:active {
+  transform: scale(0.95);
+}
+@keyframes mc-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+.mc-float {
+  animation: mc-float 4s ease-in-out infinite;
+}
+@keyframes mc-scene-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mc-scene,
+  .mc-float {
+    animation: none;
+  }
+  .mc-press:active {
+    transform: none;
+  }
+}

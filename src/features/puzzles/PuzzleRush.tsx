@@ -125,8 +125,10 @@ export function PuzzleRush() {
   if (!run) {
     return (
       <div className="flex flex-col gap-4">
-        <BackButton href="/practice" label={tn('practice')} />
-        <h1 className="font-display text-3xl font-bold">⚡ {t('title')}</h1>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <BackButton href="/practice" label={tn('practice')} />
+          <h1 className="font-display text-2xl font-bold">⚡ {t('title')}</h1>
+        </div>
         <p className="text-muted">{t('intro')}</p>
         <div className="flex flex-wrap gap-3">
           {(Object.keys(RUSH.durations) as RushDuration[]).map((d) => (
@@ -145,7 +147,7 @@ export function PuzzleRush() {
   const remaining = rushRemainingMs(run, now || run.startedAt);
   const lives = RUSH.maxMistakes - run.mistakes;
   const header = (
-    <Card className="flex flex-wrap items-center justify-between gap-3 p-4">
+    <Card className="flex flex-wrap items-center justify-between gap-3 px-4 py-2">
       <span className="font-display text-2xl font-bold tabular-nums">
         {t('score', { score: run.score })}
       </span>
@@ -184,8 +186,10 @@ export function PuzzleRush() {
 
   return (
     <div className="flex flex-col gap-4">
-      <BackButton onClick={() => setRun(null)} label={t('quit')} />
-      <h1 className="font-display text-3xl font-bold">⚡ {t('title')}</h1>
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+        <BackButton onClick={() => setRun(null)} label={t('quit')} />
+        <h1 className="font-display text-2xl font-bold">⚡ {t('title')}</h1>
+      </div>
       {loadState !== 'ready' || !puzzle ? (
         <>
           {header}

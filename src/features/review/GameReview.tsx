@@ -7,6 +7,7 @@ import { ChessBoard } from '@/components/board/ChessBoard';
 import { EvalChart } from '@/components/board/EvalChart';
 import { BackButton } from '@/components/ui/BackButton';
 import { Button } from '@/components/ui/Button';
+import { ActionButton, GameLayout } from '@/components/ui/GameLayout';
 import { Card } from '@/components/ui/Card';
 import { cn } from '@/components/ui/cn';
 import { resolveBotLevel } from '@/core/bot/levels';
@@ -180,16 +181,18 @@ export function GameReview() {
 
   return (
     <div className="flex flex-col gap-4">
-      <BackButton href="/history" label={t('back')} />
-      <h1 className="font-display text-3xl font-bold">
-        {t('title')}{' '}
-        <span className="text-lg font-semibold text-muted">
-          {t('vs', { bot: tb(`${game.botId}.name`) })}
-        </span>
-      </h1>
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+        <BackButton href="/history" label={t('back')} />
+        <h1 className="font-display text-2xl font-bold">
+          {t('title')}{' '}
+          <span className="text-lg font-semibold text-muted">
+            {t('vs', { bot: tb(`${game.botId}.name`) })}
+          </span>
+        </h1>
+      </div>
 
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,560px)_1fr]">
-        <div className="mx-auto flex w-full max-w-[560px] flex-col gap-3">
+      <GameLayout
+        board={
           <ChessBoard
             fen={boardFen}
             orientation={orientation}
@@ -211,8 +214,21 @@ export function GameReview() {
               },
             }}
           />
-          {!retry && (
-            <div className="flex items-center justify-center gap-2">
+        }
+        bottom={
+          review ? (
+            <EvalChart
+              whiteWin={review.whiteWin}
+              current={retry ? retry.move.ply : cur}
+              marks={marks}
+              onSelect={(i) => !retry && setCur(Math.max(0, Math.min(last, i)))}
+              label={t('chart')}
+            />
+          ) : undefined
+        }
+        actions={
+          retry ? undefined : (
+            <>
               {(
                 [
                   ['start', '⏮', 0],
@@ -221,170 +237,163 @@ export function GameReview() {
                   ['end', '⏭', last],
                 ] as const
               ).map(([key, icon, to]) => (
-                <Button key={key} aria-label={t(key)} title={t(key)} onClick={() => setCur(to)}>
-                  {icon}
-                </Button>
+                <ActionButton key={key} icon={icon} label={t(key)} onClick={() => setCur(to)} />
               ))}
-            </div>
-          )}
-          {review && (
-            <EvalChart
-              whiteWin={review.whiteWin}
-              current={retry ? retry.move.ply : cur}
-              marks={marks}
-              onSelect={(i) => !retry && setCur(Math.max(0, Math.min(last, i)))}
-              label={t('chart')}
-            />
-          )}
-          <p className="hidden text-center text-xs text-muted sm:block">{t('keyHint')}</p>
-        </div>
+            </>
+          )
+        }
+        side={
+          <>
+            <p className="hidden text-xs text-muted lg:block">{t('keyHint')}</p>
 
-        <div className="flex flex-col gap-4">
-          {!review && (
-            <Card className="flex flex-col gap-2">
-              <p className="font-semibold">🔍 {t('analyze')}</p>
-              <p className="text-sm text-muted">{t('analyzeDesc')}</p>
-              <div className="h-2 overflow-hidden rounded-full bg-surface-2">
-                <div
-                  className="h-full bg-accent transition-all"
-                  style={{
-                    width: `${progress ? Math.round((progress.done / progress.total) * 100) : 0}%`,
-                  }}
-                />
-              </div>
-              <p className="text-xs text-muted tabular-nums">
-                {t('analyzing', { done: progress?.done ?? 0, total: positions.length })}
-              </p>
-            </Card>
-          )}
-
-          <div className="flex gap-3">
-            {accuracyCard(game.playerColor)}
-            {accuracyCard(game.playerColor === 'w' ? 'b' : 'w')}
-          </div>
-
-          {retry ? (
-            <Card className="flex flex-col gap-3 border-accent">
-              <p className="font-semibold">
-                {retry.state === 'correct'
-                  ? t('retryCorrect', { move: retry.tried ?? retry.move.bestSan ?? '' })
-                  : retry.state === 'wrong'
-                    ? t('retryWrong', { move: retry.tried ?? '' })
-                    : retry.state === 'checking'
-                      ? t('retryChecking')
-                      : retry.state === 'answer'
-                        ? t('bestWas', { move: retry.move.bestSan ?? '' })
-                        : t('retryPrompt', { move: retry.move.san })}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {retry.state !== 'correct' && retry.state !== 'answer' && (
-                  <Button onClick={() => setRetry({ ...retry, state: 'answer' })}>
-                    {t('showAnswer')}
-                  </Button>
-                )}
-                <Button
-                  variant="primary"
-                  onClick={() => {
-                    setCur(retry.move.ply + 1);
-                    setRetry(null);
-                  }}
-                >
-                  {t('exitRetry')}
-                </Button>
-              </div>
-            </Card>
-          ) : (
-            current && (
-              <Card className="flex flex-col gap-1 p-4">
-                <p className="flex flex-wrap items-center gap-2 font-semibold">
-                  {Math.floor(current.ply / 2) + 1}
-                  {current.color === 'w' ? '.' : '…'} {current.san}
-                  <ClassBadge cls={current.cls} label={t(`cls.${current.cls}`)} />
+            {!review && (
+              <Card className="flex flex-col gap-2">
+                <p className="font-semibold">🔍 {t('analyze')}</p>
+                <p className="text-sm text-muted">{t('analyzeDesc')}</p>
+                <div className="h-2 overflow-hidden rounded-full bg-surface-2">
+                  <div
+                    className="h-full bg-accent transition-all"
+                    style={{
+                      width: `${progress ? Math.round((progress.done / progress.total) * 100) : 0}%`,
+                    }}
+                  />
+                </div>
+                <p className="text-xs text-muted tabular-nums">
+                  {t('analyzing', { done: progress?.done ?? 0, total: positions.length })}
                 </p>
-                {current.cls !== 'best' && current.bestSan && (
-                  <p className="text-sm text-muted">{t('bestWas', { move: current.bestSan })}</p>
-                )}
               </Card>
-            )
-          )}
+            )}
 
-          {review && !retry && (
-            <label className="flex cursor-pointer items-center gap-2 text-sm">
-              <input
-                type="checkbox"
-                checked={showBest}
-                onChange={(e) => setShowBest(e.target.checked)}
-                className="size-4 accent-[var(--mc-accent)]"
-              />
-              {t('showBest')}
-            </label>
-          )}
+            <div className="flex gap-3">
+              {accuracyCard(game.playerColor)}
+              {accuracyCard(game.playerColor === 'w' ? 'b' : 'w')}
+            </div>
 
-          {review && (
-            <Card className="flex flex-col gap-2 p-4">
-              <h2 className="font-display text-lg font-semibold">🔁 {t('mistakes')}</h2>
-              {toRetry.length === 0 ? (
-                <p className="text-sm text-muted">{t('noMistakes')}</p>
-              ) : (
-                <ul className="flex flex-wrap gap-2">
-                  {toRetry.map((m) => (
-                    <li key={m.ply}>
-                      <Button onClick={() => setRetry({ move: m, state: 'idle', tried: null })}>
-                        {Math.floor(m.ply / 2) + 1}
-                        {m.color === 'w' ? '.' : '…'} {m.san}{' '}
-                        <span style={{ color: `var(--mc-cls-${m.cls})` }}>{CLASS_ICON[m.cls]}</span>
-                      </Button>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </Card>
-          )}
+            {retry ? (
+              <Card className="flex flex-col gap-3 border-accent">
+                <p className="font-semibold">
+                  {retry.state === 'correct'
+                    ? t('retryCorrect', { move: retry.tried ?? retry.move.bestSan ?? '' })
+                    : retry.state === 'wrong'
+                      ? t('retryWrong', { move: retry.tried ?? '' })
+                      : retry.state === 'checking'
+                        ? t('retryChecking')
+                        : retry.state === 'answer'
+                          ? t('bestWas', { move: retry.move.bestSan ?? '' })
+                          : t('retryPrompt', { move: retry.move.san })}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {retry.state !== 'correct' && retry.state !== 'answer' && (
+                    <Button onClick={() => setRetry({ ...retry, state: 'answer' })}>
+                      {t('showAnswer')}
+                    </Button>
+                  )}
+                  <Button
+                    variant="primary"
+                    onClick={() => {
+                      setCur(retry.move.ply + 1);
+                      setRetry(null);
+                    }}
+                  >
+                    {t('exitRetry')}
+                  </Button>
+                </div>
+              </Card>
+            ) : (
+              current && (
+                <Card className="flex flex-col gap-1 p-4">
+                  <p className="flex flex-wrap items-center gap-2 font-semibold">
+                    {Math.floor(current.ply / 2) + 1}
+                    {current.color === 'w' ? '.' : '…'} {current.san}
+                    <ClassBadge cls={current.cls} label={t(`cls.${current.cls}`)} />
+                  </p>
+                  {current.cls !== 'best' && current.bestSan && (
+                    <p className="text-sm text-muted">{t('bestWas', { move: current.bestSan })}</p>
+                  )}
+                </Card>
+              )
+            )}
 
-          <Card className="p-4">
-            <h2 className="mb-2 font-display text-lg font-semibold">{tg('moves')}</h2>
-            <ol className="grid max-h-72 grid-cols-[auto_1fr_1fr] gap-x-2 gap-y-1 overflow-y-auto text-sm">
-              {Array.from({ length: Math.ceil(game.moves.length / 2) }, (_, row) => (
-                <li key={row} className="contents">
-                  <span className="text-muted tabular-nums">{row + 1}.</span>
-                  {[row * 2, row * 2 + 1].map((ply) => {
-                    if (ply >= game.moves.length) return <span key={ply} />;
-                    const m = review?.moves[ply];
-                    const san = sans[ply] ?? game.moves[ply];
-                    return (
-                      <button
-                        key={ply}
-                        type="button"
-                        onClick={() => {
-                          setRetry(null);
-                          setCur(ply + 1);
-                        }}
-                        className={cn(
-                          'flex items-center gap-1 rounded px-1 text-left',
-                          cur === ply + 1 && !retry
-                            ? 'bg-surface-2 font-semibold'
-                            : 'hover:bg-surface-2',
-                        )}
-                      >
-                        {m && MARKED.includes(m.cls) && (
-                          <span
-                            aria-hidden
-                            className="text-xs font-bold"
-                            style={{ color: `var(--mc-cls-${m.cls})` }}
-                          >
+            {review && !retry && (
+              <label className="flex cursor-pointer items-center gap-2 text-sm">
+                <input
+                  type="checkbox"
+                  checked={showBest}
+                  onChange={(e) => setShowBest(e.target.checked)}
+                  className="size-4 accent-[var(--mc-accent)]"
+                />
+                {t('showBest')}
+              </label>
+            )}
+
+            {review && (
+              <Card className="flex flex-col gap-2 p-4">
+                <h2 className="font-display text-lg font-semibold">🔁 {t('mistakes')}</h2>
+                {toRetry.length === 0 ? (
+                  <p className="text-sm text-muted">{t('noMistakes')}</p>
+                ) : (
+                  <ul className="flex flex-wrap gap-2">
+                    {toRetry.map((m) => (
+                      <li key={m.ply}>
+                        <Button onClick={() => setRetry({ move: m, state: 'idle', tried: null })}>
+                          {Math.floor(m.ply / 2) + 1}
+                          {m.color === 'w' ? '.' : '…'} {m.san}{' '}
+                          <span style={{ color: `var(--mc-cls-${m.cls})` }}>
                             {CLASS_ICON[m.cls]}
                           </span>
-                        )}
-                        {san}
-                      </button>
-                    );
-                  })}
-                </li>
-              ))}
-            </ol>
-          </Card>
-        </div>
-      </div>
+                        </Button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </Card>
+            )}
+
+            <Card className="p-4">
+              <h2 className="mb-2 font-display text-lg font-semibold">{tg('moves')}</h2>
+              <ol className="grid max-h-72 grid-cols-[auto_1fr_1fr] gap-x-2 gap-y-1 overflow-y-auto text-sm">
+                {Array.from({ length: Math.ceil(game.moves.length / 2) }, (_, row) => (
+                  <li key={row} className="contents">
+                    <span className="text-muted tabular-nums">{row + 1}.</span>
+                    {[row * 2, row * 2 + 1].map((ply) => {
+                      if (ply >= game.moves.length) return <span key={ply} />;
+                      const m = review?.moves[ply];
+                      const san = sans[ply] ?? game.moves[ply];
+                      return (
+                        <button
+                          key={ply}
+                          type="button"
+                          onClick={() => {
+                            setRetry(null);
+                            setCur(ply + 1);
+                          }}
+                          className={cn(
+                            'flex items-center gap-1 rounded px-1 text-left',
+                            cur === ply + 1 && !retry
+                              ? 'bg-surface-2 font-semibold'
+                              : 'hover:bg-surface-2',
+                          )}
+                        >
+                          {m && MARKED.includes(m.cls) && (
+                            <span
+                              aria-hidden
+                              className="text-xs font-bold"
+                              style={{ color: `var(--mc-cls-${m.cls})` }}
+                            >
+                              {CLASS_ICON[m.cls]}
+                            </span>
+                          )}
+                          {san}
+                        </button>
+                      );
+                    })}
+                  </li>
+                ))}
+              </ol>
+            </Card>
+          </>
+        }
+      />
     </div>
   );
 }

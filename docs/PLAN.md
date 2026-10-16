@@ -13,6 +13,7 @@
 | 3 | Learn — ✅ code xong, chờ đọc thử | 2–3 tuần | 18 bài học MDX tương tác × 3 ngôn ngữ |
 | 4 | Bot persona & Game Review — ✅ code xong, chờ chơi thử | 2 tuần | Phong cách bot, phân tích ván sau trận |
 | 5 | Hoa hòe: theme, âm thanh, ngôn ngữ, gamification — ✅ code xong, chờ chơi thử | 3–4 tuần | 8 theme + tuỳ chỉnh, nhạc nền, vi/en/ja, XP, huy hiệu, PWA |
+| 5.5 | Giao diện kiểu game — ✅ code xong | 1 tuần | Sảnh chính thay thanh menu, màn chơi toàn màn hình, HUD icon |
 | 6 | 3D board | 2 tuần | Chế độ 3D tuỳ chọn |
 | 7 | (Tuỳ chọn) Cloud | — | Tài khoản, đồng bộ, AI Coach, PvP |
 
@@ -183,6 +184,16 @@
 - [x] Header: nút loa, chọn ngôn ngữ, nút người chơi cùng cao 32px
 - [x] Huy hiệu: khung SVG vuông vừa khít từng hạng (căn giữa đúng cạnh chữ và trong dải hạng); Đồng/Bạc có vệt sáng nhẹ; dải 8 hạng ở Hồ sơ cùng cỡ, hạng hiện tại có viền + animation
 - [x] Trang **Hướng dẫn** (`/guide`, có trên menu): vì sao chơi cờ, vì sao chơi ở đây, tính năng, lộ trình cho người mới, 3 loại điểm, bảng 8 hạng (huy hiệu động, khoảng điểm, bậc, trùm), luật thăng hạng, bảng XP, mẹo, hỏi đáp — số liệu đọc từ code nên luôn khớp luật; 3 ngôn ngữ; E2E
+
+## Phase 5.5 — Giao diện kiểu game (chốt 2026-10-16) — ✅ code xong
+Mục tiêu: app cảm giác như một game, không như website có thanh menu. Giữ nguyên logic, theme, âm thanh; chỉ đổi "vỏ" bố cục. URL giữ nguyên (Back/mở lại đúng màn vẫn chạy).
+- [x] Bỏ thanh menu chữ. **Sảnh chính** (`/`): thẻ người chơi góc trên trái (avatar, cấp, huy hiệu, chuỗi 🔥 → Hồ sơ), loa + cài đặt + ngôn ngữ góc trên phải, 3 ô lớn Đấu cờ / Luyện tập / Học ở giữa, nút phụ Lịch sử / Hồ sơ / Hướng dẫn ở đáy
+- [x] **HUD** cho các màn khác: nút ⌂ về sảnh + ← lùi một bước, tiêu đề màn, các nút icon (loa, cài đặt) — không còn thanh điều hướng dạng web; cài đặt mở dạng bảng nổi từ HUD
+- [x] **Màn đấu cờ** (bot, 2 người) vừa khít màn hình, không cuộn: desktop — bàn cờ giữa tối đa chiều cao, thẻ đối thủ/người chơi + đồng hồ cạnh bàn, cột phải: trạng thái, danh sách nước, nút icon (gợi ý, đi lại, hòa, xin thua); mobile dọc — thẻ đối thủ trên, bàn rộng hết, thẻ mình dưới, dải nút icon có nhãn ở đáy
+- [x] Puzzle (tính điểm, chủ đề, Rush, hằng ngày), Quiz, Xem lại ván: cùng bố cục "bàn giữa – điều khiển cạnh/đáy"
+- [x] Các màn chọn (hub Luyện tập, Đấu cờ, Học, chọn bot) dạng ô lớn kiểu menu game; trang nhiều chữ (Hồ sơ, Lịch sử, Hướng dẫn) là bảng nổi trên sảnh
+- [x] Chuyển cảnh mờ/trượt, nút có độ nảy; tôn trọng `prefers-reduced-motion`
+- [x] Kiểm tra desktop + mobile: đo tự động không cuộn ở 1440×900 / 1366×768 (sảnh, đấu bot, 2 người, puzzle), không tràn ngang mobile; 40 E2E pass. Khung dùng chung: `components/ui/GameLayout` (bàn giữa, thẻ trên/dưới, cột phải; dải nút cố định đáy trên mobile), `MenuTile`, `HudIconButton`
 
 ## Phase 6 — 3D
 - [ ] Spike: react-three-fiber + model GLTF quân cờ (CC0 hoặc tự dựng)

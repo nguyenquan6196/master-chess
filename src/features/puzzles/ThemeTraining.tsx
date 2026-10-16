@@ -75,8 +75,10 @@ export function ThemeTraining() {
   if (!theme) {
     return (
       <div className="flex flex-col gap-4">
-        <BackButton href="/practice" label={tn('practice')} />
-        <h1 className="font-display text-3xl font-bold">{tp('themes')}</h1>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <BackButton href="/practice" label={tn('practice')} />
+          <h1 className="font-display text-2xl font-bold">{tp('themes')}</h1>
+        </div>
         <h2 className="text-sm font-semibold text-muted">{t('chooseTheme')}</h2>
         <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
           {TRAINING_THEMES.map((th) => (
@@ -100,8 +102,10 @@ export function ThemeTraining() {
 
   return (
     <div className="flex flex-col gap-4">
-      <BackButton onClick={() => setTheme(null)} label={t('chooseTheme')} />
-      <h1 className="font-display text-3xl font-bold">{tt(theme)}</h1>
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+        <BackButton onClick={() => setTheme(null)} label={t('chooseTheme')} />
+        <h1 className="font-display text-2xl font-bold">{tt(theme)}</h1>
+      </div>
       {state !== 'ready' || !puzzle ? (
         <PuzzleStatus state={state} onRetry={() => loadNext(theme)} />
       ) : (

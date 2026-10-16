@@ -3,12 +3,13 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useTranslations } from 'use-intl';
 import { cn } from '@/components/ui/cn';
+import { HudIconButton } from './HudIconButton';
 
 /**
- * Floating settings button (bottom right) that expands a settings panel.
- * Desktop: a wide card anchored above the button. Phones: full width with even margins.
+ * ⚙️ icon in the HUD that opens the settings panel as a floating card under it
+ * (full width on phones). The panel can be expanded to a large sheet on desktop.
  */
-export function SettingsFab({ children }: { children: ReactNode }) {
+export function SettingsButton({ children }: { children: ReactNode }) {
   const t = useTranslations('settings');
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState(false);
@@ -32,15 +33,24 @@ export function SettingsFab({ children }: { children: ReactNode }) {
 
   return (
     <div ref={root}>
+      <HudIconButton
+        label={open ? t('close') : t('open')}
+        aria-expanded={open}
+        aria-controls="settings-panel"
+        active={open}
+        onClick={() => setOpen((v) => !v)}
+      >
+        ⚙️
+      </HudIconButton>
       {open && (
         <section
           id="settings-panel"
           role="dialog"
           aria-label={t('title')}
           className={cn(
-            'fixed inset-x-4 bottom-20 z-40 max-h-[calc(100dvh-7rem)] overflow-y-auto rounded-2xl border border-border bg-surface p-5 text-fg shadow-card',
+            'mc-scene fixed inset-x-3 top-16 z-40 max-h-[calc(100dvh-5rem)] overflow-y-auto rounded-2xl border border-border bg-surface p-5 text-fg shadow-card',
             expanded
-              ? 'sm:inset-x-8 sm:top-20 sm:p-8'
+              ? 'sm:inset-x-8 sm:bottom-6 sm:max-h-none sm:p-8'
               : 'sm:inset-x-auto sm:right-4 sm:w-[36rem] sm:p-6',
           )}
         >
@@ -57,21 +67,6 @@ export function SettingsFab({ children }: { children: ReactNode }) {
           {children}
         </section>
       )}
-      <button
-        type="button"
-        aria-expanded={open}
-        aria-controls="settings-panel"
-        aria-label={open ? t('close') : t('open')}
-        title={t('title')}
-        onClick={() => setOpen((v) => !v)}
-        className={cn(
-          'fixed right-4 bottom-4 z-40 flex size-12 items-center justify-center rounded-full text-xl shadow-card transition-transform hover:scale-105',
-          'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent',
-          open ? 'bg-accent text-accent-fg' : 'border border-border bg-surface',
-        )}
-      >
-        <span aria-hidden>{open ? '✕' : '⚙️'}</span>
-      </button>
     </div>
   );
 }

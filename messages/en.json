@@ -4,7 +4,7 @@
     "tagline": "Learn, practice and play chess"
   },
   "nav": {
-    "home": "Home",
+    "home": "Main menu",
     "learn": "Learn",
     "practice": "Practice",
     "play": "Play",
@@ -14,7 +14,8 @@
     "history": "History",
     "mute": "Mute",
     "unmute": "Unmute",
-    "guide": "Guide"
+    "guide": "Guide",
+    "review": "Game review"
   },
   "common": {
     "comingSoon": "Coming soon",

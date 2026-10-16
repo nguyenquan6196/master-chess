@@ -73,16 +73,16 @@ export function LanguageSelect() {
         onClick={() => (open ? setOpen(false) : openList())}
         onKeyDown={onKeyDown}
         className={cn(
-          'flex h-8 items-center gap-2 rounded-full border px-3 text-sm font-semibold transition-colors',
+          'mc-press flex h-10 items-center gap-2 rounded-full border bg-surface px-3 text-sm font-semibold shadow-card transition-colors',
           'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent',
           open ? 'border-accent bg-surface-2' : 'border-border hover:bg-surface-2',
         )}
       >
         <Flag code={locale} />
-        <span className="hidden sm:inline" lang={locale}>
+        <span className="hidden lg:inline" lang={locale}>
           {LOCALE_LABELS[locale]}
         </span>
-        <span className="uppercase sm:hidden">{locale}</span>
+        <span className="uppercase lg:hidden">{locale}</span>
         <span
           aria-hidden
           className={cn('text-xs text-muted transition-transform', open && 'rotate-180')}

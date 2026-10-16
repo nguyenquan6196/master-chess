@@ -46,8 +46,10 @@ export function DailyPuzzle() {
 
   return (
     <div className="flex flex-col gap-4">
-      <BackButton href="/practice" label={tn('practice')} />
-      <h1 className="font-display text-3xl font-bold">{tp('daily')}</h1>
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+        <BackButton href="/practice" label={tn('practice')} />
+        <h1 className="font-display text-2xl font-bold">{tp('daily')}</h1>
+      </div>
       <p className="text-muted">
         {t('dailyTitle', { date: format.dateTime(today, { dateStyle: 'long' }) })}
       </p>

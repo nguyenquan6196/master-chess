@@ -1,8 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import { useTranslations } from 'use-intl';
-import { Card } from '@/components/ui/Card';
+import { MenuTile } from '@/components/ui/MenuTile';
 import { useSession } from '@/services/profile/session';
 
 const MODES = [
@@ -18,7 +17,7 @@ export function PracticeHub() {
   const rating = useSession((s) => s.profile?.puzzleRating.rating);
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="mx-auto flex w-full max-w-5xl flex-col gap-4">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <h1 className="font-display text-3xl font-bold">{t('title')}</h1>
         {rating !== undefined && (
@@ -30,18 +29,16 @@ export function PracticeHub() {
           </p>
         )}
       </div>
-      <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {MODES.map((m) => (
+      <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {MODES.map((m, i) => (
           <li key={m.href}>
-            <Link href={m.href} className="group block h-full">
-              <Card className="h-full transition-transform group-hover:-translate-y-1">
-                <p className="text-3xl" aria-hidden>
-                  {m.icon}
-                </p>
-                <h2 className="mt-2 font-display text-xl font-semibold">{t(m.title)}</h2>
-                <p className="mt-1 text-sm text-muted">{t(m.desc)}</p>
-              </Card>
-            </Link>
+            <MenuTile
+              href={m.href}
+              icon={m.icon}
+              title={t(m.title)}
+              desc={t(m.desc)}
+              primary={i === 0}
+            />
           </li>
         ))}
       </ul>

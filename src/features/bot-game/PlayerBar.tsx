@@ -32,7 +32,7 @@ export function PlayerBar({
   const low = timed && ms < LOW_TIME_MS;
 
   return (
-    <div className="flex items-center gap-3 py-2">
+    <div className="flex items-center gap-3 rounded-2xl border border-border bg-surface px-3 py-2 shadow-card">
       <span
         className={cn(
           'flex size-10 items-center justify-center rounded-xl border text-2xl',

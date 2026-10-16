@@ -180,8 +180,10 @@ export function QuizScreen() {
     return (
       <div className="flex flex-col gap-8">
         <section className="flex flex-col gap-4">
-          <BackButton href="/practice" label={tn('practice')} />
-          <h1 className="font-display text-3xl font-bold">📝 {t('title')}</h1>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+            <BackButton href="/practice" label={tn('practice')} />
+            <h1 className="font-display text-2xl font-bold">📝 {t('title')}</h1>
+          </div>
           <h2 className="text-sm font-semibold text-muted">{t('chooseTopic')}</h2>
           <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {(['all', ...QUIZ_TOPICS] as TopicKey[]).map((k) => (

@@ -60,10 +60,10 @@ export function RatedPuzzles() {
   }, []);
 
   const header = (
-    <Card className="flex items-center justify-between p-4">
+    <Card className="flex items-center justify-between px-4 py-2">
       <span className="text-sm text-muted">{tp('yourRating')}</span>
       <span className="flex items-baseline gap-2">
-        <span className="font-display text-3xl font-bold tabular-nums">{Math.round(rating)}</span>
+        <span className="font-display text-2xl font-bold tabular-nums">{Math.round(rating)}</span>
         {delta !== null && (
           <span
             className={cn(
@@ -80,8 +80,10 @@ export function RatedPuzzles() {
 
   return (
     <div className="flex flex-col gap-4">
-      <BackButton href="/practice" label={tn('practice')} />
-      <h1 className="font-display text-3xl font-bold">{tp('rated')}</h1>
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+        <BackButton href="/practice" label={tn('practice')} />
+        <h1 className="font-display text-2xl font-bold">{tp('rated')}</h1>
+      </div>
       {state !== 'ready' || !puzzle ? (
         <PuzzleStatus state={state} onRetry={loadNext} />
       ) : (

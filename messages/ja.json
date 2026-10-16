@@ -4,7 +4,7 @@
     "tagline": "チェスを学んで、練習して、対戦しよう"
   },
   "nav": {
-    "home": "ホーム",
+    "home": "メインメニュー",
     "learn": "学ぶ",
     "practice": "練習",
     "play": "対戦",
@@ -14,7 +14,8 @@
     "history": "履歴",
     "mute": "ミュート",
     "unmute": "ミュート解除",
-    "guide": "ガイド"
+    "guide": "ガイド",
+    "review": "振り返り"
   },
   "common": {
     "comingSoon": "近日公開",

@@ -2,128 +2,159 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useMemo, type ReactNode } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import { useTranslations } from 'use-intl';
 import { BoardPrefsProvider } from '@/components/board/BoardPrefs';
 import { BackdropParticles } from '@/components/ui/BackdropParticles';
 import { cn } from '@/components/ui/cn';
 import { rankTitle } from '@/components/ui/RankBadge';
 import { RankEmblem } from '@/components/ui/RankEmblem';
+import { levelFor, liveStreak } from '@/core/progress/progress';
 import { RANKS, rankStatus } from '@/core/rating/rank';
-import { useSession } from '@/services/profile/session';
 import { useMusicDirector } from '@/services/audio/musicDirector';
+import { useSession } from '@/services/profile/session';
 import { useSettings } from '@/services/settings/store';
 import { THEME_INFO } from '@/services/theme/appearance';
 import { useResolvedTheme } from '@/services/theme/useResolvedTheme';
+import { HudIconButton } from './HudIconButton';
 import { LanguageSelect } from './LanguageSelect';
-import { MobileMenu } from './MobileMenu';
-import { SettingsFab } from './SettingsFab';
+import { SettingsButton } from './SettingsButton';
 import { Toaster } from './Toaster';
 
-const NAV_ITEMS = [
-  { href: '/learn', key: 'learn', icon: '📖' },
-  { href: '/practice', key: 'practice', icon: '🧩' },
-  { href: '/play', key: 'play', icon: '♟️' },
-  { href: '/guide', key: 'guide', icon: '📘' },
-] as const;
+const PANEL_SCENES = new Set(['profile', 'history', 'guide']);
 
+/** Scene titles shown in the HUD (first path segment → nav key). */
+const SCENES = {
+  learn: 'learn',
+  practice: 'practice',
+  play: 'play',
+  guide: 'guide',
+  profile: 'profile',
+  history: 'history',
+  review: 'review',
+} as const;
+
+/**
+ * Game-style shell (Phase 5.5): no website navigation bar. A light HUD floats over the
+ * scene — the player card on the lobby, a home button and the scene title elsewhere —
+ * with sound, language and settings icons on the right.
+ */
 export function AppShell({ children, settings }: { children: ReactNode; settings: ReactNode }) {
   const t = useTranslations('nav');
+  const tp = useTranslations('progress');
+  const tr = useTranslations('rank');
   const pathname = usePathname();
   const profile = useSession((s) => s.profile);
   const pieceSet = useSettings((s) => s.pieceSet);
   const moveAnimation = useSettings((s) => s.moveAnimation);
   useMusicDirector(pathname);
   const muted = useSettings((s) => s.muted);
-  const toggleMute = () => useSettings.getState().update({ muted: !muted });
   const resolvedTheme = useResolvedTheme();
   const backdropMotion = useSettings((s) => s.backdropMotion);
   const backdrop = useSettings((s) => s.backdrop);
   const particles =
     backdropMotion && backdrop === 'theme' ? THEME_INFO[resolvedTheme].particles : null;
   const boardPrefs = useMemo(() => ({ pieceSet, moveAnimation }), [pieceSet, moveAnimation]);
-  const tr = useTranslations('rank');
-  const rank = profile ? rankStatus(profile.gameRating.rating, profile.rankFloor) : null;
+  const [now] = useState(() => Date.now());
 
-  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
+  const isLobby = pathname === '/';
+  /** Text-heavy pages open as a sheet over the scene. */
+  const isPanel = PANEL_SCENES.has(pathname.split('/')[1] ?? '');
+  const scene = SCENES[pathname.split('/')[1] as keyof typeof SCENES] ?? null;
+  const rank = profile ? rankStatus(profile.gameRating.rating, profile.rankFloor) : null;
+  const rankId = rank ? RANKS[rank.rankIndex].id : null;
+  const rankLabel = rank ? rankTitle(rank, tr(RANKS[rank.rankIndex].id)) : '';
 
   return (
     <>
       {particles && <BackdropParticles key={resolvedTheme} kind={particles} />}
       <Toaster />
-      <header className="sticky top-0 z-20 border-b border-border bg-surface/90 backdrop-blur">
-        <div className="mx-auto flex h-14 max-w-6xl items-center gap-4 px-4">
+      <header className="relative z-30 mx-auto flex w-full max-w-6xl items-center gap-2 px-3 pt-3 sm:px-4">
+        {isLobby && profile ? (
           <Link
-            href="/"
-            className="flex shrink-0 items-center gap-2 font-display text-xl font-bold whitespace-nowrap text-fg"
-            aria-label="Master Chess"
+            href="/profile"
+            title={`${t('profile')} · ${rankLabel}`}
+            className="mc-press flex min-w-0 items-center gap-3 rounded-2xl border border-border bg-surface/90 py-1.5 pr-3 pl-1.5 shadow-card backdrop-blur hover:bg-surface"
           >
-            <span aria-hidden className="text-2xl">
-              ♞
-            </span>
-            {/* Narrow phones: icon only, leaving room for the language and player buttons. */}
-            <span className="hidden min-[440px]:inline">Master Chess</span>
-          </Link>
-
-          <nav className="ml-auto hidden gap-1 sm:flex">
-            {NAV_ITEMS.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  'rounded-lg px-3 py-1.5 text-sm font-medium transition-colors',
-                  isActive(item.href)
-                    ? 'bg-accent text-accent-fg'
-                    : 'text-muted hover:bg-surface-2 hover:text-fg',
-                )}
-              >
-                {t(item.key)}
-              </Link>
-            ))}
-          </nav>
-
-          <div className="ml-auto flex items-center gap-2 sm:ml-2">
-            <button
-              type="button"
-              onClick={toggleMute}
-              aria-pressed={muted}
-              aria-label={muted ? t('unmute') : t('mute')}
-              title={muted ? t('unmute') : t('mute')}
-              className="grid size-8 place-items-center rounded-full border border-border text-sm hover:bg-surface-2"
+            <span
+              aria-hidden
+              className="grid size-11 shrink-0 place-items-center rounded-xl bg-surface-2 text-2xl"
             >
-              <span aria-hidden>{muted ? '🔇' : '🔊'}</span>
-            </button>
-            <LanguageSelect />
-            {profile && (
-              <Link
-                href="/profile"
-                title={
-                  rank
-                    ? `${t('profile')} · ${rankTitle(rank, tr(RANKS[rank.rankIndex].id))}`
-                    : t('profile')
-                }
-                className={cn(
-                  'flex h-8 max-w-48 items-center gap-2 rounded-full border px-2 text-sm font-semibold',
-                  isActive('/profile') ? 'border-accent' : 'border-border hover:bg-surface-2',
-                )}
-              >
-                <span aria-hidden>{profile.avatar}</span>
-                <span className="hidden truncate md:inline">{profile.name}</span>
-                {rank && <RankEmblem rank={RANKS[rank.rankIndex].id} size={22} animated={false} />}
-              </Link>
-            )}
-          </div>
+              {profile.avatar}
+            </span>
+            <span className="min-w-0">
+              <span className="block truncate font-display font-bold">{profile.name}</span>
+              <span className="flex items-center gap-1.5 text-xs whitespace-nowrap text-muted">
+                {tp('level', { level: levelFor(profile.xp).level })}
+                <span aria-hidden>·</span>🔥 {liveStreak(profile.streak, now)}
+              </span>
+            </span>
+            {rankId && <RankEmblem rank={rankId} size={34} animated={false} title={rankLabel} />}
+          </Link>
+        ) : !isLobby ? (
+          <>
+            <Link
+              href="/"
+              aria-label={t('home')}
+              title={t('home')}
+              className="mc-press grid size-10 shrink-0 place-items-center rounded-full border border-border bg-surface text-lg shadow-card hover:bg-surface-2"
+            >
+              <span aria-hidden>⌂</span>
+            </Link>
+            {scene && <span className="truncate font-display text-lg font-bold">{t(scene)}</span>}
+          </>
+        ) : null}
 
-          <MobileMenu items={NAV_ITEMS} isActive={isActive} />
+        <div className="ml-auto flex items-center gap-2">
+          <HudIconButton
+            label={muted ? t('unmute') : t('mute')}
+            aria-pressed={muted}
+            onClick={() => useSettings.getState().update({ muted: !muted })}
+          >
+            <span aria-hidden className="text-base">
+              {muted ? '🔇' : '🔊'}
+            </span>
+          </HudIconButton>
+          <LanguageSelect />
+          <SettingsButton>
+            <BoardPrefsProvider value={boardPrefs}>{settings}</BoardPrefsProvider>
+          </SettingsButton>
+          {!isLobby && profile && (
+            <Link
+              href="/profile"
+              aria-label={t('profile')}
+              title={`${profile.name} · ${rankLabel}`}
+              className={cn(
+                'mc-press hidden h-10 items-center gap-1 rounded-full border bg-surface pr-1 pl-2 shadow-card hover:bg-surface-2 sm:flex',
+                pathname.startsWith('/profile') ? 'border-accent' : 'border-border',
+              )}
+            >
+              <span aria-hidden className="text-lg">
+                {profile.avatar}
+              </span>
+              {rankId && <RankEmblem rank={rankId} size={28} animated={false} />}
+            </Link>
+          )}
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 pt-6 pb-24">
-        <BoardPrefsProvider value={boardPrefs}>{children}</BoardPrefsProvider>
+      <main
+        key={pathname.split('/').slice(0, 3).join('/')}
+        className={cn(
+          'mc-scene mx-auto flex w-full max-w-6xl flex-1 flex-col px-3 pt-4 pb-6 sm:px-4',
+          isLobby && 'justify-center',
+        )}
+      >
+        <BoardPrefsProvider value={boardPrefs}>
+          {isPanel ? (
+            <div className="rounded-3xl border border-border bg-surface/85 p-4 shadow-card backdrop-blur sm:p-6">
+              {children}
+            </div>
+          ) : (
+            children
+          )}
+        </BoardPrefsProvider>
       </main>
-      <SettingsFab>
-        <BoardPrefsProvider value={boardPrefs}>{settings}</BoardPrefsProvider>
-      </SettingsFab>
     </>
   );
 }

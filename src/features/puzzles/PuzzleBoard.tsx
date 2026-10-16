@@ -3,8 +3,7 @@
 import type { ReactNode } from 'react';
 import { useTranslations } from 'use-intl';
 import { ChessBoard } from '@/components/board/ChessBoard';
-import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
+import { ActionButton, GameLayout, HudCard } from '@/components/ui/GameLayout';
 import { cn } from '@/components/ui/cn';
 import { Confetti } from '@/components/ui/Confetti';
 import { isCleanSolve } from '@/core/puzzle/session';
@@ -50,67 +49,81 @@ export function PuzzleBoard({
 
   const knownThemes = solver.puzzle.themes.filter((th) => tt.has(th as never));
 
-  return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,560px)_1fr]">
-      <div className="relative mx-auto w-full max-w-[560px]">
-        <ChessBoard
-          fen={solver.fen}
-          orientation={solver.orientation}
-          movableColor={solver.canMove ? (solver.orientation === 'white' ? 'w' : 'b') : 'none'}
-          lastMove={solver.lastMove}
-          marks={solver.marks}
-          arrows={solver.arrows}
-          onMove={solver.onMove}
-          promotionLabels={{
-            title: tg('choosePromotion'),
-            cancel: tg('cancel'),
-            pieces: { q: tg('pieces.q'), r: tg('pieces.r'), b: tg('pieces.b'), n: tg('pieces.n') },
-          }}
-        />
-        <Confetti trigger={solver.solved && clean ? solver.puzzle.rating + 1 : null} />
-      </div>
-
-      <div className="flex flex-col gap-4">
-        {header}
-        <div
-          role="status"
-          aria-live="polite"
+  const statusBox = (
+    <div
+      role="status"
+      aria-live="polite"
+      className={cn(
+        'flex items-center gap-2 rounded-2xl border px-4 py-3 font-display text-lg font-semibold shadow-card',
+        solver.solved && 'border-accent bg-accent text-accent-fg',
+        solver.feedback === 'wrong' && 'border-danger bg-surface text-danger',
+        solver.feedback === 'correct' && 'border-accent bg-surface text-accent',
+        !solver.solved && !solver.feedback && 'border-border bg-surface',
+      )}
+    >
+      {!solver.solved && (
+        <span
+          aria-hidden
           className={cn(
-            'flex items-center gap-2 rounded-2xl border px-4 py-3 font-display text-lg font-semibold',
-            solver.solved && 'border-accent bg-accent text-accent-fg',
-            solver.feedback === 'wrong' && 'border-danger text-danger',
-            solver.feedback === 'correct' && 'border-accent text-accent',
-            !solver.solved && !solver.feedback && 'border-border bg-surface',
+            'inline-block size-4 shrink-0 rounded-full border border-border',
+            solver.orientation === 'white' ? 'bg-side-white' : 'bg-side-black',
           )}
-        >
-          {!solver.solved && (
-            <span
-              aria-hidden
-              className={cn(
-                'inline-block size-4 rounded-full border border-border',
-                solver.orientation === 'white' ? 'bg-side-white' : 'bg-side-black',
-              )}
+        />
+      )}
+      <span className="min-w-0 flex-1">{status}</span>
+      {actions}
+    </div>
+  );
+
+  return (
+    <GameLayout
+      top={header}
+      board={
+        <div className="relative">
+          <ChessBoard
+            fen={solver.fen}
+            orientation={solver.orientation}
+            movableColor={solver.canMove ? (solver.orientation === 'white' ? 'w' : 'b') : 'none'}
+            lastMove={solver.lastMove}
+            marks={solver.marks}
+            arrows={solver.arrows}
+            onMove={solver.onMove}
+            promotionLabels={{
+              title: tg('choosePromotion'),
+              cancel: tg('cancel'),
+              pieces: {
+                q: tg('pieces.q'),
+                r: tg('pieces.r'),
+                b: tg('pieces.b'),
+                n: tg('pieces.n'),
+              },
+            }}
+          />
+          <Confetti trigger={solver.solved && clean ? solver.puzzle.rating + 1 : null} />
+        </div>
+      }
+      bottom={statusBox}
+      actions={
+        allowHelp && !solver.solved ? (
+          <>
+            <ActionButton
+              icon="💡"
+              label={t('hint')}
+              onClick={solver.hint}
+              disabled={!solver.canMove}
             />
-          )}
-          {status}
-        </div>
-
-        <div className="flex flex-wrap gap-2">
-          {allowHelp && !solver.solved && (
-            <>
-              <Button onClick={solver.hint} disabled={!solver.canMove}>
-                💡 {t('hint')}
-              </Button>
-              <Button variant="ghost" onClick={solver.showSolution} disabled={!s}>
-                👁️ {t('solution')}
-              </Button>
-            </>
-          )}
-          {actions}
-        </div>
-
-        {showMeta && (
-          <Card className="p-4 text-sm">
+            <ActionButton
+              icon="👁️"
+              label={t('solution')}
+              onClick={solver.showSolution}
+              disabled={!s}
+            />
+          </>
+        ) : undefined
+      }
+      side={
+        showMeta ? (
+          <HudCard className="py-3 text-sm">
             <p className="font-semibold">{t('puzzleRating', { rating: solver.puzzle.rating })}</p>
             {solver.solved && knownThemes.length > 0 && (
               <p className="mt-2 flex flex-wrap gap-1">
@@ -121,9 +134,9 @@ export function PuzzleBoard({
                 ))}
               </p>
             )}
-          </Card>
-        )}
-      </div>
-    </div>
+          </HudCard>
+        ) : undefined
+      }
+    />
   );
 }

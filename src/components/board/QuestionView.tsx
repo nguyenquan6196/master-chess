@@ -81,7 +81,12 @@ export function QuestionView({
   return (
     <div className={cn('grid gap-6', !compact && 'lg:grid-cols-[minmax(0,480px)_1fr]')}>
       {fen && (
-        <div className={cn('mx-auto w-full', compact ? 'max-w-[360px]' : 'max-w-[480px]')}>
+        <div
+          className={cn(
+            'mx-auto w-full',
+            compact ? 'max-w-[360px]' : 'max-w-[480px] lg:w-[min(480px,calc(100dvh-14rem))]',
+          )}
+        >
           <ChessBoard
             fen={fen}
             orientation={turnOf(fen) === 'b' && q.kind === 'make-move' ? 'black' : 'white'}
@@ -117,7 +122,7 @@ export function QuestionView({
                       onAnswer(checkChoice(q, c));
                     }}
                     className={cn(
-                      'w-full rounded-xl border px-4 py-3 text-left font-medium transition-colors',
+                      'mc-press w-full rounded-xl border px-4 py-3 text-left font-medium shadow-card transition-colors',
                       !locked && 'border-border bg-surface hover:border-accent',
                       isAnswer && 'border-accent bg-accent text-accent-fg',
                       isWrongPick && 'border-danger bg-danger text-surface',

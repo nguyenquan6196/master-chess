@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'use-intl';
 import { ChessBoard } from '@/components/board/ChessBoard';
@@ -8,7 +9,7 @@ import { EvalBar } from '@/components/board/EvalBar';
 import { MoveList } from '@/components/board/MoveList';
 import { Button } from '@/components/ui/Button';
 import { Confetti } from '@/components/ui/Confetti';
-import { Card } from '@/components/ui/Card';
+import { ActionButton, GameLayout, HudCard } from '@/components/ui/GameLayout';
 import { Modal } from '@/components/ui/Modal';
 import { RankBadge } from '@/components/ui/RankBadge';
 import { BossIntroOverlay, RankUpOverlay } from '@/components/ui/RankUpOverlay';
@@ -47,6 +48,7 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
   const profile = useSession((s) => s.profile);
   const toggleEval = useSettings((s) => s.update);
   const g = useBotGame(initial);
+  const router = useRouter();
   const { record, snapshot, level } = g;
   const [confirmResign, setConfirmResign] = useState(false);
   const [resultDismissed, setResultDismissed] = useState(false);
@@ -102,131 +104,143 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
         ? tg('check')
         : null;
 
+  const actions = !finished ? (
+    <>
+      <ActionButton
+        icon="💡"
+        label={t('hint')}
+        onClick={() => withAssist(() => void g.requestHint())}
+        disabled={!g.isPlayerTurn}
+      />
+      <ActionButton
+        icon="↩️"
+        label={tg('undo')}
+        onClick={() => withAssist(g.undo)}
+        disabled={!g.canUndo}
+      />
+      <ActionButton icon="🤝" label={t('offerDraw')} onClick={() => void g.offerDraw()} />
+      <ActionButton icon="🏳️" label={t('resign')} onClick={() => setConfirmResign(true)} />
+    </>
+  ) : (
+    <>
+      <ActionButton icon="🔁" label={t('rematch')} primary onClick={() => onRematch(record)} />
+      <ActionButton
+        icon="🔍"
+        label={tv('open')}
+        onClick={() => router.push(`/review#${record.id}`)}
+      />
+      <ActionButton icon="🎛️" label={t('changeBot')} onClick={onChangeBot} />
+    </>
+  );
+
   return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,600px)_1fr]">
-      <div className="mx-auto w-full max-w-[600px]">
-        <PlayerBar
-          avatar={level.emoji}
-          name={botName}
-          subtitle={`${level.elo}${record.style !== 'balanced' ? ` · ${STYLE_ICONS[record.style]} ${ts(`${record.style}.name`)}` : ''}`}
-          color={g.botColor}
-          clock={record.clock}
-          now={g.now}
-          active={turn === g.botColor}
-          status={g.isBotTurn || g.engineError ? statusLine : null}
-        />
-        <div className="relative h-0">
-          {chat && (
-            <p
-              role="status"
-              className="pointer-events-none absolute top-0 left-12 z-10 max-w-[80%] rounded-2xl rounded-tl-sm border border-border bg-surface px-3 py-1.5 text-sm shadow-card"
-            >
-              {chat}
-            </p>
-          )}
-        </div>
-        <div className="flex gap-2">
-          {g.showEvalBar && (
-            <EvalBar score={g.evaluation} orientation={orientation} label={t('evalBar')} />
-          )}
-          <ChessBoard
-            className="min-w-0 flex-1"
-            fen={snapshot.fen}
-            orientation={orientation}
-            movableColor={g.isPlayerTurn ? record.playerColor : 'none'}
-            lastMove={last ? { from: last.from, to: last.to, promotion: last.promotion } : null}
-            arrows={g.hint ? [g.hint] : []}
-            onMove={g.onPlayerMove}
-            promotionLabels={{
-              title: tg('choosePromotion'),
-              cancel: tg('cancel'),
-              pieces: {
-                q: tg('pieces.q'),
-                r: tg('pieces.r'),
-                b: tg('pieces.b'),
-                n: tg('pieces.n'),
-              },
-            }}
-          />
-        </div>
-        <PlayerBar
-          avatar={profile?.avatar ?? '♟️'}
-          name={profile?.name ?? t('you')}
-          color={record.playerColor}
-          clock={record.clock}
-          now={g.now}
-          active={turn === record.playerColor}
-          status={!g.isBotTurn ? statusLine : null}
-        />
-      </div>
-
-      <div className="flex flex-col gap-4">
-        {g.notice && (
-          <p role="status" className="rounded-xl bg-surface-2 px-4 py-2 text-sm font-medium">
-            {t(g.notice, { bot: botName })}
-          </p>
-        )}
-
-        <div className="flex flex-wrap items-center gap-2">
-          {isPromotionMatch && (
-            <span className="rounded-full bg-accent px-3 py-1 text-xs font-bold text-accent-fg">
-              ⚔️ {tk('promotionMatch')}
-            </span>
-          )}
-          <span
-            className="rounded-full bg-surface-2 px-3 py-1 text-xs font-semibold"
-            title={g.rated ? undefined : tk('practiceDesc')}
-          >
-            {g.rated ? `🏆 ${tk('rated')}` : `📘 ${tk('practice')}`}
-          </span>
-        </div>
-
-        {!finished ? (
-          <div className="flex flex-wrap gap-2">
-            <Button
-              onClick={() => withAssist(() => void g.requestHint())}
-              disabled={!g.isPlayerTurn}
-            >
-              💡 {t('hint')}
-            </Button>
-            <Button onClick={() => withAssist(g.undo)} disabled={!g.canUndo}>
-              ↩️ {tg('undo')}
-            </Button>
-            <Button onClick={() => void g.offerDraw()}>🤝 {t('offerDraw')}</Button>
-            <Button variant="ghost" onClick={() => setConfirmResign(true)}>
-              🏳️ {t('resign')}
-            </Button>
+    <>
+      <GameLayout
+        top={
+          <div className="relative">
+            <PlayerBar
+              avatar={level.emoji}
+              name={botName}
+              subtitle={`${level.elo}${record.style !== 'balanced' ? ` · ${STYLE_ICONS[record.style]} ${ts(`${record.style}.name`)}` : ''}`}
+              color={g.botColor}
+              clock={record.clock}
+              now={g.now}
+              active={turn === g.botColor}
+              status={g.isBotTurn || g.engineError ? statusLine : null}
+            />
+            {chat && (
+              <p
+                role="status"
+                className="pointer-events-none absolute top-full left-12 z-10 mt-1 max-w-[80%] rounded-2xl rounded-tl-sm border border-border bg-surface px-3 py-1.5 text-sm shadow-card"
+              >
+                {chat}
+              </p>
+            )}
           </div>
-        ) : (
-          <div className="flex flex-wrap gap-2">
-            <Button variant="primary" onClick={() => onRematch(record)}>
-              🔁 {t('rematch')}
-            </Button>
-            <Button onClick={onChangeBot}>{t('changeBot')}</Button>
-            <Link
-              href={`/review#${record.id}`}
-              className="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold bg-surface-2 text-fg hover:bg-border"
-            >
-              🔍 {tv('open')}
-            </Link>
+        }
+        board={
+          <div className="flex gap-2">
+            {g.showEvalBar && (
+              <EvalBar score={g.evaluation} orientation={orientation} label={t('evalBar')} />
+            )}
+            <ChessBoard
+              className="min-w-0 flex-1"
+              fen={snapshot.fen}
+              orientation={orientation}
+              movableColor={g.isPlayerTurn ? record.playerColor : 'none'}
+              lastMove={last ? { from: last.from, to: last.to, promotion: last.promotion } : null}
+              arrows={g.hint ? [g.hint] : []}
+              onMove={g.onPlayerMove}
+              promotionLabels={{
+                title: tg('choosePromotion'),
+                cancel: tg('cancel'),
+                pieces: {
+                  q: tg('pieces.q'),
+                  r: tg('pieces.r'),
+                  b: tg('pieces.b'),
+                  n: tg('pieces.n'),
+                },
+              }}
+            />
           </div>
-        )}
-
-        <label className="flex cursor-pointer items-center gap-2 text-sm">
-          <input
-            type="checkbox"
-            checked={g.showEvalBar}
-            onChange={(e) => toggleEval({ showEvalBar: e.target.checked })}
-            className="size-4 accent-[var(--mc-accent)]"
+        }
+        bottom={
+          <PlayerBar
+            avatar={profile?.avatar ?? '♟️'}
+            name={profile?.name ?? t('you')}
+            color={record.playerColor}
+            clock={record.clock}
+            now={g.now}
+            active={turn === record.playerColor}
+            status={!g.isBotTurn ? statusLine : null}
           />
-          {t('evalBar')}
-        </label>
-
-        <Card className="p-4">
-          <h2 className="mb-2 font-display text-lg font-semibold">{tg('moves')}</h2>
-          <MoveList moves={snapshot.history.map((m) => m.san)} emptyLabel={tg('noMoves')} />
-        </Card>
-      </div>
+        }
+        actions={actions}
+        side={
+          <>
+            {g.notice && (
+              <p role="status" className="rounded-xl bg-surface-2 px-4 py-2 text-sm font-medium">
+                {t(g.notice, { bot: botName })}
+              </p>
+            )}
+            <div className="flex flex-wrap items-center gap-2">
+              {isPromotionMatch && (
+                <span className="rounded-full bg-accent px-3 py-1 text-xs font-bold text-accent-fg">
+                  ⚔️ {tk('promotionMatch')}
+                </span>
+              )}
+              <span
+                className="rounded-full bg-surface-2 px-3 py-1 text-xs font-semibold"
+                title={g.rated ? undefined : tk('practiceDesc')}
+              >
+                {g.rated ? `🏆 ${tk('rated')}` : `📘 ${tk('practice')}`}
+              </span>
+              <label className="ml-auto flex cursor-pointer items-center gap-2 text-xs font-semibold">
+                <input
+                  type="checkbox"
+                  checked={g.showEvalBar}
+                  onChange={(e) => toggleEval({ showEvalBar: e.target.checked })}
+                  className="size-4 accent-[var(--mc-accent)]"
+                />
+                {t('evalBar')}
+              </label>
+            </div>
+            <HudCard className="py-3">
+              <h2 className="mb-2 font-display text-base font-semibold">{tg('moves')}</h2>
+              <MoveList moves={snapshot.history.map((m) => m.san)} emptyLabel={tg('noMoves')} />
+            </HudCard>
+            {!finished && (
+              <button
+                type="button"
+                onClick={onChangeBot}
+                className="self-start text-sm font-semibold text-muted hover:text-fg"
+              >
+                ← {t('changeBot')}
+              </button>
+            )}
+          </>
+        }
+      />
 
       <Modal
         open={confirmResign}
@@ -353,6 +367,6 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
           onClose={() => setRankUpDismissed(true)}
         />
       )}
-    </div>
+    </>
   );
 }
