@@ -111,22 +111,32 @@ const WING =
 const CRYSTAL_WING = '32,-28 68,-44 60,-20 74,-10 54,-4 62,12 36,4';
 const PHOENIX =
   'M28,-24 C56,-58 74,-48 74,-22 C68,-30 62,-28 58,-22 C68,-18 72,-8 70,4 C62,-4 54,-4 48,0 C56,4 58,14 54,22 C46,12 38,10 32,12 Z';
-/** Challenger wings: long primaries, coverts, a light band and a lower wing. */
-const GRAND_WING = {
-  primaries:
-    'M28,-30 C46,-60 70,-76 90,-74 C86,-66 84,-60 86,-54 C78,-54 75,-49 77,-43 C69,-43 66,-38 68,-32 C60,-32 57,-27 59,-21 C51,-22 48,-17 49,-11 C42,-13 37,-10 34,-6 Z',
-  coverts:
-    'M30,-26 C44,-48 62,-60 76,-60 C72,-53 71,-48 73,-43 C66,-43 63,-38 65,-33 C58,-33 55,-28 56,-23 C49,-24 45,-19 46,-14 C40,-15 36,-12 33,-8 Z',
-  light: 'M30,-28 C42,-46 56,-56 68,-58 C60,-50 52,-44 46,-36 C40,-34 35,-30 31,-24 Z',
-  /** Feather tips the shafts run to (the scallop points of the primaries). */
-  shafts: [
-    [82, -57],
-    [74, -46],
-    [65, -35],
-    [56, -24],
-    [47, -14],
-  ] as const,
-  lower: 'M30,-6 C44,-8 58,-2 66,8 C58,8 54,12 55,18 C48,15 44,18 43,24 C38,18 34,14 31,10 Z',
+/**
+ * Challenger dragon wings, two pairs: a big upper wing (arm bone, three finger struts,
+ * membrane sagging between them, a pointed tip) and a smaller lower wing.
+ */
+const DRAGON_WING = {
+  upper: {
+    membrane: 'M26,-30 L52,-62 L88,-78 Q76,-60 94,-46 Q72,-40 86,-18 Q64,-22 68,0 Q50,-12 32,-6 Z',
+    inner: 'M28,-28 L52,-60 L84,-74 Q66,-56 72,-40 Q56,-36 52,-22 Q42,-20 32,-12 Z',
+    arm: 'M26,-30 L52,-62 L88,-78',
+    elbow: [52, -62] as const,
+    fingers: [
+      [94, -46],
+      [86, -18],
+      [68, 0],
+    ] as const,
+  },
+  lower: {
+    membrane: 'M30,-4 L52,6 L82,2 Q68,14 78,28 Q60,24 62,40 Q46,28 32,16 Z',
+    inner: 'M31,-2 L52,7 L76,5 Q62,14 64,26 Q50,22 34,12 Z',
+    arm: 'M30,-4 L52,6 L82,2',
+    elbow: [52, 6] as const,
+    fingers: [
+      [78, 28],
+      [62, 40],
+    ] as const,
+  },
 };
 const CROWN = 'M-18,-46 L-20,-62 L-9,-54 L0,-70 L9,-54 L20,-62 L18,-46 Z';
 
@@ -278,7 +288,7 @@ export function RankEmblem({
         />
       )}
 
-      {/* Wings: feathers (gold, platinum), grand gold wings (challenger), crystal (diamond, elite), phoenix (grandmaster). */}
+      {/* Wings: feathers (gold, platinum), two pairs of gold dragon wings (challenger), crystal (diamond, elite), phoenix (grandmaster). */}
       {(lv === 2 || lv === 3) && (
         <Wings>
           {() => (
@@ -319,39 +329,24 @@ export function RankEmblem({
         </Wings>
       )}
       {lv === 7 && (
-        <g transform="scale(0.92)">
+        <g transform="scale(0.88)">
           <Wings flap>
-            {() => (
-              <>
-                <path
-                  d={GRAND_WING.lower}
-                  fill={url('wingDeep')}
-                  stroke="#6b4300"
-                  strokeWidth="1"
-                />
-                <path
-                  d={GRAND_WING.primaries}
-                  fill={url('wingDeep')}
-                  stroke="#6b4300"
-                  strokeWidth="1.2"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d={GRAND_WING.coverts}
-                  fill={url('gold')}
-                  stroke="#8a6410"
-                  strokeWidth="0.8"
-                  strokeLinejoin="round"
-                />
-                <path d={GRAND_WING.light} fill="#fff6c8" opacity="0.65" />
-                {/* Feather shafts so the scallops read as plumes. */}
-                <g stroke="#7a4a00" strokeWidth="0.9" strokeLinecap="round" opacity="0.55">
-                  {GRAND_WING.shafts.map(([x, y]) => (
-                    <line key={x} x1="34" y1="-24" x2={x} y2={y} />
-                  ))}
+            {() =>
+              [DRAGON_WING.lower, DRAGON_WING.upper].map((w, i) => (
+                <g key={i} strokeLinecap="round" strokeLinejoin="round">
+                  <path d={w.membrane} fill={url('wingDeep')} stroke="#6b4300" strokeWidth="1.2" />
+                  <path d={w.inner} fill={url('gold')} opacity="0.75" />
+                  <g stroke="#6b4300" strokeWidth="1.6">
+                    {w.fingers.map(([x, y]) => (
+                      <line key={x} x1={w.elbow[0]} y1={w.elbow[1]} x2={x} y2={y} />
+                    ))}
+                  </g>
+                  <path d={w.arm} fill="none" stroke="#5c3a00" strokeWidth="3" />
+                  <path d={w.arm} fill="none" stroke="#ffe9a0" strokeWidth="1" opacity="0.8" />
+                  <circle cx={w.elbow[0]} cy={w.elbow[1]} r="2.6" fill="#fff1b8" stroke="#5c3a00" />
                 </g>
-              </>
-            )}
+              ))
+            }
           </Wings>
         </g>
       )}
