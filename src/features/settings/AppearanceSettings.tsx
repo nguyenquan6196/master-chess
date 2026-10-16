@@ -77,7 +77,7 @@ function ThemeChip({
       aria-pressed={selected}
       onClick={onClick}
       className={cn(
-        'rounded-full border px-3 py-1 text-xs font-semibold',
+        'inline-flex h-8 items-center rounded-full border px-3 text-xs font-semibold',
         selected ? 'border-accent bg-surface-2' : 'border-border text-muted hover:text-fg',
       )}
     >
@@ -140,13 +140,13 @@ export function AppearanceSettings() {
 
   return (
     <SettingSection title={`🎨 ${t('appearance')}`}>
-      <ul className="grid grid-cols-3 gap-2 sm:grid-cols-5">
+      <ul className="flex flex-wrap gap-2">
         {THEME_PREFERENCES.map((pref) => {
           const shown = pref === 'auto' ? resolved : pref;
           const [bg, light, dark, accent] = THEME_INFO[shown].swatch;
           const selected = s.theme === pref;
           return (
-            <li key={pref}>
+            <li key={pref} className="w-[calc((100%-1rem)/3)] sm:w-24">
               <button
                 type="button"
                 aria-pressed={selected}
@@ -178,7 +178,7 @@ export function AppearanceSettings() {
         })}
       </ul>
 
-      <div className="flex flex-col gap-3 rounded-xl bg-surface-2 p-3 sm:flex-row sm:items-center">
+      <div className="flex flex-col gap-3 rounded-xl bg-surface-2 p-3 sm:w-fit sm:flex-row sm:items-center sm:pr-6">
         <div className="w-full max-w-48 self-center">
           <ChessBoard
             fen={PREVIEW_FEN}

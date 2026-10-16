@@ -1,19 +1,48 @@
 'use client';
 
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from 'react';
 import { useTranslations } from 'use-intl';
 import { cn } from '@/components/ui/cn';
 import { HudIconButton } from './HudIconButton';
 
+/** Gap between the gear and the panel: the same as the language dropdown (`mt-2`). */
+const PANEL_GAP_PX = 8;
+
 /**
- * ⚙️ icon in the HUD that opens the settings panel as a floating card under it
- * (full width on phones). The panel can be expanded to a large sheet on desktop.
+ * ⚙️ icon in the HUD that opens the settings panel as a floating card right under it
+ * (full width on phones). On desktop the panel can be expanded: its right edge stays
+ * under the gear and only the width grows (animated); the content then flows into two
+ * columns instead of stretching.
  */
 export function SettingsButton({ children }: { children: ReactNode }) {
   const t = useTranslations('settings');
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const root = useRef<HTMLDivElement>(null);
+  const [anchor, setAnchor] = useState({ top: 64, right: 16 });
+
+  // Pin the panel to the gear: top = its bottom + gap, right = its right edge.
+  useLayoutEffect(() => {
+    if (!open) return;
+    const place = () => {
+      const rect = root.current?.getBoundingClientRect();
+      if (!rect) return;
+      setAnchor({
+        top: Math.round(rect.bottom + PANEL_GAP_PX),
+        right: Math.round(document.documentElement.clientWidth - rect.right),
+      });
+    };
+    place();
+    window.addEventListener('resize', place);
+    return () => window.removeEventListener('resize', place);
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;
@@ -47,11 +76,17 @@ export function SettingsButton({ children }: { children: ReactNode }) {
           id="settings-panel"
           role="dialog"
           aria-label={t('title')}
+          style={
+            {
+              '--panel-top': `${anchor.top}px`,
+              '--panel-right': `${anchor.right}px`,
+            } as CSSProperties
+          }
           className={cn(
-            'mc-scene fixed inset-x-3 top-16 z-40 flex max-h-[calc(100dvh-5rem)] flex-col overflow-hidden rounded-2xl border border-border bg-surface text-fg shadow-card',
-            expanded
-              ? 'sm:inset-x-8 sm:bottom-6 sm:max-h-none'
-              : 'sm:inset-x-auto sm:right-4 sm:w-[36rem]',
+            'mc-scene fixed inset-x-3 top-(--panel-top) z-40 flex max-h-[calc(100dvh-var(--panel-top)-0.75rem)] origin-top-right flex-col overflow-hidden rounded-2xl border border-border bg-surface text-fg shadow-card',
+            'sm:right-(--panel-right) sm:left-auto sm:h-[calc(100dvh-var(--panel-top)-1rem)] sm:max-h-none',
+            'transition-[width] duration-(--mc-dur-slow) ease-(--mc-ease)',
+            expanded ? 'sm:w-[min(72rem,calc(100vw-var(--panel-right)-2rem))]' : 'sm:w-[36rem]',
           )}
         >
           <div
@@ -60,7 +95,7 @@ export function SettingsButton({ children }: { children: ReactNode }) {
               expanded ? 'sm:px-8' : 'sm:px-6',
             )}
           >
-            <h2 className="font-display text-2xl font-bold">⚙️ {t('title')}</h2>
+            <h2 className="font-display text-2xl font-bold">{t('title')}</h2>
             <button
               type="button"
               onClick={() => setExpanded((v) => !v)}
@@ -72,7 +107,7 @@ export function SettingsButton({ children }: { children: ReactNode }) {
           {/* Only the body scrolls, inset from the rounded corners. */}
           <div
             className={cn(
-              'min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5 [scrollbar-gutter:stable] [scrollbar-width:thin]',
+              '@container min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5 [scrollbar-gutter:stable] [scrollbar-width:thin]',
               expanded ? 'sm:px-8' : 'sm:px-6',
             )}
           >
