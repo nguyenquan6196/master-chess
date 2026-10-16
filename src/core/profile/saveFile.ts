@@ -9,13 +9,14 @@ import {
   withGameDefaultsV4,
   withSettingsDefaultsV5,
   withProfileDefaultsV6,
+  migratePieceSetV7,
   type GameRecord,
   type Profile,
   type PuzzleAttempt,
 } from './schema';
 
 /** Bump when the save format changes, and add a step to `migrateSaveFile`. */
-export const SAVE_SCHEMA_VERSION = 6;
+export const SAVE_SCHEMA_VERSION = 7;
 export const SAVE_APP_ID = 'master-chess';
 
 export const SaveFileSchema = z.object({
@@ -76,6 +77,11 @@ function migrateSaveFile(data: Record<string, unknown>): Record<string, unknown>
     // v6 (Phase 5): XP, streak and achievements.
     const profile = typeof d.profile === 'object' && d.profile ? d.profile : {};
     d = { ...d, schemaVersion: 6, profile: withProfileDefaultsV6(profile) };
+  }
+  if (d.schemaVersion === 6) {
+    // v7 (Phase 5.6): piece sets follow the theme by default.
+    const profile = typeof d.profile === 'object' && d.profile ? d.profile : {};
+    d = { ...d, schemaVersion: 7, profile: migratePieceSetV7(profile) };
   }
   return d;
 }

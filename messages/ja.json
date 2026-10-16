@@ -113,11 +113,18 @@
     },
     "pieces": "駒",
     "pieceSets": {
+      "theme": "テーマに合わせる",
       "classic": "クラシック",
+      "wood": "木製",
+      "resin": "レジン",
+      "marble": "石彫り",
+      "outline": "ネオン",
+      "pixel": "8ビット",
+      "fantasy": "ファンタジー",
+      "sakura": "和風",
+      "midnight": "メタル",
       "minimal": "ミニマル",
-      "outline": "ネオン線",
-      "glyph": "文字",
-      "resin": "レジン"
+      "glyph": "文字"
     },
     "accent": "アクセントカラー",
     "accents": {

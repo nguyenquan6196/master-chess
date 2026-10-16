@@ -3,11 +3,13 @@ import { createClock } from '../game/clock';
 import { buildSaveFile, parseSaveFile, SAVE_SCHEMA_VERSION } from './saveFile';
 import {
   DEFAULT_PROFILE_SETTINGS,
+  migratePieceSetV7,
   DEFAULT_PUZZLE_RATING,
   type GameRecord,
   type Profile,
   type PuzzleAttempt,
 } from './schema';
+import { PIECE_SETS, resolvePieceSet, THEME_IDS, THEME_PIECE_SET } from './settingsOptions';
 import { summarizeResults } from './stats';
 
 const profile: Profile = {
@@ -129,10 +131,41 @@ describe('core/profile/saveFile migration', () => {
     expect(parsed.data.profile.gameRating.rating).toBe(400);
     expect(parsed.data.profile.rankFloor).toBe(0);
     expect(parsed.data.games[0].style).toBe('balanced');
-    expect(parsed.data.profile.settings.pieceSet).toBe('classic');
+    expect(parsed.data.profile.settings.pieceSet).toBe('theme');
     expect(parsed.data.profile.settings.musicMode).toBe('auto');
     expect(parsed.data.profile.xp).toBe(0);
     expect(parsed.data.profile.achievements).toEqual({});
+  });
+});
+
+describe('core/profile piece sets (v7)', () => {
+  it('moves the old default "classic" to "theme" and keeps explicit choices', () => {
+    const old = { ...profile, settings: { ...profile.settings, pieceSet: 'classic' as const } };
+    expect(migratePieceSetV7(old).settings.pieceSet).toBe('theme');
+    const chosen = { ...profile, settings: { ...profile.settings, pieceSet: 'glyph' as const } };
+    expect(migratePieceSetV7(chosen).settings.pieceSet).toBe('glyph');
+    expect(migratePieceSetV7({ id: 'x' })).toEqual({ id: 'x' });
+  });
+
+  it('upgrades a v6 save file', () => {
+    const v6 = {
+      ...buildSaveFile(profile, [], [], 1),
+      schemaVersion: 6,
+      profile: { ...profile, settings: { ...profile.settings, pieceSet: 'classic' } },
+    };
+    const parsed = parseSaveFile(JSON.stringify(v6));
+    expect(parsed.ok && parsed.data.profile.settings.pieceSet).toBe('theme');
+  });
+
+  it('resolves "theme" to the own set of the theme, and every theme has one', () => {
+    expect(resolvePieceSet('theme', 'wood')).toBe('wood');
+    expect(resolvePieceSet('theme', 'arcade')).toBe('pixel');
+    expect(resolvePieceSet('glyph', 'wood')).toBe('glyph');
+    for (const theme of THEME_IDS) {
+      expect(PIECE_SETS).toContain(THEME_PIECE_SET[theme]);
+    }
+    // Each theme brings a different set.
+    expect(new Set(Object.values(THEME_PIECE_SET)).size).toBe(THEME_IDS.length);
   });
 });
 

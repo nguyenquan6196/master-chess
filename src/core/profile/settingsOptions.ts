@@ -26,7 +26,25 @@ export const BOARD_STYLES = [
   'neon',
   'gameboy',
 ] as const;
-export const PIECE_SETS = ['classic', 'minimal', 'outline', 'glyph', 'resin'] as const;
+/**
+ * Piece sets. "theme" follows the colour theme (THEME_PIECE_SET); every other id is a
+ * self-drawn set with its own shapes ("classic" = react-chessboard's default pieces,
+ * "outline" = the neon line set).
+ */
+export const PIECE_SETS = [
+  'theme',
+  'classic',
+  'wood',
+  'resin',
+  'marble',
+  'outline',
+  'pixel',
+  'fantasy',
+  'sakura',
+  'midnight',
+  'minimal',
+  'glyph',
+] as const;
 export const ACCENTS = [
   'theme',
   'green',
@@ -60,6 +78,26 @@ export const SOUND_PACKS = ['classic', 'arcade', 'fantasy'] as const;
 
 export type BoardStyle = (typeof BOARD_STYLES)[number];
 export type PieceSet = (typeof PIECE_SETS)[number];
+/** A piece set that can actually be drawn ("theme" resolved). */
+export type ConcretePieceSet = Exclude<PieceSet, 'theme'>;
+
+/** The piece set each theme brings (shape and material match the theme). */
+export const THEME_PIECE_SET: Record<ThemeId, ConcretePieceSet> = {
+  classic: 'classic',
+  wood: 'wood',
+  rosin: 'resin',
+  marble: 'marble',
+  neon: 'outline',
+  arcade: 'pixel',
+  fantasy: 'fantasy',
+  sakura: 'sakura',
+  midnight: 'midnight',
+};
+
+/** Resolves "theme" to the set of the active (resolved) theme. */
+export function resolvePieceSet(set: PieceSet, theme: ThemeId): ConcretePieceSet {
+  return set === 'theme' ? THEME_PIECE_SET[theme] : set;
+}
 export type Accent = (typeof ACCENTS)[number];
 export type Highlight = (typeof HIGHLIGHTS)[number];
 export type ButtonStyle = (typeof BUTTON_STYLES)[number];

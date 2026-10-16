@@ -113,11 +113,18 @@
     },
     "pieces": "Bộ quân",
     "pieceSets": {
+      "theme": "Theo chủ đề",
       "classic": "Cổ điển",
+      "wood": "Gỗ tiện",
+      "resin": "Nhựa",
+      "marble": "Đá chạm",
+      "outline": "Neon",
+      "pixel": "Pixel 8-bit",
+      "fantasy": "Huyền ảo",
+      "sakura": "Nhật Bản",
+      "midnight": "Kim loại",
       "minimal": "Tối giản",
-      "outline": "Viền neon",
-      "glyph": "Ký tự",
-      "resin": "Nhựa"
+      "glyph": "Ký tự"
     },
     "accent": "Màu nhấn",
     "accents": {

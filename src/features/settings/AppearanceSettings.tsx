@@ -3,6 +3,7 @@
 import { useRef, type ReactNode } from 'react';
 import { useTranslations } from 'use-intl';
 import { ChessBoard } from '@/components/board/ChessBoard';
+import { PieceSetPreview } from '@/components/board/PieceSetPreview';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/components/ui/cn';
 import {
@@ -15,6 +16,7 @@ import {
   HIGHLIGHTS,
   MOVE_ANIMATIONS,
   PIECE_SETS,
+  resolvePieceSet,
 } from '@/core/profile/settingsOptions';
 import { useSession } from '@/services/profile/session';
 import { useSettings } from '@/services/settings/store';
@@ -225,14 +227,35 @@ export function AppearanceSettings() {
         ))}
       </SettingRow>
 
-      <SettingRow label={t('pieces')}>
-        <Segmented
-          label={t('pieces')}
-          value={s.pieceSet}
-          onChange={(pieceSet) => s.update({ pieceSet })}
-          options={PIECE_SETS.map((p) => ({ value: p, label: t(`pieceSets.${p}`) }))}
-        />
-      </SettingRow>
+      <div className="flex flex-col gap-2">
+        <span className="text-sm font-medium">{t('pieces')}</span>
+        {/* Each set has its own shapes; "theme" follows the colour theme. */}
+        <ul role="group" aria-label={t('pieces')} className="grid grid-cols-3 gap-2 sm:grid-cols-4">
+          {PIECE_SETS.map((p) => {
+            const selected = s.pieceSet === p;
+            const drawn = resolvePieceSet(p, resolved);
+            return (
+              <li key={p}>
+                <button
+                  type="button"
+                  aria-pressed={selected}
+                  onClick={() => s.update({ pieceSet: p })}
+                  className={cn(
+                    'mc-lift flex h-full w-full flex-col items-center gap-1 rounded-xl border bg-surface-2/60 p-2 text-center text-xs leading-tight font-semibold',
+                    selected ? 'border-accent ring-2 ring-accent' : 'border-border',
+                  )}
+                >
+                  <PieceSetPreview set={drawn} />
+                  {t(`pieceSets.${p}`)}
+                  {p === 'theme' && (
+                    <span className="font-normal text-muted">{t(`pieceSets.${drawn}`)}</span>
+                  )}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
 
       <SettingRow label={t('accent')}>
         <ThemeChip

@@ -1,11 +1,12 @@
 'use client';
 
 import { createContext, useContext } from 'react';
-import type { MoveAnimation, PieceSet } from '@/core/profile/settingsOptions';
+import type { ConcretePieceSet, MoveAnimation } from '@/core/profile/settingsOptions';
 
 /** Player preferences every board follows (provided once by the app shell). */
 export interface BoardPrefs {
-  pieceSet: PieceSet;
+  /** Already resolved ("theme" → the theme's set). */
+  pieceSet: ConcretePieceSet;
   moveAnimation: MoveAnimation;
 }
 

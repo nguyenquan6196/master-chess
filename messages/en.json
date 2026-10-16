@@ -113,11 +113,18 @@
     },
     "pieces": "Pieces",
     "pieceSets": {
+      "theme": "Match theme",
       "classic": "Classic",
+      "wood": "Turned wood",
+      "resin": "Resin",
+      "marble": "Carved stone",
+      "outline": "Neon",
+      "pixel": "8-bit pixel",
+      "fantasy": "Fantasy",
+      "sakura": "Japanese",
+      "midnight": "Metal",
       "minimal": "Minimal",
-      "outline": "Neon outline",
-      "glyph": "Glyph",
-      "resin": "Resin"
+      "glyph": "Glyph"
     },
     "accent": "Accent colour",
     "accents": {

@@ -65,7 +65,7 @@ export const DEFAULT_PROFILE_SETTINGS: ProfileSettings = {
   sfxVolume: 0.7,
   showEvalBar: false,
   board: 'theme',
-  pieceSet: 'classic',
+  pieceSet: 'theme',
   accent: 'theme',
   highlight: 'theme',
   buttonStyle: 'rounded',
@@ -187,6 +187,18 @@ export function withProfileDefaultsV6<T extends object>(
     achievements: {},
   };
   return { ...defaults, ...p };
+}
+
+/**
+ * Schema v7 (Phase 5.6): pieces follow the theme by default. "classic" was the old
+ * default, so it becomes "theme"; any other explicit choice is kept.
+ */
+export function migratePieceSetV7<T extends object>(p: T): T {
+  const settings = (p as { settings?: unknown }).settings;
+  if (typeof settings !== 'object' || settings === null) return p;
+  const s = settings as { pieceSet?: unknown };
+  if (s.pieceSet !== 'classic' && s.pieceSet !== undefined) return p;
+  return { ...p, settings: { ...settings, pieceSet: 'theme' } };
 }
 
 /** Game fields added in schema v4 (older games were all against balanced ladder bots). */

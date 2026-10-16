@@ -10,6 +10,7 @@ import { cn } from '@/components/ui/cn';
 import { HudSlot, HudSlotProvider } from '@/components/ui/PageHeader';
 import { rankTitle } from '@/components/ui/RankBadge';
 import { RankEmblem } from '@/components/ui/RankEmblem';
+import { resolvePieceSet } from '@/core/profile/settingsOptions';
 import { levelFor, liveStreak } from '@/core/progress/progress';
 import { RANKS, rankStatus } from '@/core/rating/rank';
 import { useMusicDirector } from '@/services/audio/musicDirector';
@@ -42,7 +43,11 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
   const backdrop = useSettings((s) => s.backdrop);
   const particles =
     backdropMotion && backdrop === 'theme' ? THEME_INFO[resolvedTheme].particles : null;
-  const boardPrefs = useMemo(() => ({ pieceSet, moveAnimation }), [pieceSet, moveAnimation]);
+  const boardPieces = resolvePieceSet(pieceSet, resolvedTheme);
+  const boardPrefs = useMemo(
+    () => ({ pieceSet: boardPieces, moveAnimation }),
+    [boardPieces, moveAnimation],
+  );
   const [now] = useState(() => Date.now());
 
   const isLobby = pathname === '/';
