@@ -202,6 +202,7 @@ Mục tiêu: app cảm giác như một game, không như website có thanh menu
 - [x] Vòng góp ý 6: huy hiệu Thách Đấu vẽ lại toàn vàng kim (viền nhiều dải ánh, mặt khiên vàng toả sáng), hai đôi cánh rồng vàng (xương cánh + màng võng, đầu nhọn; đôi trên lớn, đôi dưới nhỏ), bỏ vòng lá xanh
 - [x] Sửa lớp phủ popup chỉ phủ khung trang: `.mc-scene` dùng fill `backwards` (transform giữ lại sau animation biến `main` thành containing block của phần tử fixed); `Modal` và lớp phủ lên hạng / trùm render qua portal vào `body`
 - [x] Popup Cài đặt: bỏ icon cạnh tiêu đề; neo ngay dưới nút ⚙️ (cách 8px như dropdown ngôn ngữ, mép phải thẳng mép nút); phóng to giữ mép phải, chỉ giãn rộng sang trái có animation, nội dung chia 2 cột (container query) thay vì kéo dãn; thẻ theme cỡ cố định; nút "Theo chủ đề" cao bằng ô màu tròn
+- [x] Popup Cài đặt (tiếp): mép phải đo trực tiếp trên popup nên thẳng mép nút ⚙️ kể cả khi có thanh cuộn; phóng to giãn tới mép trái khung trang (thẳng nút ⌂), 2 cột 50:50; dòng cài đặt tự xếp nhãn-trên/điều-khiển-dưới khi cột hẹp (container query)
 
 ## Phase 6 — 3D
 - [ ] Spike: react-three-fiber + model GLTF quân cờ (CC0 hoặc tự dựng)

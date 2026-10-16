@@ -44,7 +44,7 @@ export function SettingsPanel() {
 
   return (
     // Narrow: one column. Expanded panel: appearance on the left, the rest on the right.
-    <div className="flex flex-col gap-5 @4xl:grid @4xl:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] @4xl:items-start @4xl:gap-x-10">
+    <div className="flex flex-col gap-5 @4xl:grid @4xl:grid-cols-2 @4xl:items-start @4xl:gap-x-10">
       <AppearanceSettings />
 
       <div className="flex flex-col gap-5 border-t border-border pt-5 @4xl:border-t-0 @4xl:pt-0">

@@ -17,26 +17,40 @@ const PANEL_GAP_PX = 8;
 
 /**
  * ⚙️ icon in the HUD that opens the settings panel as a floating card right under it
- * (full width on phones). On desktop the panel can be expanded: its right edge stays
- * under the gear and only the width grows (animated); the content then flows into two
- * columns instead of stretching.
+ * (full width on phones). Its right edge lines up with the gear button's. On desktop the
+ * panel can be expanded: the right edge stays, the width grows (animated) to the left
+ * edge of the page container, and the content flows into two equal columns.
  */
 export function SettingsButton({ children }: { children: ReactNode }) {
   const t = useTranslations('settings');
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const root = useRef<HTMLDivElement>(null);
-  const [anchor, setAnchor] = useState({ top: 64, right: 16 });
+  const panel = useRef<HTMLElement>(null);
+  const [anchor, setAnchor] = useState({ top: 64, right: 16, wide: 1024 });
 
-  // Pin the panel to the gear: top = its bottom + gap, right = its right edge.
+  // Pin the panel to the gear: top = its bottom + gap, right edge = the button's right
+  // edge, expanded width = from the page container's left edge to that right edge.
   useLayoutEffect(() => {
     if (!open) return;
     const place = () => {
-      const rect = root.current?.getBoundingClientRect();
-      if (!rect) return;
+      const button = root.current?.getBoundingClientRect();
+      if (!button) return;
+      // Right edge of the panel's containing block, measured on the panel itself so
+      // scrollbars / gutters are accounted for exactly.
+      let edge = document.documentElement.clientWidth;
+      if (panel.current) {
+        const css = getComputedStyle(panel.current);
+        edge = panel.current.getBoundingClientRect().right + parseFloat(css.right);
+      }
+      const box = root.current?.closest('header')?.firstElementChild;
+      const left = box
+        ? box.getBoundingClientRect().left + parseFloat(getComputedStyle(box).paddingLeft)
+        : PANEL_GAP_PX;
       setAnchor({
-        top: Math.round(rect.bottom + PANEL_GAP_PX),
-        right: Math.round(document.documentElement.clientWidth - rect.right),
+        top: Math.round(button.bottom + PANEL_GAP_PX),
+        right: Math.round(edge - button.right),
+        wide: Math.round(button.right - left),
       });
     };
     place();
@@ -73,6 +87,7 @@ export function SettingsButton({ children }: { children: ReactNode }) {
       </HudIconButton>
       {open && (
         <section
+          ref={panel}
           id="settings-panel"
           role="dialog"
           aria-label={t('title')}
@@ -80,13 +95,14 @@ export function SettingsButton({ children }: { children: ReactNode }) {
             {
               '--panel-top': `${anchor.top}px`,
               '--panel-right': `${anchor.right}px`,
+              '--panel-wide': `${anchor.wide}px`,
             } as CSSProperties
           }
           className={cn(
             'mc-scene fixed inset-x-3 top-(--panel-top) z-40 flex max-h-[calc(100dvh-var(--panel-top)-0.75rem)] origin-top-right flex-col overflow-hidden rounded-2xl border border-border bg-surface text-fg shadow-card',
             'sm:right-(--panel-right) sm:left-auto sm:h-[calc(100dvh-var(--panel-top)-1rem)] sm:max-h-none',
             'transition-[width] duration-(--mc-dur-slow) ease-(--mc-ease)',
-            expanded ? 'sm:w-[min(72rem,calc(100vw-var(--panel-right)-2rem))]' : 'sm:w-[36rem]',
+            expanded ? 'sm:w-(--panel-wide)' : 'sm:w-[36rem]',
           )}
         >
           <div

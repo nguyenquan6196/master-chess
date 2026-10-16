@@ -40,10 +40,13 @@ export function Segmented<T extends string | boolean>({
   );
 }
 
-/** One setting: label on the left, control on the right (stacked on narrow screens). */
+/**
+ * One setting: label on the left, control on the right; stacked when its section is
+ * narrow (phones, or a column of the expanded settings panel) — a container query.
+ */
 export function SettingRow({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+    <div className="flex flex-col gap-2 @[31rem]:flex-row @[31rem]:items-center @[31rem]:justify-between @[31rem]:gap-4">
       <span className="text-sm font-medium">{label}</span>
       <div className="flex flex-wrap items-center gap-2">{children}</div>
     </div>
@@ -52,7 +55,7 @@ export function SettingRow({ label, children }: { label: string; children: React
 
 export function SettingSection({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <section className="flex flex-col gap-4 border-t border-border pt-4 first:border-t-0 first:pt-0">
+    <section className="@container flex flex-col gap-4 border-t border-border pt-4 first:border-t-0 first:pt-0">
       <h3 className="text-xs font-bold tracking-wide text-muted uppercase">{title}</h3>
       {children}
     </section>

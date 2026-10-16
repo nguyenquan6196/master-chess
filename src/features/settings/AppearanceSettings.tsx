@@ -146,14 +146,14 @@ export function AppearanceSettings() {
           const [bg, light, dark, accent] = THEME_INFO[shown].swatch;
           const selected = s.theme === pref;
           return (
-            <li key={pref} className="w-[calc((100%-1rem)/3)] sm:w-24">
+            <li key={pref} className="w-[calc((100%-1rem)/3)] sm:w-[5.25rem]">
               <button
                 type="button"
                 aria-pressed={selected}
                 title={pref === 'auto' ? t('autoHint') : undefined}
                 onClick={() => s.setTheme(pref)}
                 className={cn(
-                  'flex w-full flex-col items-center gap-1 rounded-xl border p-2 text-xs font-semibold mc-lift',
+                  'flex h-full w-full flex-col items-center gap-1 rounded-xl border p-2 text-center text-xs leading-tight font-semibold mc-lift',
                   selected ? 'border-accent ring-2 ring-accent' : 'border-border',
                 )}
               >
