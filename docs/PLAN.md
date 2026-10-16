@@ -179,6 +179,11 @@
 - [x] XP, streak, thành tích (achievement), trang Profile: `core/progress` (XP theo bài học/quiz/puzzle/Rush/ván cờ/xem lại, cấp độ, chuỗi ngày theo lịch, 25 thành tích) + `services/progress` (ghi tuần tự, toast); Dexie v6 + save v6; thẻ Cấp độ/Chuỗi ngày/Thành tích ở Hồ sơ
 - [x] Responsive mobile hoàn chỉnh (đo tự động: không trang nào tràn ngang ở 375px); PWA: `app/manifest.ts` + icon PNG xuất từ SVG, service worker `public/sw.js` (trang: mạng trước/cache khi offline; asset, Stockfish, puzzle: cache trước) — chơi được offline cả đấu bot (E2E `offline.spec.ts`)
 
+### Cập nhật sau Phase 5 (2026-10-16, theo góp ý)
+- [x] Header: nút loa, chọn ngôn ngữ, nút người chơi cùng cao 32px
+- [x] Huy hiệu: khung SVG vuông vừa khít từng hạng (căn giữa đúng cạnh chữ và trong dải hạng); Đồng/Bạc có vệt sáng nhẹ; dải 8 hạng ở Hồ sơ cùng cỡ, hạng hiện tại có viền + animation
+- [x] Trang **Hướng dẫn** (`/guide`, có trên menu): vì sao chơi cờ, vì sao chơi ở đây, tính năng, lộ trình cho người mới, 3 loại điểm, bảng 8 hạng (huy hiệu động, khoảng điểm, bậc, trùm), luật thăng hạng, bảng XP, mẹo, hỏi đáp — số liệu đọc từ code nên luôn khớp luật; 3 ngôn ngữ; E2E
+
 ## Phase 6 — 3D
 - [ ] Spike: react-three-fiber + model GLTF quân cờ (CC0 hoặc tự dựng)
 - [ ] Ánh xạ ô ↔ toạ độ 3D, raycast click-to-move, animation di chuyển

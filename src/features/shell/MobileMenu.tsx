@@ -6,7 +6,7 @@ import { useTranslations } from 'use-intl';
 import { cn } from '@/components/ui/cn';
 
 interface MobileMenuProps {
-  items: readonly { href: string; key: 'learn' | 'practice' | 'play'; icon: string }[];
+  items: readonly { href: string; key: 'learn' | 'practice' | 'play' | 'guide'; icon: string }[];
   isActive: (href: string) => boolean;
 }
 

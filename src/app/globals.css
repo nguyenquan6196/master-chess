@@ -128,6 +128,10 @@ body::after {
 .mc-emblem-animated .mc-emblem-shine {
   animation: mc-emblem-shine 3.2s ease-in-out infinite;
 }
+.mc-emblem-animated .mc-emblem-shine--soft {
+  opacity: 0.45;
+  animation-duration: 5s;
+}
 .mc-emblem-animated .mc-emblem-gem {
   transform-box: fill-box;
   transform-origin: center;

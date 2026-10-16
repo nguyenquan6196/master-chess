@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useTranslations } from 'use-intl';
 import { Card } from '@/components/ui/Card';
+import { cn } from '@/components/ui/cn';
 import { rankTitle } from '@/components/ui/RankBadge';
 import { RankEmblem } from '@/components/ui/RankEmblem';
 import type { Profile } from '@/core/profile/schema';
@@ -44,14 +45,18 @@ export function RankCard({ profile }: { profile: Profile }) {
           </div>
         </div>
       </div>
-      <ol className="flex flex-wrap items-end justify-between gap-1 rounded-xl bg-surface-2 p-2">
+      <ol className="flex flex-wrap items-center justify-between gap-1 rounded-xl bg-surface-2 p-2">
         {RANKS.map((r, i) => (
           <li
             key={r.id}
             title={tr(r.id)}
-            className={i > status.rankIndex ? 'opacity-35 grayscale' : undefined}
+            className={cn(
+              'grid place-items-center rounded-lg p-0.5',
+              i === status.rankIndex && 'bg-surface ring-2 ring-accent',
+              i > status.rankIndex && 'opacity-35 grayscale',
+            )}
           >
-            <RankEmblem rank={r.id} size={i === status.rankIndex ? 40 : 30} animated={false} />
+            <RankEmblem rank={r.id} size={36} animated={i === status.rankIndex} />
           </li>
         ))}
       </ol>

@@ -131,6 +131,16 @@ function Wings({ children, flap = false }: { children: () => ReactNode; flap?: b
   );
 }
 
+/**
+ * Square frame fitted to each rank's ornaments, centred on the shield, so emblems of
+ * every rank line up (same size, same vertical centre) next to text or each other.
+ */
+function frame(lv: number): string {
+  const half = lv <= 1 ? 54 : lv <= 3 ? 70 : lv === 4 || lv === 6 ? 80 : 90;
+  const cy = lv <= 1 ? 1 : -6;
+  return `${-half} ${cy - half} ${half * 2} ${half * 2}`;
+}
+
 export function RankEmblem({
   rank,
   size = 64,
@@ -152,9 +162,9 @@ export function RankEmblem({
 
   return (
     <svg
-      viewBox="-80 -88 160 150"
+      viewBox={frame(lv)}
       width={size}
-      height={(size * 150) / 160}
+      height={size}
       role={title ? 'img' : undefined}
       aria-hidden={title ? undefined : true}
       className={cn('shrink-0 overflow-visible', animated && 'mc-emblem-animated', className)}
@@ -326,10 +336,10 @@ export function RankEmblem({
         opacity="0.18"
       />
 
-      {/* Light sweep (gold and above). */}
-      {lv >= 2 && (
+      {/* Light sweep: soft and slow for bronze/silver, brighter from gold up. */}
+      {
         <g clipPath={url('clip')}>
-          <g className="mc-emblem-shine">
+          <g className={cn('mc-emblem-shine', lv < 2 && 'mc-emblem-shine--soft')}>
             <rect
               x="-90"
               y="-60"
@@ -340,7 +350,7 @@ export function RankEmblem({
             />
           </g>
         </g>
-      )}
+      }
 
       {/* Centre piece. */}
       <g

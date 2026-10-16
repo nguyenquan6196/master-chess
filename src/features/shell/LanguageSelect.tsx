@@ -73,7 +73,7 @@ export function LanguageSelect() {
         onClick={() => (open ? setOpen(false) : openList())}
         onKeyDown={onKeyDown}
         className={cn(
-          'flex items-center gap-2 rounded-full border px-3 py-1 text-sm font-semibold transition-colors',
+          'flex h-8 items-center gap-2 rounded-full border px-3 text-sm font-semibold transition-colors',
           'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent',
           open ? 'border-accent bg-surface-2' : 'border-border hover:bg-surface-2',
         )}

@@ -13,7 +13,8 @@
     "profile": "Profile",
     "history": "History",
     "mute": "Mute",
-    "unmute": "Unmute"
+    "unmute": "Unmute",
+    "guide": "Guide"
   },
   "common": {
     "comingSoon": "Coming soon",
@@ -720,5 +721,202 @@
       "name": "Level 10",
       "desc": "Reach level 10."
     }
+  },
+  "guide": {
+    "title": "Guide",
+    "heroTitle": "Welcome to Master Chess",
+    "heroSubtitle": "Everything you need to know: why chess is great, what is here, and how points and ranks work.",
+    "toc": "Contents",
+    "nav": {
+      "why": "Why chess",
+      "here": "Why here",
+      "features": "What is here",
+      "path": "Getting started",
+      "points": "Points",
+      "ranks": "Ranks",
+      "xp": "XP & achievements",
+      "tips": "Tips",
+      "faq": "FAQ"
+    },
+    "why": {
+      "title": "Why play chess?",
+      "intro": "Chess is about 1,500 years old — it grew out of chaturanga in India — and today hundreds of millions of people play it.",
+      "items": {
+        "think": {
+          "title": "🧠 Sharpens thinking",
+          "body": "Every move is a small puzzle: calculate, compare options, predict your opponent."
+        },
+        "focus": {
+          "title": "🎯 Focus & patience",
+          "body": "A game teaches you to sit still, look closely and not rush."
+        },
+        "learn": {
+          "title": "📈 Learn from losses",
+          "body": "Every loss comes with a clear lesson — review it, see the mistake, do better next time."
+        },
+        "fun": {
+          "title": "🌏 For every age",
+          "body": "Simple rules, playable with anyone, anywhere — and you never run out of things to learn."
+        }
+      }
+    },
+    "here": {
+      "title": "Why play at Master Chess?",
+      "items": {
+        "free": {
+          "title": "🆓 Free, no ads",
+          "body": "No account needed: type a name and play."
+        },
+        "path": {
+          "title": "🪜 Step-by-step learning",
+          "body": "Lessons with interactive boards, quizzes and puzzles — from the rules to tactics."
+        },
+        "bots": {
+          "title": "🐣 Opponents with character",
+          "body": "Each bot has its own strength, style and personality — from Chick to Master."
+        },
+        "review": {
+          "title": "🔍 Understand wins and losses",
+          "body": "Stockfish reviews every move, points out mistakes and lets you retry them."
+        },
+        "offline": {
+          "title": "📴 Plays offline",
+          "body": "Install it like an app; your data stays on your device."
+        },
+        "fun": {
+          "title": "🎨 Your style",
+          "body": "8 themes, piece sets, generated music, vi / en / ja."
+        }
+      }
+    },
+    "features": {
+      "title": "What is here?",
+      "learn": {
+        "title": "📖 Learn",
+        "body": "{lessons} lessons in chapters: the board, every piece, special rules, basic tactics."
+      },
+      "practice": {
+        "title": "🧩 Practice",
+        "body": "{quiz} hand-written quiz questions + endless generated ones; thousands of rated and themed puzzles, Puzzle Rush and a daily puzzle."
+      },
+      "play": {
+        "title": "♟️ Play",
+        "body": "{bots} bots + a Custom bot (Elo 250–3000), 5 playing styles, clocks; or two players on one device."
+      },
+      "review": {
+        "title": "🔍 Game review",
+        "body": "Every move classified, accuracy, an evaluation chart, retry your mistakes."
+      }
+    },
+    "path": {
+      "title": "How to get started",
+      "intro": "A suggested path for beginners:",
+      "steps": {
+        "0": "Go through the “Basics” chapter to learn how each piece moves.",
+        "1": "Do a few “Pieces” and “Rules” quiz rounds.",
+        "2": "Play the 🐣 Chick — don’t be afraid to lose!",
+        "3": "Open “Review” to see where it went wrong and retry the mistakes.",
+        "4": "Solve the daily puzzle every day to keep your 🔥 streak and improve steadily."
+      },
+      "cta": {
+        "learn": "Start learning",
+        "play": "Play a bot"
+      }
+    },
+    "points": {
+      "title": "Three kinds of points",
+      "intro": "Each measures something different; they never affect each other.",
+      "rank": {
+        "title": "🏆 Rank points (bot games)",
+        "body": "You start at {start}. Win to go up, lose to go down — beating stronger bots earns more (Glicko-2). Only games without hints or take-backs count."
+      },
+      "puzzle": {
+        "title": "🧩 Puzzle rating",
+        "body": "Starts at {start}. Solving right away without hints wins the puzzle; anything else counts as a loss. The next puzzles match your level."
+      },
+      "xp": {
+        "title": "✨ XP & levels",
+        "body": "Everything earns XP: lessons, quizzes, puzzles, games, reviews. XP is never taken away."
+      }
+    },
+    "ranks": {
+      "title": "The rank ladder",
+      "intro": "Your rank is your title against the bots. Each rank is guarded by a “boss”.",
+      "colRank": "Rank",
+      "colPoints": "Points",
+      "colTiers": "Tiers",
+      "colBoss": "Boss",
+      "tiers3": "III · II · I",
+      "tiers1": "—",
+      "from": "{min}+",
+      "range": "{min}–{max}",
+      "rulesTitle": "Promotion rules",
+      "rules": {
+        "0": "Each rank has 3 tiers III → II → I of {tier} points each.",
+        "1": "Reach the points of the next rank → a promotion match opens: beat that rank’s boss to move up.",
+        "2": "Losing a promotion match only keeps you at tier I — retry as often as you like.",
+        "3": "Once earned, a rank is never lost (you can drop tiers inside it).",
+        "4": "No penalty for breaks. Games with hints or take-backs are practice games and are not rated."
+      },
+      "below": "below {max}"
+    },
+    "xp": {
+      "title": "XP, streaks & achievements",
+      "colAction": "Activity",
+      "colXp": "XP",
+      "rows": {
+        "lesson": "Finish a lesson for the first time",
+        "perfect": "Perfect lesson quiz bonus",
+        "quiz": "Each correct quiz answer",
+        "puzzle": "Each solved puzzle",
+        "daily": "Daily puzzle bonus",
+        "rush": "Each Puzzle Rush point",
+        "win": "Beat a bot (by difficulty tier 1–4)",
+        "draw": "Draw with a bot",
+        "loss": "Finish a game (even a loss)",
+        "review": "Review a game"
+      },
+      "winValue": "{per} × tier",
+      "level": "Levels: each level needs more XP than the last ({step} × current level).",
+      "streak": "Streak 🔥: do something every day to keep it; miss a day and it starts again.",
+      "achievements": "{count} achievements to unlock — see your profile."
+    },
+    "tips": {
+      "title": "Tips to play better",
+      "items": {
+        "0": "Take the center with your e/d pawns.",
+        "1": "Develop knights and bishops before the queen.",
+        "2": "Castle early to keep your king safe.",
+        "3": "Before every move ask: “What is my opponent threatening?”",
+        "4": "Count material: don’t trade a strong piece for a weak one.",
+        "5": "Review every loss — the fastest way to improve."
+      }
+    },
+    "faq": {
+      "title": "FAQ",
+      "items": {
+        "data": {
+          "title": "Where is my data stored?",
+          "body": "In this browser (IndexedDB). No server, no account. Use Profile → Export data to back it up or move to another device."
+        },
+        "lose": {
+          "title": "Can I lose my data?",
+          "body": "Yes, if you clear the browser’s data. Export a save file now and then to be safe."
+        },
+        "mobile": {
+          "title": "Can I play on my phone?",
+          "body": "Yes. You can even “Add to Home Screen” and use it like an app, offline too."
+        },
+        "unrated": {
+          "title": "Why wasn’t my game rated?",
+          "body": "Because a hint or a take-back was used. The app always asks first."
+        },
+        "bots": {
+          "title": "How strong are the bots?",
+          "body": "From about 250 Elo (Chick, very random) to full Stockfish strength (Master). The Custom bot lets you pick anything in between."
+        }
+      }
+    },
+    "link": "Guide"
   }
 }

@@ -24,6 +24,7 @@ const NAV_ITEMS = [
   { href: '/learn', key: 'learn', icon: '📖' },
   { href: '/practice', key: 'practice', icon: '🧩' },
   { href: '/play', key: 'play', icon: '♟️' },
+  { href: '/guide', key: 'guide', icon: '📘' },
 ] as const;
 
 export function AppShell({ children, settings }: { children: ReactNode; settings: ReactNode }) {
@@ -88,7 +89,7 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
               aria-pressed={muted}
               aria-label={muted ? t('unmute') : t('mute')}
               title={muted ? t('unmute') : t('mute')}
-              className="grid size-9 place-items-center rounded-full border border-border text-base hover:bg-surface-2"
+              className="grid size-8 place-items-center rounded-full border border-border text-sm hover:bg-surface-2"
             >
               <span aria-hidden>{muted ? '🔇' : '🔊'}</span>
             </button>
@@ -102,7 +103,7 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
                     : t('profile')
                 }
                 className={cn(
-                  'flex max-w-48 items-center gap-2 rounded-full border px-2 py-1 text-sm font-semibold',
+                  'flex h-8 max-w-48 items-center gap-2 rounded-full border px-2 text-sm font-semibold',
                   isActive('/profile') ? 'border-accent' : 'border-border hover:bg-surface-2',
                 )}
               >

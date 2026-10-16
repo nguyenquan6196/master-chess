@@ -13,7 +13,8 @@
     "profile": "Hồ sơ",
     "history": "Lịch sử",
     "mute": "Tắt tiếng",
-    "unmute": "Bật tiếng"
+    "unmute": "Bật tiếng",
+    "guide": "Hướng dẫn"
   },
   "common": {
     "comingSoon": "Sắp ra mắt",
@@ -720,5 +721,202 @@
       "name": "Cấp 10",
       "desc": "Đạt cấp 10."
     }
+  },
+  "guide": {
+    "title": "Hướng dẫn",
+    "heroTitle": "Chào mừng đến Master Chess",
+    "heroSubtitle": "Mọi điều bạn cần biết: cờ vua có gì hay, ở đây có gì, điểm và hạng tính ra sao.",
+    "toc": "Mục lục",
+    "nav": {
+      "why": "Vì sao chơi cờ",
+      "here": "Vì sao ở đây",
+      "features": "Có gì ở đây",
+      "path": "Bắt đầu thế nào",
+      "points": "Các loại điểm",
+      "ranks": "Hệ thống hạng",
+      "xp": "XP & thành tích",
+      "tips": "Mẹo chơi",
+      "faq": "Hỏi đáp"
+    },
+    "why": {
+      "title": "Vì sao nên chơi cờ vua?",
+      "intro": "Cờ vua đã có khoảng 1.500 năm lịch sử, bắt nguồn từ trò chaturanga ở Ấn Độ, và ngày nay được hàng trăm triệu người chơi trên khắp thế giới.",
+      "items": {
+        "think": {
+          "title": "🧠 Rèn tư duy",
+          "body": "Mỗi nước đi là một bài toán nhỏ: tính trước, so sánh lựa chọn, dự đoán đối thủ."
+        },
+        "focus": {
+          "title": "🎯 Tập trung & kiên nhẫn",
+          "body": "Một ván cờ dạy bạn ngồi yên, quan sát kỹ và không vội vàng."
+        },
+        "learn": {
+          "title": "📈 Học từ thất bại",
+          "body": "Thua một ván là có ngay bài học rõ ràng — xem lại, hiểu sai ở đâu, lần sau làm tốt hơn."
+        },
+        "fun": {
+          "title": "🌏 Cho mọi lứa tuổi",
+          "body": "Luật đơn giản, chơi được với bất kỳ ai, ở bất kỳ đâu — và không bao giờ học hết."
+        }
+      }
+    },
+    "here": {
+      "title": "Vì sao chơi ở Master Chess?",
+      "items": {
+        "free": {
+          "title": "🆓 Miễn phí, không quảng cáo",
+          "body": "Không cần tài khoản: chỉ cần nhập tên là chơi."
+        },
+        "path": {
+          "title": "🪜 Học từng bước",
+          "body": "Bài học có bàn cờ tương tác, trắc nghiệm, câu đố — từ luật cơ bản tới chiến thuật."
+        },
+        "bots": {
+          "title": "🐣 Đối thủ như người thật",
+          "body": "Mỗi bot có sức mạnh, phong cách và tính cách riêng — từ Gà con tới Kiện tướng."
+        },
+        "review": {
+          "title": "🔍 Hiểu vì sao thắng thua",
+          "body": "Stockfish xem lại từng nước, chỉ ra sai lầm và cho bạn thử lại."
+        },
+        "offline": {
+          "title": "📴 Chơi cả khi offline",
+          "body": "Cài như một ứng dụng; dữ liệu nằm trên máy của bạn."
+        },
+        "fun": {
+          "title": "🎨 Theo phong cách của bạn",
+          "body": "8 chủ đề, nhiều bộ quân, nhạc nền tự sinh, vi / en / ja."
+        }
+      }
+    },
+    "features": {
+      "title": "Ở đây có những gì?",
+      "learn": {
+        "title": "📖 Học",
+        "body": "{lessons} bài học theo chương: bàn cờ, từng quân cờ, luật đặc biệt, chiến thuật cơ bản."
+      },
+      "practice": {
+        "title": "🧩 Luyện tập",
+        "body": "{quiz} câu trắc nghiệm viết tay + câu hỏi máy tạo không giới hạn; hàng nghìn câu đố tính điểm, theo chủ đề, Puzzle Rush và câu đố hằng ngày."
+      },
+      "play": {
+        "title": "♟️ Đấu cờ",
+        "body": "{bots} bot + bot Tuỳ chỉnh (Elo 250–3000), 5 phong cách chơi, có đồng hồ; hoặc 2 người cùng máy."
+      },
+      "review": {
+        "title": "🔍 Xem lại ván",
+        "body": "Phân loại từng nước, độ chính xác, biểu đồ đánh giá, thử lại nước sai."
+      }
+    },
+    "path": {
+      "title": "Bắt đầu thế nào?",
+      "intro": "Lộ trình gợi ý cho người mới:",
+      "steps": {
+        "0": "Học các bài trong chương “Cơ bản” để nắm cách đi của từng quân.",
+        "1": "Làm vài vòng trắc nghiệm “Quân cờ” và “Luật chơi”.",
+        "2": "Đấu thử với 🐣 Gà con — đừng ngại thua!",
+        "3": "Mở “Xem lại” để biết mình sai ở đâu và thử lại nước sai.",
+        "4": "Mỗi ngày giải câu đố hằng ngày để giữ chuỗi 🔥 và tiến bộ đều."
+      },
+      "cta": {
+        "learn": "Bắt đầu học",
+        "play": "Đấu với bot"
+      }
+    },
+    "points": {
+      "title": "Ba loại điểm",
+      "intro": "Mỗi loại đo một thứ khác nhau và không ảnh hưởng lẫn nhau.",
+      "rank": {
+        "title": "🏆 Điểm rank (đấu bot)",
+        "body": "Bắt đầu ở {start} điểm, tăng khi thắng và giảm khi thua — thắng bot mạnh hơn được nhiều điểm hơn (hệ Glicko-2). Chỉ ván không dùng gợi ý và không đi lại mới được tính."
+      },
+      "puzzle": {
+        "title": "🧩 Điểm câu đố",
+        "body": "Bắt đầu ở {start}. Giải đúng ngay lần đầu, không gợi ý = thắng câu đố; còn lại tính là thua. Câu đố tiếp theo sẽ hợp với trình độ của bạn."
+      },
+      "xp": {
+        "title": "✨ XP & cấp độ",
+        "body": "Mọi hoạt động đều cho XP: học, trắc nghiệm, câu đố, đấu cờ, xem lại ván. XP không bao giờ bị trừ."
+      }
+    },
+    "ranks": {
+      "title": "Hệ thống hạng",
+      "intro": "Hạng là danh hiệu của bạn khi đấu với bot. Mỗi hạng có một “trùm” canh giữ.",
+      "colRank": "Hạng",
+      "colPoints": "Điểm",
+      "colTiers": "Bậc",
+      "colBoss": "Trùm canh giữ",
+      "tiers3": "III · II · I",
+      "tiers1": "—",
+      "from": "từ {min}",
+      "range": "{min}–{max}",
+      "rulesTitle": "Luật thăng hạng",
+      "rules": {
+        "0": "Mỗi hạng chia thành 3 bậc III → II → I, mỗi bậc {tier} điểm.",
+        "1": "Đủ điểm của hạng mới → bạn mở được trận thăng hạng: thắng trùm của hạng đó để lên hạng.",
+        "2": "Thua trận thăng hạng chỉ đứng lại ở bậc I — đánh lại bao nhiêu lần cũng được.",
+        "3": "Đã lên hạng thì không bao giờ rơi xuống hạng thấp hơn (có thể tụt bậc trong hạng).",
+        "4": "Nghỉ lâu không bị trừ điểm. Ván dùng gợi ý hoặc đi lại là ván luyện tập, không tính điểm."
+      },
+      "below": "dưới {max}"
+    },
+    "xp": {
+      "title": "XP, chuỗi ngày & thành tích",
+      "colAction": "Hoạt động",
+      "colXp": "XP",
+      "rows": {
+        "lesson": "Hoàn thành bài học lần đầu",
+        "perfect": "Thưởng bài học đạt điểm tuyệt đối",
+        "quiz": "Mỗi câu trắc nghiệm đúng",
+        "puzzle": "Mỗi câu đố giải đúng",
+        "daily": "Thưởng câu đố hằng ngày",
+        "rush": "Mỗi điểm Puzzle Rush",
+        "win": "Thắng bot (theo mức độ khó 1–4)",
+        "draw": "Hòa bot",
+        "loss": "Chơi hết một ván (kể cả thua)",
+        "review": "Xem lại một ván"
+      },
+      "winValue": "{per} × mức",
+      "level": "Cấp độ: mỗi cấp cần nhiều XP hơn cấp trước ({step} × cấp hiện tại).",
+      "streak": "Chuỗi ngày 🔥: có hoạt động mỗi ngày để kéo dài chuỗi; bỏ một ngày là bắt đầu lại.",
+      "achievements": "Có {count} thành tích để mở khoá — xem trong trang Hồ sơ."
+    },
+    "tips": {
+      "title": "Mẹo chơi tốt hơn",
+      "items": {
+        "0": "Chiếm trung tâm bằng Tốt e4/d4 (hoặc e5/d5).",
+        "1": "Phát triển Mã và Tượng trước khi đưa Hậu ra.",
+        "2": "Nhập thành sớm để Vua an toàn.",
+        "3": "Trước mỗi nước, tự hỏi: “Đối thủ đang dọa gì?”",
+        "4": "Đếm quân: đừng đổi quân mạnh lấy quân yếu.",
+        "5": "Xem lại mọi ván thua — đó là cách tiến bộ nhanh nhất."
+      }
+    },
+    "faq": {
+      "title": "Hỏi đáp",
+      "items": {
+        "data": {
+          "title": "Dữ liệu của tôi lưu ở đâu?",
+          "body": "Trên chính trình duyệt này (IndexedDB). Không có máy chủ, không có tài khoản. Vào Hồ sơ → Xuất dữ liệu để sao lưu hoặc chuyển sang máy khác."
+        },
+        "lose": {
+          "title": "Tôi có thể mất dữ liệu không?",
+          "body": "Nếu xoá dữ liệu trình duyệt thì có. Hãy xuất file save thỉnh thoảng cho chắc."
+        },
+        "mobile": {
+          "title": "Chơi trên điện thoại được không?",
+          "body": "Được. Bạn còn có thể “Thêm vào màn hình chính” để dùng như ứng dụng, kể cả khi không có mạng."
+        },
+        "unrated": {
+          "title": "Vì sao ván của tôi không được tính điểm?",
+          "body": "Vì đã dùng gợi ý hoặc đi lại. App luôn hỏi trước khi bạn dùng."
+        },
+        "bots": {
+          "title": "Bot mạnh cỡ nào?",
+          "body": "Từ khoảng 250 Elo (Gà con, hay đi lung tung) tới sức mạnh tối đa của Stockfish (Kiện tướng). Bot Tuỳ chỉnh cho bạn chọn bất kỳ mức nào ở giữa."
+        }
+      }
+    },
+    "link": "Hướng dẫn"
   }
 }
