@@ -84,13 +84,13 @@ const PALETTES: Record<RankId, Palette> = {
     accent: '#ffa040',
   },
   challenger: {
-    rim: '#0f1738',
-    metal: ['#fff0a8', '#c9951c'],
-    face: ['#2e3b80', '#1a2550'],
-    engrave: '#f7e08a',
-    piece: '#ffd84a',
-    pieceEdge: '#7a5a10',
-    accent: '#f0c94a',
+    rim: '#5c3a00',
+    metal: ['#fff7cc', '#d49a1c'],
+    face: ['#fff3b8', '#d99e1c'],
+    engrave: '#fff8d8',
+    piece: '#6b4300',
+    pieceEdge: '#fff6cf',
+    accent: '#ffe27a',
   },
 };
 
@@ -111,6 +111,23 @@ const WING =
 const CRYSTAL_WING = '32,-28 68,-44 60,-20 74,-10 54,-4 62,12 36,4';
 const PHOENIX =
   'M28,-24 C56,-58 74,-48 74,-22 C68,-30 62,-28 58,-22 C68,-18 72,-8 70,4 C62,-4 54,-4 48,0 C56,4 58,14 54,22 C46,12 38,10 32,12 Z';
+/** Challenger wings: long primaries, coverts, a light band and a lower wing. */
+const GRAND_WING = {
+  primaries:
+    'M28,-30 C46,-60 70,-76 90,-74 C86,-66 84,-60 86,-54 C78,-54 75,-49 77,-43 C69,-43 66,-38 68,-32 C60,-32 57,-27 59,-21 C51,-22 48,-17 49,-11 C42,-13 37,-10 34,-6 Z',
+  coverts:
+    'M30,-26 C44,-48 62,-60 76,-60 C72,-53 71,-48 73,-43 C66,-43 63,-38 65,-33 C58,-33 55,-28 56,-23 C49,-24 45,-19 46,-14 C40,-15 36,-12 33,-8 Z',
+  light: 'M30,-28 C42,-46 56,-56 68,-58 C60,-50 52,-44 46,-36 C40,-34 35,-30 31,-24 Z',
+  /** Feather tips the shafts run to (the scallop points of the primaries). */
+  shafts: [
+    [82, -57],
+    [74, -46],
+    [65, -35],
+    [56, -24],
+    [47, -14],
+  ] as const,
+  lower: 'M30,-6 C44,-8 58,-2 66,8 C58,8 54,12 55,18 C48,15 44,18 43,24 C38,18 34,14 31,10 Z',
+};
 const CROWN = 'M-18,-46 L-20,-62 L-9,-54 L0,-70 L9,-54 L20,-62 L18,-46 Z';
 
 /**
@@ -193,15 +210,42 @@ export function RankEmblem({
     >
       {title && <title>{title}</title>}
       <defs>
-        <linearGradient id={id('metal')} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor={p.metal[0]} />
-          <stop offset="0.55" stopColor={p.metal[1]} />
-          <stop offset="1" stopColor={p.rim} />
-        </linearGradient>
-        <linearGradient id={id('face')} x1="0" y1="0" x2="0.4" y2="1">
-          <stop offset="0" stopColor={p.face[0]} />
-          <stop offset="1" stopColor={p.face[1]} />
-        </linearGradient>
+        {lv >= 7 ? (
+          <>
+            {/* Challenger: banded, iridescent gold. */}
+            <linearGradient id={id('metal')} x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stopColor="#fffbe0" />
+              <stop offset="0.22" stopColor="#f5c542" />
+              <stop offset="0.42" stopColor="#fff3b0" />
+              <stop offset="0.62" stopColor="#c98d14" />
+              <stop offset="0.8" stopColor="#ffe680" />
+              <stop offset="1" stopColor="#7a4e00" />
+            </linearGradient>
+            <radialGradient id={id('face')} cx="0.38" cy="0.3" r="0.85">
+              <stop offset="0" stopColor="#fffbe6" />
+              <stop offset="0.35" stopColor="#f7cf55" />
+              <stop offset="0.75" stopColor="#d4961a" />
+              <stop offset="1" stopColor="#8f5a04" />
+            </radialGradient>
+            <linearGradient id={id('wingDeep')} x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stopColor="#ffe48a" />
+              <stop offset="0.5" stopColor="#d99a1c" />
+              <stop offset="1" stopColor="#8a5600" />
+            </linearGradient>
+          </>
+        ) : (
+          <>
+            <linearGradient id={id('metal')} x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stopColor={p.metal[0]} />
+              <stop offset="0.55" stopColor={p.metal[1]} />
+              <stop offset="1" stopColor={p.rim} />
+            </linearGradient>
+            <linearGradient id={id('face')} x1="0" y1="0" x2="0.4" y2="1">
+              <stop offset="0" stopColor={p.face[0]} />
+              <stop offset="1" stopColor={p.face[1]} />
+            </linearGradient>
+          </>
+        )}
         <linearGradient id={id('gold')} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#fff2a6" />
           <stop offset="0.5" stopColor="#f0c94a" />
@@ -234,36 +278,7 @@ export function RankEmblem({
         />
       )}
 
-      {/* Laurel (Challenger). */}
-      {lv >= 7 && (
-        <g fill="#3f8a3a" stroke="#2a5e27" strokeWidth="0.6">
-          {[
-            [34, 30, 50],
-            [42, 16, 70],
-            [46, 0, 85],
-            [24, 40, 30],
-          ].flatMap(([x, y, r]) => [
-            <ellipse
-              key={`l${x}`}
-              cx={-x}
-              cy={y}
-              rx="9"
-              ry="4"
-              transform={`rotate(${-r} ${-x} ${y})`}
-            />,
-            <ellipse
-              key={`r${x}`}
-              cx={x}
-              cy={y}
-              rx="9"
-              ry="4"
-              transform={`rotate(${r} ${x} ${y})`}
-            />,
-          ])}
-        </g>
-      )}
-
-      {/* Wings: feathers (gold, platinum, challenger), crystal (diamond, elite), phoenix (grandmaster). */}
+      {/* Wings: feathers (gold, platinum), grand gold wings (challenger), crystal (diamond, elite), phoenix (grandmaster). */}
       {(lv === 2 || lv === 3) && (
         <Wings>
           {() => (
@@ -304,17 +319,41 @@ export function RankEmblem({
         </Wings>
       )}
       {lv === 7 && (
-        <Wings flap>
-          {() => (
-            <path
-              d={WING}
-              fill={url('gold')}
-              stroke="#8a6410"
-              strokeWidth="1"
-              transform="translate(4,-6)"
-            />
-          )}
-        </Wings>
+        <g transform="scale(0.92)">
+          <Wings flap>
+            {() => (
+              <>
+                <path
+                  d={GRAND_WING.lower}
+                  fill={url('wingDeep')}
+                  stroke="#6b4300"
+                  strokeWidth="1"
+                />
+                <path
+                  d={GRAND_WING.primaries}
+                  fill={url('wingDeep')}
+                  stroke="#6b4300"
+                  strokeWidth="1.2"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d={GRAND_WING.coverts}
+                  fill={url('gold')}
+                  stroke="#8a6410"
+                  strokeWidth="0.8"
+                  strokeLinejoin="round"
+                />
+                <path d={GRAND_WING.light} fill="#fff6c8" opacity="0.65" />
+                {/* Feather shafts so the scallops read as plumes. */}
+                <g stroke="#7a4a00" strokeWidth="0.9" strokeLinecap="round" opacity="0.55">
+                  {GRAND_WING.shafts.map(([x, y]) => (
+                    <line key={x} x1="34" y1="-24" x2={x} y2={y} />
+                  ))}
+                </g>
+              </>
+            )}
+          </Wings>
+        </g>
       )}
 
       {/* Elite flames behind the shield. */}
