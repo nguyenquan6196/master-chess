@@ -140,13 +140,13 @@ export function AppearanceSettings() {
 
   return (
     <SettingSection title={`🎨 ${t('appearance')}`}>
-      <ul className="flex flex-wrap gap-2">
+      <ul className="grid grid-cols-3 gap-2 sm:grid-cols-5">
         {THEME_PREFERENCES.map((pref) => {
           const shown = pref === 'auto' ? resolved : pref;
           const [bg, light, dark, accent] = THEME_INFO[shown].swatch;
           const selected = s.theme === pref;
           return (
-            <li key={pref} className="w-[calc((100%-1rem)/3)] sm:w-[5.25rem]">
+            <li key={pref}>
               <button
                 type="button"
                 aria-pressed={selected}
@@ -178,7 +178,7 @@ export function AppearanceSettings() {
         })}
       </ul>
 
-      <div className="flex flex-col gap-3 rounded-xl bg-surface-2 p-3 sm:w-fit sm:flex-row sm:items-center sm:pr-6">
+      <div className="flex flex-col gap-3 rounded-xl bg-surface-2 p-3 sm:flex-row sm:items-center">
         <div className="w-full max-w-48 self-center">
           <ChessBoard
             fen={PREVIEW_FEN}
@@ -202,8 +202,8 @@ export function AppearanceSettings() {
             {t('preview')}
           </span>
           <div className="flex gap-2">
-            <Button variant="primary">♟ {t('preview')}</Button>
-            <Button>{t('preview')}</Button>
+            <Button variant="primary">♟ {t('previewPrimary')}</Button>
+            <Button>{t('previewSecondary')}</Button>
           </div>
         </div>
       </div>

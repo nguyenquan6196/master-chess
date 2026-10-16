@@ -25,6 +25,7 @@ export interface ThemeInfo {
 export const THEME_INFO: Record<ThemeId, ThemeInfo> = {
   classic: { dark: false, swatch: ['#f3f1ea', '#eeeed2', '#769656', '#5d8c3b'], particles: null },
   wood: { dark: false, swatch: ['#e7cfa8', '#f0d9b5', '#b58863', '#9c5a2a'], particles: 'dust' },
+  rosin: { dark: false, swatch: ['#ecd6ae', '#ecd3a4', '#8a5d36', '#1c7468'], particles: 'dust' },
   marble: { dark: false, swatch: ['#f2f2f0', '#f4f3ef', '#a3a7ad', '#3f5f7f'], particles: null },
   neon: { dark: true, swatch: ['#0a0a18', '#2a2a52', '#15152e', '#ff3fd8'], particles: 'neon' },
   arcade: { dark: true, swatch: ['#0f2a12', '#9bbc0f', '#306230', '#9bbc0f'], particles: 'pixels' },

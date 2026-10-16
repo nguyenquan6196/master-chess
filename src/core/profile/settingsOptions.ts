@@ -5,6 +5,7 @@
 export const THEME_IDS = [
   'classic',
   'wood',
+  'rosin',
   'marble',
   'neon',
   'arcade',

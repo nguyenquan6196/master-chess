@@ -78,6 +78,7 @@
       "auto": "Auto",
       "classic": "Classic",
       "wood": "Wood",
+      "rosin": "Pine resin",
       "marble": "Marble",
       "neon": "Neon",
       "arcade": "Arcade",
@@ -198,7 +199,9 @@
       "classic": "Classic",
       "arcade": "8-bit arcade",
       "fantasy": "Fantasy"
-    }
+    },
+    "previewPrimary": "Main button",
+    "previewSecondary": "Other button"
   },
   "profile": {
     "pickTitle": "Who's playing?",
@@ -1097,7 +1100,7 @@
         },
         "fun": {
           "title": "🎨 Your style",
-          "body": "8 themes, piece sets, generated music, vi / en / ja."
+          "body": "9 themes, piece sets, generated music, vi / en / ja."
         }
       }
     },

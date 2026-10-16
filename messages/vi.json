@@ -78,6 +78,7 @@
       "auto": "Tự động",
       "classic": "Cổ điển",
       "wood": "Gỗ",
+      "rosin": "Gỗ thông",
       "marble": "Cẩm thạch",
       "neon": "Neon",
       "arcade": "Arcade",
@@ -198,7 +199,9 @@
       "classic": "Cổ điển",
       "arcade": "Arcade 8-bit",
       "fantasy": "Huyền ảo"
-    }
+    },
+    "previewPrimary": "Nút chính",
+    "previewSecondary": "Nút phụ"
   },
   "profile": {
     "pickTitle": "Ai đang chơi?",
@@ -1097,7 +1100,7 @@
         },
         "fun": {
           "title": "🎨 Theo phong cách của bạn",
-          "body": "8 chủ đề, nhiều bộ quân, nhạc nền tự sinh, vi / en / ja."
+          "body": "9 chủ đề, nhiều bộ quân, nhạc nền tự sinh, vi / en / ja."
         }
       }
     },

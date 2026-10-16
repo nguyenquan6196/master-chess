@@ -124,6 +124,47 @@
   --mc-backdrop-opacity: 0.85;
 }
 
+/* Pine wood with drops of teal-green resin. */
+[data-theme='rosin'] {
+  color-scheme: light;
+  --mc-bg: #eadcc2;
+  --mc-surface: #fbf6ec;
+  --mc-surface-2: #e8dabd;
+  --mc-fg: #2d2418;
+  --mc-muted: #6d5c46;
+  --mc-border: #d4bf9a;
+  --mc-accent: #1c7468;
+  --mc-accent-hover: #155c53;
+  --mc-accent-fg: #f3fffb;
+  --mc-board-light: #ecd3a4;
+  --mc-board-dark: #8a5d36;
+  --mc-board-notation-light: #8a5d36;
+  --mc-board-notation-dark: #ecd3a4;
+  --mc-hl-last: rgb(64 170 150 / 0.45);
+  --mc-hl-selected: rgb(40 150 128 / 0.55);
+  --mc-arrow-hint: rgb(28 116 104 / 0.85);
+  --mc-mark-hint: rgb(28 116 104 / 0.9);
+  --mc-chart-black: #4a3622;
+  /* Pine planks (fine grain + knots) with translucent resin drops. */
+  --mc-backdrop-image:
+    radial-gradient(circle at 18% 28%, rgb(40 150 128 / 0.13) 0 12px, transparent 13px),
+    radial-gradient(circle at 72% 64%, rgb(28 116 104 / 0.1) 0 8px, transparent 9px),
+    radial-gradient(circle at 46% 86%, rgb(64 170 150 / 0.1) 0 5px, transparent 6px),
+    radial-gradient(ellipse 22px 9px at 84% 22%, rgb(110 66 30 / 0.22), transparent 70%),
+    repeating-linear-gradient(
+      90deg,
+      rgb(122 78 38 / 0.09) 0 1px,
+      transparent 1px 7px,
+      rgb(122 78 38 / 0.05) 7px 8px,
+      transparent 8px 19px
+    ),
+    repeating-linear-gradient(0deg, rgb(92 56 24 / 0.11) 0 2px, transparent 2px 120px),
+    linear-gradient(180deg, #ecd6ae, #dcbf90);
+  --mc-backdrop-size: 520px 460px, 380px 610px, 470px 350px, 300px 340px, auto, auto, auto;
+  --mc-backdrop-mask: none;
+  --mc-backdrop-opacity: 0.85;
+}
+
 [data-theme='marble'] {
   color-scheme: light;
   --mc-bg: #f2f2f0;

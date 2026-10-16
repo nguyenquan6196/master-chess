@@ -78,6 +78,7 @@
       "auto": "自動",
       "classic": "クラシック",
       "wood": "木目",
+      "rosin": "松やに",
       "marble": "大理石",
       "neon": "ネオン",
       "arcade": "アーケード",
@@ -198,7 +199,9 @@
       "classic": "クラシック",
       "arcade": "8ビット",
       "fantasy": "ファンタジー"
-    }
+    },
+    "previewPrimary": "メインボタン",
+    "previewSecondary": "サブボタン"
   },
   "profile": {
     "pickTitle": "だれがプレイしますか？",
@@ -1097,7 +1100,7 @@
         },
         "fun": {
           "title": "🎨 自分好みに",
-          "body": "8つのテーマ、駒セット、自動生成の BGM、vi / en / ja。"
+          "body": "9つのテーマ、駒セット、自動生成の BGM、vi / en / ja。"
         }
       }
     },
