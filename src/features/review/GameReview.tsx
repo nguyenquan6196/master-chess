@@ -394,7 +394,7 @@ export function GameReview() {
 
             <Card className="p-4">
               <h2 className="mb-2 font-display text-lg font-semibold">{tg('moves')}</h2>
-              <ol className="grid max-h-72 grid-cols-[auto_1fr_1fr] gap-x-2 gap-y-1 overflow-y-auto text-sm">
+              <ol className="mc-scroll grid max-h-72 grid-cols-[auto_1fr_1fr] gap-x-2 gap-y-1 overflow-y-auto text-sm">
                 {Array.from({ length: Math.ceil(game.moves.length / 2) }, (_, row) => (
                   <li key={row} className="contents">
                     <span className="text-muted tabular-nums">{row + 1}.</span>

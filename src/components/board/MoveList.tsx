@@ -18,7 +18,7 @@ export function MoveList({ moves, emptyLabel }: { moves: string[]; emptyLabel: s
   }
 
   return (
-    <div className="max-h-72 overflow-y-auto">
+    <div className="mc-scroll max-h-72 overflow-y-auto">
       <ol className="grid grid-cols-[2.5rem_1fr_1fr] gap-x-2 gap-y-0.5 text-sm tabular-nums">
         {rows.map((r) => (
           <li key={r.n} className="contents">

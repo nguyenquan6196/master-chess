@@ -164,6 +164,16 @@ body::after {
   font-weight: 600;
 }
 
+/* Quiet scroll areas (side panels, move lists): thin bar, shown only on hover/focus. */
+.mc-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+.mc-scroll:hover,
+.mc-scroll:focus-within {
+  scrollbar-color: color-mix(in srgb, var(--mc-muted) 45%, transparent) transparent;
+}
+
 /* Player card whose turn it is (features/bot-game/PlayerBar): a soft breathing glow
    (a separate layer, so the card's own frame and shadow stay as they are). */
 .mc-turn {
