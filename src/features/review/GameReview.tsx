@@ -4,15 +4,17 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslations } from 'use-intl';
 import { ChessBoard } from '@/components/board/ChessBoard';
+import { EvalBar } from '@/components/board/EvalBar';
 import { EvalChart } from '@/components/board/EvalChart';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { Button } from '@/components/ui/Button';
-import { ActionButton, GameLayout } from '@/components/ui/GameLayout';
+import { ActionButton, GameLayout, useSideColumn } from '@/components/ui/GameLayout';
 import { Card } from '@/components/ui/Card';
 import { cn } from '@/components/ui/cn';
 import { resolveBotLevel } from '@/core/bot/levels';
 import { applyMove, moveToUci, newGame, uciToMove, type MoveInput } from '@/core/chess/game';
-import { scoreToCp } from '@/core/engine/uci';
+import { evalVerdict, verdictMessageKey, verdictVariant } from '@/core/engine/evalVerdict';
+import { cpToScore, scoreToCp } from '@/core/engine/uci';
 import { replayGame } from '@/core/game/botGame';
 import {
   buildReview,
@@ -61,6 +63,8 @@ export function GameReview() {
   const t = useTranslations('review');
   const tg = useTranslations('game');
   const tb = useTranslations('bots');
+  const tv = useTranslations('botGame');
+  const sideColumn = useSideColumn();
   const gameId = useLocationHash();
   const game = useLiveQuery(() => (gameId ? gameRepo.get(gameId) : undefined), [gameId], null);
   const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
@@ -122,6 +126,26 @@ export function GameReview() {
   const orientation = game.playerColor === 'w' ? 'white' : 'black';
   const moveAt = (i: number) => review?.moves[i - 1] ?? null;
   const current = retry ? null : moveAt(cur);
+  // Engine gauge for the shown position (stored White-POV centipawns).
+  const evalPly = retry ? retry.move.ply : cur;
+  const evalCp = game.review?.evals[evalPly];
+  const evalScore = evalCp === undefined ? null : cpToScore(evalCp);
+  const verdict = evalVerdict(evalScore);
+  const verdictText = verdict
+    ? tv(`verdict.${verdictMessageKey(verdict, game.playerColor, verdictVariant(evalPly))}`, {
+        bot: tb(`${game.botId}.name`),
+        n: verdict.mateIn ?? 0,
+      })
+    : undefined;
+  const gauge = (size: 'strip' | 'panel') => (
+    <EvalBar
+      size={size}
+      score={evalScore}
+      orientation={orientation}
+      label={tv('evalBar')}
+      caption={size === 'panel' ? verdictText : undefined}
+    />
+  );
   const boardFen = retry ? retry.move.fenBefore : (positions[cur]?.fen ?? game.startFen);
   const lastUci = retry ? null : (game.moves[cur - 1] ?? null);
   const lastMove = lastUci ? uciToMove(lastUci) : null;
@@ -189,28 +213,31 @@ export function GameReview() {
 
       <GameLayout
         board={
-          <ChessBoard
-            allow3d
-            fen={boardFen}
-            orientation={orientation}
-            movableColor={retry && retry.state !== 'answer' ? game.playerColor : 'none'}
-            lastMove={lastMove ? { from: lastMove.from, to: lastMove.to } : null}
-            arrows={arrow ? [{ from: arrow.from, to: arrow.to }] : []}
-            onMove={(m) => {
-              void onRetryMove(m);
-              return false;
-            }}
-            promotionLabels={{
-              title: tg('choosePromotion'),
-              cancel: tg('cancel'),
-              pieces: {
-                q: tg('pieces.q'),
-                r: tg('pieces.r'),
-                b: tg('pieces.b'),
-                n: tg('pieces.n'),
-              },
-            }}
-          />
+          <div className="flex flex-col gap-2">
+            {review && !sideColumn && gauge('strip')}
+            <ChessBoard
+              allow3d
+              fen={boardFen}
+              orientation={orientation}
+              movableColor={retry && retry.state !== 'answer' ? game.playerColor : 'none'}
+              lastMove={lastMove ? { from: lastMove.from, to: lastMove.to } : null}
+              arrows={arrow ? [{ from: arrow.from, to: arrow.to }] : []}
+              onMove={(m) => {
+                void onRetryMove(m);
+                return false;
+              }}
+              promotionLabels={{
+                title: tg('choosePromotion'),
+                cancel: tg('cancel'),
+                pieces: {
+                  q: tg('pieces.q'),
+                  r: tg('pieces.r'),
+                  b: tg('pieces.b'),
+                  n: tg('pieces.n'),
+                },
+              }}
+            />
+          </div>
         }
         bottom={
           review ? (
@@ -265,6 +292,7 @@ export function GameReview() {
               {accuracyCard(game.playerColor)}
               {accuracyCard(game.playerColor === 'w' ? 'b' : 'w')}
             </div>
+            {review && sideColumn && gauge('panel')}
 
             {retry ? (
               <Card className="flex flex-col gap-3 border-accent">

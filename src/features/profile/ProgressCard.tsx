@@ -14,7 +14,7 @@ import {
 } from '@/core/progress/progress';
 
 /** Level and XP, daily streak and the achievement grid on the profile page. */
-export function ProgressCard({ profile }: { profile: Profile }) {
+export function ProgressCard({ profile, className }: { profile: Profile; className?: string }) {
   const t = useTranslations('progress');
   const ta = useTranslations('achievements');
   const [now] = useState(() => Date.now());
@@ -26,7 +26,7 @@ export function ProgressCard({ profile }: { profile: Profile }) {
   const tDyn = ta as unknown as (key: string) => string;
 
   return (
-    <Card className="flex flex-col gap-4">
+    <Card className={cn('flex flex-col gap-4', className)}>
       <div className="flex flex-wrap items-center gap-4">
         <span
           aria-hidden
@@ -57,7 +57,7 @@ export function ProgressCard({ profile }: { profile: Profile }) {
         </div>
       </div>
 
-      <div>
+      <div className="flex min-h-0 flex-1 flex-col">
         <h2 className="mb-2 flex items-center justify-between font-display text-lg font-semibold">
           🏅 {t('achievements')}
           <span className="text-sm font-normal text-muted tabular-nums">
@@ -99,7 +99,7 @@ export function ProgressCard({ profile }: { profile: Profile }) {
         <ul
           key={group}
           role="tabpanel"
-          className="mc-pop grid max-h-[30rem] grid-cols-1 gap-2 overflow-y-auto p-0.5 pr-1 min-[420px]:grid-cols-2 xl:grid-cols-3"
+          className="mc-pop grid max-h-[30rem] min-h-0 grid-cols-1 content-start gap-2 overflow-y-auto p-0.5 pr-1 min-[420px]:grid-cols-2 lg:max-h-none lg:flex-1 xl:grid-cols-3"
         >
           {ACHIEVEMENTS.filter((a) => a.group === group).map((a) => {
             const has = a.id in profile.achievements;

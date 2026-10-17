@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { evalVerdict, verdictVariant } from './evalVerdict';
+import { evalVerdict, verdictMessageKey, verdictVariant } from './evalVerdict';
 
 describe('evalVerdict', () => {
   it('is null while the score is unknown or the game is mate', () => {
@@ -25,5 +25,11 @@ describe('evalVerdict', () => {
 
   it('rotates the wording with the move number', () => {
     expect([0, 1, 2, 3].map(verdictVariant)).toEqual(['a', 'b', 'c', 'a']);
+  });
+
+  it('words the verdict for the player', () => {
+    expect(verdictMessageKey({ level: 'equal', side: null }, 'w', 'b')).toBe('equal.b');
+    expect(verdictMessageKey({ level: 'clear', side: 'w' }, 'w', 'a')).toBe('clear.you.a');
+    expect(verdictMessageKey({ level: 'mate', side: 'w', mateIn: 2 }, 'b', 'c')).toBe('mate.bot.c');
   });
 });

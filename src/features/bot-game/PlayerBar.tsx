@@ -18,6 +18,8 @@ interface PlayerBarProps {
   status?: string | null;
   /** Shown at the right end (before the clock), e.g. the player's rank emblem. */
   aside?: ReactNode;
+  /** Metal colours framing the card (a boss bot's rank). */
+  frame?: { light: string; dark: string };
 }
 
 export function PlayerBar({
@@ -30,13 +32,22 @@ export function PlayerBar({
   active,
   status,
   aside,
+  frame,
 }: PlayerBarProps) {
   const timed = isTimed(clock);
   const ms = remainingAt(clock, color, now);
   const low = timed && ms < LOW_TIME_MS;
 
   return (
-    <div className="flex items-center gap-3 rounded-2xl border border-border bg-surface px-3 py-2 shadow-card">
+    <div
+      className="flex items-center gap-3 rounded-2xl border border-border bg-surface px-3 py-2 shadow-card"
+      style={
+        frame && {
+          borderColor: frame.dark,
+          boxShadow: `0 0 0 1px ${frame.light}, 0 4px 14px -6px ${frame.dark}`,
+        }
+      }
+    >
       <span
         className={cn(
           'flex size-10 items-center justify-center rounded-xl border text-2xl',

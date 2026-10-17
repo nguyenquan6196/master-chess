@@ -12,19 +12,20 @@ import { Confetti } from '@/components/ui/Confetti';
 import { ActionButton, GameLayout, HudCard, useSideColumn } from '@/components/ui/GameLayout';
 import { Modal } from '@/components/ui/Modal';
 import { RankBadge, rankTitle } from '@/components/ui/RankBadge';
-import { RankEmblem } from '@/components/ui/RankEmblem';
+import { rankColors, RankEmblem } from '@/components/ui/RankEmblem';
 import { BossIntroOverlay, RankUpOverlay } from '@/components/ui/RankUpOverlay';
 import { STYLE_ICONS } from '@/core/bot/styles';
 import { isTimed, remainingAt } from '@/core/game/clock';
-import { evalVerdict, verdictVariant } from '@/core/engine/evalVerdict';
+import { evalVerdict, verdictMessageKey, verdictVariant } from '@/core/engine/evalVerdict';
 import { scoreToCp } from '@/core/engine/uci';
 import type { GameRecord } from '@/core/profile/schema';
-import { RANKS, rankStatus } from '@/core/rating/rank';
+import { bossRankIndex, RANKS, rankStatus } from '@/core/rating/rank';
 import { useMusicScene } from '@/services/audio/musicDirector';
 import { BOT_TIER_TRACK } from '@/services/audio/musicTracks';
 import { playSfx } from '@/services/audio/sfx';
 import { useSession } from '@/services/profile/session';
 import { useSettings } from '@/services/settings/store';
+import { BossElo } from './BossElo';
 import { PlayerBar } from './PlayerBar';
 import { useBotChat } from './useBotChat';
 import { useBotGame } from './useBotGame';
@@ -96,19 +97,18 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
 
   const orientation = record.playerColor === 'w' ? 'white' : 'black';
   const botName = tb(`${level.id}.name`);
+  // Every ladder bot guards a rank: its card wears that rank's metal.
+  const bossRank = record.botId === 'custom' ? null : RANKS[bossRankIndex(record.botId)].id;
+  const bossColors = bossRank ? rankColors(bossRank) : null;
+  const bossTitle = bossRank ? tk('bossOf', { rank: tr(bossRank) }) : undefined;
   const verdict = evalVerdict(g.evaluation);
   const variant = verdictVariant(snapshot.history.length);
-  const verdictText = !verdict
-    ? undefined
-    : verdict.level === 'equal' || !verdict.side
-      ? t(`verdict.equal.${variant}`)
-      : t(
-          `verdict.${verdict.level}.${verdict.side === record.playerColor ? 'you' : 'bot'}.${variant}`,
-          {
-            bot: botName,
-            n: verdict.mateIn ?? 0,
-          },
-        );
+  const verdictText = verdict
+    ? t(`verdict.${verdictMessageKey(verdict, record.playerColor, variant)}`, {
+        bot: botName,
+        n: verdict.mateIn ?? 0,
+      })
+    : undefined;
   const last = snapshot.history[snapshot.history.length - 1];
   const turn = snapshot.status.kind === 'playing' ? snapshot.status.turn : null;
 
@@ -158,7 +158,13 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
             <PlayerBar
               avatar={level.emoji}
               name={botName}
-              subtitle={`${level.elo}${record.style !== 'balanced' ? ` · ${STYLE_ICONS[record.style]} ${ts(`${record.style}.name`)}` : ''}`}
+              subtitle={
+                record.style !== 'balanced'
+                  ? `${STYLE_ICONS[record.style]} ${ts(`${record.style}.name`)}`
+                  : undefined
+              }
+              frame={bossColors ?? undefined}
+              aside={<BossElo elo={level.elo} rank={bossRank} title={bossTitle} />}
               color={g.botColor}
               clock={record.clock}
               now={g.now}

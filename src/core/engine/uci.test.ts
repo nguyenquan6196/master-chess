@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { MATE_CP, parseBestMove, parseInfoLine, scoreToCp, toWhitePov } from './uci';
+import { cpToScore, MATE_CP, parseBestMove, parseInfoLine, scoreToCp, toWhitePov } from './uci';
 
 describe('core/engine/uci', () => {
   it('parses a multipv info line with a cp score', () => {
@@ -40,5 +40,13 @@ describe('core/engine/uci', () => {
   it("converts to White's point of view", () => {
     expect(toWhitePov({ kind: 'cp', value: 50 }, 'b')).toEqual({ kind: 'cp', value: -50 });
     expect(toWhitePov({ kind: 'mate', value: 2 }, 'w')).toEqual({ kind: 'mate', value: 2 });
+  });
+});
+
+describe('cpToScore', () => {
+  it('keeps plain centipawns and recovers mates', () => {
+    expect(cpToScore(35)).toEqual({ kind: 'cp', value: 35 });
+    expect(cpToScore(MATE_CP - 3)).toEqual({ kind: 'mate', value: 3 });
+    expect(cpToScore(-(MATE_CP - 2))).toEqual({ kind: 'mate', value: -2 });
   });
 });

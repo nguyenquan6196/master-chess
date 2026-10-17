@@ -72,6 +72,23 @@ function useActiveSection(ids: readonly string[]): string {
   return active;
 }
 
+/** Table-of-contents jump: glide to the section, then make its heading wave hello. */
+function jumpTo(id: string) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  el.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+  history.replaceState(null, '', `#${id}`);
+  if (reduced) return;
+  el.querySelector('h2')?.animate(
+    [
+      { color: 'var(--mc-accent)', transform: 'translateX(0.5rem)' },
+      { color: 'inherit', transform: 'none' },
+    ],
+    { duration: 900, delay: 350, easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)', fill: 'backwards' },
+  );
+}
+
 const LINK_PRIMARY =
   'inline-flex items-center justify-center gap-2 rounded-[var(--mc-radius-btn)] bg-accent px-5 py-2.5 text-sm font-semibold text-accent-fg hover:bg-accent-hover';
 const LINK_SECONDARY =
@@ -137,6 +154,10 @@ export function GuideScreen() {
               <li key={s}>
                 <a
                   href={`#${s}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    jumpTo(s);
+                  }}
                   aria-current={active === s ? 'location' : undefined}
                   className={cn(
                     'block rounded-full border px-3 py-1 text-sm font-semibold transition-[color,background-color,border-color,box-shadow,translate] duration-[var(--mc-dur)] ease-[var(--mc-ease)] lg:rounded-lg lg:border-0 lg:px-3',

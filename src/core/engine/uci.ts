@@ -56,6 +56,17 @@ export function scoreToCp(score: EngineScore): number {
   return Math.sign(score.value) * (MATE_CP - Math.abs(score.value));
 }
 
+/** Mates are stored as ±(MATE_CP − distance); anything this close to MATE_CP is a mate. */
+const MATE_WINDOW = 1000;
+
+/** Inverse of `scoreToCp`: stored centipawns back to a score (mates recovered). */
+export function cpToScore(cp: number): EngineScore {
+  const distance = MATE_CP - Math.abs(cp);
+  if (distance <= MATE_WINDOW)
+    return { kind: 'mate', value: Math.sign(cp) * Math.max(distance, 1) };
+  return { kind: 'cp', value: cp };
+}
+
 /** Converts a side-to-move score into White's point of view. */
 export function toWhitePov(score: EngineScore, sideToMove: 'w' | 'b'): EngineScore {
   return sideToMove === 'w' ? score : { kind: score.kind, value: -score.value };

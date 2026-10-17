@@ -95,6 +95,17 @@ const PALETTES: Record<RankId, Palette> = {
   },
 };
 
+/** A rank's metal colours, for UI that should match its emblem (boss cards, tags). */
+export function rankColors(rank: RankId): {
+  light: string;
+  dark: string;
+  face: string;
+  ink: string;
+} {
+  const p = PALETTES[rank];
+  return { light: p.metal[0], dark: p.metal[1], face: p.face[0], ink: p.piece };
+}
+
 const RANK_PIECE: Record<RankId, PieceKind> = {
   bronze: 'p',
   silver: 'n',

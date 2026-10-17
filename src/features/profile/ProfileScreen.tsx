@@ -49,7 +49,7 @@ export function ProfileScreen() {
   return (
     <div className="flex flex-col gap-4">
       <PageHeader title={t('title')} />
-      <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:items-start">
+      <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]">
         <div className="flex min-w-0 flex-col gap-4">
           {editing ? (
             <NewProfileForm
@@ -105,15 +105,17 @@ export function ProfileScreen() {
               />
             </div>
           </Card>
-
-          <div className="flex flex-wrap justify-between gap-2">
-            <Button onClick={switchProfile}>🔄 {t('switch')}</Button>
-            <Button variant="ghost" className="text-danger" onClick={() => setConfirmDelete(true)}>
-              🗑️ {t('delete')}
-            </Button>
-          </div>
         </div>
-        <ProgressCard profile={profile} />
+        {/* Desktop: as tall as the left column (ends with the data card); achievements scroll. */}
+        <div className="relative min-w-0">
+          <ProgressCard profile={profile} className="lg:absolute lg:inset-0" />
+        </div>
+      </div>
+      <div className="flex flex-wrap justify-between gap-2">
+        <Button onClick={switchProfile}>🔄 {t('switch')}</Button>
+        <Button variant="ghost" className="text-danger" onClick={() => setConfirmDelete(true)}>
+          🗑️ {t('delete')}
+        </Button>
       </div>
 
       <Modal

@@ -43,3 +43,13 @@ export type VerdictVariant = (typeof VERDICT_VARIANTS)[number];
 export function verdictVariant(ply: number): VerdictVariant {
   return VERDICT_VARIANTS[Math.abs(Math.trunc(ply)) % VERDICT_VARIANTS.length];
 }
+
+/** Message key (under `botGame.verdict`) for a verdict, worded for `player`'s side. */
+export function verdictMessageKey(
+  verdict: EvalVerdict,
+  player: 'w' | 'b',
+  variant: VerdictVariant,
+): `equal.${VerdictVariant}` | `${Exclude<EvalLevel, 'equal'>}.${'you' | 'bot'}.${VerdictVariant}` {
+  if (verdict.level === 'equal' || !verdict.side) return `equal.${variant}`;
+  return `${verdict.level}.${verdict.side === player ? 'you' : 'bot'}.${variant}`;
+}
