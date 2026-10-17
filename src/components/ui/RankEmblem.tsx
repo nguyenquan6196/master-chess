@@ -1,4 +1,6 @@
-import { useId, type ReactNode } from 'react';
+'use client';
+
+import { useId, type PointerEvent, type ReactNode } from 'react';
 import type { RankId } from '@/core/rating/rank';
 import { stauntonShape } from '../board/pieceArt/wood';
 import type { PieceKind } from '../board/pieceShapes';
@@ -202,6 +204,27 @@ const FRAME_HALF = 74;
 const FRAME_CY = -4;
 const FRAME = `${-FRAME_HALF} ${FRAME_CY - FRAME_HALF} ${FRAME_HALF * 2} ${FRAME_HALF * 2}`;
 
+/** Hover: how far the emblem tilts (degrees at the edge) and how far the glint travels. */
+const TILT_DEG = 34;
+const GLINT_TRAVEL = 100;
+
+/** Tilts the emblem towards the pointer like a metal badge and slides a glint across it. */
+function tiltToPointer(e: PointerEvent<SVGSVGElement>) {
+  const el = e.currentTarget;
+  const r = el.getBoundingClientRect();
+  const x = (e.clientX - r.left) / r.width - 0.5;
+  const y = (e.clientY - r.top) / r.height - 0.5;
+  el.style.setProperty('--mc-tilt-x', `${(-y * TILT_DEG).toFixed(1)}deg`);
+  el.style.setProperty('--mc-tilt-y', `${(x * TILT_DEG).toFixed(1)}deg`);
+  el.style.setProperty('--mc-glint-x', `${(x * GLINT_TRAVEL).toFixed(1)}px`);
+  el.style.setProperty('--mc-glint-o', '1');
+}
+function untilt(e: PointerEvent<SVGSVGElement>) {
+  for (const v of ['--mc-tilt-x', '--mc-tilt-y', '--mc-glint-x', '--mc-glint-o']) {
+    e.currentTarget.style.removeProperty(v);
+  }
+}
+
 export function RankEmblem({
   rank,
   size = 64,
@@ -228,7 +251,13 @@ export function RankEmblem({
       height={size}
       role={title ? 'img' : undefined}
       aria-hidden={title ? undefined : true}
-      className={cn('shrink-0 overflow-visible', animated && 'mc-emblem-animated', className)}
+      className={cn(
+        'mc-emblem-tilt shrink-0 overflow-visible',
+        animated && 'mc-emblem-animated',
+        className,
+      )}
+      onPointerMove={tiltToPointer}
+      onPointerLeave={untilt}
     >
       {title && <title>{title}</title>}
       <defs>
@@ -452,6 +481,20 @@ export function RankEmblem({
           </g>
         </g>
       }
+
+      {/* Hover glint: follows the pointer across the shield. */}
+      <g clipPath={url('clip')}>
+        <g className="mc-emblem-glint">
+          <rect
+            x="-24"
+            y="-70"
+            width="48"
+            height="140"
+            fill={url('shine')}
+            transform="skewX(-20)"
+          />
+        </g>
+      </g>
 
       {/* Centre piece: a flat Staunton silhouette in the rank's colours (SVG, so it
           looks the same on every device), with a light edge and a soft highlight. */}

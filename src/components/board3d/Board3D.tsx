@@ -1,6 +1,6 @@
 'use client';
 
-import { Canvas, useFrame, useThree, type ThreeEvent } from '@react-three/fiber';
+import { Canvas, events, useFrame, useThree, type ThreeEvent } from '@react-three/fiber';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type RefObject } from 'react';
 import {
   Color,
@@ -111,6 +111,21 @@ interface Anim {
   start: number | null;
 }
 
+/** Pointer events from the board box, mapped onto the larger canvas behind it. */
+function boxEvents(store: Parameters<typeof events>[0]): ReturnType<typeof events> {
+  return {
+    ...events(store),
+    compute(event, state) {
+      const r = state.gl.domElement.getBoundingClientRect();
+      state.pointer.set(
+        ((event.clientX - r.left) / r.width) * 2 - 1,
+        -((event.clientY - r.top) / r.height) * 2 + 1,
+      );
+      state.raycaster.setFromCamera(state.pointer, state.camera);
+    },
+  };
+}
+
 /** Orbit controls plus a smooth glide to the chosen preset. */
 /** Points that must stay in frame: the board frame's corners and the far pieces' tops. */
 const FIT_POINTS = [-1, 1].flatMap((sx) =>
@@ -120,8 +135,15 @@ const FIT_POINTS = [-1, 1].flatMap((sx) =>
     new Vector3(3.8 * sx, 0.95, 3.8 * sz),
   ]),
 );
-/** How close to the canvas edge (normalised device coords) the board may come. */
+/** How close to the board box's edge (as a share of it) the fitted board may come. */
 const FIT_MARGIN = 0.94;
+/**
+ * The canvas spills this far (share of the board box, each side) past the board box, so a
+ * zoomed or turned board keeps drawing into the page around it instead of being cut off.
+ * The camera is still fitted to the box; clicks outside the box go to the page.
+ */
+export const CANVAS_BLEED = 0.3;
+const BOX_SHARE = 1 / (1 + 2 * CANVAS_BLEED);
 
 /** Camera position along the preset's direction, just far enough to show the whole board. */
 function fittedPosition(fov: number, aspect: number, preset: CameraPreset, flip: boolean): Vector3 {
@@ -134,7 +156,8 @@ function fittedPosition(fov: number, aspect: number, preset: CameraPreset, flip:
     probe.updateProjectionMatrix();
     return FIT_POINTS.every((p) => {
       const v = p.clone().project(probe);
-      return Math.abs(v.x) <= FIT_MARGIN && Math.abs(v.y) <= FIT_MARGIN && v.z < 1;
+      const edge = FIT_MARGIN * BOX_SHARE;
+      return Math.abs(v.x) <= edge && Math.abs(v.y) <= edge && v.z < 1;
     });
   };
   let near = 4;
@@ -159,11 +182,13 @@ function CameraRig({
   controlsRef: RefObject<OrbitControls | null>;
 }) {
   const { camera, gl, size } = useThree();
+  // Pointer input comes from the board box (the canvas itself ignores the pointer).
+  const source = useThree((st) => st.events.connected) as HTMLElement | undefined;
   const goal = useRef<Vector3 | null>(null);
   const placed = useRef(false);
 
   useEffect(() => {
-    const c = new OrbitControls(camera, gl.domElement);
+    const c = new OrbitControls(camera, source ?? gl.domElement);
     c.enablePan = false;
     c.enableDamping = true;
     c.minDistance = 6;
@@ -171,7 +196,7 @@ function CameraRig({
     c.maxPolarAngle = 1.35;
     controlsRef.current = c;
     return () => c.dispose();
-  }, [camera, gl, controlsRef]);
+  }, [camera, gl, source, controlsRef]);
 
   useEffect(() => {
     const fov = camera instanceof PerspectiveCamera ? camera.fov : 38;
@@ -546,6 +571,7 @@ export default function Board3D({
       onDrop(d.from, to);
     }
   };
+  const host = useRef<HTMLDivElement>(null);
   const nextPreset = CAMERA_PRESETS[(CAMERA_PRESETS.indexOf(preset) + 1) % CAMERA_PRESETS.length];
 
   return (
@@ -561,12 +587,23 @@ export default function Board3D({
               : 'cursor-move',
       )}
       style={{ aspectRatio: '1' }}
+      ref={host}
     >
       <Canvas
+        className="pointer-events-none"
+        style={{
+          position: 'absolute',
+          inset: `${-CANVAS_BLEED * 100}%`,
+          width: 'auto',
+          height: 'auto',
+        }}
+        eventSource={host}
+        events={boxEvents}
         shadows
         // No filmic tone mapping: squares keep the theme's exact colours.
         flat
-        dpr={[1, 2]}
+        // The canvas is ~2.5× the board box (bleed), so cap the pixel ratio a little lower.
+        dpr={[1, 1.5]}
         camera={{ fov: 38, position: presetPosition('angle', flip).toArray() }}
         onPointerMissed={() => setHover(null)}
       >

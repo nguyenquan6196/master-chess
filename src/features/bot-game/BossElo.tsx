@@ -1,9 +1,9 @@
-import { rankColors, RankEmblem } from '@/components/ui/RankEmblem';
+import { rankColors } from '@/components/ui/RankEmblem';
 import type { RankId } from '@/core/rating/rank';
 
 /**
  * A bot's strength on its player card: the Elo on a plate in the metal of the rank the
- * bot guards (with that rank's emblem), or a plain number for the custom bot.
+ * bot guards (the card's frame shares it), or a plain number for the custom bot.
  */
 export function BossElo({
   elo,
@@ -23,19 +23,17 @@ export function BossElo({
   }
   const c = rankColors(rank);
   return (
-    <span className="flex items-center gap-1.5" title={title}>
-      <span
-        className="rounded-lg border px-2.5 py-0.5 font-display text-lg font-bold tabular-nums"
-        style={{
-          color: c.ink,
-          borderColor: c.dark,
-          background: `linear-gradient(160deg, ${c.face}, ${c.light} 45%, ${c.dark})`,
-          textShadow: `0 1px 0 ${c.face}`,
-        }}
-      >
-        {elo}
-      </span>
-      <RankEmblem rank={rank} size={34} animated={false} title={title} />
+    <span
+      title={title}
+      className="rounded-lg border px-2.5 py-0.5 font-display text-lg font-bold tabular-nums"
+      style={{
+        color: c.ink,
+        borderColor: c.dark,
+        background: `linear-gradient(160deg, ${c.face}, ${c.light} 45%, ${c.dark})`,
+        textShadow: `0 1px 0 ${c.face}`,
+      }}
+    >
+      {elo}
     </span>
   );
 }

@@ -94,7 +94,8 @@ export function GameLayout({
   return (
     <div
       className={cn(
-        'grid gap-4 wide:items-start wide:justify-center',
+        // Phones: the 3D canvas's side bleed is clipped here so the page never scrolls sideways.
+        'grid gap-4 overflow-x-clip short:overflow-x-visible wide:items-start wide:justify-center wide:overflow-x-visible',
         actions && 'pb-24 short:pb-0 wide:pb-0',
         // Sideways phone: the whole scene is exactly as tall as the board, no page scroll.
         '[--mc-short-board:min(calc(100dvh-6rem),58vw)] short:h-(--mc-short-board) short:grid-cols-[auto_minmax(0,1fr)] short:grid-rows-[auto_minmax(0,1fr)] short:items-start short:gap-x-4 short:gap-y-2',
@@ -125,17 +126,18 @@ export function GameLayout({
               : 'wide:w-[min(640px,calc(100dvh-18rem),calc(100vw-26rem))]',
         )}
       >
-        {!cardsAside && top}
+        {/* Cards sit above the 3D board, whose canvas spills past its box. */}
+        {!cardsAside && top && <div className="relative z-10">{top}</div>}
         {board}
-        {!cardsAside && bottom}
+        {!cardsAside && bottom && <div className="relative z-10">{bottom}</div>}
       </div>
       {actions && (
         <div
           data-icons={focus || undefined}
           className={cn(
             'group/actions fixed inset-x-0 bottom-0 z-20 flex justify-around gap-1 border-t border-border bg-surface/95 px-2 pt-1.5 pb-[max(0.375rem,env(safe-area-inset-bottom))] shadow-card backdrop-blur',
-            'short:static short:col-start-2 short:row-start-1 short:rounded-2xl short:border short:p-1',
-            'wide:static wide:col-start-1 wide:row-start-1 wide:flex-col wide:justify-start wide:gap-1 wide:rounded-2xl wide:border wide:p-2',
+            'short:relative short:z-10 short:col-start-2 short:row-start-1 short:rounded-2xl short:border short:p-1',
+            'wide:relative wide:z-10 wide:col-start-1 wide:row-start-1 wide:flex-col wide:justify-start wide:gap-1 wide:rounded-2xl wide:border wide:p-2',
           )}
         >
           {actions}
@@ -144,7 +146,7 @@ export function GameLayout({
       )}
       <div
         className={cn(
-          'mx-auto flex w-full max-w-[640px] min-w-0 flex-col gap-3 wide:row-start-1 wide:max-w-none',
+          'relative z-10 mx-auto flex w-full max-w-[640px] min-w-0 flex-col gap-3 wide:row-start-1 wide:max-w-none',
           actions ? 'wide:col-start-3' : 'wide:col-start-2',
           actions
             ? 'short:col-start-2 short:row-start-2'

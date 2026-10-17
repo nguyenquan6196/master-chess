@@ -118,6 +118,7 @@ export function BotSetup({
   const promotion = rank?.promotionTo != null ? RANKS[rank.promotionTo] : null;
   const ongoingLevel = ongoing ? resolveBotLevel(ongoing.botId, ongoing.customElo) : null;
 
+  const shownBoss = choice.botId === 'custom' ? null : RANKS[bossRankIndex(choice.botId)];
   const step = (dir: 1 | -1) => {
     const i = ROSTER.indexOf(choice.botId);
     setChoice({ ...choice, botId: ROSTER[(i + dir + ROSTER.length) % ROSTER.length] });
@@ -197,7 +198,7 @@ export function BotSetup({
       <section className="grid flex-1 gap-4 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
         <div className="flex min-w-0 flex-col gap-3">
           <div
-            className="relative flex flex-1 flex-col items-center justify-center gap-2 overflow-hidden rounded-3xl border border-border bg-surface px-14 py-6 text-center shadow-card"
+            className="relative flex flex-1 flex-col items-center justify-center gap-2 overflow-hidden rounded-3xl border border-border bg-surface px-14 pt-14 pb-8 text-center shadow-card"
             style={{
               backgroundImage:
                 'radial-gradient(circle at 50% 32%, color-mix(in srgb, var(--mc-accent) 22%, transparent), transparent 62%)',
@@ -224,6 +225,24 @@ export function BotSetup({
               </span>
             </button>
 
+            {/* Tags ride at the top edge of the stage. */}
+            <span
+              key={choice.botId}
+              className="mc-pop absolute inset-x-14 top-4 z-10 flex flex-wrap items-center justify-center gap-2"
+            >
+              {suggested === choice.botId && (
+                <span className="rounded-full bg-accent px-2 py-0.5 text-[11px] font-bold text-accent-fg">
+                  ⭐ {tk('next')}
+                </span>
+              )}
+              {shownBoss && (
+                <span className="inline-flex items-center gap-1 rounded-full bg-surface-2 py-0.5 pr-2 pl-1 text-[11px] font-semibold text-muted">
+                  <RankEmblem rank={shownBoss.id} size={22} animated={false} />
+                  {tk('bossOf', { rank: tr(shownBoss.id) })}
+                </span>
+              )}
+            </span>
+
             {/* Every bot's card is stacked in one grid cell and only the selected one is
                 visible, so the stage is always as tall as the tallest bot (no jumping
                 when switching, e.g. to the custom bot with its Elo slider). */}
@@ -231,7 +250,6 @@ export function BotSetup({
               {ROSTER.map((id) => {
                 const shown = id === choice.botId;
                 const lv = resolveBotLevel(id, choice.customElo);
-                const boss = id === 'custom' ? null : RANKS[bossRankIndex(id)];
                 const power = Math.max(1, Math.round((lv.elo / STRENGTH_MAX_ELO) * STRENGTH_STEPS));
                 const line = dialogue?.[id]?.start?.[0] ?? null;
                 return (
@@ -239,23 +257,10 @@ export function BotSetup({
                     key={shown ? `${id}-shown` : id}
                     aria-hidden={!shown}
                     className={cn(
-                      'col-start-1 row-start-1 flex flex-col items-center gap-2',
+                      'col-start-1 row-start-1 flex flex-col items-center gap-3',
                       shown ? 'mc-pop' : 'invisible',
                     )}
                   >
-                    <span className="flex min-h-6 flex-wrap items-center justify-center gap-2">
-                      {suggested === id && (
-                        <span className="rounded-full bg-accent px-2 py-0.5 text-[11px] font-bold text-accent-fg">
-                          ⭐ {tk('next')}
-                        </span>
-                      )}
-                      {boss && (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-surface-2 py-0.5 pr-2 pl-1 text-[11px] font-semibold text-muted">
-                          <RankEmblem rank={boss.id} size={22} animated={false} />
-                          {tk('bossOf', { rank: tr(boss.id) })}
-                        </span>
-                      )}
-                    </span>
                     {/* Portrait: a turning ring of light with a glow, a soft inner disc
                         and a shadow "pedestal" under the floating bot. */}
                     <span aria-hidden className="flex flex-col items-center">
@@ -297,7 +302,9 @@ export function BotSetup({
                         ))}
                       </span>
                     </div>
-                    <p className="max-w-sm text-sm text-muted">{tb(`${id}.desc`)}</p>
+                    <p className="max-w-sm text-sm leading-relaxed text-muted">
+                      {tb(`${id}.desc`)}
+                    </p>
                     {id === 'custom' ? (
                       <label className="mt-1 flex w-full max-w-xs flex-col gap-1">
                         <span className="text-sm font-semibold tabular-nums">

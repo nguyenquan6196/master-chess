@@ -57,7 +57,7 @@ export function RankUpOverlay({
             );
           })}
           <div className="mc-rankup-new absolute">
-            <RankEmblem rank={to} size={170} />
+            <RankEmblem rank={to} size={170} className="mc-emblem-spin" />
           </div>
         </div>
         <h2 className="mc-rankup-text font-display text-3xl font-bold text-accent">{title}</h2>
