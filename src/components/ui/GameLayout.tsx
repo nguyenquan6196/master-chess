@@ -144,39 +144,49 @@ export function GameLayout({
           {focusButton}
         </div>
       )}
+      {/* Side column. On wide and sideways screens it is exactly as tall as the board row
+          (its content is absolutely placed, so it never stretches the row): the move list
+          card (FILL_CARD) takes the spare height and scrolls inside; if even that is too
+          little, the whole column scrolls. The inset padding leaves room for glows. */}
       <div
         className={cn(
-          'relative z-10 mx-auto flex w-full max-w-[640px] min-w-0 flex-col gap-3 wide:row-start-1 wide:max-w-none',
+          'relative z-10 mx-auto w-full max-w-[640px] min-w-0 wide:row-start-1 wide:max-w-none wide:self-stretch',
           actions ? 'wide:col-start-3' : 'wide:col-start-2',
           actions
             ? 'short:col-start-2 short:row-start-2'
             : 'short:col-start-2 short:row-span-2 short:row-start-1',
-          'short:mx-0 short:h-full short:max-w-none short:gap-2',
-          focus
-            ? 'wide:h-(--mc-focus-board)'
-            : // Scrolls on its own; the padding (cancelled by the margin) leaves room for
-              // the turn glow so the scroll box doesn't clip it.
-              'mc-scroll-hidden wide:-m-3 wide:-mb-10 wide:max-h-[calc(100dvh-3.75rem)] wide:overflow-x-hidden wide:overflow-y-auto wide:p-3 wide:pb-10',
+          'short:mx-0 short:max-w-none short:self-stretch',
+          focus && 'wide:h-(--mc-focus-board)',
         )}
       >
-        {!actions && <div className="hidden w-fit wide:flex">{focusButton}</div>}
-        {/* Focus: the player cards sit in this column, around the scrolling moves. */}
-        {cardsAside && top}
         <div
           className={cn(
             'flex flex-col gap-3',
-            'mc-scroll-hidden short:-mx-3 short:-mt-3 short:min-h-0 short:flex-1 short:gap-2 short:overflow-x-hidden short:overflow-y-auto short:p-3',
-            focus &&
-              'mc-scroll-hidden wide:-mx-3 wide:-mt-3 wide:min-h-0 wide:flex-1 wide:overflow-x-hidden wide:overflow-y-auto wide:p-3',
+            'mc-scroll-hidden short:absolute short:-inset-3 short:gap-2 short:overflow-x-hidden short:overflow-y-auto short:p-3',
+            'wide:absolute wide:-inset-3 wide:overflow-x-hidden wide:overflow-y-auto wide:p-3',
           )}
         >
-          {side}
+          {!actions && <div className="hidden w-fit wide:flex">{focusButton}</div>}
+          {/* Focus / sideways: the player cards sit in this column, around the moves. */}
+          {cardsAside && top}
+          {/* `contents` on wide/sideways: side's cards are flex items of the column itself, so
+              the move list card can shrink while the others keep their size. */}
+          <div className="flex flex-col gap-3 short:contents wide:contents">{side}</div>
+          {cardsAside && bottom}
         </div>
-        {cardsAside && bottom}
       </div>
     </div>
   );
 }
+
+/**
+ * For the card in `side` that should take the column's spare height (the move list):
+ * FILL_CARD on the card, FILL_SCROLL on its scrolling list. Phones keep their own sizes.
+ */
+export const FILL_CARD =
+  'wide:flex wide:min-h-44 wide:flex-1 wide:flex-col short:flex short:min-h-36 short:flex-1 short:flex-col';
+export const FILL_SCROLL =
+  'wide:max-h-none wide:min-h-0 wide:flex-1 short:max-h-none short:min-h-0 short:flex-1';
 
 /** Icon + label button for the GameLayout action bar. */
 export function ActionButton({

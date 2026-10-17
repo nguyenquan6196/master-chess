@@ -8,7 +8,13 @@ import { EvalBar } from '@/components/board/EvalBar';
 import { EvalChart } from '@/components/board/EvalChart';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { Button } from '@/components/ui/Button';
-import { ActionButton, GameLayout, useSideColumn } from '@/components/ui/GameLayout';
+import {
+  ActionButton,
+  FILL_CARD,
+  FILL_SCROLL,
+  GameLayout,
+  useSideColumn,
+} from '@/components/ui/GameLayout';
 import { Card } from '@/components/ui/Card';
 import { rankColors } from '@/components/ui/RankEmblem';
 import { cn } from '@/components/ui/cn';
@@ -392,9 +398,14 @@ export function GameReview() {
               </Card>
             )}
 
-            <Card className="p-4">
+            <Card className={cn('p-4', FILL_CARD)}>
               <h2 className="mb-2 font-display text-lg font-semibold">{tg('moves')}</h2>
-              <ol className="mc-scroll grid max-h-72 grid-cols-[auto_1fr_1fr] gap-x-2 gap-y-1 overflow-y-auto text-sm">
+              <ol
+                className={cn(
+                  'mc-scroll grid max-h-72 auto-rows-min grid-cols-[auto_1fr_1fr] gap-x-2 gap-y-1 overflow-y-auto text-sm',
+                  FILL_SCROLL,
+                )}
+              >
                 {Array.from({ length: Math.ceil(game.moves.length / 2) }, (_, row) => (
                   <li key={row} className="contents">
                     <span className="text-muted tabular-nums">{row + 1}.</span>

@@ -1,9 +1,19 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { cn } from '../ui/cn';
 
 /** Move history in pairs: "1. e4 e5". */
-export function MoveList({ moves, emptyLabel }: { moves: string[]; emptyLabel: string }) {
+export function MoveList({
+  moves,
+  emptyLabel,
+  className,
+}: {
+  moves: string[];
+  emptyLabel: string;
+  /** Extra classes for the scrolling list (e.g. to fill a side column). */
+  className?: string;
+}) {
   const endRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -18,7 +28,7 @@ export function MoveList({ moves, emptyLabel }: { moves: string[]; emptyLabel: s
   }
 
   return (
-    <div className="mc-scroll max-h-72 overflow-y-auto">
+    <div className={cn('mc-scroll max-h-72 overflow-y-auto', className)}>
       <ol className="grid grid-cols-[2.5rem_1fr_1fr] gap-x-2 gap-y-0.5 text-sm tabular-nums">
         {rows.map((r) => (
           <li key={r.n} className="contents">

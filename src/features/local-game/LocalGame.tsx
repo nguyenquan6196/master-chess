@@ -2,9 +2,16 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'use-intl';
+import { cn } from '@/components/ui/cn';
 import { ChessBoard } from '@/components/board/ChessBoard';
 import { PageHeader } from '@/components/ui/PageHeader';
-import { ActionButton, GameLayout, HudCard } from '@/components/ui/GameLayout';
+import {
+  ActionButton,
+  FILL_CARD,
+  FILL_SCROLL,
+  GameLayout,
+  HudCard,
+} from '@/components/ui/GameLayout';
 import { applyMove, newGame, toPgn, undoMove, type GameSnapshot } from '@/core/chess/game';
 import { GameStatusBanner } from './GameStatusBanner';
 import { MoveList } from '@/components/board/MoveList';
@@ -89,9 +96,13 @@ export function LocalGame() {
         }
         side={
           <>
-            <HudCard className="py-3">
+            <HudCard className={cn('py-3', FILL_CARD)}>
               <h2 className="mb-2 font-display text-base font-semibold">{t('moves')}</h2>
-              <MoveList moves={game.history.map((m) => m.san)} emptyLabel={t('noMoves')} />
+              <MoveList
+                moves={game.history.map((m) => m.san)}
+                emptyLabel={t('noMoves')}
+                className={FILL_SCROLL}
+              />
             </HudCard>
           </>
         }

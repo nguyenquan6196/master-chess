@@ -4,12 +4,20 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'use-intl';
+import { cn } from '@/components/ui/cn';
 import { ChessBoard } from '@/components/board/ChessBoard';
 import { EvalBar } from '@/components/board/EvalBar';
 import { MoveList } from '@/components/board/MoveList';
 import { Button } from '@/components/ui/Button';
 import { Confetti } from '@/components/ui/Confetti';
-import { ActionButton, GameLayout, HudCard, useSideColumn } from '@/components/ui/GameLayout';
+import {
+  ActionButton,
+  FILL_CARD,
+  FILL_SCROLL,
+  GameLayout,
+  HudCard,
+  useSideColumn,
+} from '@/components/ui/GameLayout';
 import { Modal } from '@/components/ui/Modal';
 import { RankBadge, rankTitle } from '@/components/ui/RankBadge';
 import { rankColors, RankEmblem } from '@/components/ui/RankEmblem';
@@ -276,9 +284,13 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
                 caption={verdictText}
               />
             )}
-            <HudCard className="py-3">
+            <HudCard className={cn('py-3', FILL_CARD)}>
               <h2 className="mb-2 font-display text-base font-semibold">{tg('moves')}</h2>
-              <MoveList moves={snapshot.history.map((m) => m.san)} emptyLabel={tg('noMoves')} />
+              <MoveList
+                moves={snapshot.history.map((m) => m.san)}
+                emptyLabel={tg('noMoves')}
+                className={FILL_SCROLL}
+              />
             </HudCard>
           </>
         }
