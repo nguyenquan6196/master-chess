@@ -223,8 +223,11 @@ export function HistoryScreen() {
                           )}
                           title={tk('rated')}
                         >
-                          🏆 {g.ratingDelta >= 0 ? '+' : ''}
-                          {g.ratingDelta}
+                          <span aria-hidden>🏆 </span>
+                          <span>
+                            {g.ratingDelta >= 0 ? '+' : ''}
+                            {g.ratingDelta}
+                          </span>
                         </span>
                       )}
                       {g.promotion && (
