@@ -60,13 +60,20 @@ export function PageHeader({
     <>
       {back &&
         (back.href ? (
-          <Link href={back.href} aria-label={back.label} title={back.label} className={ROUND}>
+          <Link
+            data-hud-back
+            href={back.href}
+            aria-label={back.label}
+            title={back.label}
+            className={ROUND}
+          >
             <span aria-hidden className="text-base">
               ⬅️
             </span>
           </Link>
         ) : (
           <button
+            data-hud-back
             type="button"
             onClick={back.onClick}
             aria-label={back.label}

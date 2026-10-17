@@ -16,7 +16,6 @@ import {
   FILL_SCROLL,
   GameLayout,
   HudCard,
-  useSideColumn,
 } from '@/components/ui/GameLayout';
 import { Modal } from '@/components/ui/Modal';
 import { RankBadge, rankTitle } from '@/components/ui/RankBadge';
@@ -49,7 +48,6 @@ interface BotGameViewProps {
 
 export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProps) {
   const t = useTranslations('botGame');
-  const sideColumn = useSideColumn();
   const tg = useTranslations('game');
   const tc = useTranslations('common');
   const tb = useTranslations('bots');
@@ -191,10 +189,6 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
         }
         board={
           <div className="flex flex-col gap-2">
-            {/* Phones: a thin strip above the board; side-column screens show the gauge there. */}
-            {g.showEvalBar && !sideColumn && (
-              <EvalBar score={g.evaluation} orientation={orientation} label={t('evalBar')} />
-            )}
             <ChessBoard
               allow3d
               fen={snapshot.fen}
@@ -275,7 +269,7 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
                 {t('evalBar')}
               </label>
             </div>
-            {g.showEvalBar && sideColumn && (
+            {g.showEvalBar && (
               <EvalBar
                 size="panel"
                 score={g.evaluation}

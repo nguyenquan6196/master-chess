@@ -8,13 +8,7 @@ import { EvalBar } from '@/components/board/EvalBar';
 import { EvalChart } from '@/components/board/EvalChart';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { Button } from '@/components/ui/Button';
-import {
-  ActionButton,
-  FILL_CARD,
-  FILL_SCROLL,
-  GameLayout,
-  useSideColumn,
-} from '@/components/ui/GameLayout';
+import { ActionButton, FILL_CARD, FILL_SCROLL, GameLayout } from '@/components/ui/GameLayout';
 import { Card } from '@/components/ui/Card';
 import { rankColors } from '@/components/ui/RankEmblem';
 import { cn } from '@/components/ui/cn';
@@ -75,7 +69,6 @@ export function GameReview() {
   const tg = useTranslations('game');
   const tb = useTranslations('bots');
   const tv = useTranslations('botGame');
-  const sideColumn = useSideColumn();
   const gameId = useLocationHash();
   const game = useLiveQuery(() => (gameId ? gameRepo.get(gameId) : undefined), [gameId], null);
   const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
@@ -149,13 +142,13 @@ export function GameReview() {
         n: verdict.mateIn ?? 0,
       })
     : undefined;
-  const gauge = (size: 'strip' | 'panel') => (
+  const gauge = (
     <EvalBar
-      size={size}
+      size="panel"
       score={evalScore}
       orientation={orientation}
       label={tv('evalBar')}
-      caption={size === 'panel' ? verdictText : undefined}
+      caption={verdictText}
     />
   );
   const boardFen = retry ? retry.move.fenBefore : (positions[cur]?.fen ?? game.startFen);
@@ -242,7 +235,6 @@ export function GameReview() {
       <GameLayout
         board={
           <div className="flex flex-col gap-2">
-            {review && !sideColumn && gauge('strip')}
             <ChessBoard
               allow3d
               fen={boardFen}
@@ -320,7 +312,7 @@ export function GameReview() {
               {accuracyCard(game.playerColor)}
               {accuracyCard(game.playerColor === 'w' ? 'b' : 'w')}
             </div>
-            {review && sideColumn && gauge('panel')}
+            {review && gauge}
 
             {retry ? (
               <Card className="flex flex-col gap-3 border-accent">

@@ -97,9 +97,11 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
     <HudSlotProvider>
       {particles && <BackdropParticles key={resolvedTheme} kind={particles} />}
       <Toaster />
+      {/* Below lg the HUD is a frosted bar (content never shows through its titles, and
+          sticky bars under it, like the guide's tabs, continue it); desktop fades out. */}
       <header
         ref={hud}
-        className="sticky top-0 z-30 bg-linear-to-b from-bg via-bg/85 to-transparent pb-2"
+        className="sticky top-0 z-30 bg-bg/85 pb-2 backdrop-blur-md lg:bg-transparent lg:bg-linear-to-b lg:from-bg lg:via-bg/85 lg:to-transparent lg:backdrop-blur-none"
       >
         <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center gap-2 px-3 pt-3 sm:flex-nowrap sm:px-4">
           {isLobby && profile ? (
@@ -135,7 +137,8 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
                   🏠
                 </span>
               </Link>
-              <HudSlot className="order-last flex w-full min-w-0 items-center gap-2 sm:order-none sm:w-auto sm:flex-1" />
+              {/* Phones: a plain title fits beside ⌂; with a ← button it takes its own row. */}
+              <HudSlot className="flex min-w-0 flex-1 items-center gap-2 has-[[data-hud-back]]:order-last has-[[data-hud-back]]:w-full has-[[data-hud-back]]:flex-none sm:has-[[data-hud-back]]:order-none sm:has-[[data-hud-back]]:w-auto sm:has-[[data-hud-back]]:flex-1" />
             </>
           ) : null}
 

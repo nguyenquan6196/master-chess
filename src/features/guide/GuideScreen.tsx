@@ -169,7 +169,7 @@ export function GuideScreen() {
         <nav
           ref={tocRef}
           aria-label={t('toc')}
-          className="sticky top-(--mc-hud-h,0px) z-20 -mx-3 bg-bg/90 px-3 py-2 backdrop-blur sm:-mx-4 sm:px-4 lg:top-[calc(var(--mc-hud-h,5rem)+0.5rem)] lg:mx-0 lg:self-start lg:bg-transparent lg:p-0 lg:backdrop-blur-none"
+          className="sticky top-(--mc-hud-h,0px) z-20 -mx-3 bg-bg/85 px-3 pb-2 backdrop-blur-md sm:-mx-4 sm:px-4 lg:top-[calc(var(--mc-hud-h,5rem)+0.5rem)] lg:mx-0 lg:self-start lg:bg-transparent lg:p-0 lg:backdrop-blur-none"
         >
           <p className="mb-2 hidden text-xs font-bold tracking-wide text-muted uppercase lg:block">
             {t('toc')}
