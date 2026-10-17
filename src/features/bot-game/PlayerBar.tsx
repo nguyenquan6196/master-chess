@@ -1,5 +1,6 @@
 'use client';
 
+import type { ReactNode } from 'react';
 import { cn } from '@/components/ui/cn';
 import type { Color } from '@/core/chess/game';
 import { formatClock, isTimed, remainingAt, type ClockState } from '@/core/game/clock';
@@ -15,6 +16,8 @@ interface PlayerBarProps {
   now: number;
   active: boolean;
   status?: string | null;
+  /** Shown at the right end (before the clock), e.g. the player's rank emblem. */
+  aside?: ReactNode;
 }
 
 export function PlayerBar({
@@ -26,6 +29,7 @@ export function PlayerBar({
   now,
   active,
   status,
+  aside,
 }: PlayerBarProps) {
   const timed = isTimed(clock);
   const ms = remainingAt(clock, color, now);
@@ -56,6 +60,7 @@ export function PlayerBar({
         </p>
         {status && <p className="animate-pulse truncate text-xs text-muted">{status}</p>}
       </div>
+      {aside}
       {timed && (
         <span
           className={cn(

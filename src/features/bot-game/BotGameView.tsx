@@ -11,11 +11,12 @@ import { Button } from '@/components/ui/Button';
 import { Confetti } from '@/components/ui/Confetti';
 import { ActionButton, GameLayout, HudCard, useSideColumn } from '@/components/ui/GameLayout';
 import { Modal } from '@/components/ui/Modal';
-import { RankBadge } from '@/components/ui/RankBadge';
+import { RankBadge, rankTitle } from '@/components/ui/RankBadge';
+import { RankEmblem } from '@/components/ui/RankEmblem';
 import { BossIntroOverlay, RankUpOverlay } from '@/components/ui/RankUpOverlay';
 import { STYLE_ICONS } from '@/core/bot/styles';
 import { isTimed, remainingAt } from '@/core/game/clock';
-import { evalVerdict } from '@/core/engine/evalVerdict';
+import { evalVerdict, verdictVariant } from '@/core/engine/evalVerdict';
 import { scoreToCp } from '@/core/engine/uci';
 import type { GameRecord } from '@/core/profile/schema';
 import { RANKS, rankStatus } from '@/core/rating/rank';
@@ -96,14 +97,18 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
   const orientation = record.playerColor === 'w' ? 'white' : 'black';
   const botName = tb(`${level.id}.name`);
   const verdict = evalVerdict(g.evaluation);
-  const verdictText = verdict
-    ? verdict.side
-      ? t(`verdict.${verdict.level}`, {
-          side: verdict.side === record.playerColor ? t('verdict.you') : botName,
-          n: verdict.mateIn ?? 0,
-        })
-      : t('verdict.equal')
-    : undefined;
+  const variant = verdictVariant(snapshot.history.length);
+  const verdictText = !verdict
+    ? undefined
+    : verdict.level === 'equal' || !verdict.side
+      ? t(`verdict.equal.${variant}`)
+      : t(
+          `verdict.${verdict.level}.${verdict.side === record.playerColor ? 'you' : 'bot'}.${variant}`,
+          {
+            bot: botName,
+            n: verdict.mateIn ?? 0,
+          },
+        );
   const last = snapshot.history[snapshot.history.length - 1];
   const turn = snapshot.status.kind === 'playing' ? snapshot.status.turn : null;
 
@@ -131,6 +136,7 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
       />
       <ActionButton icon="🤝" label={t('offerDraw')} onClick={() => void g.offerDraw()} />
       <ActionButton icon="🏳️" label={t('resign')} onClick={() => setConfirmResign(true)} />
+      <ActionButton icon="🎛️" label={t('changeBot')} onClick={onChangeBot} />
     </>
   ) : (
     <>
@@ -205,6 +211,24 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
             now={g.now}
             active={turn === record.playerColor}
             status={!g.isBotTurn ? statusLine : null}
+            aside={
+              myRank && (
+                <span className="flex items-center gap-2">
+                  <span className="hidden text-right text-xs leading-tight sm:block">
+                    <span className="block font-semibold">
+                      {rankTitle(myRank, tr(RANKS[myRank.rankIndex].id))}
+                    </span>
+                    <span className="text-muted tabular-nums">{profile?.gameRating.rating}</span>
+                  </span>
+                  <RankEmblem
+                    rank={RANKS[myRank.rankIndex].id}
+                    size={40}
+                    animated={false}
+                    title={rankTitle(myRank, tr(RANKS[myRank.rankIndex].id))}
+                  />
+                </span>
+              )
+            }
           />
         }
         actions={actions}
@@ -250,15 +274,6 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
               <h2 className="mb-2 font-display text-base font-semibold">{tg('moves')}</h2>
               <MoveList moves={snapshot.history.map((m) => m.san)} emptyLabel={tg('noMoves')} />
             </HudCard>
-            {!finished && (
-              <button
-                type="button"
-                onClick={onChangeBot}
-                className="self-start text-sm font-semibold text-muted hover:text-fg"
-              >
-                ← {t('changeBot')}
-              </button>
-            )}
           </>
         }
       />

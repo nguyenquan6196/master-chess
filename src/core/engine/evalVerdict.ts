@@ -34,3 +34,12 @@ export function evalVerdict(score: EngineScore | null): EvalVerdict | null {
   if (cp < EVAL_VERDICT_CP.winning) return { level: 'clear', side };
   return { level: 'winning', side };
 }
+
+/** Each verdict has a few wordings; which one shows changes from move to move. */
+export const VERDICT_VARIANTS = ['a', 'b', 'c'] as const;
+export type VerdictVariant = (typeof VERDICT_VARIANTS)[number];
+
+/** The wording for the position after `ply` half-moves (stable while the move is the same). */
+export function verdictVariant(ply: number): VerdictVariant {
+  return VERDICT_VARIANTS[Math.abs(Math.trunc(ply)) % VERDICT_VARIANTS.length];
+}

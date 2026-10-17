@@ -31,14 +31,14 @@ interface EvalBarProps {
 }
 
 /**
- * Engine evaluation gauge, drawn across: the player's side (board orientation) fills from
- * the left, and the score sits at the leading side's end.
+ * Engine evaluation gauge, drawn across in theme colours: the player's side (the board's
+ * orientation) fills from the left in the accent colour, the opponent's share is the
+ * neutral surface, and the score sits at the leading side's end.
  */
 export function EvalBar({ score, orientation, label, size = 'strip', caption }: EvalBarProps) {
   const white = whiteShare(score);
-  const whiteLeft = orientation === 'white';
-  const whiteLeads = white >= 0.5;
-  const atLeft = whiteLeads === whiteLeft;
+  const mine = orientation === 'white' ? white : 1 - white;
+  const iLead = mine >= 0.5;
   const text = formatScore(score);
   const panel = size === 'panel';
   const meter = (
@@ -50,50 +50,32 @@ export function EvalBar({ score, orientation, label, size = 'strip', caption }: 
       aria-valuemin={0}
       aria-valuemax={100}
       className={cn(
-        'relative flex w-full shrink-0 overflow-hidden border border-border',
-        panel ? 'h-7 rounded-full shadow-card' : 'h-4 rounded-md',
-        whiteLeft ? 'flex-row-reverse' : 'flex-row',
+        'relative flex w-full shrink-0 overflow-hidden border border-border bg-surface-2',
+        panel ? 'h-7 rounded-full' : 'h-4 rounded-md',
       )}
     >
       <div
-        className="transition-[flex-grow] duration-700 ease-out"
-        style={{ flexGrow: 1 - white, backgroundColor: 'var(--mc-side-black)' }}
+        className="bg-accent transition-[flex-grow] duration-700 ease-out"
+        style={{ flexGrow: mine }}
       />
       <div
         className="transition-[flex-grow] duration-700 ease-out"
-        style={{ flexGrow: white, backgroundColor: 'var(--mc-side-white)' }}
+        style={{ flexGrow: 1 - mine }}
       />
+      {/* Even-game mark. */}
       {panel && (
-        <>
-          {/* Even-game mark and a soft gloss over the tube. */}
-          <span
-            aria-hidden
-            className="absolute inset-y-1 left-1/2 w-0.5 -translate-x-1/2 rounded-full bg-accent opacity-60"
-          />
-          <span
-            aria-hidden
-            className="pointer-events-none absolute inset-x-2 top-0.5 h-2 rounded-full opacity-40"
-            style={{
-              background: 'linear-gradient(to bottom, var(--mc-side-white), transparent)',
-            }}
-          />
-        </>
+        <span
+          aria-hidden
+          className="absolute inset-y-1.5 left-1/2 w-0.5 -translate-x-1/2 rounded-full bg-fg opacity-25"
+        />
       )}
       <span
         aria-hidden
         className={cn(
           'absolute top-1/2 -translate-y-1/2 font-bold tabular-nums',
-          panel ? 'rounded-full px-2 py-0.5 text-xs shadow-card' : 'text-[10px]',
-          atLeft ? (panel ? 'left-1' : 'left-1.5') : panel ? 'right-1' : 'right-1.5',
+          panel ? 'px-2.5 text-xs' : 'text-[10px]',
+          iLead ? 'left-1 text-accent-fg' : 'right-1 text-fg',
         )}
-        style={
-          panel
-            ? {
-                color: whiteLeads ? 'var(--mc-side-black)' : 'var(--mc-side-white)',
-                backgroundColor: whiteLeads ? 'var(--mc-side-white)' : 'var(--mc-side-black)',
-              }
-            : { color: whiteLeads ? 'var(--mc-side-black)' : 'var(--mc-side-white)' }
-        }
       >
         {text}
       </span>

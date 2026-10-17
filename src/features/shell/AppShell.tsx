@@ -85,7 +85,7 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
     <HudSlotProvider>
       {particles && <BackdropParticles key={resolvedTheme} kind={particles} />}
       <Toaster />
-      <header className="sticky top-0 z-30 bg-linear-to-b from-bg via-bg/85 to-transparent pb-2">
+      <header className="relative z-30 sm:sticky sm:top-0 bg-linear-to-b from-bg via-bg/85 to-transparent pb-2">
         <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center gap-2 px-3 pt-3 sm:flex-nowrap sm:px-4">
           {isLobby && profile ? (
             <Link

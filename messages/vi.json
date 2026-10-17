@@ -349,12 +349,59 @@
     "nextBot": "Bot sau",
     "versus": "VS",
     "verdict": {
-      "equal": "Thế cờ đang cân bằng",
-      "slight": "{side} nhỉnh hơn một chút",
-      "clear": "{side} đang ưu thế rõ",
-      "winning": "{side} gần như nắm chắc phần thắng",
-      "mate": "{side} có thể chiếu hết sau {n} nước",
-      "you": "Bạn"
+      "equal": {
+        "a": "Thế cờ đang cân bằng",
+        "b": "Hai bên ngang tài ngang sức",
+        "c": "Chưa ai chiếm được ưu thế"
+      },
+      "slight": {
+        "you": {
+          "a": "Bạn nhỉnh hơn một chút",
+          "b": "Bạn đang dẫn trước nhẹ — giữ nhịp nhé",
+          "c": "Thế cờ hơi nghiêng về phía bạn"
+        },
+        "bot": {
+          "a": "{bot} nhỉnh hơn một chút",
+          "b": "{bot} đang dẫn trước nhẹ — cẩn thận nhé",
+          "c": "Thế cờ hơi nghiêng về phía {bot}"
+        }
+      },
+      "clear": {
+        "you": {
+          "a": "Bạn đang ưu thế rõ",
+          "b": "Bạn chiếm thế thượng phong rồi đấy!",
+          "c": "Bạn đang kiểm soát ván cờ"
+        },
+        "bot": {
+          "a": "{bot} đang ưu thế rõ",
+          "b": "{bot} chiếm thế thượng phong — tìm cách phản công!",
+          "c": "Bạn đang bị ép, phòng thủ cẩn thận"
+        }
+      },
+      "winning": {
+        "you": {
+          "a": "Bạn gần như nắm chắc phần thắng",
+          "b": "Ván này trong tầm tay bạn rồi!",
+          "c": "Chỉ cần đi chắc là thắng"
+        },
+        "bot": {
+          "a": "{bot} gần như nắm chắc phần thắng",
+          "b": "Tình thế khó rồi — thử tìm nước bất ngờ!",
+          "c": "{bot} đang áp đảo hoàn toàn"
+        }
+      },
+      "mate": {
+        "you": {
+          "a": "Bạn có thể chiếu hết sau {n} nước!",
+          "b": "Có đường chiếu hết trong {n} nước — tìm đi!",
+          "c": "Đòn kết liễu đang chờ: chiếu hết sau {n} nước"
+        },
+        "bot": {
+          "a": "{bot} dọa chiếu hết sau {n} nước",
+          "b": "Nguy hiểm! {bot} có đường chiếu hết trong {n} nước",
+          "c": "Vua bạn đang gặp nguy: chiếu hết sau {n} nước"
+        }
+      }
     }
   },
   "history": {

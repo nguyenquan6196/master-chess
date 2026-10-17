@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { evalVerdict } from './evalVerdict';
+import { evalVerdict, verdictVariant } from './evalVerdict';
 
 describe('evalVerdict', () => {
   it('is null while the score is unknown or the game is mate', () => {
@@ -21,5 +21,9 @@ describe('evalVerdict', () => {
       side: 'b',
       mateIn: 3,
     });
+  });
+
+  it('rotates the wording with the move number', () => {
+    expect([0, 1, 2, 3].map(verdictVariant)).toEqual(['a', 'b', 'c', 'a']);
   });
 });

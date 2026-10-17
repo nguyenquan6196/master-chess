@@ -349,12 +349,59 @@
     "nextBot": "Next bot",
     "versus": "VS",
     "verdict": {
-      "equal": "The position is level",
-      "slight": "{side} is slightly better",
-      "clear": "{side} is clearly better",
-      "winning": "{side} is winning",
-      "mate": "{side} can mate in {n}",
-      "you": "You"
+      "equal": {
+        "a": "The position is level",
+        "b": "Both sides are evenly matched",
+        "c": "Nobody has the upper hand yet"
+      },
+      "slight": {
+        "you": {
+          "a": "You are slightly better",
+          "b": "You have a small edge — keep it up",
+          "c": "The game leans your way a little"
+        },
+        "bot": {
+          "a": "{bot} is slightly better",
+          "b": "{bot} has a small edge — careful",
+          "c": "The game leans towards {bot} a little"
+        }
+      },
+      "clear": {
+        "you": {
+          "a": "You are clearly better",
+          "b": "You have the upper hand!",
+          "c": "You are in control of the game"
+        },
+        "bot": {
+          "a": "{bot} is clearly better",
+          "b": "{bot} has the upper hand — look for counterplay!",
+          "c": "You are under pressure, defend carefully"
+        }
+      },
+      "winning": {
+        "you": {
+          "a": "You are winning",
+          "b": "This game is yours to take!",
+          "c": "Play safe and the win is yours"
+        },
+        "bot": {
+          "a": "{bot} is winning",
+          "b": "Tough spot — try a surprise move!",
+          "c": "{bot} is completely on top"
+        }
+      },
+      "mate": {
+        "you": {
+          "a": "You can mate in {n}!",
+          "b": "There is a mate in {n} — find it!",
+          "c": "The finishing blow is near: mate in {n}"
+        },
+        "bot": {
+          "a": "{bot} threatens mate in {n}",
+          "b": "Danger! {bot} has mate in {n}",
+          "c": "Your king is in trouble: mate in {n}"
+        }
+      }
     }
   },
   "history": {
