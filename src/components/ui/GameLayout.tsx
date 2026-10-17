@@ -94,8 +94,7 @@ export function GameLayout({
   return (
     <div
       className={cn(
-        // Phones: the 3D canvas's side bleed is clipped here so the page never scrolls sideways.
-        'grid gap-4 overflow-x-clip short:overflow-x-visible wide:items-start wide:justify-center wide:overflow-x-visible',
+        'grid gap-4 wide:items-start wide:justify-center',
         actions && 'pb-24 short:pb-0 wide:pb-0',
         // Sideways phone: the whole scene is exactly as tall as the board, no page scroll.
         '[--mc-short-board:min(calc(100dvh-6rem),58vw)] short:h-(--mc-short-board) short:grid-cols-[auto_minmax(0,1fr)] short:grid-rows-[auto_minmax(0,1fr)] short:items-start short:gap-x-4 short:gap-y-2',

@@ -700,7 +700,9 @@
     "showAnswer": "答えを見る",
     "exitRetry": "やめる",
     "notFound": "この対局が見つかりません。",
-    "open": "振り返り"
+    "open": "振り返り",
+    "showMore": "さらに {count} 件",
+    "showLess": "閉じる"
   },
   "progress": {
     "level": "レベル{level}",

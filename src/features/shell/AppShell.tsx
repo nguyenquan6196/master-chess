@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { useTranslations } from 'use-intl';
 import { BoardPrefsProvider } from '@/components/board/BoardPrefs';
 import { THEME_BOARD_SURFACE } from '@/components/board3d/materials';
@@ -81,11 +81,26 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
   const rankId = rank ? RANKS[rank.rankIndex].id : null;
   const rankLabel = rank ? rankTitle(rank, tr(RANKS[rank.rankIndex].id)) : '';
 
+  // Publishes the HUD's height (--mc-hud-h) for things that stick right under it.
+  const hud = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const el = hud.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() =>
+      document.documentElement.style.setProperty('--mc-hud-h', `${el.offsetHeight}px`),
+    );
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   return (
     <HudSlotProvider>
       {particles && <BackdropParticles key={resolvedTheme} kind={particles} />}
       <Toaster />
-      <header className="sticky top-0 z-30 bg-linear-to-b from-bg via-bg/85 to-transparent pb-2">
+      <header
+        ref={hud}
+        className="sticky top-0 z-30 bg-linear-to-b from-bg via-bg/85 to-transparent pb-2"
+      >
         <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center gap-2 px-3 pt-3 sm:flex-nowrap sm:px-4">
           {isLobby && profile ? (
             <Link

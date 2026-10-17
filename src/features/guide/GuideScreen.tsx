@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useTranslations } from 'use-intl';
 import { Card } from '@/components/ui/Card';
 import { cn } from '@/components/ui/cn';
@@ -39,7 +39,13 @@ const PATH_STEPS = 5;
 const TIP_COUNT = 6;
 const RULE_COUNT = 5;
 /** A section counts as "being read" once its top passes this far below the viewport top. */
-const SPY_OFFSET_PX = 140;
+const SPY_OFFSET_PX = 90;
+
+/** Below the sticky HUD (and the phone's sticky tab bar) by SPY_OFFSET_PX. */
+function spyLine(): number {
+  const hud = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--mc-hud-h'));
+  return (Number.isFinite(hud) ? hud : 0) + SPY_OFFSET_PX;
+}
 
 /** Scroll-spy: id of the section currently being read. */
 function useActiveSection(ids: readonly string[]): string {
@@ -53,7 +59,7 @@ function useActiveSection(ids: readonly string[]): string {
       let current = ids[0];
       for (const id of ids) {
         const el = document.getElementById(id);
-        if (el && el.getBoundingClientRect().top <= SPY_OFFSET_PX) current = id;
+        if (el && el.getBoundingClientRect().top <= spyLine()) current = id;
       }
       setActive(atBottom ? ids[ids.length - 1] : current);
     };
@@ -96,7 +102,10 @@ const LINK_SECONDARY =
 
 function Section({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
-    <section id={id} className="flex scroll-mt-20 flex-col gap-4">
+    <section
+      id={id}
+      className="flex scroll-mt-[calc(var(--mc-hud-h,5rem)+3.25rem)] flex-col gap-4 border-t border-border pt-10 first:border-t-0 first:pt-0 lg:scroll-mt-[var(--mc-hud-h,5rem)]"
+    >
       <h2 className="font-display text-2xl font-bold">{title}</h2>
       {children}
     </section>
@@ -118,6 +127,17 @@ export function GuideScreen() {
   const tr = useTranslations('rank');
   const tb = useTranslations('bots');
   const active = useActiveSection(SECTIONS);
+  // Keep the active tab in view in the phone's scrolling tab row (sideways only).
+  const tocRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const row = tocRef.current?.querySelector('ul');
+    const tab = row?.querySelector<HTMLElement>('[aria-current]');
+    if (!row || !tab || row.scrollWidth <= row.clientWidth) return;
+    row.scrollTo({
+      left: tab.offsetLeft - row.clientWidth / 2 + tab.offsetWidth / 2,
+      behavior: 'smooth',
+    });
+  }, [active]);
   const tn = useTranslations('nav');
   /** Numbered/list keys are data-driven; all exist in every locale (check-i18n). */
   const tDyn = t as unknown as (key: string, values?: Record<string, string | number>) => string;
@@ -144,14 +164,19 @@ export function GuideScreen() {
         <p className="max-w-2xl text-lg text-muted">{t('heroSubtitle')}</p>
       </header>
 
-      <div className="grid gap-8 lg:grid-cols-[13rem_1fr]">
-        <nav aria-label={t('toc')} className="lg:sticky lg:top-20 lg:self-start">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[13rem_minmax(0,1fr)]">
+        {/* Phones/tablets: a sticky row of tabs under the HUD; desktop: a sticky list. */}
+        <nav
+          ref={tocRef}
+          aria-label={t('toc')}
+          className="sticky top-(--mc-hud-h,0px) z-20 -mx-3 bg-bg/90 px-3 py-2 backdrop-blur sm:-mx-4 sm:px-4 lg:top-[calc(var(--mc-hud-h,5rem)+0.5rem)] lg:mx-0 lg:self-start lg:bg-transparent lg:p-0 lg:backdrop-blur-none"
+        >
           <p className="mb-2 hidden text-xs font-bold tracking-wide text-muted uppercase lg:block">
             {t('toc')}
           </p>
-          <ul className="flex flex-wrap gap-2 lg:flex-col lg:gap-1">
+          <ul className="mc-scroll-hidden flex gap-2 overflow-x-auto lg:flex-col lg:gap-1 lg:overflow-visible">
             {SECTIONS.map((s) => (
-              <li key={s}>
+              <li key={s} className="shrink-0">
                 <a
                   href={`#${s}`}
                   onClick={(e) => {
@@ -160,7 +185,7 @@ export function GuideScreen() {
                   }}
                   aria-current={active === s ? 'location' : undefined}
                   className={cn(
-                    'block rounded-full border px-3 py-1 text-sm font-semibold transition-[color,background-color,border-color,box-shadow,translate] duration-[var(--mc-dur)] ease-[var(--mc-ease)] lg:rounded-lg lg:border-0 lg:px-3',
+                    'block rounded-full border px-3 py-1 text-sm font-semibold whitespace-nowrap transition-[color,background-color,border-color,box-shadow,translate] duration-[var(--mc-dur)] ease-[var(--mc-ease)] lg:rounded-lg lg:border-0 lg:px-3',
                     active === s
                       ? 'border-accent bg-accent text-accent-fg lg:translate-x-1 lg:bg-surface lg:text-fg lg:shadow-[inset_3px_0_0_var(--mc-accent)]'
                       : 'border-border bg-surface text-muted hover:text-fg lg:bg-transparent',
@@ -353,11 +378,20 @@ export function GuideScreen() {
           <Section id="faq" title={t('faq.title')}>
             <div className="flex flex-col gap-2">
               {FAQ.map((k) => (
-                <details key={k} className="group rounded-xl border border-border bg-surface p-4">
-                  <summary className="cursor-pointer font-semibold marker:text-accent">
-                    {t(`faq.items.${k}.title`)}
+                <details
+                  key={k}
+                  className="mc-accordion group rounded-xl border border-border bg-surface"
+                >
+                  <summary className="flex cursor-pointer list-none items-center gap-3 p-4 font-semibold [&::-webkit-details-marker]:hidden">
+                    <span className="flex-1">{t(`faq.items.${k}.title`)}</span>
+                    <span
+                      aria-hidden
+                      className="text-accent transition-transform duration-[var(--mc-dur)] group-open:rotate-90"
+                    >
+                      ▶
+                    </span>
                   </summary>
-                  <p className="mt-2 text-sm text-muted">{t(`faq.items.${k}.body`)}</p>
+                  <p className="px-4 pb-4 text-sm text-muted">{t(`faq.items.${k}.body`)}</p>
                 </details>
               ))}
             </div>

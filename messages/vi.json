@@ -700,7 +700,9 @@
     "showAnswer": "Xem đáp án",
     "exitRetry": "Thoát",
     "notFound": "Không tìm thấy ván này.",
-    "open": "Xem lại"
+    "open": "Xem lại",
+    "showMore": "Xem thêm {count}",
+    "showLess": "Thu gọn"
   },
   "progress": {
     "level": "Cấp {level}",

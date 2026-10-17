@@ -700,7 +700,9 @@
     "showAnswer": "Show answer",
     "exitRetry": "Exit",
     "notFound": "This game could not be found.",
-    "open": "Review"
+    "open": "Review",
+    "showMore": "Show {count} more",
+    "showLess": "Show less"
   },
   "progress": {
     "level": "Level {level}",

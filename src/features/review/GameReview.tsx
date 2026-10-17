@@ -67,6 +67,9 @@ function ClassBadge({ cls, label }: { cls: MoveClass; label: string }) {
   );
 }
 
+/** Mistakes listed before "show more" in the retry card. */
+const RETRY_PREVIEW = 4;
+
 export function GameReview() {
   const t = useTranslations('review');
   const tg = useTranslations('game');
@@ -79,6 +82,7 @@ export function GameReview() {
   const [cur, setCur] = useState(0);
   const [showBest, setShowBest] = useState(false);
   const [retry, setRetry] = useState<Retry | null>(null);
+  const [showAllRetry, setShowAllRetry] = useState(false);
   const started = useRef(false);
 
   const positions = useMemo(() => (game ? reviewPositions(game.startFen, game.moves) : []), [game]);
@@ -377,12 +381,19 @@ export function GameReview() {
 
             {review && (
               <Card className="flex flex-col gap-2 p-4">
-                <h2 className="font-display text-lg font-semibold">🔁 {t('mistakes')}</h2>
+                <h2 className="flex items-center gap-2 font-display text-lg font-semibold">
+                  🔁 {t('mistakes')}
+                  {toRetry.length > 0 && (
+                    <span className="rounded-full bg-surface-2 px-2 text-xs font-bold tabular-nums">
+                      {toRetry.length}
+                    </span>
+                  )}
+                </h2>
                 {toRetry.length === 0 ? (
                   <p className="text-sm text-muted">{t('noMistakes')}</p>
                 ) : (
                   <ul className="flex flex-wrap gap-2">
-                    {toRetry.map((m) => (
+                    {(showAllRetry ? toRetry : toRetry.slice(0, RETRY_PREVIEW)).map((m) => (
                       <li key={m.ply}>
                         <Button onClick={() => setRetry({ move: m, state: 'idle', tried: null })}>
                           {Math.floor(m.ply / 2) + 1}
@@ -393,6 +404,20 @@ export function GameReview() {
                         </Button>
                       </li>
                     ))}
+                    {toRetry.length > RETRY_PREVIEW && (
+                      <li>
+                        <button
+                          type="button"
+                          aria-expanded={showAllRetry}
+                          onClick={() => setShowAllRetry((v) => !v)}
+                          className="h-full rounded-[var(--mc-radius-btn)] px-3 py-2 text-sm font-semibold text-accent hover:bg-surface-2"
+                        >
+                          {showAllRetry
+                            ? t('showLess')
+                            : t('showMore', { count: toRetry.length - RETRY_PREVIEW })}
+                        </button>
+                      </li>
+                    )}
                   </ul>
                 )}
               </Card>

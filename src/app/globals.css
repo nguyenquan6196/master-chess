@@ -164,6 +164,29 @@ body::after {
   font-weight: 600;
 }
 
+/* Accordions (<details class="mc-accordion">): the body slides open and closed where the
+   browser can animate to `auto` heights; elsewhere it simply toggles. */
+@supports (interpolate-size: allow-keywords) {
+  .mc-accordion {
+    interpolate-size: allow-keywords;
+  }
+  .mc-accordion::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition:
+      block-size 0.3s var(--mc-ease),
+      content-visibility 0.3s allow-discrete;
+  }
+  .mc-accordion[open]::details-content {
+    block-size: auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mc-accordion::details-content {
+    transition: none;
+  }
+}
+
 /* Quiet scroll areas (side panels, move lists): thin bar, shown only on hover/focus. */
 .mc-scroll {
   scrollbar-width: thin;
