@@ -1,6 +1,13 @@
 @import 'tailwindcss';
 @import '../styles/themes.css';
 
+/* Desktop-like screens: wide and landscape (game scenes use side columns there). */
+@custom-variant wide {
+  @media (min-width: 64rem) and (orientation: landscape) {
+    @slot;
+  }
+}
+
 @theme inline {
   --color-bg: var(--mc-bg);
   --color-surface: var(--mc-surface);
@@ -65,6 +72,8 @@ body::before {
   background-position: center;
   mask-image: var(--mc-backdrop-mask);
   opacity: var(--mc-backdrop-opacity);
+  /* Own layer: generated backdrops (marble's SVG noise) are painted once, not per frame. */
+  will-change: transform;
 }
 
 /* Player's "fade / blur the background" sliders, over the backdrop and its particles. */

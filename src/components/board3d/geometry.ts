@@ -4,69 +4,34 @@ import {
   Float32BufferAttribute,
   OctahedronGeometry,
   SphereGeometry,
-  TorusGeometry,
   type BufferGeometry,
 } from 'three';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import type { ConcretePieceSet } from '@/core/profile/settingsOptions';
-import { MARBLE_KNIGHT, MARBLE_PROFILES } from '../board/pieceArt/marble';
-import { MIDNIGHT_KNIGHT, MIDNIGHT_PROFILES } from '../board/pieceArt/midnight';
+import { MARBLE_PROFILES } from '../board/pieceArt/marble';
+import { MIDNIGHT_PROFILES } from '../board/pieceArt/midnight';
 import { PIXEL_PALETTE, spriteCells, SPRITES } from '../board/pieceArt/pixel';
-import { RESIN_HORSE, RESIN_KNIGHT_FOOT, RESIN_PROFILES } from '../board/pieceArt/resin';
+import { RESIN_KNIGHT_FOOT, RESIN_PROFILES } from '../board/pieceArt/resin';
 import type { Pt } from '../board/pieceArt/shared';
-import { STAUNTON_HORSE, STAUNTON_KNIGHT_FOOT, STAUNTON_PROFILES } from '../board/pieceArt/wood';
+import { STAUNTON_KNIGHT_FOOT, STAUNTON_PROFILES } from '../board/pieceArt/wood';
 import type { PieceKind } from '../board/pieceShapes';
 import { figureParts } from './figures';
-import {
-  box,
-  flatTop,
-  horseHead,
-  heightOf,
-  latheOf,
-  merlons,
-  S,
-  shapeFromPath,
-  shapeFromPoints,
-  type PiecePart,
-} from './geoUtil';
+import { horseParts } from './horse';
+import { box, flatTop, heightOf, latheOf, merlons, S, type PiecePart } from './geoUtil';
 
 export type { PiecePart } from './geoUtil';
 
-/** Points along the back of each horse where the painted mane runs. */
-const STAUNTON_MANE: Pt[] = [
-  [2.5, -20.5],
-  [6.5, -18],
-  [9.5, -13.5],
-  [11, -8.5],
-  [11.5, -3.5],
-];
-const RESIN_MANE: Pt[] = [
-  [3.5, -21.5],
-  [7, -18.5],
-  [9, -13],
-  [9.6, -7.5],
-  [9.3, -2],
-];
-
-/** Painted eyes on both cheeks and a mane ridge (ink tone). */
-function knightFace(eyeX: number, eyeY: number, half: number, mane: readonly Pt[]): PiecePart[] {
-  const eye = new SphereGeometry(1.1 * S, 12, 8);
-  const tuft = new SphereGeometry(1.5 * S, 10, 8);
-  return [
-    { geometry: eye, tone: 'ink', position: [eyeX * S, heightOf(eyeY), half * S] },
-    { geometry: eye, tone: 'ink', position: [eyeX * S, heightOf(eyeY), -half * S] },
-    ...mane.map(([x, y]) => ({
-      geometry: tuft,
-      tone: 'ink' as const,
-      position: [x * S, heightOf(y), 0] as [number, number, number],
-    })),
-  ];
+/** The low foot a knight stands on: a set's pawn profile cut at svg height `top`. */
+function footOf(profile: readonly Pt[], top: number): Pt[] {
+  const kept = profile.filter(([, y]) => y >= top);
+  return [...kept, [kept[kept.length - 1][0], top], [0, top]];
 }
 
 /**
  * 3D piece geometry, built in code from the 2D sets' own shapes (no downloaded models),
  * so each theme's pieces keep their look in 3D:
- * - classic / wood / neon: turned Staunton lathes (neon is drawn as a glowing wireframe),
+ * - classic / wood / neon: turned Staunton lathes (neon is glass with glowing edges),
+ * - knights of every set: a lofted, rounded horse (horse.ts),
  * - resin: the slim cast Staunton profiles,
  * - marble: the same lathe cut with 8 sides (faceted stone), diamond finials,
  * - midnight: 6-sided Art Deco lathes, diamond pawn heads,
@@ -120,8 +85,7 @@ function staunton(kind: PieceKind): PiecePart[] {
     case 'n':
       return [
         { geometry: latheOf(STAUNTON_KNIGHT_FOOT) },
-        { geometry: horseHead(shapeFromPath(STAUNTON_HORSE), 10, 2.6) },
-        ...knightFace(-2, -14, 3.6, STAUNTON_MANE),
+        ...horseParts({ sides: 28, base: 12.5 }),
       ];
     case 'b':
       return [
@@ -157,8 +121,7 @@ function resin(kind: PieceKind): PiecePart[] {
     case 'n':
       return [
         { geometry: latheOf(RESIN_KNIGHT_FOOT) },
-        { geometry: horseHead(shapeFromPath(RESIN_HORSE), 8.5, 2.2) },
-        ...knightFace(-1, -15, 3, RESIN_MANE),
+        ...horseParts({ sides: 28, scale: 0.88, base: 13 }),
       ];
     case 'b':
       return [
@@ -194,8 +157,8 @@ function marble(kind: PieceKind): PiecePart[] {
       ];
     case 'n':
       return [
-        { geometry: horseHead(shapeFromPoints(MARBLE_KNIGHT), 11, 0.6, 0.6) },
-        ...knightFace(-4, -12, 4.4, []),
+        { geometry: cut(footOf(MARBLE_PROFILES.p, 12)) },
+        ...horseParts({ sides: 8, scale: 1.05, base: 13 }),
       ];
     case 'b':
       return [
@@ -228,8 +191,8 @@ function midnight(kind: PieceKind): PiecePart[] {
       return [{ geometry: cut(MIDNIGHT_PROFILES.r) }];
     case 'n':
       return [
-        { geometry: horseHead(shapeFromPoints(MIDNIGHT_KNIGHT), 9, 0.4, 0.55) },
-        ...knightFace(-4, -12, 3.4, []),
+        { geometry: cut(footOf(MIDNIGHT_PROFILES.p, 12)) },
+        ...horseParts({ sides: 6, scale: 0.95, base: 13 }),
       ];
     case 'b':
       return [{ geometry: cut(MIDNIGHT_PROFILES.b) }];
@@ -259,16 +222,6 @@ function radiusAt(profile: readonly Pt[], y: number): number {
   return r;
 }
 
-/** A thin painted (or glowing) ring around a turned piece at svg height `y`. */
-function band(profile: readonly Pt[], y: number, tone: 'ink' | 'accent', tube = 0.45): PiecePart {
-  return {
-    geometry: new TorusGeometry((radiusAt(profile, y) + tube * 0.3) * S, tube * S, 6, 48),
-    tone,
-    position: [0, heightOf(y), 0],
-    rotation: [Math.PI / 2, 0, 0],
-  };
-}
-
 /** The diagonal slit cut into a bishop's mitre, on the side facing the viewer. */
 function slit(profile: readonly Pt[], y: number): PiecePart {
   return {
@@ -279,45 +232,19 @@ function slit(profile: readonly Pt[], y: number): PiecePart {
   };
 }
 
-/** Where the turning tool cut a groove (painted dark), per kind — as on the 2D wood set. */
-const GROOVES: Record<Exclude<PieceKind, 'n'>, number[]> = {
-  p: [15.5, 12.5, -1, -3],
-  r: [15.5, 12.5, 8, -7.5],
-  b: [15.5, 12.5, -3, -5],
-  q: [15.5, 12.5, -5, -7],
-  k: [15.5, 12.5, -5, -7, -18],
-};
-
+/** Bishops keep the slit cut into their mitre (classic sets carry no painted rings). */
 function details(set: ConcretePieceSet, kind: PieceKind): PiecePart[] {
-  if (kind === 'n') return [];
+  if (kind !== 'b') return [];
   switch (set) {
     case 'classic':
-    case 'wood': {
-      const profile = STAUNTON_PROFILES[kind];
-      return [
-        ...GROOVES[kind].map((y) => band(profile, y, 'ink', set === 'wood' ? 0.4 : 0.3)),
-        ...(kind === 'b' ? [slit(profile, -14)] : []),
-      ];
-    }
+    case 'wood':
+      return [slit(STAUNTON_PROFILES.b, -14)];
     case 'resin':
-      return kind === 'b' ? [slit(RESIN_PROFILES.b, -14)] : [];
+      return [slit(RESIN_PROFILES.b, -14)];
     case 'marble':
-      return kind === 'b' ? [slit(MARBLE_PROFILES.b, -13)] : [];
-    case 'midnight': {
-      // Cold glowing trims at the foot and the collars.
-      const profile = MIDNIGHT_PROFILES[kind];
-      const rings: Record<Exclude<PieceKind, 'n'>, number[]> = {
-        p: [15, 1],
-        r: [15, -14],
-        b: [15, -2],
-        q: [15, -2],
-        k: [15, -2, -17],
-      };
-      return [
-        ...rings[kind].map((y) => band(profile, y, 'accent', 0.35)),
-        ...(kind === 'b' ? [slit(profile, -14)] : []),
-      ];
-    }
+      return [slit(MARBLE_PROFILES.b, -13)];
+    case 'midnight':
+      return [slit(MIDNIGHT_PROFILES.b, -14)];
     default:
       return [];
   }

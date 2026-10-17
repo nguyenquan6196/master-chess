@@ -17,7 +17,7 @@ export interface BoardPrefs {
   /** Switches the view (the quick 2D/3D toggle on game boards); absent = no toggle. */
   onViewChange?: (view: BoardView) => void;
   /** Game layout controls (focus mode, side drawer). */
-  layoutLabels: { focus: string; unfocus: string; side: string };
+  layoutLabels: { focus: string; unfocus: string };
   labels3d: Board3DLabels & {
     to3d: string;
     /** Shown when 3D switched itself off because it ran too slowly. */
@@ -32,7 +32,7 @@ const BoardPrefsContext = createContext<BoardPrefs>({
   moveAnimation: 'normal',
   view: '2d',
   boardSurface: 'plain',
-  layoutLabels: { focus: '', unfocus: '', side: '' },
+  layoutLabels: { focus: '', unfocus: '' },
   labels3d: { camera: { angle: '', top: '', low: '' }, to2d: '2D', to3d: '3D', slow: '' },
 });
 

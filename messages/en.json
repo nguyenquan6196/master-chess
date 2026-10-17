@@ -224,8 +224,7 @@
     "slow3d": "3D was running slowly on this device, so the board switched back to 2D. Tap to dismiss.",
     "lowEnd3d": "This device is fairly low-powered (few CPU cores / little memory, or Data Saver on), so boards stay 2D.",
     "focusBoard": "Enlarge board",
-    "unfocusBoard": "Shrink board",
-    "sidePanel": "Moves & info"
+    "unfocusBoard": "Shrink board"
   },
   "profile": {
     "pickTitle": "Who's playing?",

@@ -214,12 +214,12 @@
   --mc-arrow-hint: rgb(63 95 127 / 0.85);
   --mc-mark-hint: rgb(63 95 127 / 0.9);
   /* Soft marble veins. */
+  /* Carrara slab: soft grey clouds with thin dark and fine light-grey veins (SVG noise). */
   --mc-backdrop-image:
-    radial-gradient(ellipse 60% 18% at 20% 30%, rgb(150 150 160 / 0.25), transparent 70%),
-    radial-gradient(ellipse 40% 10% at 70% 60%, rgb(120 120 130 / 0.22), transparent 70%),
-    radial-gradient(ellipse 80% 12% at 55% 85%, rgb(170 170 180 / 0.2), transparent 70%),
-    linear-gradient(115deg, transparent 40%, rgb(140 140 150 / 0.18) 42%, transparent 44%),
-    linear-gradient(160deg, #fbfbfa, #e7e7e4);
+    url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><filter id='v' x='0' y='0' width='1' height='1'><feTurbulence type='fractalNoise' baseFrequency='0.0016 0.0062' numOctaves='4' seed='11'/><feColorMatrix values='0 0 0 0 0.33 0 0 0 0 0.34 0 0 0 0 0.4 1 0 0 0 0'/><feComponentTransfer><feFuncA type='table' tableValues='0 0 0 0 0 0 0 0 0 0 0 0 0.6 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.28 0 0 0 0 0 0 0 0 0 0 0 0 0'/></feComponentTransfer></filter><filter id='f' x='0' y='0' width='1' height='1'><feTurbulence type='fractalNoise' baseFrequency='0.0027 0.0105' numOctaves='3' seed='23'/><feColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.46 0 0 0 0 0.52 1 0 0 0 0'/><feComponentTransfer><feFuncA type='table' tableValues='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.35 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0'/></feComponentTransfer></filter><g transform='rotate(-28 400 300)'><rect x='-260' y='-260' width='1320' height='1120' filter='url(%23f)'/><rect x='-260' y='-260' width='1320' height='1120' filter='url(%23v)'/></g></svg>"),
+    radial-gradient(ellipse 60% 22% at 20% 30%, rgb(150 150 160 / 0.22), transparent 70%),
+    radial-gradient(ellipse 70% 16% at 70% 75%, rgb(140 140 150 / 0.18), transparent 70%),
+    linear-gradient(160deg, #fbfbfa, #e4e4e1);
   --mc-backdrop-size: cover;
   --mc-backdrop-mask: none;
   --mc-backdrop-opacity: 1;

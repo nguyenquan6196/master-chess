@@ -142,6 +142,11 @@ export function BotGameScreen() {
   if (view.kind === 'game') {
     return (
       <div className="flex flex-col gap-4">
+        <PageHeader
+          title={t('title')}
+          eyebrow={tn('play')}
+          back={{ onClick: () => void backToSetup(), label: t('changeBot') }}
+        />
         <BotGameView
           key={view.game.id}
           initial={view.game}

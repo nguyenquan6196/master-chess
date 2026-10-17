@@ -60,7 +60,6 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
       layoutLabels: {
         focus: tSet('focusBoard'),
         unfocus: tSet('unfocusBoard'),
-        side: tSet('sidePanel'),
       },
       labels3d: {
         camera: {

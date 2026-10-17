@@ -6,13 +6,12 @@ import {
   type BufferGeometry,
 } from 'three';
 import { FANTASY_SHAPES } from '../board/pieceArt/fantasy';
-import { SAKURA_SHAPES } from '../board/pieceArt/sakura';
 import type { ShapeEl } from '../board/pieceArt/shared';
 import type { PieceKind } from '../board/pieceShapes';
+import { horseParts } from './horse';
 import {
   extruded,
   heightOf,
-  horseHead,
   latheOf,
   S,
   shapeFromEl,
@@ -154,11 +153,7 @@ function fantasy(kind: PieceKind): PiecePart[] {
     case 'n':
       return [
         ...pedestal(),
-        part(horseHead(shapeFromEl(F[3]), 11, 2.8), 'body'),
-        carved([F[1], F[2]], 3, 0.8, 'accent'),
-        ball(1.3, -3, -10, 4.8, 'gem'),
-        ball(1.3, -3, -10, -4.8, 'gem'),
-        ball(0.7, -11, -7, 3, 'ink'),
+        ...horseParts({ sides: 28, scale: 1.05, base: 13.6, eyeTone: 'gem', maneTone: 'accent' }),
       ];
     case 'b':
       return [
@@ -250,7 +245,6 @@ const blossom = (x: number, y: number, z: number, r = 1.5) => [
 ];
 
 function sakura(kind: PieceKind): PiecePart[] {
-  const K = SAKURA_SHAPES[kind];
   switch (kind) {
     case 'p':
       return [
@@ -290,10 +284,7 @@ function sakura(kind: PieceKind): PiecePart[] {
     case 'n':
       return [
         ...stand(),
-        part(horseHead(shapeFromEl(K[2]), 11, 2.8), 'body'),
-        part(new CylinderGeometry(0.2 * S, 1.4 * S, 6 * S, 10), 'body', at(3.5, -22.5)),
-        ball(1.1, -2, -12.5, 4.9, 'ink'),
-        ball(1.1, -2, -12.5, -4.9, 'ink'),
+        ...horseParts({ sides: 28, base: 15, maneTone: 'hair' }),
         column(0.4, 0.4, -2, -8, 6, 5, 8, 'accent'),
         ball(1.7, 6, -1.2, 5, 'accent'),
         ...blossom(3, -15, 5.4, 1.3),

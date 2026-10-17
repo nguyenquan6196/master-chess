@@ -224,8 +224,7 @@
     "slow3d": "この端末では3D盤が重かったため、2Dに戻しました。タップで閉じる。",
     "lowEnd3d": "この端末は性能が控えめ（CPU・メモリが少ない、またはデータセーバー有効）なので、盤は2Dのままです。",
     "focusBoard": "盤を大きく",
-    "unfocusBoard": "盤を戻す",
-    "sidePanel": "指し手と情報"
+    "unfocusBoard": "盤を戻す"
   },
   "profile": {
     "pickTitle": "だれがプレイしますか？",

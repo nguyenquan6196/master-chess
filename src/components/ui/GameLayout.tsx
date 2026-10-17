@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useSyncExternalStore, type ButtonHTMLAttributes, type ReactNode } from 'react';
+import { useSyncExternalStore, type ButtonHTMLAttributes, type ReactNode } from 'react';
 import { useBoardPrefs } from '../board/BoardPrefs';
 import { cn } from './cn';
 
@@ -27,14 +27,23 @@ function subscribeFocus(l: () => void) {
   return () => focusListeners.delete(l);
 }
 
+/** Same screens as the `wide:` CSS variant (globals.css). */
+const WIDE_QUERY = '(min-width: 64rem) and (orientation: landscape)';
+function subscribeWide(l: () => void) {
+  const mq = window.matchMedia(WIDE_QUERY);
+  mq.addEventListener('change', l);
+  return () => mq.removeEventListener('change', l);
+}
+const readWide = () => window.matchMedia(WIDE_QUERY).matches;
+
 /**
  * Game-style scene around a board (Phase 5.5, three columns since Phase 6).
- * - Desktop: actions in a narrow column on the left, the board in the middle as large
- *   as the screen allows (player cards `top`/`bottom` around it), `side` (moves,
- *   analysis) on the right. "Focus" makes the board as big as the screen: actions shrink
- *   to an icon bar under it and the side panel becomes a drawer.
- * - Phone: top, board (full width), bottom, side; `actions` become a dock fixed to the
- *   bottom of the screen, like a game's button bar.
+ * - Wide landscape screens (`wide:`): actions in a narrow column on the left, the board in
+ *   the middle as large as the screen allows (player cards `top`/`bottom` around it),
+ *   `side` (moves, analysis) on the right. "Focus" gives the board the full screen
+ *   height: the player cards move into the right column next to the moves.
+ * - Phones and portrait tablets: top, board (full width), bottom, side; `actions` become a
+ *   dock fixed to the bottom of the screen, like a game's button bar.
  */
 export function GameLayout({
   top,
@@ -51,93 +60,89 @@ export function GameLayout({
 }) {
   const labels = useBoardPrefs().layoutLabels;
   const focus = useSyncExternalStore(subscribeFocus, readFocus, () => false);
-  const [drawer, setDrawer] = useState(false);
+  const wide = useSyncExternalStore(subscribeWide, readWide, () => false);
+  // Focus on a wide screen: the player cards move to the right column.
+  const cardsAside = focus && wide;
 
   const focusButton = (
     <ActionButton
-      icon={focus ? '🗗' : '⛶'}
+      icon={focus ? '🔎' : '🔍'}
       label={focus ? labels.unfocus : labels.focus}
       title={focus ? labels.unfocus : labels.focus}
       aria-pressed={focus}
-      onClick={() => {
-        setDrawer(false);
-        writeFocus(!focus);
-      }}
-      className="hidden lg:flex"
+      onClick={() => writeFocus(!focus)}
+      className="hidden wide:flex"
     />
   );
-  const drawerButton = side ? (
-    <ActionButton
-      icon="📜"
-      label={labels.side}
-      title={labels.side}
-      aria-expanded={drawer}
-      onClick={() => setDrawer((v) => !v)}
-      className="hidden lg:flex"
-    />
-  ) : null;
 
   return (
     <div
       className={cn(
-        'grid gap-4 lg:items-start lg:justify-center',
-        actions && 'pb-24 lg:pb-0',
+        'grid gap-4 wide:items-start wide:justify-center',
+        actions && 'pb-24 wide:pb-0',
         focus
-          ? 'lg:grid-cols-[auto]'
+          ? cn(
+              // Wider than the page column; the board takes the remaining screen height.
+              'wide:w-[calc(100vw-3rem)] wide:max-w-[100rem] wide:self-center',
+              // Below xl the action column shows icons only, so the board keeps its room.
+              actions
+                ? 'wide:grid-cols-[4.5rem_auto_17rem] [--mc-focus-board:min(1200px,calc(100dvh-6.5rem),calc(100vw-27rem))] wide:xl:grid-cols-[12rem_auto_22rem] wide:xl:[--mc-focus-board:min(1200px,calc(100dvh-6.5rem),calc(100vw-39rem))]'
+                : 'wide:grid-cols-[auto_17rem] [--mc-focus-board:min(1200px,calc(100dvh-6.5rem),calc(100vw-21rem))] wide:xl:grid-cols-[auto_22rem] wide:xl:[--mc-focus-board:min(1200px,calc(100dvh-6.5rem),calc(100vw-26rem))]',
+            )
           : actions
-            ? 'lg:grid-cols-[12rem_auto_minmax(15rem,20rem)]'
-            : 'lg:grid-cols-[auto_minmax(15rem,22rem)]',
+            ? 'wide:grid-cols-[12rem_auto_minmax(15rem,20rem)]'
+            : 'wide:grid-cols-[auto_minmax(15rem,22rem)]',
       )}
     >
       {/* Board: limited by width, by the screen height and by the room the side columns leave. */}
       <div
         className={cn(
-          'mx-auto flex w-full max-w-[640px] flex-col gap-2 lg:row-start-1',
+          'mx-auto flex w-full max-w-[min(640px,calc(100dvh-2rem))] flex-col gap-2 wide:row-start-1 wide:max-w-none',
+          actions ? 'wide:col-start-2' : 'wide:col-start-1',
           focus
-            ? 'lg:col-start-1 lg:w-[min(1000px,calc(100dvh-15rem),calc(100vw-6rem))] lg:max-w-none'
+            ? 'wide:w-(--mc-focus-board)'
             : actions
-              ? 'lg:col-start-2 lg:w-[min(640px,calc(100dvh-18rem),calc(100vw-37rem))]'
-              : 'lg:col-start-1 lg:w-[min(640px,calc(100dvh-18rem),calc(100vw-26rem))]',
+              ? 'wide:w-[min(640px,calc(100dvh-18rem),calc(100vw-37rem))]'
+              : 'wide:w-[min(640px,calc(100dvh-18rem),calc(100vw-26rem))]',
         )}
       >
-        {top}
+        {!cardsAside && top}
         {board}
-        {bottom}
+        {!cardsAside && bottom}
       </div>
-      {(actions || focus) && (
+      {actions && (
         <div
-          data-compact={focus || undefined}
+          data-icons={focus || undefined}
           className={cn(
-            'group/actions',
-            actions
-              ? 'fixed inset-x-0 bottom-0 z-20 flex justify-around gap-1 border-t border-border bg-surface/95 px-2 pt-1.5 pb-[max(0.375rem,env(safe-area-inset-bottom))] shadow-card backdrop-blur'
-              : 'hidden',
-            'lg:static lg:flex lg:rounded-2xl lg:border lg:p-2',
-            focus
-              ? 'lg:col-start-1 lg:row-start-2 lg:mx-auto lg:flex-row lg:justify-center lg:gap-1'
-              : 'lg:col-start-1 lg:row-start-1 lg:flex-col lg:justify-start lg:gap-1',
+            'group/actions fixed inset-x-0 bottom-0 z-20 flex justify-around gap-1 border-t border-border bg-surface/95 px-2 pt-1.5 pb-[max(0.375rem,env(safe-area-inset-bottom))] shadow-card backdrop-blur',
+            'wide:static wide:col-start-1 wide:row-start-1 wide:flex-col wide:justify-start wide:gap-1 wide:rounded-2xl wide:border wide:p-2',
           )}
         >
           {actions}
-          {focus && drawerButton}
           {focusButton}
         </div>
       )}
       <div
         className={cn(
-          'flex min-w-0 flex-col gap-3',
+          'mx-auto flex w-full max-w-[640px] min-w-0 flex-col gap-3 wide:row-start-1 wide:max-w-none',
+          actions ? 'wide:col-start-3' : 'wide:col-start-2',
           focus
-            ? drawer
-              ? 'lg:fixed lg:top-20 lg:right-4 lg:bottom-6 lg:z-30 lg:w-80 lg:overflow-y-auto mc-pop'
-              : 'lg:hidden'
-            : cn(
-                'lg:row-start-1 lg:max-h-[calc(100dvh-7rem)] lg:overflow-y-auto',
-                actions ? 'lg:col-start-3' : 'lg:col-start-2',
-              ),
+            ? 'wide:h-(--mc-focus-board)'
+            : 'wide:max-h-[calc(100dvh-7rem)] wide:overflow-y-auto',
         )}
       >
-        {!actions && !focus && <div className="hidden w-fit lg:flex">{focusButton}</div>}
-        {side}
+        {!actions && <div className="hidden w-fit wide:flex">{focusButton}</div>}
+        {/* Focus: the player cards sit in this column, around the scrolling moves. */}
+        {cardsAside && top}
+        <div
+          className={cn(
+            'flex flex-col gap-3',
+            focus && 'wide:min-h-0 wide:flex-1 wide:overflow-y-auto',
+          )}
+        >
+          {side}
+        </div>
+        {cardsAside && bottom}
       </div>
     </div>
   );
@@ -161,19 +166,21 @@ export function ActionButton({
       className={cn(
         'mc-press flex min-w-0 flex-1 flex-col items-center gap-0.5 rounded-xl px-1 py-1.5 text-[11px] font-semibold',
         // Desktop: a row in the left column (icon then label).
-        'lg:flex-none lg:flex-row lg:gap-2.5 lg:px-3 lg:py-2.5 lg:text-sm',
+        'wide:flex-none wide:flex-row wide:gap-2.5 wide:px-3 wide:py-2.5 wide:text-sm',
+        'wide:max-xl:group-data-[icons]/actions:justify-center',
         'disabled:cursor-not-allowed disabled:opacity-40',
         'focus-visible:outline-2 focus-visible:outline-accent',
         primary ? 'bg-accent text-accent-fg hover:bg-accent-hover' : 'text-fg hover:bg-surface-2',
         className,
       )}
+      title={label}
       {...props}
     >
-      <span aria-hidden className="text-xl leading-none">
+      <span aria-hidden className="w-6 text-center text-xl leading-none">
         {icon}
       </span>
-      {/* In the compact focus bar only the icon shows (the label stays for screen readers). */}
-      <span className="truncate lg:text-left lg:whitespace-normal lg:group-data-[compact]/actions:sr-only">
+      {/* Narrow focus column: icons only (the label stays for screen readers). */}
+      <span className="truncate wide:text-left wide:whitespace-normal wide:max-xl:group-data-[icons]/actions:sr-only">
         {label}
       </span>
     </button>

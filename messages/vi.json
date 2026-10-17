@@ -224,8 +224,7 @@
     "slow3d": "Máy chạy bàn 3D hơi chậm nên đã chuyển về 2D. Bấm để ẩn thông báo.",
     "lowEnd3d": "Máy này khá yếu (ít nhân CPU / RAM hoặc đang bật tiết kiệm dữ liệu) nên bàn cờ luôn là 2D.",
     "focusBoard": "Phóng to bàn cờ",
-    "unfocusBoard": "Thu nhỏ bàn cờ",
-    "sidePanel": "Nước đi & thông tin"
+    "unfocusBoard": "Thu nhỏ bàn cờ"
   },
   "profile": {
     "pickTitle": "Ai đang chơi?",
