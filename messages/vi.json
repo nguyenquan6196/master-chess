@@ -413,7 +413,17 @@
     "asBlack": "Cầm Đen",
     "assists": "{hints} gợi ý · {undos} lần đi lại",
     "copyPgn": "Sao chép PGN",
-    "copied": "Đã sao chép!"
+    "copied": "Đã sao chép!",
+    "playBot": "Đấu với bot",
+    "played": "ván đã chơi",
+    "winRate": "Tỉ lệ thắng {rate}%",
+    "filterLabel": "Lọc theo kết quả",
+    "filter": {
+      "all": "Tất cả",
+      "win": "Thắng",
+      "loss": "Thua",
+      "draw": "Hòa"
+    }
   },
   "practice": {
     "title": "Luyện tập",

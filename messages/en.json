@@ -413,7 +413,17 @@
     "asBlack": "As Black",
     "assists": "{hints} hints · {undos} undos",
     "copyPgn": "Copy PGN",
-    "copied": "Copied!"
+    "copied": "Copied!",
+    "playBot": "Play a bot",
+    "played": "games played",
+    "winRate": "Win rate {rate}%",
+    "filterLabel": "Filter by result",
+    "filter": {
+      "all": "All",
+      "win": "Wins",
+      "loss": "Losses",
+      "draw": "Draws"
+    }
   },
   "practice": {
     "title": "Practice",
