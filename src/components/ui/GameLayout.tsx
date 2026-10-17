@@ -89,7 +89,8 @@ export function GameLayout({
       className={cn(
         'grid gap-4 wide:items-start wide:justify-center',
         actions && 'pb-24 short:pb-0 wide:pb-0',
-        'short:grid-cols-[auto_minmax(0,1fr)] short:grid-rows-[auto_1fr] short:items-start short:gap-3',
+        // Sideways phone: the whole scene is exactly as tall as the board, no page scroll.
+        '[--mc-short-board:min(calc(100dvh-6rem),58vw)] short:h-(--mc-short-board) short:grid-cols-[auto_minmax(0,1fr)] short:grid-rows-[auto_minmax(0,1fr)] short:items-start short:gap-x-4 short:gap-y-2',
         focus
           ? cn(
               // Wider than the page column; the board takes the remaining screen height.
@@ -109,7 +110,7 @@ export function GameLayout({
         className={cn(
           'mx-auto flex w-full max-w-[min(640px,calc(100dvh-2rem))] flex-col gap-2 wide:row-start-1 wide:max-w-none',
           actions ? 'wide:col-start-2' : 'wide:col-start-1',
-          'short:col-start-1 short:row-span-2 short:row-start-1 short:mx-0 short:w-[min(calc(100dvh-5.5rem),58vw)] short:max-w-none',
+          'short:col-start-1 short:row-span-2 short:row-start-1 short:mx-0 short:w-(--mc-short-board) short:max-w-none',
           focus
             ? 'wide:w-(--mc-focus-board)'
             : actions
@@ -141,7 +142,7 @@ export function GameLayout({
           actions
             ? 'short:col-start-2 short:row-start-2'
             : 'short:col-start-2 short:row-span-2 short:row-start-1',
-          'short:mx-0 short:max-w-none',
+          'short:mx-0 short:h-full short:max-w-none short:gap-2',
           focus
             ? 'wide:h-(--mc-focus-board)'
             : 'wide:max-h-[calc(100dvh-7rem)] wide:overflow-y-auto',
@@ -153,6 +154,7 @@ export function GameLayout({
         <div
           className={cn(
             'flex flex-col gap-3',
+            'short:min-h-0 short:flex-1 short:gap-2 short:overflow-y-auto',
             focus && 'wide:min-h-0 wide:flex-1 wide:overflow-y-auto',
           )}
         >
@@ -181,6 +183,8 @@ export function ActionButton({
       type="button"
       className={cn(
         'mc-press flex min-w-0 flex-1 flex-col items-center gap-0.5 rounded-xl px-1 py-1.5 text-[11px] font-semibold',
+        // Sideways phone: one compact row of icon + label buttons.
+        'short:flex-row short:justify-center short:gap-1.5 short:py-1 short:text-xs',
         // Desktop: a row in the left column (icon then label).
         'wide:flex-none wide:flex-row wide:gap-2.5 wide:px-3 wide:py-2.5 wide:text-sm',
         'wide:max-xl:group-data-[icons]/actions:justify-center',

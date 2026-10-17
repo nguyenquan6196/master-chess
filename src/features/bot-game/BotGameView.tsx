@@ -159,13 +159,13 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
           </div>
         }
         board={
-          <div className="flex gap-2">
+          // `relative`: on wide screens the eval gauge stands just outside the board's right edge.
+          <div className="relative flex flex-col gap-2">
             {g.showEvalBar && (
               <EvalBar score={g.evaluation} orientation={orientation} label={t('evalBar')} />
             )}
             <ChessBoard
               allow3d
-              className="min-w-0 flex-1"
               fen={snapshot.fen}
               orientation={orientation}
               movableColor={g.isPlayerTurn ? record.playerColor : 'none'}
