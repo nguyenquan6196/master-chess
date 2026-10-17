@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import { useTranslations } from 'use-intl';
 import { ChessBoard } from '@/components/board/ChessBoard';
 import { ActionButton, GameLayout, HudCard } from '@/components/ui/GameLayout';
@@ -49,8 +49,19 @@ export function PuzzleBoard({
 
   const knownThemes = solver.puzzle.themes.filter((th) => tt.has(th as never));
 
+  // Turn glow: accent while it's the solver's move, the other side's colour while the
+  // puzzle answers (toned towards muted so a white side still shows on light themes).
+  const opponentSide = solver.orientation === 'white' ? 'black' : 'white';
+  const turnGlow =
+    solver.solved || solver.feedback
+      ? undefined
+      : solver.canMove
+        ? 'var(--mc-accent)'
+        : `color-mix(in srgb, var(--mc-side-${opponentSide}) 60%, var(--mc-muted))`;
+
   const statusBox = (
     <div
+      style={turnGlow ? ({ '--mc-turn-color': turnGlow } as CSSProperties) : undefined}
       role="status"
       aria-live="polite"
       className={cn(
@@ -59,6 +70,7 @@ export function PuzzleBoard({
         solver.feedback === 'wrong' && 'border-danger bg-surface text-danger',
         solver.feedback === 'correct' && 'border-accent bg-surface text-accent',
         !solver.solved && !solver.feedback && 'border-border bg-surface',
+        turnGlow && 'mc-turn',
       )}
     >
       {!solver.solved && (

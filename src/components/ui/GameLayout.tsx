@@ -156,7 +156,7 @@ export function GameLayout({
             ? 'wide:h-(--mc-focus-board)'
             : // Scrolls on its own; the padding (cancelled by the margin) leaves room for
               // the turn glow so the scroll box doesn't clip it.
-              'mc-scroll-hidden wide:-m-3 wide:max-h-[calc(100dvh-5.5rem)] wide:overflow-x-hidden wide:overflow-y-auto wide:p-3',
+              'mc-scroll-hidden wide:-m-3 wide:-mb-10 wide:max-h-[calc(100dvh-3.75rem)] wide:overflow-x-hidden wide:overflow-y-auto wide:p-3 wide:pb-10',
         )}
       >
         {!actions && <div className="hidden w-fit wide:flex">{focusButton}</div>}
@@ -165,9 +165,9 @@ export function GameLayout({
         <div
           className={cn(
             'flex flex-col gap-3',
-            'mc-scroll-hidden short:-mx-3 short:min-h-0 short:flex-1 short:gap-2 short:overflow-x-hidden short:overflow-y-auto short:px-3',
+            'mc-scroll-hidden short:-m-3 short:min-h-0 short:flex-1 short:gap-2 short:overflow-x-hidden short:overflow-y-auto short:p-3',
             focus &&
-              'mc-scroll-hidden wide:-mx-3 wide:min-h-0 wide:flex-1 wide:overflow-x-hidden wide:overflow-y-auto wide:px-3',
+              'mc-scroll-hidden wide:-m-3 wide:min-h-0 wide:flex-1 wide:overflow-x-hidden wide:overflow-y-auto wide:p-3',
           )}
         >
           {side}

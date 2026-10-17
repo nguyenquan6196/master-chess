@@ -195,8 +195,8 @@ body::after {
   border-radius: inherit;
   pointer-events: none;
   box-shadow:
-    0 0 0 2px color-mix(in srgb, var(--mc-turn-color, var(--mc-accent)) 30%, transparent),
-    0 0 18px 3px color-mix(in srgb, var(--mc-turn-color, var(--mc-accent)) 45%, transparent);
+    0 0 0 1.5px color-mix(in srgb, var(--mc-turn-color, var(--mc-accent)) 45%, transparent),
+    0 0 8px 1px color-mix(in srgb, var(--mc-turn-color, var(--mc-accent)) 40%, transparent);
   animation: mc-turn 2s ease-in-out infinite;
 }
 @keyframes mc-turn {

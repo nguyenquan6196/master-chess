@@ -27,48 +27,57 @@ export function EvalChart({
   const y = (w: number) => H - (w / 100) * H;
   const line = whiteWin.map((w, i) => `${x(i)},${y(w)}`).join(' ');
 
+  // Dots stay round (HTML on top of the stretched svg) and clear of the rounded edges.
+  const DOT_INSET = 'clamp(6px, POS, calc(100% - 6px))';
   return (
-    <svg
-      viewBox={`0 0 ${W} ${H}`}
-      preserveAspectRatio="none"
+    <div
       role="img"
       aria-label={label}
-      className="h-28 w-full cursor-pointer overflow-visible rounded-xl border border-border"
+      className="relative h-28 w-full cursor-pointer overflow-hidden rounded-xl border border-border"
       style={{ background: 'var(--mc-chart-black)' }}
       onClick={(e) => {
         const r = e.currentTarget.getBoundingClientRect();
         onSelect(Math.round(((e.clientX - r.left) / r.width) * n));
       }}
     >
-      <polygon points={`0,${H} ${line} ${W},${H}`} style={{ fill: 'var(--mc-chart-white)' }} />
-      <line
-        x1={0}
-        x2={W}
-        y1={H / 2}
-        y2={H / 2}
-        stroke="var(--mc-muted)"
-        strokeWidth={0.5}
-        strokeDasharray="4 4"
-      />
-      <line
-        x1={x(current)}
-        x2={x(current)}
-        y1={0}
-        y2={H}
-        stroke="var(--mc-accent)"
-        strokeWidth={2}
-        vectorEffect="non-scaling-stroke"
-      />
-      {[...marks].map(([i, cls]) => (
-        <circle
-          key={i}
-          cx={x(i)}
-          cy={y(whiteWin[i] ?? 50)}
-          r={4}
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="none"
+        aria-hidden
+        className="absolute inset-0 size-full"
+      >
+        <polygon points={`0,${H} ${line} ${W},${H}`} style={{ fill: 'var(--mc-chart-white)' }} />
+        <line
+          x1={0}
+          x2={W}
+          y1={H / 2}
+          y2={H / 2}
+          stroke="var(--mc-muted)"
+          strokeWidth={0.5}
+          strokeDasharray="4 4"
+        />
+        <line
+          x1={x(current)}
+          x2={x(current)}
+          y1={0}
+          y2={H}
+          stroke="var(--mc-accent)"
+          strokeWidth={2}
           vectorEffect="non-scaling-stroke"
-          style={{ fill: `var(--mc-cls-${cls})`, stroke: 'var(--mc-surface)' }}
+        />
+      </svg>
+      {[...marks].map(([i, cls]) => (
+        <span
+          key={i}
+          aria-hidden
+          className="absolute size-2.5 -translate-1/2 rounded-full border-[1.5px] border-surface"
+          style={{
+            left: DOT_INSET.replace('POS', `${(x(i) / W) * 100}%`),
+            top: DOT_INSET.replace('POS', `${(y(whiteWin[i] ?? 50) / H) * 100}%`),
+            background: `var(--mc-cls-${cls})`,
+          }}
         />
       ))}
-    </svg>
+    </div>
   );
 }
