@@ -165,9 +165,9 @@ export function GameLayout({
         <div
           className={cn(
             'flex flex-col gap-3',
-            'mc-scroll-hidden short:-m-3 short:min-h-0 short:flex-1 short:gap-2 short:overflow-x-hidden short:overflow-y-auto short:p-3',
+            'mc-scroll-hidden short:-mx-3 short:-mt-3 short:min-h-0 short:flex-1 short:gap-2 short:overflow-x-hidden short:overflow-y-auto short:p-3',
             focus &&
-              'mc-scroll-hidden wide:-m-3 wide:min-h-0 wide:flex-1 wide:overflow-x-hidden wide:overflow-y-auto wide:p-3',
+              'mc-scroll-hidden wide:-mx-3 wide:-mt-3 wide:min-h-0 wide:flex-1 wide:overflow-x-hidden wide:overflow-y-auto wide:p-3',
           )}
         >
           {side}
