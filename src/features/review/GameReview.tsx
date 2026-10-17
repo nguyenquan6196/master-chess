@@ -1,7 +1,7 @@
 'use client';
 
 import { useLiveQuery } from 'dexie-react-hooks';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { useTranslations } from 'use-intl';
 import { ChessBoard } from '@/components/board/ChessBoard';
 import { EvalBar } from '@/components/board/EvalBar';
@@ -10,8 +10,10 @@ import { PageHeader } from '@/components/ui/PageHeader';
 import { Button } from '@/components/ui/Button';
 import { ActionButton, GameLayout, useSideColumn } from '@/components/ui/GameLayout';
 import { Card } from '@/components/ui/Card';
+import { rankColors } from '@/components/ui/RankEmblem';
 import { cn } from '@/components/ui/cn';
 import { resolveBotLevel } from '@/core/bot/levels';
+import { bossRankIndex, RANKS } from '@/core/rating/rank';
 import { applyMove, moveToUci, newGame, uciToMove, type MoveInput } from '@/core/chess/game';
 import { evalVerdict, verdictMessageKey, verdictVariant } from '@/core/engine/evalVerdict';
 import { cpToScore, scoreToCp } from '@/core/engine/uci';
@@ -188,10 +190,26 @@ export function GameReview() {
     return false;
   }
 
+  // Whose move it is in the shown position (none once the game is over at the end).
+  const toMove = cur === last && !retry ? null : (boardFen.split(' ')[1] as 'w' | 'b');
+  const bossRank = game.botId === 'custom' ? null : RANKS[bossRankIndex(game.botId)].id;
+  const botGlow = bossRank
+    ? rankColors(bossRank).dark
+    : `color-mix(in srgb, var(--mc-side-${game.playerColor === 'w' ? 'black' : 'white'}) 60%, var(--mc-muted))`;
   const accuracyCard = (color: 'w' | 'b') => {
     const isPlayer = color === game.playerColor;
     return (
-      <div className="flex-1 rounded-xl bg-surface-2 p-3 text-center">
+      <div
+        className={cn(
+          'flex-1 rounded-xl bg-surface-2 p-3 text-center',
+          toMove === color && 'mc-turn',
+        )}
+        style={
+          toMove === color
+            ? ({ '--mc-turn-color': isPlayer ? 'var(--mc-accent)' : botGlow } as CSSProperties)
+            : undefined
+        }
+      >
         <p className="text-xs text-muted">
           {isPlayer ? t('you') : `${level.emoji} ${tb(`${game.botId}.name`)}`}
         </p>
