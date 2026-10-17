@@ -347,7 +347,15 @@
     "strength": "強さ",
     "prevBot": "前のボット",
     "nextBot": "次のボット",
-    "versus": "VS"
+    "versus": "VS",
+    "verdict": {
+      "equal": "形勢は互角",
+      "slight": "{side}がやや有利",
+      "clear": "{side}が優勢",
+      "winning": "{side}が勝勢",
+      "mate": "{side}は{n}手で詰ませられる",
+      "you": "あなた"
+    }
   },
   "history": {
     "title": "対局履歴",

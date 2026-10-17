@@ -42,6 +42,13 @@ function useMedia(query: string): boolean {
   );
 }
 
+/** True where GameLayout shows a side column next to the board (wide or sideways screens). */
+export function useSideColumn(): boolean {
+  const wide = useMedia(WIDE_QUERY);
+  const short = useMedia(SHORT_QUERY);
+  return wide || short;
+}
+
 /**
  * Game-style scene around a board (Phase 5.5, three columns since Phase 6).
  * - Wide landscape screens (`wide:`): actions in a narrow column on the left, the board in

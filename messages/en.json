@@ -347,7 +347,15 @@
     "strength": "Strength",
     "prevBot": "Previous bot",
     "nextBot": "Next bot",
-    "versus": "VS"
+    "versus": "VS",
+    "verdict": {
+      "equal": "The position is level",
+      "slight": "{side} is slightly better",
+      "clear": "{side} is clearly better",
+      "winning": "{side} is winning",
+      "mate": "{side} can mate in {n}",
+      "you": "You"
+    }
   },
   "history": {
     "title": "Game history",

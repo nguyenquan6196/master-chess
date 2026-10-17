@@ -24,66 +24,86 @@ interface EvalBarProps {
   score: EngineScore | null;
   orientation: 'white' | 'black';
   label: string;
+  /** `strip`: thin bar above the board (phones); `panel`: large gauge in a side column. */
+  size?: 'strip' | 'panel';
+  /** Plain-words verdict shown under the panel gauge. */
+  caption?: string;
 }
 
 /**
- * Engine evaluation gauge. On phones it is a thin bar above the board; on wide and
- * sideways screens (`wide:` / `short:`) it stands upright in the gap to the right of the
- * board (the parent is `relative`), so it never takes width from the board.
+ * Engine evaluation gauge, drawn across: the player's side (board orientation) fills from
+ * the left, and the score sits at the leading side's end.
  */
-export function EvalBar({ score, orientation, label }: EvalBarProps) {
+export function EvalBar({ score, orientation, label, size = 'strip', caption }: EvalBarProps) {
   const white = whiteShare(score);
-  const whiteOnBottom = orientation === 'white';
-  // The score sits at the leading side's end: bottom/left is the player's side.
-  const atPlayerEnd = white >= 0.5 === whiteOnBottom;
-  const textColor = white >= 0.5 ? 'var(--mc-side-black)' : 'var(--mc-side-white)';
+  const whiteLeft = orientation === 'white';
+  const whiteLeads = white >= 0.5;
+  const atLeft = whiteLeads === whiteLeft;
   const text = formatScore(score);
-  return (
+  const panel = size === 'panel';
+  const meter = (
     <div
       role="meter"
       aria-label={label}
-      aria-valuetext={text}
+      aria-valuetext={caption ? `${text} · ${caption}` : text}
       aria-valuenow={Math.round(white * 100)}
       aria-valuemin={0}
       aria-valuemax={100}
       className={cn(
-        'relative flex h-4 w-full shrink-0 overflow-hidden rounded-md border border-border',
-        'short:absolute short:inset-y-0 short:left-full short:ml-0.5 short:h-auto short:w-3',
-        'wide:absolute wide:inset-y-0 wide:left-full wide:ml-0.5 wide:h-auto wide:w-3',
-        whiteOnBottom
-          ? 'flex-row-reverse short:flex-col wide:flex-col'
-          : 'flex-row short:flex-col-reverse wide:flex-col-reverse',
+        'relative flex w-full shrink-0 overflow-hidden border border-border',
+        panel ? 'h-7 rounded-full shadow-card' : 'h-4 rounded-md',
+        whiteLeft ? 'flex-row-reverse' : 'flex-row',
       )}
     >
       <div
-        className="transition-all duration-500"
+        className="transition-[flex-grow] duration-700 ease-out"
         style={{ flexGrow: 1 - white, backgroundColor: 'var(--mc-side-black)' }}
       />
       <div
-        className="transition-all duration-500"
+        className="transition-[flex-grow] duration-700 ease-out"
         style={{ flexGrow: white, backgroundColor: 'var(--mc-side-white)' }}
       />
-      {/* Bar: score along it. Upright gauge: written top to bottom so "+0.5" fits. */}
+      {panel && (
+        <>
+          {/* Even-game mark and a soft gloss over the tube. */}
+          <span
+            aria-hidden
+            className="absolute inset-y-1 left-1/2 w-0.5 -translate-x-1/2 rounded-full bg-accent opacity-60"
+          />
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-x-2 top-0.5 h-2 rounded-full opacity-40"
+            style={{
+              background: 'linear-gradient(to bottom, var(--mc-side-white), transparent)',
+            }}
+          />
+        </>
+      )}
       <span
         aria-hidden
         className={cn(
-          'absolute inset-y-0 flex items-center text-[10px] font-bold tabular-nums short:hidden wide:hidden',
-          atPlayerEnd ? 'left-1.5' : 'right-1.5',
+          'absolute top-1/2 -translate-y-1/2 font-bold tabular-nums',
+          panel ? 'rounded-full px-2 py-0.5 text-xs shadow-card' : 'text-[10px]',
+          atLeft ? (panel ? 'left-1' : 'left-1.5') : panel ? 'right-1' : 'right-1.5',
         )}
-        style={{ color: textColor }}
+        style={
+          panel
+            ? {
+                color: whiteLeads ? 'var(--mc-side-black)' : 'var(--mc-side-white)',
+                backgroundColor: whiteLeads ? 'var(--mc-side-white)' : 'var(--mc-side-black)',
+              }
+            : { color: whiteLeads ? 'var(--mc-side-black)' : 'var(--mc-side-white)' }
+        }
       >
         {text}
       </span>
-      <span
-        aria-hidden
-        className={cn(
-          'absolute inset-x-0 hidden justify-center text-[9px] leading-none font-bold tabular-nums [inline-size:max-content] [writing-mode:vertical-rl] short:flex wide:flex',
-          atPlayerEnd ? 'bottom-1' : 'top-1',
-        )}
-        style={{ color: textColor }}
-      >
-        {text}
-      </span>
+    </div>
+  );
+  if (!panel) return meter;
+  return (
+    <div className="flex flex-col gap-1.5">
+      {meter}
+      {caption && <p className="px-1 text-xs font-semibold text-muted">{caption}</p>}
     </div>
   );
 }

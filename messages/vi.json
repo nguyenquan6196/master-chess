@@ -347,7 +347,15 @@
     "strength": "Sức mạnh",
     "prevBot": "Bot trước",
     "nextBot": "Bot sau",
-    "versus": "VS"
+    "versus": "VS",
+    "verdict": {
+      "equal": "Thế cờ đang cân bằng",
+      "slight": "{side} nhỉnh hơn một chút",
+      "clear": "{side} đang ưu thế rõ",
+      "winning": "{side} gần như nắm chắc phần thắng",
+      "mate": "{side} có thể chiếu hết sau {n} nước",
+      "you": "Bạn"
+    }
   },
   "history": {
     "title": "Lịch sử ván",

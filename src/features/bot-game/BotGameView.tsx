@@ -9,12 +9,13 @@ import { EvalBar } from '@/components/board/EvalBar';
 import { MoveList } from '@/components/board/MoveList';
 import { Button } from '@/components/ui/Button';
 import { Confetti } from '@/components/ui/Confetti';
-import { ActionButton, GameLayout, HudCard } from '@/components/ui/GameLayout';
+import { ActionButton, GameLayout, HudCard, useSideColumn } from '@/components/ui/GameLayout';
 import { Modal } from '@/components/ui/Modal';
 import { RankBadge } from '@/components/ui/RankBadge';
 import { BossIntroOverlay, RankUpOverlay } from '@/components/ui/RankUpOverlay';
 import { STYLE_ICONS } from '@/core/bot/styles';
 import { isTimed, remainingAt } from '@/core/game/clock';
+import { evalVerdict } from '@/core/engine/evalVerdict';
 import { scoreToCp } from '@/core/engine/uci';
 import type { GameRecord } from '@/core/profile/schema';
 import { RANKS, rankStatus } from '@/core/rating/rank';
@@ -38,6 +39,7 @@ interface BotGameViewProps {
 
 export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProps) {
   const t = useTranslations('botGame');
+  const sideColumn = useSideColumn();
   const tg = useTranslations('game');
   const tc = useTranslations('common');
   const tb = useTranslations('bots');
@@ -93,6 +95,15 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
 
   const orientation = record.playerColor === 'w' ? 'white' : 'black';
   const botName = tb(`${level.id}.name`);
+  const verdict = evalVerdict(g.evaluation);
+  const verdictText = verdict
+    ? verdict.side
+      ? t(`verdict.${verdict.level}`, {
+          side: verdict.side === record.playerColor ? t('verdict.you') : botName,
+          n: verdict.mateIn ?? 0,
+        })
+      : t('verdict.equal')
+    : undefined;
   const last = snapshot.history[snapshot.history.length - 1];
   const turn = snapshot.status.kind === 'playing' ? snapshot.status.turn : null;
 
@@ -159,9 +170,9 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
           </div>
         }
         board={
-          // `relative`: on wide screens the eval gauge stands just outside the board's right edge.
-          <div className="relative flex flex-col gap-2">
-            {g.showEvalBar && (
+          <div className="flex flex-col gap-2">
+            {/* Phones: a thin strip above the board; side-column screens show the gauge there. */}
+            {g.showEvalBar && !sideColumn && (
               <EvalBar score={g.evaluation} orientation={orientation} label={t('evalBar')} />
             )}
             <ChessBoard
@@ -226,6 +237,15 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
                 {t('evalBar')}
               </label>
             </div>
+            {g.showEvalBar && sideColumn && (
+              <EvalBar
+                size="panel"
+                score={g.evaluation}
+                orientation={orientation}
+                label={t('evalBar')}
+                caption={verdictText}
+              />
+            )}
             <HudCard className="py-3">
               <h2 className="mb-2 font-display text-base font-semibold">{tg('moves')}</h2>
               <MoveList moves={snapshot.history.map((m) => m.san)} emptyLabel={tg('noMoves')} />
