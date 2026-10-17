@@ -222,7 +222,7 @@ export function BotGameView({ initial, onRematch, onChangeBot }: BotGameViewProp
             aside={
               myRank && (
                 <span className="flex items-center gap-2">
-                  <span className="hidden text-right text-xs leading-tight sm:block">
+                  <span className="block text-right text-[11px] leading-tight sm:text-xs">
                     <span className="block font-semibold">
                       {rankTitle(myRank, tr(RANKS[myRank.rankIndex].id))}
                     </span>

@@ -115,7 +115,7 @@ export function GameLayout({
       {/* Board: limited by width, by the screen height and by the room the side columns leave. */}
       <div
         className={cn(
-          'mx-auto flex w-full max-w-[min(640px,calc(100dvh-2rem))] flex-col gap-2 wide:row-start-1 wide:max-w-none',
+          'mx-auto flex w-full max-w-[min(640px,calc(100dvh-2rem))] flex-col gap-3 wide:row-start-1 wide:max-w-none',
           actions ? 'wide:col-start-2' : 'wide:col-start-1',
           'short:col-start-1 short:row-span-2 short:row-start-1 short:mx-0 short:w-(--mc-short-board) short:max-w-none',
           focus

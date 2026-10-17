@@ -73,8 +73,13 @@ export function EvalBar({ score, orientation, label, size = 'strip', caption }: 
         aria-hidden
         className={cn(
           'absolute top-1/2 -translate-y-1/2 font-bold tabular-nums',
-          panel ? 'px-2.5 text-xs' : 'text-[10px]',
-          iLead ? 'left-1 text-accent-fg' : 'right-1 text-fg',
+          // Panel: the score on its own small plate, readable over either colour.
+          panel
+            ? 'rounded-full border border-border bg-surface px-2 py-px text-xs text-fg shadow-card'
+            : iLead
+              ? 'text-[10px] text-accent-fg'
+              : 'text-[10px] text-fg',
+          iLead ? 'left-1' : 'right-1',
         )}
       >
         {text}

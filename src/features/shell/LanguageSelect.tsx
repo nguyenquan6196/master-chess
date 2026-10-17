@@ -73,7 +73,7 @@ export function LanguageSelect() {
         onClick={() => (open ? setOpen(false) : openList())}
         onKeyDown={onKeyDown}
         className={cn(
-          'mc-press flex h-10 items-center gap-2 rounded-full border bg-surface px-3 text-sm font-semibold shadow-card',
+          'mc-press flex h-10 items-center gap-1.5 rounded-full border bg-surface px-2.5 text-sm font-semibold shadow-card sm:gap-2 sm:px-3',
           'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent',
           open ? 'border-accent bg-surface-2' : 'border-border hover:bg-surface-2',
         )}
@@ -82,7 +82,8 @@ export function LanguageSelect() {
         <span className="hidden lg:inline" lang={locale}>
           {LOCALE_LABELS[locale]}
         </span>
-        <span className="uppercase lg:hidden">{locale}</span>
+        {/* Phones: the flag alone (room for the HUD); tablets: the code. */}
+        <span className="hidden uppercase sm:inline lg:hidden">{locale}</span>
         <span
           aria-hidden
           className={cn('text-xs text-muted transition-transform', open && 'rotate-180')}

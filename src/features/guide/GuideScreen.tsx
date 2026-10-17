@@ -78,15 +78,30 @@ function useActiveSection(ids: readonly string[]): string {
   return active;
 }
 
-/** Table-of-contents jump: glide to the section, then make its heading wave hello. */
-function jumpTo(id: string) {
+/** Gap left between the sticky bars and a section title after a table-of-contents jump. */
+const JUMP_GAP_PX = 16;
+
+/**
+ * Table-of-contents jump: glide until the section's title sits just under the sticky HUD
+ * (and, on phones/tablets, the sticky tab row `toc`), then make the title wave hello.
+ */
+function jumpTo(id: string, toc: HTMLElement | null) {
   const el = document.getElementById(id);
-  if (!el) return;
+  const title = el?.querySelector('h2');
+  if (!el || !title) return;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  el.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+  const hud = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--mc-hud-h'));
+  const tabRow = toc && !window.matchMedia('(min-width: 64rem)').matches ? toc.offsetHeight : 0;
+  const top =
+    title.getBoundingClientRect().top +
+    window.scrollY -
+    (Number.isFinite(hud) ? hud : 0) -
+    tabRow -
+    JUMP_GAP_PX;
+  window.scrollTo({ top, behavior: reduced ? 'auto' : 'smooth' });
   history.replaceState(null, '', `#${id}`);
   if (reduced) return;
-  el.querySelector('h2')?.animate(
+  title.animate(
     [
       { color: 'var(--mc-accent)', transform: 'translateX(0.5rem)' },
       { color: 'inherit', transform: 'none' },
@@ -169,7 +184,7 @@ export function GuideScreen() {
         <nav
           ref={tocRef}
           aria-label={t('toc')}
-          className="sticky top-(--mc-hud-h,0px) z-20 -mx-3 bg-bg/85 px-3 pb-2 backdrop-blur-md sm:-mx-4 sm:px-4 lg:top-[calc(var(--mc-hud-h,5rem)+0.5rem)] lg:mx-0 lg:self-start lg:bg-transparent lg:p-0 lg:backdrop-blur-none"
+          className="sticky top-[calc(var(--mc-hud-h,0px)-0.5rem)] z-20 -mx-3 bg-linear-to-b from-bg/85 via-bg/70 to-transparent px-3 pt-2 pb-4 sm:-mx-4 sm:px-4 lg:top-[calc(var(--mc-hud-h,5rem)+0.5rem)] lg:mx-0 lg:self-start lg:bg-none lg:p-0"
         >
           <p className="mb-2 hidden text-xs font-bold tracking-wide text-muted uppercase lg:block">
             {t('toc')}
@@ -181,7 +196,7 @@ export function GuideScreen() {
                   href={`#${s}`}
                   onClick={(e) => {
                     e.preventDefault();
-                    jumpTo(s);
+                    jumpTo(s, tocRef.current);
                   }}
                   aria-current={active === s ? 'location' : undefined}
                   className={cn(

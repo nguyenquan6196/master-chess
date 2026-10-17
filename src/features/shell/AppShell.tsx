@@ -97,33 +97,39 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
     <HudSlotProvider>
       {particles && <BackdropParticles key={resolvedTheme} kind={particles} />}
       <Toaster />
-      {/* Below lg the HUD is a frosted bar (content never shows through its titles, and
-          sticky bars under it, like the guide's tabs, continue it); desktop fades out. */}
       <header
         ref={hud}
-        className="sticky top-0 z-30 bg-bg/85 pb-2 backdrop-blur-md lg:bg-transparent lg:bg-linear-to-b lg:from-bg lg:via-bg/85 lg:to-transparent lg:backdrop-blur-none"
+        className="sticky top-0 z-30 bg-linear-to-b from-bg via-bg/85 to-transparent pb-2"
       >
         <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center gap-2 px-3 pt-3 sm:flex-nowrap sm:px-4">
           {isLobby && profile ? (
             <Link
               href="/profile"
               title={`${t('profile')} · ${rankLabel}`}
-              className="mc-press flex min-w-0 items-center gap-3 rounded-2xl border border-border bg-surface/90 py-1.5 pr-3 pl-1.5 shadow-card backdrop-blur hover:bg-surface"
+              className="mc-press flex min-w-0 flex-1 basis-0 items-center gap-2 sm:flex-none sm:basis-auto rounded-2xl border border-border bg-surface/90 py-1.5 pr-2 pl-1.5 shadow-card backdrop-blur hover:bg-surface sm:gap-3 sm:pr-3"
             >
               <span
                 aria-hidden
-                className="grid size-11 shrink-0 place-items-center rounded-xl bg-surface-2 text-2xl"
+                className="grid size-10 shrink-0 place-items-center rounded-xl bg-surface-2 text-2xl sm:size-11"
               >
                 {profile.avatar}
               </span>
               <span className="min-w-0">
                 <span className="block truncate font-display font-bold">{profile.name}</span>
-                <span className="flex items-center gap-1.5 text-xs whitespace-nowrap text-muted">
+                <span className="flex items-center gap-1.5 overflow-hidden text-xs whitespace-nowrap text-muted">
                   {tp('level', { level: levelFor(profile.xp).level })}
                   <span aria-hidden>·</span>🔥 {liveStreak(profile.streak, now)}
                 </span>
               </span>
-              {rankId && <RankEmblem rank={rankId} size={40} animated={false} title={rankLabel} />}
+              {rankId && (
+                <RankEmblem
+                  rank={rankId}
+                  size={34}
+                  animated={false}
+                  title={rankLabel}
+                  className="sm:size-10"
+                />
+              )}
             </Link>
           ) : !isLobby ? (
             <>
