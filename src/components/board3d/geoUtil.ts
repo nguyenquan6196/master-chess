@@ -128,3 +128,35 @@ export function extruded(shapes: readonly Shape[], depth: number, bevel: number)
 }
 
 /** Voxel piece from a 12×12 sprite: each filled pixel is a cube, two cubes deep. */
+
+/**
+ * Narrows an extruded profile towards the left (a horse's muzzle) and the top (ears), so
+ * a cut-out reads as a carved, rounded head instead of a flat slab.
+ */
+export function tapered(g: BufferGeometry, muzzle = 0.45, top = 0.7): BufferGeometry {
+  g.computeBoundingBox();
+  const box3 = g.boundingBox;
+  if (!box3) return g;
+  const pos = g.getAttribute('position');
+  const w = box3.max.x - box3.min.x || 1;
+  const h = box3.max.y - box3.min.y || 1;
+  for (let i = 0; i < pos.count; i++) {
+    const tx = (pos.getX(i) - box3.min.x) / w;
+    const ty = (pos.getY(i) - box3.min.y) / h;
+    const k = (muzzle + (1 - muzzle) * tx) * (1 - (1 - top) * ty ** 2);
+    pos.setZ(i, pos.getZ(i) * k);
+  }
+  pos.needsUpdate = true;
+  g.computeVertexNormals();
+  return g;
+}
+
+/** A rounded, tapered horse head from an outline (knights of every set). */
+export function horseHead(
+  shape: Shape,
+  depth: number,
+  bevel: number,
+  muzzle = 0.45,
+): BufferGeometry {
+  return tapered(extruded([shape], depth, bevel), muzzle);
+}

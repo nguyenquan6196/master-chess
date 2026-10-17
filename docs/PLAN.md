@@ -233,6 +233,9 @@ Quyết định: [ADR 0008](adr/0008-procedural-3d-board.md) — three + react-t
 - [x] Tự tắt 3D trên máy yếu: ≤ 2 nhân CPU / ≤ 2 GB RAM / bật tiết kiệm dữ liệu → luôn 2D (Cài đặt ghi rõ lý do); đang chạy mà FPS trung bình < 24 → tự chuyển 2D kèm thông báo (`core/board3d/perf`, có test)
 - [x] Hoạ tiết 3D như 2D (`components/board3d/textures.ts`, vẽ canvas, không file ảnh): mặt bàn theo theme — vân gỗ, vân đá, vân mã não, kim loại xước, pixel, lưới neon (4 biến thể mỗi màu ô); khung bàn dày hơn cùng hoạ tiết; quân có vân gỗ / vân xoáy nhựa / vân đá / kim loại xước; voxel pixel tô viền + bóng như sprite
 - [x] Huyền ảo & Hoa anh đào dựng lại thành tượng tròn nhiều phần (`figures.ts`) — thân tiện, đầu cầu, mũ/mái nón, khiên, cánh, hoa, đai obi, cửa sổ đèn lồng phát sáng — tô màu theo phần như 2D; tượng quay mặt về phía người xem
+- [x] Hoạ tiết vẽ tay trên quân 3D: rãnh tiện sẫm (gỗ, cổ điển), khe mũ tượng, vòng sáng xanh (kim loại), mắt + bờm quân mã, mắt/má cho tượng nhân vật; quân mã mọi bộ là đầu ngựa đùn bo tròn và vuốt thon (không còn tấm dẹt)
+- [x] Neon 3D: thân kính tối trong mờ + đường viền phát sáng (EdgesGeometry), nhấp nháy theo nhịp lệch pha từng loại quân như 2D (tắt khi giảm chuyển động)
+- [x] Chế độ "Phóng to bàn cờ" (desktop, nhớ theo trình duyệt): bàn to tới 1000px theo chiều cao màn, nút chức năng thu thành thanh icon dưới bàn, nước đi & thông tin mở bằng ngăn kéo bên phải
 - [x] Camera tự tính khoảng cách để cả 4 góc khung bàn và đỉnh quân hàng xa luôn nằm trong khung (hết lẹm góc)
 - [x] Bố cục bàn chơi desktop 3 cột: nút chức năng xếp dọc bên trái, bàn cờ giữa (to nhất theo chiều cao/rộng), nước đi & thông tin bên phải; mobile giữ dải nút đáy
 

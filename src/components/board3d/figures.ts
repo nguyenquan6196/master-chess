@@ -12,6 +12,7 @@ import type { PieceKind } from '../board/pieceShapes';
 import {
   extruded,
   heightOf,
+  horseHead,
   latheOf,
   S,
   shapeFromEl,
@@ -91,6 +92,18 @@ const carved = (
   return part(g, tone, [0, 0, z * S], ry ? [0, ry, 0] : undefined);
 };
 
+/** Painted eyes (and optional blush) on a head of radius `r` centred at svg (0, y). */
+const face = (r: number, y: number, blush = false) => [
+  ball(r * 0.13, -r * 0.36, y - r * 0.08, r * 0.9, 'ink'),
+  ball(r * 0.13, r * 0.36, y - r * 0.08, r * 0.9, 'ink'),
+  ...(blush
+    ? [
+        ball(r * 0.17, -r * 0.55, y + r * 0.32, r * 0.78, 'bloom'),
+        ball(r * 0.17, r * 0.55, y + r * 0.32, r * 0.78, 'bloom'),
+      ]
+    : []),
+];
+
 // ---- Fantasy -----------------------------------------------------------------------
 
 const PEDESTAL = latheOf([
@@ -141,7 +154,7 @@ function fantasy(kind: PieceKind): PiecePart[] {
     case 'n':
       return [
         ...pedestal(),
-        carved([F[3]], 10, 2.5, 'body'),
+        part(horseHead(shapeFromEl(F[3]), 11, 2.8), 'body'),
         carved([F[1], F[2]], 3, 0.8, 'accent'),
         ball(1.3, -3, -10, 4.8, 'gem'),
         ball(1.3, -3, -10, -4.8, 'gem'),
@@ -161,6 +174,7 @@ function fantasy(kind: PieceKind): PiecePart[] {
           'body',
         ),
         ball(3.6, 0, -8.5, 0, 'skin'),
+        ...face(3.6, -8.5),
         part(new CylinderGeometry(2.6 * S, 0.3 * S, 6 * S, 16), 'hair', at(0, -5.5, 2.4)),
         column(7.5, 7.5, -11, -12, 0, 0, 32, 'gem'),
         part(
@@ -191,6 +205,7 @@ function fantasy(kind: PieceKind): PiecePart[] {
         ),
         ring(3.3, 0.6, -4, 'accent'),
         ball(3.6, 0, -10, 0, 'skin'),
+        ...face(3.6, -10),
         dome(3.8, 0, -10.5, 0, 'hair', 0.4),
         part(new CylinderGeometry(3.9 * S, 3.5 * S, 3.2 * S, 12, 1, true), 'accent', at(0, -14.2)),
         ball(1, 0, -14.5, 3.8, 'gem'),
@@ -210,6 +225,7 @@ function fantasy(kind: PieceKind): PiecePart[] {
         ),
         ring(7.4, 0.7, 2, 'accent'),
         ball(3.8, 0, -10, 0, 'skin'),
+        ...face(3.8, -10),
         part(new CylinderGeometry(2.8 * S, 0.3 * S, 5.5 * S, 16), 'hair', at(0, -6.2, 2.6)),
         part(new CylinderGeometry(4.4 * S, 4 * S, 6 * S, 10, 1, true), 'accent', at(0, -16)),
         ball(1.1, 0, -15.5, 4.3, 'gem'),
@@ -274,7 +290,8 @@ function sakura(kind: PieceKind): PiecePart[] {
     case 'n':
       return [
         ...stand(),
-        carved([K[1], K[2]], 10, 2.5, 'body'),
+        part(horseHead(shapeFromEl(K[2]), 11, 2.8), 'body'),
+        part(new CylinderGeometry(0.2 * S, 1.4 * S, 6 * S, 10), 'body', at(3.5, -22.5)),
         ball(1.1, -2, -12.5, 4.9, 'ink'),
         ball(1.1, -2, -12.5, -4.9, 'ink'),
         column(0.4, 0.4, -2, -8, 6, 5, 8, 'accent'),
@@ -317,6 +334,7 @@ function sakura(kind: PieceKind): PiecePart[] {
         ...blossom(-3.5, 9, 7.6),
         ...blossom(3.8, 11.5, 8.2, 1.2),
         ball(4.2, 0, -9, 0, 'skin'),
+        ...face(4.2, -9, true),
         dome(4.45, 0, -9.3, 0, 'hair', 0.45),
         ball(3.3, 0, -15, 0, 'hair'),
         ball(2, -4.3, -13, 0, 'hair'),
@@ -342,6 +360,7 @@ function sakura(kind: PieceKind): PiecePart[] {
         disc(2.6, 0, 3, 6.2, 'accent'),
         ...blossom(0, 3, 6.6, 1),
         ball(3.8, 0, -9.5, 0, 'skin'),
+        ...face(3.8, -9.5),
         part(
           extruded(
             [shapeFromPath('M-3.5,-12 C-4,-20 0,-27 3.5,-28.5 C3,-22 4,-16 3.5,-12 Z')],

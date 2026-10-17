@@ -2,7 +2,17 @@
 
 import { Canvas, useFrame, useThree, type ThreeEvent } from '@react-three/fiber';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type RefObject } from 'react';
-import { Color, PerspectiveCamera, Plane, Vector3, type Group } from 'three';
+import {
+  Color,
+  EdgesGeometry,
+  LineBasicMaterial,
+  MeshStandardMaterial,
+  PerspectiveCamera,
+  Plane,
+  Vector3,
+  type BufferGeometry,
+  type Group,
+} from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import {
   ALL_SQUARES,
@@ -200,6 +210,38 @@ function FpsWatch({ onSlow }: { onSlow: () => void }) {
   return null;
 }
 
+/** Per-kind phase offsets so the neon tubes don't all pulse in sync (as in 2D). */
+const NEON_PHASE: Record<BoardPiece['type'], number> = {
+  p: 0,
+  r: 0.5,
+  n: 1.1,
+  b: 0.8,
+  q: 1.6,
+  k: 0.3,
+};
+const NEON_PERIOD_S = 2.6;
+/** Reduced motion: neon glows steadily instead of pulsing. */
+const REDUCED_MOTION =
+  typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/** 0…1 brightness of a neon tube: a slow breath with a quick flicker (2D `mc-neon-pulse`). */
+function neonPulse(t: number): number {
+  const f = (t % NEON_PERIOD_S) / NEON_PERIOD_S;
+  if (f > 0.45 && f < 0.51) return f < 0.48 ? 0.15 : 0.95;
+  return 0.5 - 0.5 * Math.cos(f * Math.PI * 2);
+}
+
+/** Outline edges of a geometry (cached): the glowing tube lines of the neon set. */
+const EDGES = new WeakMap<BufferGeometry, EdgesGeometry>();
+function edgesOf(g: BufferGeometry): EdgesGeometry {
+  let e = EDGES.get(g);
+  if (!e) {
+    e = new EdgesGeometry(g, 28);
+    EDGES.set(g, e);
+  }
+  return e;
+}
+
 function Piece({
   piece,
   anim,
@@ -235,7 +277,19 @@ function Piece({
       ? Math.PI
       : 0;
 
+  // Neon: glass body + glowing edges that breathe with a flicker, like the 2D tubes.
+  const neon = set === 'outline';
+  const pulse = neon && !REDUCED_MOTION;
+  const glow = useRef<(MeshStandardMaterial | LineBasicMaterial | null)[]>([]);
+
   useFrame(({ clock }) => {
+    if (pulse) {
+      const k = neonPulse(clock.elapsedTime + NEON_PHASE[piece.type]);
+      for (const m of glow.current) {
+        if (m instanceof MeshStandardMaterial) m.emissiveIntensity = 0.12 + 0.4 * k;
+        else if (m) m.opacity = 0.45 + 0.55 * k;
+      }
+    }
     const g = ref.current;
     if (!g) return;
     const d = drag.current;
@@ -264,6 +318,36 @@ function Piece({
           surface && !part.tone
             ? surfaceTexture(surface, mat.color, piece.color === 'w' ? 0 : 1)
             : null;
+        if (neon) {
+          return (
+            <group key={i} position={part.position} rotation={part.rotation}>
+              <mesh geometry={part.geometry}>
+                <meshStandardMaterial
+                  ref={(m) => {
+                    glow.current[i * 2] = m;
+                  }}
+                  color={mat.color}
+                  emissive={mat.emissive ?? '#000000'}
+                  emissiveIntensity={0.3}
+                  roughness={0.2}
+                  transparent
+                  opacity={0.5}
+                  depthWrite={false}
+                />
+              </mesh>
+              <lineSegments geometry={edgesOf(part.geometry)}>
+                <lineBasicMaterial
+                  ref={(m) => {
+                    glow.current[i * 2 + 1] = m;
+                  }}
+                  color={mat.emissive ?? mat.color}
+                  transparent
+                  opacity={0.9}
+                />
+              </lineSegments>
+            </group>
+          );
+        }
         return (
           <mesh
             key={i}

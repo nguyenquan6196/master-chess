@@ -46,8 +46,9 @@ export const PIECE_MATERIALS: Record<ConcretePieceSet, Pair> = {
     black: m('#1d1e22', 0.22, 0, { flatShading: true }),
   },
   outline: {
-    white: m('#3ff3ff', 0.35, 0, { emissive: '#3ff3ff', emissiveIntensity: 0.9, wireframe: true }),
-    black: m('#ff3fd8', 0.35, 0, { emissive: '#ff3fd8', emissiveIntensity: 0.9, wireframe: true }),
+    // Tinted glass bodies; the glowing edges are drawn by Board3D in the emissive colour.
+    white: m('#0f3a44', 0.2, 0, { emissive: '#3ff3ff' }),
+    black: m('#3e0f37', 0.2, 0, { emissive: '#ff3fd8' }),
   },
   pixel: {
     white: m('#e0f8d0', 1, 0, { flatShading: true }),
@@ -68,6 +69,32 @@ export const TONES: Partial<
     { white: Partial<Record<Tone, PieceMaterial>>; black: Partial<Record<Tone, PieceMaterial>> }
   >
 > = {
+  classic: {
+    white: { ink: m('#6b6256', 0.6) },
+    black: { ink: m('#cfc6b5', 0.6) },
+  },
+  wood: {
+    white: { ink: m('#7a4c22', 0.7) },
+    black: { ink: m('#1c0e05', 0.7) },
+  },
+  resin: {
+    white: { ink: m('#5f7d96', 0.3) },
+    black: { ink: m('#d6efff', 0.3) },
+  },
+  marble: {
+    white: { ink: m('#6f777f', 0.4) },
+    black: { ink: m('#c9ccd1', 0.4) },
+  },
+  midnight: {
+    white: {
+      ink: m('#3a4454', 0.3),
+      accent: m('#9fc0ff', 0.2, 0, { emissive: '#7fa8ff', emissiveIntensity: 0.9 }),
+    },
+    black: {
+      ink: m('#c9d6ff', 0.3),
+      accent: m('#7fa8ff', 0.2, 0, { emissive: '#7fa8ff', emissiveIntensity: 1 }),
+    },
+  },
   fantasy: {
     white: {
       accent: m('#e7b84a', 0.3, 0.45),

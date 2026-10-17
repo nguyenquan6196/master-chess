@@ -4,6 +4,7 @@ import {
   Float32BufferAttribute,
   OctahedronGeometry,
   SphereGeometry,
+  TorusGeometry,
   type BufferGeometry,
 } from 'three';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
@@ -18,8 +19,8 @@ import type { PieceKind } from '../board/pieceShapes';
 import { figureParts } from './figures';
 import {
   box,
-  extruded,
   flatTop,
+  horseHead,
   heightOf,
   latheOf,
   merlons,
@@ -30,6 +31,37 @@ import {
 } from './geoUtil';
 
 export type { PiecePart } from './geoUtil';
+
+/** Points along the back of each horse where the painted mane runs. */
+const STAUNTON_MANE: Pt[] = [
+  [2.5, -20.5],
+  [6.5, -18],
+  [9.5, -13.5],
+  [11, -8.5],
+  [11.5, -3.5],
+];
+const RESIN_MANE: Pt[] = [
+  [3.5, -21.5],
+  [7, -18.5],
+  [9, -13],
+  [9.6, -7.5],
+  [9.3, -2],
+];
+
+/** Painted eyes on both cheeks and a mane ridge (ink tone). */
+function knightFace(eyeX: number, eyeY: number, half: number, mane: readonly Pt[]): PiecePart[] {
+  const eye = new SphereGeometry(1.1 * S, 12, 8);
+  const tuft = new SphereGeometry(1.5 * S, 10, 8);
+  return [
+    { geometry: eye, tone: 'ink', position: [eyeX * S, heightOf(eyeY), half * S] },
+    { geometry: eye, tone: 'ink', position: [eyeX * S, heightOf(eyeY), -half * S] },
+    ...mane.map(([x, y]) => ({
+      geometry: tuft,
+      tone: 'ink' as const,
+      position: [x * S, heightOf(y), 0] as [number, number, number],
+    })),
+  ];
+}
 
 /**
  * 3D piece geometry, built in code from the 2D sets' own shapes (no downloaded models),
@@ -88,7 +120,8 @@ function staunton(kind: PieceKind): PiecePart[] {
     case 'n':
       return [
         { geometry: latheOf(STAUNTON_KNIGHT_FOOT) },
-        { geometry: extruded([shapeFromPath(STAUNTON_HORSE)], 7, 1.2) },
+        { geometry: horseHead(shapeFromPath(STAUNTON_HORSE), 10, 2.6) },
+        ...knightFace(-2, -14, 3.6, STAUNTON_MANE),
       ];
     case 'b':
       return [
@@ -124,7 +157,8 @@ function resin(kind: PieceKind): PiecePart[] {
     case 'n':
       return [
         { geometry: latheOf(RESIN_KNIGHT_FOOT) },
-        { geometry: extruded([shapeFromPath(RESIN_HORSE)], 6, 1) },
+        { geometry: horseHead(shapeFromPath(RESIN_HORSE), 8.5, 2.2) },
+        ...knightFace(-1, -15, 3, RESIN_MANE),
       ];
     case 'b':
       return [
@@ -159,7 +193,10 @@ function marble(kind: PieceKind): PiecePart[] {
         ...merlons(9.4, -15, 4.6, 4),
       ];
     case 'n':
-      return [{ geometry: extruded([shapeFromPoints(MARBLE_KNIGHT)], 9, 0.5) }];
+      return [
+        { geometry: horseHead(shapeFromPoints(MARBLE_KNIGHT), 11, 0.6, 0.6) },
+        ...knightFace(-4, -12, 4.4, []),
+      ];
     case 'b':
       return [
         { geometry: cut(MARBLE_PROFILES.b) },
@@ -190,7 +227,10 @@ function midnight(kind: PieceKind): PiecePart[] {
     case 'r':
       return [{ geometry: cut(MIDNIGHT_PROFILES.r) }];
     case 'n':
-      return [{ geometry: extruded([shapeFromPoints(MIDNIGHT_KNIGHT)], 7, 0.4) }];
+      return [
+        { geometry: horseHead(shapeFromPoints(MIDNIGHT_KNIGHT), 9, 0.4, 0.55) },
+        ...knightFace(-4, -12, 3.4, []),
+      ];
     case 'b':
       return [{ geometry: cut(MIDNIGHT_PROFILES.b) }];
     case 'q':
@@ -205,7 +245,89 @@ function midnight(kind: PieceKind): PiecePart[] {
   }
 }
 
+// ---- Painted details on turned pieces (the 2D sets' hand-drawn marks) ---------------
+
+/** Profile radius at svg height `y` (widest crossing), for rings painted on a lathe. */
+function radiusAt(profile: readonly Pt[], y: number): number {
+  let r = 0;
+  for (let i = 1; i < profile.length; i++) {
+    const [x1, y1] = profile[i - 1];
+    const [x2, y2] = profile[i];
+    if ((y - y1) * (y - y2) > 0 || y1 === y2) continue;
+    r = Math.max(r, x1 + ((x2 - x1) * (y - y1)) / (y2 - y1));
+  }
+  return r;
+}
+
+/** A thin painted (or glowing) ring around a turned piece at svg height `y`. */
+function band(profile: readonly Pt[], y: number, tone: 'ink' | 'accent', tube = 0.45): PiecePart {
+  return {
+    geometry: new TorusGeometry((radiusAt(profile, y) + tube * 0.3) * S, tube * S, 6, 48),
+    tone,
+    position: [0, heightOf(y), 0],
+    rotation: [Math.PI / 2, 0, 0],
+  };
+}
+
+/** The diagonal slit cut into a bishop's mitre, on the side facing the viewer. */
+function slit(profile: readonly Pt[], y: number): PiecePart {
+  return {
+    geometry: new BoxGeometry(1.1 * S, 7 * S, 1.6 * S),
+    tone: 'ink',
+    position: [1.6 * S, heightOf(y), (radiusAt(profile, y) - 0.3) * S],
+    rotation: [0, 0, -0.75],
+  };
+}
+
+/** Where the turning tool cut a groove (painted dark), per kind — as on the 2D wood set. */
+const GROOVES: Record<Exclude<PieceKind, 'n'>, number[]> = {
+  p: [15.5, 12.5, -1, -3],
+  r: [15.5, 12.5, 8, -7.5],
+  b: [15.5, 12.5, -3, -5],
+  q: [15.5, 12.5, -5, -7],
+  k: [15.5, 12.5, -5, -7, -18],
+};
+
+function details(set: ConcretePieceSet, kind: PieceKind): PiecePart[] {
+  if (kind === 'n') return [];
+  switch (set) {
+    case 'classic':
+    case 'wood': {
+      const profile = STAUNTON_PROFILES[kind];
+      return [
+        ...GROOVES[kind].map((y) => band(profile, y, 'ink', set === 'wood' ? 0.4 : 0.3)),
+        ...(kind === 'b' ? [slit(profile, -14)] : []),
+      ];
+    }
+    case 'resin':
+      return kind === 'b' ? [slit(RESIN_PROFILES.b, -14)] : [];
+    case 'marble':
+      return kind === 'b' ? [slit(MARBLE_PROFILES.b, -13)] : [];
+    case 'midnight': {
+      // Cold glowing trims at the foot and the collars.
+      const profile = MIDNIGHT_PROFILES[kind];
+      const rings: Record<Exclude<PieceKind, 'n'>, number[]> = {
+        p: [15, 1],
+        r: [15, -14],
+        b: [15, -2],
+        q: [15, -2],
+        k: [15, -2, -17],
+      };
+      return [
+        ...rings[kind].map((y) => band(profile, y, 'accent', 0.35)),
+        ...(kind === 'b' ? [slit(profile, -14)] : []),
+      ];
+    }
+    default:
+      return [];
+  }
+}
+
 function build(set: ConcretePieceSet, kind: PieceKind): PiecePart[] {
+  return [...shapes(set, kind), ...details(set, kind)];
+}
+
+function shapes(set: ConcretePieceSet, kind: PieceKind): PiecePart[] {
   switch (set) {
     case 'resin':
       return resin(kind);

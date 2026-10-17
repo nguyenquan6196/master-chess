@@ -57,6 +57,11 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
       view: boardView,
       boardSurface,
       onViewChange: (view: BoardView) => useSettings.getState().update({ boardView: view }),
+      layoutLabels: {
+        focus: tSet('focusBoard'),
+        unfocus: tSet('unfocusBoard'),
+        side: tSet('sidePanel'),
+      },
       labels3d: {
         camera: {
           angle: tSet('camera.angle'),
