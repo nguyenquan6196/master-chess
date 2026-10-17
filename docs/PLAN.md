@@ -238,6 +238,7 @@ Quyết định: [ADR 0008](adr/0008-procedural-3d-board.md) — three + react-t
 - [x] Chế độ "Phóng to bàn cờ" (desktop, nhớ theo trình duyệt): bàn to tới 1000px theo chiều cao màn, nút chức năng thu thành thanh icon dưới bàn, nước đi & thông tin mở bằng ngăn kéo bên phải
 - [x] Quân mã 3D nặn tròn (cổ + đầu loft theo đường cong, má, tai, bờm, mắt, lỗ mũi) cho mọi bộ trừ pixel; bỏ vòng tròn trên quân cổ điển/gỗ/nửa đêm
 - [x] Bố cục phóng to mới (màn rộng ngang, biến thể CSS `wide:`): bàn cao hết màn, nút dọc bên trái (chỉ icon dưới 1280px), thẻ người chơi/bot/trạng thái + nước đi sang cột phải; tablet dọc & điện thoại giữ bố cục xếp chồng; tiêu đề HUD cho màn đấu bot
+- [x] Điện thoại xoay ngang (biến thể CSS `short:`): 2 cột — bàn cờ bên trái cao hết màn, thanh nút + thẻ người chơi/bot + nước đi bên phải (không còn dock đáy)
 - [x] Nền theme Cẩm thạch: vân đá chéo bằng SVG noise (lớp nền riêng, vẽ một lần)
 - [x] Camera tự tính khoảng cách để cả 4 góc khung bàn và đỉnh quân hàng xa luôn nằm trong khung (hết lẹm góc)
 - [x] Bố cục bàn chơi desktop 3 cột: nút chức năng xếp dọc bên trái, bàn cờ giữa (to nhất theo chiều cao/rộng), nước đi & thông tin bên phải; mobile giữ dải nút đáy

@@ -27,14 +27,20 @@ function subscribeFocus(l: () => void) {
   return () => focusListeners.delete(l);
 }
 
-/** Same screens as the `wide:` CSS variant (globals.css). */
+/** Same screens as the `wide:` and `short:` CSS variants (globals.css). */
 const WIDE_QUERY = '(min-width: 64rem) and (orientation: landscape)';
-function subscribeWide(l: () => void) {
-  const mq = window.matchMedia(WIDE_QUERY);
-  mq.addEventListener('change', l);
-  return () => mq.removeEventListener('change', l);
+const SHORT_QUERY = '(min-width: 36rem) and (max-width: 63.99rem) and (orientation: landscape)';
+function useMedia(query: string): boolean {
+  return useSyncExternalStore(
+    (l) => {
+      const mq = window.matchMedia(query);
+      mq.addEventListener('change', l);
+      return () => mq.removeEventListener('change', l);
+    },
+    () => window.matchMedia(query).matches,
+    () => false,
+  );
 }
-const readWide = () => window.matchMedia(WIDE_QUERY).matches;
 
 /**
  * Game-style scene around a board (Phase 5.5, three columns since Phase 6).
@@ -42,6 +48,8 @@ const readWide = () => window.matchMedia(WIDE_QUERY).matches;
  *   the middle as large as the screen allows (player cards `top`/`bottom` around it),
  *   `side` (moves, analysis) on the right. "Focus" gives the board the full screen
  *   height: the player cards move into the right column next to the moves.
+ * - Phones turned sideways (`short:`): two columns — the board on the left as tall as the
+ *   screen, the actions bar, player cards and moves on the right.
  * - Phones and portrait tablets: top, board (full width), bottom, side; `actions` become a
  *   dock fixed to the bottom of the screen, like a game's button bar.
  */
@@ -60,9 +68,10 @@ export function GameLayout({
 }) {
   const labels = useBoardPrefs().layoutLabels;
   const focus = useSyncExternalStore(subscribeFocus, readFocus, () => false);
-  const wide = useSyncExternalStore(subscribeWide, readWide, () => false);
-  // Focus on a wide screen: the player cards move to the right column.
-  const cardsAside = focus && wide;
+  const wide = useMedia(WIDE_QUERY);
+  const short = useMedia(SHORT_QUERY);
+  // Focus on a wide screen, or a sideways phone: the player cards move to the right column.
+  const cardsAside = (focus && wide) || short;
 
   const focusButton = (
     <ActionButton
@@ -79,7 +88,8 @@ export function GameLayout({
     <div
       className={cn(
         'grid gap-4 wide:items-start wide:justify-center',
-        actions && 'pb-24 wide:pb-0',
+        actions && 'pb-24 short:pb-0 wide:pb-0',
+        'short:grid-cols-[auto_minmax(0,1fr)] short:grid-rows-[auto_1fr] short:items-start short:gap-3',
         focus
           ? cn(
               // Wider than the page column; the board takes the remaining screen height.
@@ -99,6 +109,7 @@ export function GameLayout({
         className={cn(
           'mx-auto flex w-full max-w-[min(640px,calc(100dvh-2rem))] flex-col gap-2 wide:row-start-1 wide:max-w-none',
           actions ? 'wide:col-start-2' : 'wide:col-start-1',
+          'short:col-start-1 short:row-span-2 short:row-start-1 short:mx-0 short:w-[min(calc(100dvh-5.5rem),58vw)] short:max-w-none',
           focus
             ? 'wide:w-(--mc-focus-board)'
             : actions
@@ -115,6 +126,7 @@ export function GameLayout({
           data-icons={focus || undefined}
           className={cn(
             'group/actions fixed inset-x-0 bottom-0 z-20 flex justify-around gap-1 border-t border-border bg-surface/95 px-2 pt-1.5 pb-[max(0.375rem,env(safe-area-inset-bottom))] shadow-card backdrop-blur',
+            'short:static short:col-start-2 short:row-start-1 short:rounded-2xl short:border short:p-1',
             'wide:static wide:col-start-1 wide:row-start-1 wide:flex-col wide:justify-start wide:gap-1 wide:rounded-2xl wide:border wide:p-2',
           )}
         >
@@ -126,6 +138,10 @@ export function GameLayout({
         className={cn(
           'mx-auto flex w-full max-w-[640px] min-w-0 flex-col gap-3 wide:row-start-1 wide:max-w-none',
           actions ? 'wide:col-start-3' : 'wide:col-start-2',
+          actions
+            ? 'short:col-start-2 short:row-start-2'
+            : 'short:col-start-2 short:row-span-2 short:row-start-1',
+          'short:mx-0 short:max-w-none',
           focus
             ? 'wide:h-(--mc-focus-board)'
             : 'wide:max-h-[calc(100dvh-7rem)] wide:overflow-y-auto',

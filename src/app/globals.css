@@ -8,6 +8,13 @@
   }
 }
 
+/* Phones turned sideways (and small landscape tablets): two columns, board on the left. */
+@custom-variant short {
+  @media (min-width: 36rem) and (max-width: 63.99rem) and (orientation: landscape) {
+    @slot;
+  }
+}
+
 @theme inline {
   --color-bg: var(--mc-bg);
   --color-surface: var(--mc-surface);
