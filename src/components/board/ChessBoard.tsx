@@ -270,6 +270,7 @@ export function ChessBoard({
             marks={marks}
             arrows={arrows}
             pieceSet={prefs.pieceSet}
+            boardSurface={prefs.boardSurface}
             moveMs={MOVE_ANIMATION_MS[prefs.moveAnimation]}
             interactive={movableColor !== 'none' || !!onSquareSelect}
             onSquareClick={clickSquare}

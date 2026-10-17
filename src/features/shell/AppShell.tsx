@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useMemo, useState, type ReactNode } from 'react';
 import { useTranslations } from 'use-intl';
 import { BoardPrefsProvider } from '@/components/board/BoardPrefs';
+import { THEME_BOARD_SURFACE } from '@/components/board3d/materials';
 import { BackdropParticles } from '@/components/ui/BackdropParticles';
 import { cn } from '@/components/ui/cn';
 import { HudSlot, HudSlotProvider } from '@/components/ui/PageHeader';
@@ -45,12 +46,16 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
     backdropMotion && backdrop === 'theme' ? THEME_INFO[resolvedTheme].particles : null;
   const boardPieces = resolvePieceSet(pieceSet, resolvedTheme);
   const boardView = useSettings((s) => s.boardView);
+  const boardStyle = useSettings((s) => s.board);
+  // A board colour preset replaces the theme's board, texture included.
+  const boardSurface = boardStyle === 'theme' ? THEME_BOARD_SURFACE[resolvedTheme] : 'plain';
   const tSet = useTranslations('settings');
   const boardPrefs = useMemo(
     () => ({
       pieceSet: boardPieces,
       moveAnimation,
       view: boardView,
+      boardSurface,
       onViewChange: (view: BoardView) => useSettings.getState().update({ boardView: view }),
       labels3d: {
         camera: {
@@ -63,7 +68,7 @@ export function AppShell({ children, settings }: { children: ReactNode; settings
         slow: tSet('slow3d'),
       },
     }),
-    [boardPieces, moveAnimation, boardView, tSet],
+    [boardPieces, moveAnimation, boardView, boardSurface, tSet],
   );
   const [now] = useState(() => Date.now());
 

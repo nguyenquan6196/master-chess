@@ -231,6 +231,8 @@ Quyết định: [ADR 0008](adr/0008-procedural-3d-board.md) — three + react-t
 - [x] Kéo-thả trong 3D: nhấn giữ quân → quân nhấc lên đi theo con trỏ, ô sắp thả có vòng đánh dấu, camera ngừng xoay khi kéo; thả vào ô hợp lệ là đi (không trượt lại lần nữa); bấm-để-đi vẫn dùng được
 - [x] Quân 3D theo từng theme: Staunton tiện (cổ điển/gỗ), Staunton đúc thon (nhựa), tiện 8 cạnh vát + chóp bát diện (đá), tiện 6 cạnh Art Deco (kim loại), khung dây phát sáng (neon), voxel từ sprite 12×12 (arcade), tượng đùn từ hình nhân vật 2D (huyền ảo, Nhật Bản) — hình lấy chung dữ liệu với bộ 2D
 - [x] Tự tắt 3D trên máy yếu: ≤ 2 nhân CPU / ≤ 2 GB RAM / bật tiết kiệm dữ liệu → luôn 2D (Cài đặt ghi rõ lý do); đang chạy mà FPS trung bình < 24 → tự chuyển 2D kèm thông báo (`core/board3d/perf`, có test)
+- [x] Hoạ tiết 3D như 2D (`components/board3d/textures.ts`, vẽ canvas, không file ảnh): mặt bàn theo theme — vân gỗ, vân đá, vân mã não, kim loại xước, pixel, lưới neon (4 biến thể mỗi màu ô); khung bàn dày hơn cùng hoạ tiết; quân có vân gỗ / vân xoáy nhựa / vân đá / kim loại xước; voxel pixel tô viền + bóng như sprite
+- [x] Huyền ảo & Hoa anh đào dựng lại thành tượng tròn nhiều phần (`figures.ts`) — thân tiện, đầu cầu, mũ/mái nón, khiên, cánh, hoa, đai obi, cửa sổ đèn lồng phát sáng — tô màu theo phần như 2D; tượng quay mặt về phía người xem
 - [x] Camera tự tính khoảng cách để cả 4 góc khung bàn và đỉnh quân hàng xa luôn nằm trong khung (hết lẹm góc)
 - [x] Bố cục bàn chơi desktop 3 cột: nút chức năng xếp dọc bên trái, bàn cờ giữa (to nhất theo chiều cao/rộng), nước đi & thông tin bên phải; mobile giữ dải nút đáy
 

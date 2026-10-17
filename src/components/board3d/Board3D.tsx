@@ -19,8 +19,9 @@ import {
 import { frameRateVerdict } from '@/core/board3d/perf';
 import type { ConcretePieceSet } from '@/core/profile/settingsOptions';
 import { cn } from '../ui/cn';
-import { pieceParts, TARGET_DOT } from './geometry';
-import { PIECE_MATERIALS } from './materials';
+import { pieceParts, pixelParts, TARGET_DOT } from './geometry';
+import { PIECE_MATERIALS, PIECE_SURFACE, TONES } from './materials';
+import { surfaceTexture, type SurfaceKind } from './textures';
 import { useThemeColors, type ThemeColor } from './themeColors';
 
 export type CameraPreset = 'angle' | 'top' | 'low';
@@ -43,6 +44,8 @@ export interface Board3DProps {
   marks?: Record<string, Mark3D>;
   arrows?: { from: string; to: string }[];
   pieceSet: ConcretePieceSet;
+  /** The board's painted surface (wood grain, marble, agate…), from the theme. */
+  boardSurface: SurfaceKind;
   /** Duration of one move animation; 0 = no animation. */
   moveMs: number;
   /** Whether squares react to clicks (a side can move, or squares can be selected). */
@@ -77,6 +80,11 @@ const DRAG_LIFT = 0.35;
 /** The board's surface, for turning the pointer ray into a board position. */
 const GROUND = new Plane(new Vector3(0, 1, 0), 0);
 
+/** Four looks per square colour, spread over the board so the pattern doesn't repeat. */
+function squareVariant(square: string): number {
+  return (square.charCodeAt(0) * 7 + Number(square[1]) * 3) % 4;
+}
+
 interface Drag {
   from: string;
   x: number;
@@ -97,8 +105,8 @@ interface Anim {
 /** Points that must stay in frame: the board frame's corners and the far pieces' tops. */
 const FIT_POINTS = [-1, 1].flatMap((sx) =>
   [-1, 1].flatMap((sz) => [
-    new Vector3(4.4 * sx, 0, 4.4 * sz),
-    new Vector3(4.4 * sx, -0.22, 4.4 * sz),
+    new Vector3(4.6 * sx, 0, 4.6 * sz),
+    new Vector3(4.6 * sx, -0.75, 4.6 * sz),
     new Vector3(3.8 * sx, 0.95, 3.8 * sz),
   ]),
 );
@@ -198,18 +206,34 @@ function Piece({
   drag,
   moveMs,
   set,
+  flip,
 }: {
   piece: BoardPiece;
   anim: RefObject<Anim | null>;
   drag: RefObject<Drag | null>;
   moveMs: number;
   set: ConcretePieceSet;
+  /** Board seen from Black's side. */
+  flip: boolean;
 }) {
   const ref = useRef<Group>(null);
-  const base = squareToWorld(piece.square);
-  const mat = PIECE_MATERIALS[set][piece.color === 'w' ? 'white' : 'black'];
+  const home = squareToWorld(piece.square);
+  const side = piece.color === 'w' ? 'white' : 'black';
+  const base = PIECE_MATERIALS[set][side];
+  const surface = PIECE_SURFACE[set];
+  const parts =
+    set === 'pixel' ? pixelParts(piece.type, piece.color === 'w') : pieceParts(set, piece.type);
   // White's knights look left (as in 2D), Black's mirror them.
-  const turn = piece.type === 'n' && piece.color === 'b' ? Math.PI : 0;
+  // Character figures face whoever sits at the bottom of the board; on turned (Staunton)
+  // sets White's knights look left as in 2D and Black's mirror them.
+  const figure = set === 'fantasy' || set === 'sakura';
+  const turn = figure
+    ? flip
+      ? Math.PI
+      : 0
+    : piece.type === 'n' && piece.color === 'b'
+      ? Math.PI
+      : 0;
 
   useFrame(({ clock }) => {
     const g = ref.current;
@@ -222,7 +246,7 @@ function Piece({
     const a = anim.current;
     const slide = a?.slides.find((s) => s.to === piece.square);
     if (!a || !slide || moveMs <= 0) {
-      g.position.set(base.x, 0, base.z);
+      g.position.set(home.x, 0, home.z);
       return;
     }
     a.start ??= clock.elapsedTime;
@@ -232,29 +256,39 @@ function Piece({
   });
 
   return (
-    <group ref={ref} position={[base.x, 0, base.z]} rotation={[0, turn, 0]}>
-      {pieceParts(set, piece.type).map((part, i) => (
-        <mesh
-          key={i}
-          geometry={part.geometry}
-          position={part.position}
-          rotation={part.rotation}
-          castShadow
-          receiveShadow
-        >
-          <meshStandardMaterial
-            color={mat.color}
-            roughness={mat.roughness}
-            metalness={mat.metalness}
-            emissive={mat.emissive ?? '#000000'}
-            emissiveIntensity={mat.emissiveIntensity ?? 0}
-            transparent={mat.opacity !== undefined}
-            opacity={mat.opacity ?? 1}
-            flatShading={mat.flatShading ?? false}
-            wireframe={mat.wireframe ?? false}
-          />
-        </mesh>
-      ))}
+    <group ref={ref} position={[home.x, 0, home.z]} rotation={[0, turn, 0]}>
+      {parts.map((part, i) => {
+        const mat = (part.tone && TONES[set]?.[side][part.tone]) || base;
+        // The body gets the set's painted surface; small coloured parts stay plain.
+        const map =
+          surface && !part.tone
+            ? surfaceTexture(surface, mat.color, piece.color === 'w' ? 0 : 1)
+            : null;
+        return (
+          <mesh
+            key={i}
+            geometry={part.geometry}
+            position={part.position}
+            rotation={part.rotation}
+            castShadow
+            receiveShadow
+          >
+            <meshStandardMaterial
+              color={map || part.vertexColors ? '#ffffff' : mat.color}
+              map={map}
+              vertexColors={part.vertexColors ?? false}
+              roughness={mat.roughness}
+              metalness={mat.metalness}
+              emissive={mat.emissive ?? '#000000'}
+              emissiveIntensity={mat.emissiveIntensity ?? 0}
+              transparent={mat.opacity !== undefined}
+              opacity={mat.opacity ?? 1}
+              flatShading={mat.flatShading ?? false}
+              wireframe={mat.wireframe ?? false}
+            />
+          </mesh>
+        );
+      })}
     </group>
   );
 }
@@ -338,6 +372,7 @@ export default function Board3D({
   marks,
   arrows,
   pieceSet,
+  boardSurface,
   moveMs,
   interactive,
   onSquareClick,
@@ -453,7 +488,8 @@ export default function Board3D({
       >
         <CameraRig preset={preset} flip={flip} controlsRef={controls} />
         {onSlow && <FpsWatch onSlow={onSlow} />}
-        <hemisphereLight args={['#ffffff', frameColor, 0.7]} />
+        {/* Neutral fill: a coloured ground light would tint white pieces. */}
+        <hemisphereLight args={['#ffffff', '#8c8c94', 0.75]} />
         <directionalLight
           position={[4, 10, flip ? -5 : 5]}
           intensity={1.5}
@@ -467,9 +503,13 @@ export default function Board3D({
         <ambientLight intensity={0.25} />
 
         {/* Frame and squares. */}
-        <mesh position={[0, BOARD_TOP - 0.14, 0]} receiveShadow>
-          <boxGeometry args={[8.7, 0.16, 8.7]} />
-          <meshStandardMaterial color={frameColor} roughness={0.6} />
+        <mesh position={[0, BOARD_TOP - 0.42, 0]} receiveShadow castShadow>
+          <boxGeometry args={[9, 0.6, 9]} />
+          <meshStandardMaterial
+            color="#ffffff"
+            map={surfaceTexture(boardSurface, frameColor, 7)}
+            roughness={0.55}
+          />
         </mesh>
         {ALL_SQUARES.map((sq) => {
           const { x, z } = squareToWorld(sq);
@@ -483,7 +523,12 @@ export default function Board3D({
             >
               <boxGeometry args={[1, 0.12, 1]} />
               <meshStandardMaterial
-                color={isLightSquare(sq) ? colors.light.color : colors.dark.color}
+                color="#ffffff"
+                map={surfaceTexture(
+                  boardSurface,
+                  isLightSquare(sq) ? colors.light.color : colors.dark.color,
+                  squareVariant(sq),
+                )}
                 roughness={0.55}
               />
             </mesh>
@@ -543,7 +588,9 @@ export default function Board3D({
         {/* Pieces: press-and-drag your own pieces; clicking a piece clicks its square. */}
         {pieces.map((p) => (
           <group
-            key={`${p.square}${p.color}${p.type}`}
+            // The set is part of the key: switching sets rebuilds the meshes, so materials
+            // that gain or lose a texture compile the right shader.
+            key={`${pieceSet}-${p.square}${p.color}${p.type}`}
             onClick={click(p.square)}
             onPointerDown={pickUp(p.square)}
             onPointerMove={moveDrag}
@@ -563,6 +610,7 @@ export default function Board3D({
               drag={drag}
               moveMs={moveMs * MOVE_SLOWDOWN}
               set={pieceSet}
+              flip={flip}
             />
           </group>
         ))}

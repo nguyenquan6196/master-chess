@@ -99,12 +99,15 @@ const PX = 3.2;
 const X0 = -22.4;
 const Y0 = -26.8;
 
-const PALETTE = {
+export const PIXEL_PALETTE = {
   white: { fill: '#e0f8d0', shade: '#88c070', outline: '#081820' },
   black: { fill: '#173d24', shade: '#081808', outline: '#e0f8d0' },
 };
 
-function sprite(rows: string[]): { x: number; y: number; t: 'fill' | 'shade' | 'outline' }[] {
+/** Sprite cells (fill / right-edge shade / derived outline) in a 14×14 padded grid. */
+export function spriteCells(
+  rows: readonly string[],
+): { x: number; y: number; t: 'fill' | 'shade' | 'outline' }[] {
   const at = (r: number, c: number) => rows[r]?.[c] === 'X';
   const out: { x: number; y: number; t: 'fill' | 'shade' | 'outline' }[] = [];
   // Padded by one pixel on every side so outlines never clip.
@@ -120,13 +123,13 @@ function sprite(rows: string[]): { x: number; y: number; t: 'fill' | 'shade' | '
   return out;
 }
 
-const CACHE = new Map<PieceKind, ReturnType<typeof sprite>>();
+const CACHE = new Map<PieceKind, ReturnType<typeof spriteCells>>();
 
 export const pixelArt: Art = (kind, white): JSX.Element => {
-  const pal = white ? PALETTE.white : PALETTE.black;
+  const pal = white ? PIXEL_PALETTE.white : PIXEL_PALETTE.black;
   let px = CACHE.get(kind);
   if (!px) {
-    px = sprite(SPRITES[kind]);
+    px = spriteCells(SPRITES[kind]);
     CACHE.set(kind, px);
   }
   return (

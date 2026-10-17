@@ -1,25 +1,35 @@
 import {
   BoxGeometry,
   CylinderGeometry,
-  ExtrudeGeometry,
-  LatheGeometry,
+  Float32BufferAttribute,
   OctahedronGeometry,
-  Shape,
   SphereGeometry,
-  Vector2,
   type BufferGeometry,
 } from 'three';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import type { ConcretePieceSet } from '@/core/profile/settingsOptions';
-import { FANTASY_SHAPES } from '../board/pieceArt/fantasy';
 import { MARBLE_KNIGHT, MARBLE_PROFILES } from '../board/pieceArt/marble';
 import { MIDNIGHT_KNIGHT, MIDNIGHT_PROFILES } from '../board/pieceArt/midnight';
-import { SPRITES } from '../board/pieceArt/pixel';
+import { PIXEL_PALETTE, spriteCells, SPRITES } from '../board/pieceArt/pixel';
 import { RESIN_HORSE, RESIN_KNIGHT_FOOT, RESIN_PROFILES } from '../board/pieceArt/resin';
-import { SAKURA_SHAPES } from '../board/pieceArt/sakura';
-import type { Pt, ShapeEl } from '../board/pieceArt/shared';
+import type { Pt } from '../board/pieceArt/shared';
 import { STAUNTON_HORSE, STAUNTON_KNIGHT_FOOT, STAUNTON_PROFILES } from '../board/pieceArt/wood';
 import type { PieceKind } from '../board/pieceShapes';
+import { figureParts } from './figures';
+import {
+  box,
+  extruded,
+  flatTop,
+  heightOf,
+  latheOf,
+  merlons,
+  S,
+  shapeFromPath,
+  shapeFromPoints,
+  type PiecePart,
+} from './geoUtil';
+
+export type { PiecePart } from './geoUtil';
 
 /**
  * 3D piece geometry, built in code from the 2D sets' own shapes (no downloaded models),
@@ -28,133 +38,36 @@ import type { PieceKind } from '../board/pieceShapes';
  * - resin: the slim cast Staunton profiles,
  * - marble: the same lathe cut with 8 sides (faceted stone), diamond finials,
  * - midnight: 6-sided Art Deco lathes, diamond pawn heads,
- * - pixel: voxels built from the 12×12 sprites,
- * - fantasy / sakura: the character silhouettes extruded into carved figures.
- * SVG units (y down, ground at y = 18) are scaled to world units.
+ * - pixel: voxels from the 12×12 sprites, painted with the sprite's outline and shade,
+ * - fantasy / sakura: round multi-part figures (figures.ts).
+ * Surfaces (grain, veins, swirls, brushed metal) come from textures.ts.
  */
 
-/** SVG unit → world unit: a king (~46 units) stands about 0.85 squares tall. */
-const S = 1 / 54;
-const ROUND = 40;
-
-/** One mesh of a piece: geometry plus its offset (world units). */
-export interface PiecePart {
-  geometry: BufferGeometry;
-  position?: [number, number, number];
-  rotation?: [number, number, number];
-}
-
-type Vec3 = [number, number, number];
-const heightOf = (y: number) => (18 - y) * S;
-
-function latheOf(profile: readonly Pt[], sides = ROUND): BufferGeometry {
-  const points = profile.map(([x, y]) => new Vector2(Math.max(x, 0.0001) * S, heightOf(y)));
-  return new LatheGeometry(points, sides);
-}
-
-/** A profile cut flat at `topY` (replacing its crenellated top) for merlon towers. */
-function flatTop(profile: readonly Pt[], keep: number, rimX: number, topY: number): Pt[] {
-  return [...profile.slice(0, keep), [rimX, topY], [0, topY]];
-}
-
-/** Four merlons standing on a tower's rim. */
-function merlons(radius: number, topY: number, size: number, height: number): PiecePart[] {
-  const block = new BoxGeometry(size * S, height * S, size * S);
-  return [0, 1, 2, 3].map((i) => {
-    const a = (i * Math.PI) / 2 + Math.PI / 4;
-    return {
-      geometry: block,
-      position: [
-        Math.cos(a) * radius * S,
-        heightOf(topY) + (height / 2) * S,
-        Math.sin(a) * radius * S,
-      ] as Vec3,
-      rotation: [0, -a, 0] as Vec3,
-    };
-  });
-}
-
-function box(w: number, h: number, d: number, cy: number): PiecePart {
-  return { geometry: new BoxGeometry(w * S, h * S, d * S), position: [0, heightOf(cy), 0] };
-}
-
-/** Absolute M/L/C/Q/Z path → three Shape in world units (y flipped up). */
-function shapeFromPath(d: string): Shape {
-  const shape = new Shape();
-  const tokens = d.match(/[MLCQZ]|-?\d*\.?\d+/g) ?? [];
-  let i = 0;
-  const pt = () => {
-    const x = Number(tokens[i++]);
-    const y = Number(tokens[i++]);
-    return [x * S, heightOf(y)] as const;
-  };
-  while (i < tokens.length) {
-    const cmd = tokens[i++];
-    if (cmd === 'M') shape.moveTo(...pt());
-    else if (cmd === 'L') shape.lineTo(...pt());
-    else if (cmd === 'C') {
-      const a = pt();
-      const b = pt();
-      const c = pt();
-      shape.bezierCurveTo(a[0], a[1], b[0], b[1], c[0], c[1]);
-    } else if (cmd === 'Q') {
-      const a = pt();
-      const b = pt();
-      shape.quadraticCurveTo(a[0], a[1], b[0], b[1]);
-    } else if (cmd === 'Z') shape.closePath();
-  }
-  return shape;
-}
-
-function shapeFromPoints(points: readonly Pt[]): Shape {
-  return new Shape(points.map(([x, y]) => new Vector2(x * S, heightOf(y))));
-}
-
-function shapeFromEl(e: ShapeEl): Shape {
-  if ('d' in e) return shapeFromPath(e.d);
-  const shape = new Shape();
-  if ('circle' in e) {
-    const [cx, cy, r] = e.circle;
-    shape.absarc(cx * S, heightOf(cy), r * S, 0, Math.PI * 2, false);
-  } else {
-    const [cx, cy, rx, ry] = e.ellipse;
-    shape.absellipse(cx * S, heightOf(cy), rx * S, ry * S, 0, Math.PI * 2, false, 0);
-  }
-  return shape;
-}
-
-/** Extrude flat shapes `depth` SVG units thick, centred on z = 0, merged into one mesh. */
-function extruded(shapes: readonly Shape[], depth: number, bevel: number): BufferGeometry {
-  const parts = shapes.map((shape) => {
-    const g = new ExtrudeGeometry(shape, {
-      depth: depth * S,
-      bevelEnabled: bevel > 0,
-      bevelSize: bevel * S,
-      bevelThickness: bevel * S,
-      bevelSegments: 2,
-      curveSegments: 12,
-    });
-    g.translate(0, 0, (-depth / 2) * S);
-    return g;
-  });
-  return mergeGeometries(parts) ?? parts[0];
-}
-
-/** Voxel piece from a 12×12 sprite: each filled pixel is a cube, two cubes deep. */
-function voxels(rows: readonly string[]): BufferGeometry {
+/**
+ * Voxel piece from a 12×12 sprite: every cell (fill, shade and the derived outline) is a
+ * cube, two cubes deep, coloured like the 2D sprite.
+ */
+function voxels(rows: readonly string[], white: boolean): BufferGeometry {
   const PX = 3.2;
-  const lowest = Math.max(...rows.map((r, i) => (r.includes('X') ? i : -1)));
+  const pal = white ? PIXEL_PALETTE.white : PIXEL_PALETTE.black;
+  const cells = spriteCells(rows);
+  const lowest = Math.max(...cells.map((c) => c.y));
   const cubes: BufferGeometry[] = [];
-  rows.forEach((row, r) => {
-    [...row].forEach((ch, c) => {
-      if (ch !== 'X') return;
-      for (const layer of [-0.5, 0.5]) {
-        const cube = new BoxGeometry(PX * S, PX * S, PX * S);
-        cube.translate((c - 5.5) * PX * S, (lowest - r + 0.5) * PX * S, layer * PX * S);
-        cubes.push(cube);
-      }
-    });
-  });
+  for (const cell of cells) {
+    const hex = parseInt(pal[cell.t].slice(1), 16);
+    // Vertex colours are linear; the palette is sRGB.
+    const rgb = [(hex >> 16) & 255, (hex >> 8) & 255, hex & 255].map((v) => (v / 255) ** 2.2);
+    for (const layer of [-0.5, 0.5]) {
+      const cube = new BoxGeometry(PX * S, PX * S, PX * S).toNonIndexed();
+      cube.translate((cell.x - 6.5) * PX * S, (lowest - cell.y + 0.5) * PX * S, layer * PX * S);
+      const n = cube.getAttribute('position').count;
+      cube.setAttribute(
+        'color',
+        new Float32BufferAttribute(Array.from({ length: n }, () => rgb).flat(), 3),
+      );
+      cubes.push(cube);
+    }
+  }
   return mergeGeometries(cubes) ?? cubes[0];
 }
 
@@ -292,10 +205,6 @@ function midnight(kind: PieceKind): PiecePart[] {
   }
 }
 
-function figures(shapes: Record<PieceKind, ShapeEl[]>, kind: PieceKind): PiecePart[] {
-  return [{ geometry: extruded(shapes[kind].map(shapeFromEl), 8, 1) }];
-}
-
 function build(set: ConcretePieceSet, kind: PieceKind): PiecePart[] {
   switch (set) {
     case 'resin':
@@ -304,18 +213,27 @@ function build(set: ConcretePieceSet, kind: PieceKind): PiecePart[] {
       return marble(kind);
     case 'midnight':
       return midnight(kind);
-    case 'pixel':
-      return [{ geometry: voxels(SPRITES[kind]) }];
     case 'fantasy':
-      return figures(FANTASY_SHAPES, kind);
     case 'sakura':
-      return figures(SAKURA_SHAPES, kind);
+      return figureParts(set, kind);
     default:
       return staunton(kind);
   }
 }
 
 const CACHE = new Map<string, PiecePart[]>();
+const VOXELS = new Map<string, PiecePart[]>();
+
+/** Pixel pieces carry their colours in the geometry, so they differ per side. */
+export function pixelParts(kind: PieceKind, white: boolean): PiecePart[] {
+  const key = `${kind}-${white}`;
+  let parts = VOXELS.get(key);
+  if (!parts) {
+    parts = [{ geometry: voxels(SPRITES[kind], white), vertexColors: true }];
+    VOXELS.set(key, parts);
+  }
+  return parts;
+}
 
 /** Parts of a piece of `set` (built once per set and kind, shared by every piece). */
 export function pieceParts(set: ConcretePieceSet, kind: PieceKind): PiecePart[] {
