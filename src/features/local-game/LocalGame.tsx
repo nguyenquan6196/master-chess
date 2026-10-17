@@ -39,7 +39,7 @@ export function LocalGame() {
         back={{ href: '/play', label: tn('play') }}
       />
       <GameLayout
-        top={<GameStatusBanner status={game.status} />}
+        top={<GameStatusBanner status={game.status} mine={orientation === 'white' ? 'w' : 'b'} />}
         board={
           <ChessBoard
             allow3d

@@ -243,7 +243,7 @@ Quyết định: [ADR 0008](adr/0008-procedural-3d-board.md) — three + react-t
 - [x] Thanh đánh giá màu theo theme (phần của bạn màu accent), nhận xét 3 cách nói mỗi mức và tách giọng bạn/bot; nút "Đổi đối thủ" vào cột nút; huy hiệu rank + điểm ở thẻ người chơi khi đấu bot
 - [x] Thanh đánh giá + nhận xét cho màn xem lại ván; thẻ bot đeo màu kim loại của hạng nó canh giữ (viền + Elo trên bảng kim loại + huy hiệu); mục lục hướng dẫn cuộn mượt và nháy tiêu đề mục; hồ sơ: thẻ cấp/thành tích cao bằng cột trái, nút đổi/xoá người chơi xuống dưới
 - [x] Huy hiệu rank nghiêng theo chuột + vệt sáng (mọi nơi), xoay 360° ở màn lên hạng; thẻ bot trong trận bỏ huy hiệu (giữ viền + bảng Elo); màn chọn bot: tag "Trùm hạng" ở mép trên, dãn dòng; bàn 3D: canvas phủ toàn màn hình sau trang (camera fit theo khung bằng view offset, chuột nhận trong khung, thẻ/HUD nằm trên; GPU tích hợp vẫn 60 FPS)
-- [x] Thẻ người chơi/bot đang tới lượt có viền nhấp nháy nhẹ (màu kim loại hạng với bot, màu accent với người chơi)
+- [x] Thẻ người chơi/bot đang tới lượt có viền nhấp nháy nhẹ (màu kim loại hạng với bot, màu accent với người chơi); màn 2 người cùng máy: dòng trạng thái phát sáng màu accent khi tới lượt người ngồi dưới, màu quân đối phương khi tới lượt đối phương
 - [x] Nền theme Cẩm thạch: vân đá chéo bằng SVG noise (lớp nền riêng, vẽ một lần)
 - [x] Camera tự tính khoảng cách để cả 4 góc khung bàn và đỉnh quân hàng xa luôn nằm trong khung (hết lẹm góc)
 - [x] Bố cục bàn chơi desktop 3 cột: nút chức năng xếp dọc bên trái, bàn cờ giữa (to nhất theo chiều cao/rộng), nước đi & thông tin bên phải; mobile giữ dải nút đáy
