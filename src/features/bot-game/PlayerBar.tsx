@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import { cn } from '@/components/ui/cn';
 import type { Color } from '@/core/chess/game';
 import { formatClock, isTimed, remainingAt, type ClockState } from '@/core/game/clock';
@@ -40,13 +40,18 @@ export function PlayerBar({
 
   return (
     <div
-      className="flex items-center gap-3 rounded-2xl border border-border bg-surface px-3 py-2 shadow-card"
-      style={
-        frame && {
+      className={cn(
+        'flex items-center gap-3 rounded-2xl border border-border bg-surface px-3 py-2 shadow-card',
+        // Whose turn it is: a soft pulsing ring round the card.
+        active && 'mc-turn',
+      )}
+      style={{
+        ...(frame && {
           borderColor: frame.dark,
           boxShadow: `0 0 0 1px ${frame.light}, 0 4px 14px -6px ${frame.dark}`,
-        }
-      }
+        }),
+        ...(frame && ({ '--mc-turn-color': frame.dark } as CSSProperties)),
+      }}
     >
       <span
         className={cn(

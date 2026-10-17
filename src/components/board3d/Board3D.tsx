@@ -126,6 +126,33 @@ function boxEvents(store: Parameters<typeof events>[0]): ReturnType<typeof event
   };
 }
 
+/**
+ * Frames the camera on the board box while the canvas fills the screen: the projection is
+ * the box's own (square) view, extended to the whole canvas with a view offset, and
+ * follows the box as the page scrolls or reflows.
+ */
+function BoxView({ host }: { host: RefObject<HTMLDivElement | null> }) {
+  const last = useRef('');
+  useFrame(({ camera, gl }) => {
+    const box = host.current?.getBoundingClientRect();
+    if (!box || !(camera instanceof PerspectiveCamera) || box.width === 0) return;
+    const c = gl.domElement.getBoundingClientRect();
+    const key = `${box.left},${box.top},${box.width},${c.width},${c.height}`;
+    if (key === last.current && camera.aspect === 1) return;
+    last.current = key;
+    camera.aspect = 1;
+    camera.setViewOffset(
+      box.width,
+      box.height,
+      c.left - box.left,
+      c.top - box.top,
+      c.width,
+      c.height,
+    );
+  });
+  return null;
+}
+
 /** Orbit controls plus a smooth glide to the chosen preset. */
 /** Points that must stay in frame: the board frame's corners and the far pieces' tops. */
 const FIT_POINTS = [-1, 1].flatMap((sx) =>
@@ -137,13 +164,6 @@ const FIT_POINTS = [-1, 1].flatMap((sx) =>
 );
 /** How close to the board box's edge (as a share of it) the fitted board may come. */
 const FIT_MARGIN = 0.94;
-/**
- * The canvas spills this far (share of the board box, each side) past the board box, so a
- * zoomed or turned board keeps drawing into the page around it instead of being cut off.
- * The camera is still fitted to the box; clicks outside the box go to the page.
- */
-export const CANVAS_BLEED = 0.3;
-const BOX_SHARE = 1 / (1 + 2 * CANVAS_BLEED);
 
 /** Camera position along the preset's direction, just far enough to show the whole board. */
 function fittedPosition(fov: number, aspect: number, preset: CameraPreset, flip: boolean): Vector3 {
@@ -156,8 +176,7 @@ function fittedPosition(fov: number, aspect: number, preset: CameraPreset, flip:
     probe.updateProjectionMatrix();
     return FIT_POINTS.every((p) => {
       const v = p.clone().project(probe);
-      const edge = FIT_MARGIN * BOX_SHARE;
-      return Math.abs(v.x) <= edge && Math.abs(v.y) <= edge && v.z < 1;
+      return Math.abs(v.x) <= FIT_MARGIN && Math.abs(v.y) <= FIT_MARGIN && v.z < 1;
     });
   };
   let near = 4;
@@ -181,7 +200,7 @@ function CameraRig({
   /** Shared so dragging a piece can pause orbiting. */
   controlsRef: RefObject<OrbitControls | null>;
 }) {
-  const { camera, gl, size } = useThree();
+  const { camera, gl } = useThree();
   // Pointer input comes from the board box (the canvas itself ignores the pointer).
   const source = useThree((st) => st.events.connected) as HTMLElement | undefined;
   const goal = useRef<Vector3 | null>(null);
@@ -200,7 +219,8 @@ function CameraRig({
 
   useEffect(() => {
     const fov = camera instanceof PerspectiveCamera ? camera.fov : 38;
-    const target = fittedPosition(fov, size.width / Math.max(1, size.height), preset, flip);
+    // Fitted to the (square) board box, not to the full-screen canvas.
+    const target = fittedPosition(fov, 1, preset, flip);
     if (!placed.current) {
       // First frame: start in place instead of gliding in.
       camera.position.copy(target);
@@ -208,7 +228,7 @@ function CameraRig({
     } else {
       goal.current = target;
     }
-  }, [camera, preset, flip, size.width, size.height]);
+  }, [camera, preset, flip]);
 
   useFrame(() => {
     if (goal.current) {
@@ -591,22 +611,20 @@ export default function Board3D({
     >
       <Canvas
         className="pointer-events-none"
-        style={{
-          position: 'absolute',
-          inset: `${-CANVAS_BLEED * 100}%`,
-          width: 'auto',
-          height: 'auto',
-        }}
+        // The canvas covers the whole screen behind the page (cards stay on top), so a
+        // zoomed or turned board is never cut off; BoxView keeps the board framed in its box.
+        style={{ position: 'fixed', inset: 0, width: 'auto', height: 'auto' }}
         eventSource={host}
         events={boxEvents}
         shadows
         // No filmic tone mapping: squares keep the theme's exact colours.
         flat
-        // The canvas is ~2.5× the board box (bleed), so cap the pixel ratio a little lower.
-        dpr={[1, 1.5]}
+        // A full-screen canvas: keep the pixel ratio modest so it stays smooth.
+        dpr={[1, 1.25]}
         camera={{ fov: 38, position: presetPosition('angle', flip).toArray() }}
         onPointerMissed={() => setHover(null)}
       >
+        <BoxView host={host} />
         <CameraRig preset={preset} flip={flip} controlsRef={controls} />
         {onSlow && <FpsWatch onSlow={onSlow} />}
         {/* Neutral fill: a coloured ground light would tint white pieces. */}

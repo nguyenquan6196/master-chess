@@ -164,6 +164,24 @@ body::after {
   font-weight: 600;
 }
 
+/* Player card whose turn it is (features/bot-game/PlayerBar): a gently pulsing ring. */
+.mc-turn {
+  outline: 2px solid var(--mc-turn-color, var(--mc-accent));
+  outline-offset: 3px;
+  animation: mc-turn 1.8s ease-in-out infinite;
+}
+@keyframes mc-turn {
+  50% {
+    outline-color: color-mix(in srgb, var(--mc-turn-color, var(--mc-accent)) 15%, transparent);
+    outline-offset: 1px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mc-turn {
+    animation: none;
+  }
+}
+
 /* Rank emblem animations (components/ui/RankEmblem). SVG transforms use view-box units. */
 /* Hover: the badge tilts towards the pointer and a glint follows it (vars set in JS). */
 .mc-emblem-tilt {
