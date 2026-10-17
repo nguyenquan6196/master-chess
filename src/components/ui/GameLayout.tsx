@@ -171,11 +171,12 @@ export function GameLayout({
         >
           {!actions && <div className="hidden w-fit wide:flex">{focusButton}</div>}
           {/* Focus / sideways: the player cards sit in this column, around the moves. */}
-          {cardsAside && top}
+          {cardsAside && top && <div className="shrink-0">{top}</div>}
           {/* `contents` on wide/sideways: side's cards are flex items of the column itself, so
               the move list card can shrink while the others keep their size. */}
           <div className="flex flex-col gap-3 short:contents wide:contents">{side}</div>
-          {cardsAside && bottom}
+          {/* Pinned to the column's foot (the player's own card / the eval chart). */}
+          {cardsAside && bottom && <div className="mt-auto shrink-0">{bottom}</div>}
         </div>
       </div>
     </div>
