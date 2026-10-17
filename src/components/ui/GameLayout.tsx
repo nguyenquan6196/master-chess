@@ -145,9 +145,10 @@ export function GameLayout({
         </div>
       )}
       {/* Side column. On wide and sideways screens it is exactly as tall as the board row
-          (its content is absolutely placed, so it never stretches the row): the move list
-          card (FILL_CARD) takes the spare height and scrolls inside; if even that is too
-          little, the whole column scrolls. The inset padding leaves room for glows. */}
+          (its content is absolutely placed, so it never stretches the row): cards keep their
+          natural height, the move list card (FILL_CARD) shrinks and scrolls inside when the
+          column is full; if even that is too little, the whole column scrolls. The inset
+          padding leaves room for glows. */}
       <div
         className={cn(
           'relative z-10 mx-auto w-full max-w-[640px] min-w-0 wide:row-start-1 wide:max-w-none wide:self-stretch',
@@ -162,7 +163,9 @@ export function GameLayout({
         <div
           className={cn(
             'flex flex-col gap-3',
-            'mc-scroll-hidden short:absolute short:-inset-3 short:gap-2 short:overflow-x-hidden short:overflow-y-auto short:p-3',
+            // Sideways: starts at the row top (not above it), so scrolled cards never slide
+            // under the action bar; a small top padding keeps a gap there.
+            'mc-scroll-hidden short:absolute short:-inset-x-3 short:top-0 short:-bottom-3 short:gap-2 short:overflow-x-hidden short:overflow-y-auto short:px-3 short:pt-1.5 short:pb-3',
             'wide:absolute wide:-inset-3 wide:overflow-x-hidden wide:overflow-y-auto wide:p-3',
           )}
         >
@@ -180,11 +183,13 @@ export function GameLayout({
 }
 
 /**
- * For the card in `side` that should take the column's spare height (the move list):
- * FILL_CARD on the card, FILL_SCROLL on its scrolling list. Phones keep their own sizes.
+ * For the card in `side` that may give up height when the column is full (the move
+ * list): FILL_CARD on the card, FILL_SCROLL on its scrolling list. The card is as tall as
+ * its content, shrinks (down to a few rows) when space runs out and its list scrolls
+ * inside. Phones keep their own sizes.
  */
 export const FILL_CARD =
-  'wide:flex wide:min-h-44 wide:flex-1 wide:flex-col short:flex short:min-h-36 short:flex-1 short:flex-col';
+  'wide:flex wide:min-h-32 wide:flex-col wide:overflow-hidden short:flex short:min-h-28 short:flex-col short:overflow-hidden';
 export const FILL_SCROLL =
   'wide:max-h-none wide:min-h-0 wide:flex-1 short:max-h-none short:min-h-0 short:flex-1';
 
