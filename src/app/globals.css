@@ -164,21 +164,35 @@ body::after {
   font-weight: 600;
 }
 
-/* Player card whose turn it is (features/bot-game/PlayerBar): a gently pulsing ring. */
+/* Player card whose turn it is (features/bot-game/PlayerBar): a soft breathing glow
+   (a separate layer, so the card's own frame and shadow stay as they are). */
 .mc-turn {
-  outline: 2px solid var(--mc-turn-color, var(--mc-accent));
-  outline-offset: 3px;
-  animation: mc-turn 1.8s ease-in-out infinite;
+  position: relative;
+}
+.mc-turn::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--mc-turn-color, var(--mc-accent)) 30%, transparent),
+    0 0 18px 3px color-mix(in srgb, var(--mc-turn-color, var(--mc-accent)) 45%, transparent);
+  animation: mc-turn 2s ease-in-out infinite;
 }
 @keyframes mc-turn {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
   50% {
-    outline-color: color-mix(in srgb, var(--mc-turn-color, var(--mc-accent)) 15%, transparent);
-    outline-offset: 1px;
+    opacity: 1;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .mc-turn {
+  .mc-turn::after {
     animation: none;
+    opacity: 0.6;
   }
 }
 

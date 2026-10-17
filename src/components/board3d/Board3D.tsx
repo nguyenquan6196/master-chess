@@ -607,8 +607,10 @@ export default function Board3D({
               : 'cursor-move',
       )}
       style={{ aspectRatio: '1' }}
-      ref={host}
     >
+      {/* Pointer surface for the board (orbit, picking): a sibling of the buttons below,
+          so the orbit controls' pointer capture never swallows their clicks. */}
+      <div ref={host} className="absolute inset-0" />
       <Canvas
         className="pointer-events-none"
         // The canvas covers the whole screen behind the page (cards stay on top), so a
